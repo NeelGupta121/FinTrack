@@ -23,8 +23,14 @@ class _SetupAccountsPageState extends ConsumerState<SetupAccountsPage> {
 
   Future<void> _importSms() async {
     setState(() => _scanning = true);
-    final result = await ref.read(smartImportProvider(true).future);
-    setState(() { _scanning = false; _result = result; });
+    try {
+      final result = await ref.read(smartImportProvider(true).future);
+      if (!mounted) return;
+      setState(() { _scanning = false; _result = result; });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() => _scanning = false);
+    }
   }
 
   @override

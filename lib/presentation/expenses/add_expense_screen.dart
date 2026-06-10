@@ -111,6 +111,7 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
 
   Future<void> _scanReceipt() async {
     final data = await ReceiptOcrService.scanFromCamera();
+    if (!mounted) return;
     if (data != null) {
       setState(() {
         if (data.amount != null) _amountCtrl.text = data.amount!.toStringAsFixed(0);

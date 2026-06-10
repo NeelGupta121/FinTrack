@@ -41,9 +41,11 @@ class DetectRecurringBills {
       if (!consistent) continue;
 
       final dates = entry.value
-          .map((t) => DateTime.parse(t['date'] as String))
+          .map((t) => DateTime.tryParse(t['date'] as String? ?? ''))
+          .whereType<DateTime>()
           .toList()
         ..sort();
+      if (dates.length < 2) continue;
 
       final frequency = _detectFrequency(dates);
       if (frequency == null) continue;

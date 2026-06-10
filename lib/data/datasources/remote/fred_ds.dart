@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../core/config/env.dart';
+import '../../../core/config/env.dart';
 
 class FredDatasource {
   final Dio _dio;
