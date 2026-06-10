@@ -8,7 +8,7 @@ import 'presentation/common/widgets/bottom_nav.dart';
 import 'presentation/dashboard/dashboard_screen.dart';
 import 'presentation/expenses/expense_list_screen.dart';
 import 'presentation/expenses/add_expense_screen.dart';
-import 'presentation/investments/investments_screen.dart';
+import 'presentation/investments/holdings_list_screen.dart';
 import 'presentation/insights/insights_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 import 'presentation/onboarding/onboarding_screen.dart';
@@ -45,7 +45,7 @@ final _router = GoRouter(
         StatefulShellBranch(routes: [
           GoRoute(
             path: '/investments',
-            builder: (_, __) => const InvestmentsScreen(),
+            builder: (_, __) => const HoldingsListScreen(),
             routes: [
               GoRoute(path: 'add', pageBuilder: (_, state) =>
                   AppAnimations.fadeSlideTransition(state, const AddHoldingScreen())),

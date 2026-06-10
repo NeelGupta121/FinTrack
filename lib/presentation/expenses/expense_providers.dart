@@ -29,7 +29,7 @@ final expenseFilterProvider = StateProvider<ExpenseFilter>((_) => const ExpenseF
 final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) async {
   try {
     final filter = ref.watch(expenseFilterProvider);
-    var query = SupabaseConfig.client.from('transactions').select().eq('type', 'expense').order('date', ascending: false);
+    var query = SupabaseConfig.client.from('transactions').select().eq('type', 'expense');
 
     if (filter.startDate != null) query = query.gte('date', filter.startDate!.toIso8601String());
     if (filter.endDate != null) query = query.lte('date', filter.endDate!.toIso8601String());
@@ -37,7 +37,7 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
     if (filter.minAmount != null) query = query.gte('amount', filter.minAmount!);
     if (filter.maxAmount != null) query = query.lte('amount', filter.maxAmount!);
 
-    final data = await query;
+    final data = await query.order('date', ascending: false);
     return (data as List).map((e) => Transaction(
       id: e['id'],
       amount: (e['amount'] as num).toDouble(),
