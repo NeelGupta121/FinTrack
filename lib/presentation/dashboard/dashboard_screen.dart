@@ -36,9 +36,17 @@ class DashboardScreen extends ConsumerWidget {
                 children: [
                   Text('Net Worth', style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 8),
-                  Text('₹12,45,000', style: AppTheme.amountStyle(context)),
+                  expenses.when(
+                    data: (list) {
+                      final total = list.fold<double>(0, (sum, t) => sum + t.amount);
+                      return Text('₹${NumberFormat('#,##0').format(total)}',
+                          style: AppTheme.amountStyle(context));
+                    },
+                    loading: () => Text('₹0', style: AppTheme.amountStyle(context)),
+                    error: (_, __) => Text('₹0', style: AppTheme.amountStyle(context)),
+                  ),
                   const SizedBox(height: 4),
-                  Text('+2.4% this month',
+                  Text('Total expenses tracked',
                       style: TextStyle(color: cs.onPrimaryContainer.withOpacity(0.7))),
                 ],
               ),
@@ -70,9 +78,9 @@ class DashboardScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      _PortfolioStat(label: 'Invested', value: '₹8,50,000'),
-                      _PortfolioStat(label: 'Current', value: '₹9,20,000'),
-                      _PortfolioStat(label: 'Returns', value: '+8.2%'),
+                      _PortfolioStat(label: 'Invested', value: '₹0'),
+                      _PortfolioStat(label: 'Current', value: '₹0'),
+                      _PortfolioStat(label: 'Returns', value: '0%'),
                     ],
                   ),
                 ],
