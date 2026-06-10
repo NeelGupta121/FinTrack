@@ -31,7 +31,7 @@ class AiChatService {
         totalIncome += amt;
       } else {
         totalExpense += amt;
-        final cat = t['category'] ?? 'Uncategorized';
+        final cat = t['category_id'] ?? 'Uncategorized';
         catSpend[cat] = (catSpend[cat] ?? 0) + amt;
       }
     }
@@ -79,6 +79,9 @@ class AiChatService {
   }
 
   static Future<String> askQuestion(String question) async {
+    if (Env.geminiApiKey.isEmpty) {
+      return 'AI chat needs a Gemini API key. Add GEMINI_API_KEY when building.';
+    }
     return _rateLimiter.execute('gemini_chat', 1000, () async {
       final context = buildContext();
       final parts = <Map<String, String>>[];

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'presentation/common/theme/app_theme.dart';
 import 'presentation/common/theme/app_animations.dart';
 import 'presentation/common/widgets/bottom_nav.dart';
@@ -18,13 +17,17 @@ import 'presentation/bills/bills_screen.dart';
 import 'presentation/goals/goals_screen.dart';
 import 'presentation/reports/reports_screen.dart';
 
-final _onboardingDone = FutureProvider<bool>((ref) async {
-  final prefs = await SharedPreferences.getInstance();
-  return prefs.getBool('onboarding_complete') ?? false;
-});
+/// Cached onboarding status -- set in main() before runApp, updated by OnboardingScreen.
+bool onboardingComplete = false;
 
 final _router = GoRouter(
   initialLocation: '/',
+  redirect: (context, state) {
+    final loc = state.matchedLocation;
+    if (!onboardingComplete && loc != '/onboarding') return '/onboarding';
+    if (onboardingComplete && loc == '/onboarding') return '/';
+    return null;
+  },
   routes: [
     GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
     StatefulShellRoute.indexedStack(
@@ -84,24 +87,13 @@ class FinTrackApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
-    final onboarded = ref.watch(_onboardingDone);
-    return onboarded.when(
-      loading: () => const MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator()))),
-      error: (_, __) => MaterialApp.router(routerConfig: _router),
-      data: (done) => MaterialApp.router(
-        title: 'FinTrack',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light(),
-        darkTheme: AppTheme.dark(),
-        themeMode: themeMode,
-        routerConfig: done ? _router : GoRouter(
-          initialLocation: '/onboarding',
-          routes: [
-            GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
-            GoRoute(path: '/', redirect: (_, __) => '/onboarding'),
-          ],
-        ),
-      ),
+    return MaterialApp.router(
+      title: 'FinTrack',
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      themeMode: themeMode,
+      routerConfig: _router,
     );
   }
 }

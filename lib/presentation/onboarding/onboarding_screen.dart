@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'onboarding_provider.dart';
+import '../../app.dart';
 import 'pages/welcome_page.dart';
 import 'pages/permissions_page.dart';
 import 'pages/setup_accounts_page.dart';
@@ -22,6 +23,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   Future<void> _finish() async {
     await setOnboardingComplete();
+    onboardingComplete = true;
     if (mounted) context.go('/');
   }
 

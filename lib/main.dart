@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'data/datasources/local/local_database.dart';
 import 'core/security/tamper_detection.dart';
 import 'core/utils/logger.dart';
@@ -28,6 +29,10 @@ Future<void> main() async {
 
   await LocalDatabase.init();
   await TamperDetection.init();
+
+  // Cache onboarding status synchronously for GoRouter redirect
+  final prefs = await SharedPreferences.getInstance();
+  onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
 
   runApp(const ProviderScope(child: FinTrackApp()));
 }
