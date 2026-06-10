@@ -50,6 +50,11 @@ dependencies:
   # Security
   freerasp: ^6.5.0
 
+  # Notifications & Reports
+  flutter_local_notifications: ^17.2.1
+  pdf: ^3.10.8
+  timezone: ^0.9.3
+
   # Utils
   uuid: ^4.4.0
   equatable: ^2.0.5

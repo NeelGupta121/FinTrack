@@ -5,15 +5,18 @@
 id = "your-project-ref"
 name = "fintrack"
 
-[db]
-port = 54322
-major_version = 15
-
 [api]
 port = 54321
 schemas = ["public"]
 extra_search_path = ["public", "extensions"]
 max_rows = 1000
+
+[db]
+port = 54322
+major_version = 15
+
+[studio]
+port = 54323
 
 [auth]
 site_url = "http://localhost:3000"
