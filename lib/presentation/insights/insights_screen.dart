@@ -60,7 +60,7 @@ class _SpendingTab extends ConsumerWidget {
               itemBuilder: (_, i) => AnomalyCard(anomaly: list[i]),
             ),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('Error: $e')),
+      error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
     );
   }
 }
@@ -90,7 +90,7 @@ class _PortfolioTab extends ConsumerWidget {
                   ),
                 )).toList()),
           loading: () => const LinearProgressIndicator(),
-          error: (e, _) => Text('$e'),
+          error: (_, __) => const Text('Something went wrong.'),
         ),
         const SizedBox(height: 16),
         Card(
@@ -108,7 +108,7 @@ class _PortfolioTab extends ConsumerWidget {
                 digest.when(
                   data: (text) => Text(text),
                   loading: () => const Text('Generating insights...'),
-                  error: (e, _) => Text('$e'),
+                  error: (_, __) => const Text('Something went wrong.'),
                 ),
               ],
             ),
@@ -127,7 +127,7 @@ class _NewsTab extends ConsumerWidget {
     final holdingsAsync = ref.watch(holdingsInputProvider);
     return holdingsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('Error: $e')),
+      error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
       data: (holdings) {
         if (holdings.isEmpty) {
           return const EmptyState(
@@ -157,7 +157,7 @@ class _NewsTab extends ConsumerWidget {
                     ),
                   )).toList()),
                   loading: () => const Padding(padding: EdgeInsets.all(8), child: LinearProgressIndicator()),
-                  error: (e, _) => Text('$e'),
+                  error: (_, __) => const Text('Something went wrong.'),
                 ),
               ],
             );

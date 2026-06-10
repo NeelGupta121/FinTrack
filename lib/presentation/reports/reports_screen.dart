@@ -46,7 +46,7 @@ class ReportsScreen extends ConsumerWidget {
           Expanded(
             child: reportsAsync.when(
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error: $e')),
+              error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
               data: (reports) => reports.isEmpty
                   ? const Center(child: Text('No reports generated yet.'))
                   : ListView.builder(

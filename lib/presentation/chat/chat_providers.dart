@@ -25,7 +25,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
       state = [...state, ChatMessage(text: response, isUser: false)];
     } catch (e) {
       _isLoading = false;
-      state = [...state, ChatMessage(text: 'Error: ${e.toString()}', isUser: false)];
+      state = [...state, ChatMessage(text: 'Sorry, I could not process that. Please try again.', isUser: false)];
     }
   }
 }

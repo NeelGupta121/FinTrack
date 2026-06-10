@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final themeModeProvider = StateProvider<ThemeMode>((_) => ThemeMode.system);
+/// Cached value loaded in main.dart before runApp.
+ThemeMode savedThemeMode = ThemeMode.system;
+
+class ThemeModeNotifier extends StateNotifier<ThemeMode> {
+  ThemeModeNotifier() : super(savedThemeMode);
+
+  void set(ThemeMode mode) {
+    state = mode;
+    SharedPreferences.getInstance().then((p) => p.setString('theme_mode', mode.name));
+  }
+}
+
+final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((_) => ThemeModeNotifier());
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -37,8 +50,8 @@ class SettingsScreen extends ConsumerWidget {
             secondary: const Icon(Icons.dark_mode),
             title: const Text('Dark Mode'),
             value: themeMode == ThemeMode.dark,
-            onChanged: (v) => ref.read(themeModeProvider.notifier).state =
-                v ? ThemeMode.dark : ThemeMode.light,
+            onChanged: (v) => ref.read(themeModeProvider.notifier).set(
+                v ? ThemeMode.dark : ThemeMode.light),
           ),
           const Divider(),
 

@@ -101,7 +101,7 @@ class ExpenseListScreen extends ConsumerWidget {
                 );
               },
               loading: () => const SliverFillRemaining(child: Center(child: CircularProgressIndicator())),
-              error: (e, _) => SliverFillRemaining(child: Center(child: Text('Error: $e'))),
+              error: (_, __) => const SliverFillRemaining(child: Center(child: Text('Something went wrong. Pull down to retry.'))),
             ),
           ],
         ),

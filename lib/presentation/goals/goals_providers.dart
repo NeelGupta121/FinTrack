@@ -25,12 +25,12 @@ class FinancialGoal {
   double get remaining => targetAmount - currentAmount;
 
   factory FinancialGoal.fromJson(Map<String, dynamic> json) => FinancialGoal(
-        id: json['id'] as String,
-        name: json['name'] as String,
+        id: json['id'] as String? ?? '',
+        name: json['name'] as String? ?? '',
         type: GoalType.values.byName(json['type'] as String? ?? 'custom'),
-        targetAmount: (json['target_amount'] as num).toDouble(),
+        targetAmount: (json['target_amount'] as num? ?? 0).toDouble(),
         currentAmount: (json['current_amount'] as num? ?? 0).toDouble(),
-        deadline: json['deadline'] != null ? DateTime.parse(json['deadline'] as String) : null,
+        deadline: json['deadline'] != null ? DateTime.tryParse(json['deadline'] as String) : null,
       );
 }
 

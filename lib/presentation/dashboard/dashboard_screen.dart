@@ -177,9 +177,9 @@ class DashboardScreen extends ConsumerWidget {
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (e, _) => Card(child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text('Could not load: $e'),
+            error: (_, __) => const Card(child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Text('Something went wrong.'),
             )),
           ),
         ],

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'data/datasources/local/local_database.dart';
 import 'core/security/tamper_detection.dart';
 import 'core/utils/logger.dart';
+import 'presentation/settings/settings_screen.dart' show savedThemeMode;
 import 'app.dart';
 
 Future<void> main() async {
@@ -33,6 +34,11 @@ Future<void> main() async {
   // Cache onboarding status synchronously for GoRouter redirect
   final prefs = await SharedPreferences.getInstance();
   onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+
+  // Load persisted theme mode
+  final tm = prefs.getString('theme_mode');
+  if (tm == 'dark') savedThemeMode = ThemeMode.dark;
+  else if (tm == 'light') savedThemeMode = ThemeMode.light;
 
   runApp(const ProviderScope(child: FinTrackApp()));
 }

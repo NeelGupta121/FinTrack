@@ -35,7 +35,7 @@ class HoldingsListScreen extends ConsumerWidget {
             portfolioAsync.when(
               data: (pv) => PortfolioValueCard(portfolio: pv),
               loading: () => const SizedBox(height: 140, child: Center(child: CircularProgressIndicator())),
-              error: (e, _) => Text('Error: $e'),
+              error: (_, __) => const Text('Something went wrong. Pull down to retry.'),
             ),
             const SizedBox(height: 16),
             allocationAsync.when(
@@ -54,7 +54,7 @@ class HoldingsListScreen extends ConsumerWidget {
                     )
                   : _HoldingsGrouped(holdings: holdings),
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (e, _) => Center(child: Text('Error: $e')),
+              error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
             ),
           ],
         ),
