@@ -55,6 +55,9 @@ dependencies:
   pdf: ^3.10.8
   timezone: ^0.9.3
 
+  # Preferences
+  shared_preferences: ^2.2.3
+
   # Utils
   uuid: ^4.4.0
   equatable: ^2.0.5
