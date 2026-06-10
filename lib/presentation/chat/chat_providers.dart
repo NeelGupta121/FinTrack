@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fintrack/services/ai_chat_service.dart';
+import 'package:fintrack/core/config/api_key_provider.dart';
 
 class ChatMessage {
   final String text;
@@ -10,7 +11,8 @@ class ChatMessage {
 }
 
 class ChatNotifier extends StateNotifier<List<ChatMessage>> {
-  ChatNotifier() : super([]);
+  final Ref _ref;
+  ChatNotifier(this._ref) : super([]);
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
@@ -20,7 +22,9 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
     _isLoading = true;
     state = [...state]; // trigger rebuild for typing indicator
     try {
-      final response = await AiChatService.askQuestion(question);
+      final runtimeKey = _ref.read(geminiKeyProvider);
+      final key = effectiveGeminiKey(runtimeKey);
+      final response = await AiChatService.askQuestion(question, apiKey: key);
       _isLoading = false;
       state = [...state, ChatMessage(text: response, isUser: false)];
     } catch (e) {
@@ -30,7 +34,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
   }
 }
 
-final chatProvider = StateNotifierProvider<ChatNotifier, List<ChatMessage>>((ref) => ChatNotifier());
+final chatProvider = StateNotifierProvider<ChatNotifier, List<ChatMessage>>((ref) => ChatNotifier(ref));
 final chatLoadingProvider = Provider<bool>((ref) {
   ref.watch(chatProvider);
   return ref.read(chatProvider.notifier).isLoading;

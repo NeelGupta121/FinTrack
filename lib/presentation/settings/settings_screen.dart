@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/config/api_key_provider.dart';
 import '../../services/smart_import_service.dart';
 import '../../data/datasources/local/tflite_datasource.dart';
 import '../expenses/expense_providers.dart';
@@ -22,6 +23,49 @@ final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((_
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
+
+  Future<void> _showApiKeyDialog(BuildContext context, WidgetRef ref) async {
+    final controller = TextEditingController();
+    final result = await showDialog<String>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Gemini API Key'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                hintText: 'Paste your API key',
+                border: OutlineInputBorder(),
+              ),
+              autofocus: true,
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Get a free key at aistudio.google.com/apikey',
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, controller.text.trim()),
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    );
+    if (result != null && result.isNotEmpty) {
+      await ref.read(geminiKeyProvider.notifier).set(result);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('API key saved ✅')),
+        );
+      }
+    }
+  }
 
   Future<void> _scanSms(BuildContext context, WidgetRef ref) async {
     showDialog(
@@ -92,6 +136,32 @@ class SettingsScreen extends ConsumerWidget {
             onChanged: (v) => ref.read(themeModeProvider.notifier).set(
                 v ? ThemeMode.dark : ThemeMode.light),
           ),
+          const Divider(),
+
+          // AI
+          const _SectionHeader('AI'),
+          Consumer(builder: (context, ref, _) {
+            final key = ref.watch(geminiKeyProvider);
+            return ListTile(
+              leading: const Icon(Icons.smart_toy),
+              title: const Text('Gemini API Key'),
+              subtitle: Text(key.isEmpty ? 'Tap to set' : '••••••••'),
+              trailing: key.isNotEmpty
+                  ? IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () async {
+                        await ref.read(geminiKeyProvider.notifier).clear();
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('API key cleared')),
+                          );
+                        }
+                      },
+                    )
+                  : const Icon(Icons.chevron_right),
+              onTap: () => _showApiKeyDialog(context, ref),
+            );
+          }),
           const Divider(),
 
           // Data

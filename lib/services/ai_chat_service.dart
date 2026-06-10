@@ -78,9 +78,10 @@ class AiChatService {
         q.contains('crypto') || q.contains('bitcoin');
   }
 
-  static Future<String> askQuestion(String question) async {
-    if (Env.geminiApiKey.isEmpty) {
-      return 'AI chat needs a Gemini API key. Add GEMINI_API_KEY when building.';
+  static Future<String> askQuestion(String question, {String? apiKey}) async {
+    final key = apiKey ?? Env.geminiApiKey;
+    if (key.isEmpty) {
+      return 'Add your free Gemini API key in Settings to enable AI chat.';
     }
     return _rateLimiter.execute('gemini_chat', 1000, () async {
       final context = buildContext();
@@ -93,7 +94,7 @@ class AiChatService {
       }
 
       final response = await _dio.post(
-        '$_baseUrl?key=${Env.geminiApiKey}',
+        '$_baseUrl?key=$key',
         data: {
           'contents': [{'parts': parts}],
           'generationConfig': {'maxOutputTokens': 512, 'temperature': 0.7},
