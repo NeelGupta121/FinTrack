@@ -19,10 +19,10 @@ class ReportService {
 
     final income = transactions
         .where((t) => t['type'] == 'income')
-        .fold<double>(0, (s, t) => s + (t['amount'] as num).toDouble());
+        .fold<double>(0, (s, t) => s + (t['amount'] as num? ?? 0).toDouble());
     final expenses = transactions
         .where((t) => t['type'] == 'expense')
-        .fold<double>(0, (s, t) => s + (t['amount'] as num).toDouble());
+        .fold<double>(0, (s, t) => s + (t['amount'] as num? ?? 0).toDouble());
 
     final digest = 'Week of ${DateFormat('MMM d').format(weekAgo)}: '
         'Income ₹${income.toStringAsFixed(0)}, '
@@ -53,15 +53,15 @@ class ReportService {
 
     final income = transactions
         .where((t) => t['type'] == 'income')
-        .fold<double>(0, (s, t) => s + (t['amount'] as num).toDouble());
+        .fold<double>(0, (s, t) => s + (t['amount'] as num? ?? 0).toDouble());
     final expenses = transactions
         .where((t) => t['type'] == 'expense')
-        .fold<double>(0, (s, t) => s + (t['amount'] as num).toDouble());
+        .fold<double>(0, (s, t) => s + (t['amount'] as num? ?? 0).toDouble());
 
     final byCategory = <String, double>{};
     for (final tx in transactions.where((t) => t['type'] == 'expense')) {
       final cat = (tx['category_id'] as String?) ?? 'Other';
-      byCategory[cat] = (byCategory[cat] ?? 0) + (tx['amount'] as num).toDouble();
+      byCategory[cat] = (byCategory[cat] ?? 0) + (tx['amount'] as num? ?? 0).toDouble();
     }
 
     final pdf = pw.Document();

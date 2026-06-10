@@ -33,7 +33,7 @@ class DetectRecurringBills {
     for (final entry in grouped.entries) {
       if (entry.value.length < 2) continue;
 
-      final amounts = entry.value.map((t) => (t['amount'] as num).toDouble()).toList();
+      final amounts = entry.value.map((t) => (t['amount'] as num? ?? 0).toDouble()).toList();
       final avgAmount = amounts.reduce((a, b) => a + b) / amounts.length;
 
       // Check amount consistency (±5%)

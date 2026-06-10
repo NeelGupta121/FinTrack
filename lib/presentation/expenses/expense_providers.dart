@@ -41,17 +41,17 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
       items = items.where((e) => e['category_id'] == filter.categoryId).toList();
     }
     if (filter.minAmount != null) {
-      items = items.where((e) => (e['amount'] as num).toDouble() >= filter.minAmount!).toList();
+      items = items.where((e) => (e['amount'] as num? ?? 0).toDouble() >= filter.minAmount!).toList();
     }
     if (filter.maxAmount != null) {
-      items = items.where((e) => (e['amount'] as num).toDouble() <= filter.maxAmount!).toList();
+      items = items.where((e) => (e['amount'] as num? ?? 0).toDouble() <= filter.maxAmount!).toList();
     }
 
     items.sort((a, b) => (b['date'] as String).compareTo(a['date'] as String));
 
     return items.map((e) => Transaction(
       id: e['id'] as String,
-      amount: (e['amount'] as num).toDouble(),
+      amount: (e['amount'] as num? ?? 0).toDouble(),
       type: 'expense',
       description: e['description'] as String?,
       merchant: e['merchant'] as String?,
@@ -126,7 +126,7 @@ final monthlySummaryProvider = FutureProvider.autoDispose<MonthlySummary>((ref) 
     double total = 0;
     final catTotals = <String, double>{};
     for (final e in items) {
-      final amt = (e['amount'] as num).toDouble();
+      final amt = (e['amount'] as num? ?? 0).toDouble();
       total += amt;
       final cat = (e['category_id'] as String?) ?? 'miscellaneous';
       catTotals[cat] = (catTotals[cat] ?? 0) + amt;

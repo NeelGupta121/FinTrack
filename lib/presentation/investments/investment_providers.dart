@@ -44,7 +44,7 @@ final portfolioValueProvider = FutureProvider.autoDispose<PortfolioValue>((ref) 
     for (final h in holdings) {
       totalInvested += h.investedValue;
       final cached = LocalDatabase.priceCache.get(h.symbol);
-      final currentPrice = cached != null ? (cached['price'] as num).toDouble() : h.avgPrice;
+      final currentPrice = cached != null ? (cached['price'] as num? ?? 0).toDouble() : h.avgPrice;
       currentValue += h.quantity * currentPrice;
     }
 
