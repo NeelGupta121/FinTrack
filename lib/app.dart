@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'presentation/common/theme/app_theme.dart';
+import 'presentation/common/theme/app_animations.dart';
 import 'presentation/common/widgets/bottom_nav.dart';
 import 'presentation/dashboard/dashboard_screen.dart';
 import 'presentation/expenses/expense_list_screen.dart';
@@ -27,7 +28,8 @@ final _router = GoRouter(
             path: '/expenses',
             builder: (_, __) => const ExpenseListScreen(),
             routes: [
-              GoRoute(path: 'add', builder: (_, __) => const AddExpenseScreen()),
+              GoRoute(path: 'add', pageBuilder: (_, state) =>
+                  AppAnimations.fadeSlideTransition(state, const AddExpenseScreen())),
             ],
           ),
         ]),
@@ -36,7 +38,8 @@ final _router = GoRouter(
             path: '/investments',
             builder: (_, __) => const InvestmentsScreen(),
             routes: [
-              GoRoute(path: 'add', builder: (_, __) => const AddInvestmentScreen()),
+              GoRoute(path: 'add', pageBuilder: (_, state) =>
+                  AppAnimations.fadeSlideTransition(state, const AddInvestmentScreen())),
             ],
           ),
         ]),
@@ -45,7 +48,8 @@ final _router = GoRouter(
         ]),
       ],
     ),
-    GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
+    GoRoute(path: '/settings', pageBuilder: (_, state) =>
+        AppAnimations.fadeSlideTransition(state, const SettingsScreen())),
   ],
 );
 
