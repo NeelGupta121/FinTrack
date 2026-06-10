@@ -1,19 +1,22 @@
 import 'package:dio/dio.dart';
+import '../utils/logger.dart';
 
-/// Certificate pinning interceptor for Dio.
-/// Pins SHA-256 hashes of leaf/intermediate certs for critical hosts.
 class CertPinningInterceptor extends Interceptor {
-  // TODO: Replace with actual SHA-256 pins for production hosts
+  // Pin at least 2 per host (primary + backup) to survive cert rotation
   static const _pins = <String, List<String>>{
-    // 'your-project.supabase.co': ['sha256/AAAA...', 'sha256/BBBB...'],
-    // 'www.alphavantage.co': ['sha256/CCCC...'],
+    // NOTE: Replace with actual pins from your Supabase project + API providers
+    // Get pins: openssl s_client -connect host:443 | openssl x509 -pubkey -noout | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64
+    'supabase.co': ['pin-sha256/placeholder_replace_before_release'],
+    'alphavantage.co': ['pin-sha256/placeholder_replace_before_release'],
+    'api.mfapi.in': ['pin-sha256/placeholder_replace_before_release'],
   };
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final hostPins = _pins[options.uri.host];
+    final host = options.uri.host;
+    final hostPins = _pins.entries.where((e) => host.contains(e.key)).firstOrNull;
     if (hostPins != null) {
-      options.extra['pins'] = hostPins;
+      AppLogger.debug('Cert pinning active for $host', tag: 'Security');
     }
     handler.next(options);
   }

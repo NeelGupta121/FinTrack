@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import '../../core/config/env.dart';
 
 class FredDatasource {
   final Dio _dio;
   static const _base = 'https://api.stlouisfed.org/fred/series/observations';
-  static const _apiKey = 'DEMO_KEY'; // FRED allows unauthenticated demo access
+  static const _apiKey = Env.fredApiKey;
 
   double? _cachedCpi;
   double? _cachedRate;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/config/supabase_config.dart';
+import 'core/security/tamper_detection.dart';
 import 'core/utils/logger.dart';
 import 'app.dart';
 
@@ -26,6 +27,7 @@ Future<void> main() async {
   ]);
 
   await SupabaseConfig.init();
+  await TamperDetection.init();
 
   runApp(const ProviderScope(child: FinTrackApp()));
 }

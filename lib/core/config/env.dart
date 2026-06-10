@@ -6,4 +6,5 @@ class Env {
   static const twelveDataKey = String.fromEnvironment('TWELVE_DATA_KEY');
   static const newsApiKey = String.fromEnvironment('NEWS_API_KEY');
   static const geminiApiKey = String.fromEnvironment('GEMINI_API_KEY');
+  static const fredApiKey = String.fromEnvironment('FRED_API_KEY', defaultValue: 'DEMO_KEY');
 }
