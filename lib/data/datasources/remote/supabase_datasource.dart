@@ -1,3 +1,2 @@
-// TODO: Implement Supabase CRUD operations
-// - All queries use RLS (user_id auto-filtered)
-// - Offline-first: write to Hive first, sync to Supabase
+// Removed: Supabase backend replaced with on-device Hive storage.
+// See lib/data/datasources/local/local_database.dart

@@ -1,10 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/config/supabase_config.dart';
+import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
 import '../../domain/entities/transaction.dart';
 
-// Filter state
 class ExpenseFilter {
   final DateTime? startDate;
   final DateTime? endDate;
@@ -29,24 +27,37 @@ final expenseFilterProvider = StateProvider<ExpenseFilter>((_) => const ExpenseF
 final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) async {
   try {
     final filter = ref.watch(expenseFilterProvider);
-    var query = SupabaseConfig.client.from('transactions').select().eq('type', 'expense');
+    var items = LocalDatabase.transactions.values
+        .where((e) => e['type'] == 'expense')
+        .toList();
 
-    if (filter.startDate != null) query = query.gte('date', filter.startDate!.toIso8601String());
-    if (filter.endDate != null) query = query.lte('date', filter.endDate!.toIso8601String());
-    if (filter.categoryId != null) query = query.eq('category_id', filter.categoryId!);
-    if (filter.minAmount != null) query = query.gte('amount', filter.minAmount!);
-    if (filter.maxAmount != null) query = query.lte('amount', filter.maxAmount!);
+    if (filter.startDate != null) {
+      items = items.where((e) => DateTime.parse(e['date'] as String).isAfter(filter.startDate!.subtract(const Duration(days: 1)))).toList();
+    }
+    if (filter.endDate != null) {
+      items = items.where((e) => DateTime.parse(e['date'] as String).isBefore(filter.endDate!.add(const Duration(days: 1)))).toList();
+    }
+    if (filter.categoryId != null) {
+      items = items.where((e) => e['category_id'] == filter.categoryId).toList();
+    }
+    if (filter.minAmount != null) {
+      items = items.where((e) => (e['amount'] as num).toDouble() >= filter.minAmount!).toList();
+    }
+    if (filter.maxAmount != null) {
+      items = items.where((e) => (e['amount'] as num).toDouble() <= filter.maxAmount!).toList();
+    }
 
-    final data = await query.order('date', ascending: false);
-    return (data as List).map((e) => Transaction(
-      id: e['id'],
+    items.sort((a, b) => (b['date'] as String).compareTo(a['date'] as String));
+
+    return items.map((e) => Transaction(
+      id: e['id'] as String,
       amount: (e['amount'] as num).toDouble(),
       type: 'expense',
-      description: e['description'],
-      merchant: e['merchant'],
-      date: DateTime.parse(e['date']),
-      categoryId: e['category_id'],
-      source: e['source'] ?? 'manual',
+      description: e['description'] as String?,
+      merchant: e['merchant'] as String?,
+      date: DateTime.parse(e['date'] as String),
+      categoryId: e['category_id'] as String?,
+      source: (e['source'] as String?) ?? 'manual',
     )).toList();
   } catch (e, st) {
     AppLogger.error('Failed to fetch expenses', tag: 'Expenses', error: e, stackTrace: st);
@@ -68,7 +79,9 @@ class AddExpenseNotifier {
     String? merchant,
     String source = 'manual',
   }) async {
-    await SupabaseConfig.client.from('transactions').insert({
+    final id = LocalDatabase.newId();
+    await LocalDatabase.transactions.put(id, {
+      'id': id,
       'amount': amount,
       'currency': 'INR',
       'type': 'expense',
@@ -83,7 +96,7 @@ class AddExpenseNotifier {
   }
 
   Future<void> delete(String id) async {
-    await SupabaseConfig.client.from('transactions').delete().eq('id', id);
+    await LocalDatabase.transactions.delete(id);
     _ref.invalidate(expenseListProvider);
     _ref.invalidate(monthlySummaryProvider);
   }
@@ -102,20 +115,20 @@ final monthlySummaryProvider = FutureProvider.autoDispose<MonthlySummary>((ref) 
     final start = DateTime(now.year, now.month, 1);
     final end = DateTime(now.year, now.month + 1, 0);
 
-    final data = await SupabaseConfig.client
-        .from('transactions')
-        .select()
-        .eq('type', 'expense')
-        .gte('date', start.toIso8601String())
-        .lte('date', end.toIso8601String());
+    final items = LocalDatabase.transactions.values
+        .where((e) => e['type'] == 'expense')
+        .where((e) {
+          final d = DateTime.parse(e['date'] as String);
+          return d.isAfter(start.subtract(const Duration(days: 1))) && d.isBefore(end.add(const Duration(days: 1)));
+        })
+        .toList();
 
-    final items = data as List;
     double total = 0;
     final catTotals = <String, double>{};
     for (final e in items) {
       final amt = (e['amount'] as num).toDouble();
       total += amt;
-      final cat = e['category_id'] as String? ?? 'miscellaneous';
+      final cat = (e['category_id'] as String?) ?? 'miscellaneous';
       catTotals[cat] = (catTotals[cat] ?? 0) + amt;
     }
 

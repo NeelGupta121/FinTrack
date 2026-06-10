@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "com.fintrack.fintrack"
     compileSdk = 34
+    buildToolsVersion = "33.0.2"
     ndkVersion = flutter.ndkVersion
 
     compileOptions {

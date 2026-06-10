@@ -1,3 +1,2 @@
-// TODO: Implement ExpenseRepository using Supabase + Hive
-// - Offline-first: write to Hive, queue sync to Supabase
-// - Read: merge local + remote
+// ExpenseRepository implemented via Hive local storage.
+// See presentation/expenses/expense_providers.dart for direct Hive access.

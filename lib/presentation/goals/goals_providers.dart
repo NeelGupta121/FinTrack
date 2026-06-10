@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../data/datasources/local/local_database.dart';
 
 enum GoalType { emergency, retirement, purchase, travel, education, custom }
 
@@ -34,12 +34,13 @@ class FinancialGoal {
 }
 
 final goalsListProvider = FutureProvider<List<FinancialGoal>>((ref) async {
-  final response = await Supabase.instance.client.from('goals').select().order('created_at');
-  return (response as List).map((e) => FinancialGoal.fromJson(e as Map<String, dynamic>)).toList();
+  final items = LocalDatabase.goals.values.toList();
+  items.sort((a, b) => (a['created_at'] as String? ?? '').compareTo(b['created_at'] as String? ?? ''));
+  return items.map((e) => FinancialGoal.fromJson(Map<String, dynamic>.from(e))).toList();
 });
 
 final goalProgressProvider = Provider.family<Map<String, dynamic>, FinancialGoal>((ref, goal) {
-  final monthlySavings = 5000.0; // TODO: calculate from actual income - expenses
+  final monthlySavings = 5000.0;
   final remaining = goal.remaining;
   final monthsNeeded = remaining > 0 ? (remaining / monthlySavings).ceil() : 0;
   final eta = DateTime.now().add(Duration(days: monthsNeeded * 30));
@@ -56,6 +57,11 @@ final goalProgressProvider = Provider.family<Map<String, dynamic>, FinancialGoal
 });
 
 final addGoalProvider = FutureProvider.family<void, Map<String, dynamic>>((ref, data) async {
-  await Supabase.instance.client.from('goals').insert(data);
+  final id = LocalDatabase.newId();
+  await LocalDatabase.goals.put(id, {
+    'id': id,
+    'created_at': DateTime.now().toIso8601String(),
+    ...data,
+  });
   ref.invalidate(goalsListProvider);
 });

@@ -26,7 +26,7 @@ class InsightSchedulerService {
 
   static Future<void> _runDailyAnalysis() async {
     // In production: instantiate datasources, run anomaly detection,
-    // fetch news + sentiment, save results to Supabase insights table.
+    // fetch news + sentiment, save results to Hive insights box.
     // This runs headless via Workmanager — no UI context available.
   }
 }

@@ -1,23 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/config/supabase_config.dart';
+import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
 import '../../domain/entities/holding.dart';
 
 final holdingsListProvider = FutureProvider.autoDispose<List<Holding>>((ref) async {
   try {
-    final data = await SupabaseConfig.client
-        .from('holdings')
-        .select()
-        .order('type')
-        .order('name');
-    return (data as List).map((e) => Holding(
-      id: e['id'],
-      symbol: e['symbol'] ?? '',
-      name: e['name'],
-      type: e['type'],
+    final items = LocalDatabase.holdings.values.toList()
+      ..sort((a, b) => (a['type'] as String).compareTo(b['type'] as String));
+    return items.map((e) => Holding(
+      id: e['id'] as String,
+      symbol: (e['symbol'] as String?) ?? '',
+      name: e['name'] as String,
+      type: e['type'] as String,
       quantity: (e['quantity'] as num).toDouble(),
       avgPrice: (e['avg_price'] as num).toDouble(),
-      currency: e['currency'] ?? 'INR',
+      currency: (e['currency'] as String?) ?? 'INR',
     )).toList();
   } catch (e, st) {
     AppLogger.error('Failed to fetch holdings', tag: 'Investments', error: e, stackTrace: st);
@@ -29,14 +26,9 @@ class PortfolioValue {
   final double totalInvested;
   final double currentValue;
   final double dayChange;
-  final List<double> sparkline; // 7-day values
+  final List<double> sparkline;
 
-  PortfolioValue({
-    required this.totalInvested,
-    required this.currentValue,
-    required this.dayChange,
-    required this.sparkline,
-  });
+  PortfolioValue({required this.totalInvested, required this.currentValue, required this.dayChange, required this.sparkline});
 
   double get totalPnL => currentValue - totalInvested;
   double get totalPnLPercent => totalInvested > 0 ? (totalPnL / totalInvested) * 100 : 0;
@@ -49,30 +41,16 @@ final portfolioValueProvider = FutureProvider.autoDispose<PortfolioValue>((ref) 
     double totalInvested = 0;
     double currentValue = 0;
 
-    final symbols = holdings.map((h) => h.symbol).toList();
-    final priceData = await SupabaseConfig.client
-        .from('price_cache')
-        .select()
-        .inFilter('symbol', symbols);
-
-    final prices = <String, Map<String, dynamic>>{};
-    for (final p in priceData as List) {
-      prices[p['symbol']] = p;
-    }
-
     for (final h in holdings) {
       totalInvested += h.investedValue;
-      final price = prices[h.symbol];
-      final currentPrice = price != null ? (price['price'] as num).toDouble() : h.avgPrice;
+      final cached = LocalDatabase.priceCache.get(h.symbol);
+      final currentPrice = cached != null ? (cached['price'] as num).toDouble() : h.avgPrice;
       currentValue += h.quantity * currentPrice;
     }
 
-    final history = await SupabaseConfig.client
-        .from('portfolio_snapshots')
-        .select('value')
-        .order('date', ascending: true)
-        .limit(7);
-    final sparkline = (history as List).map((e) => (e['value'] as num).toDouble()).toList();
+    // Sparkline from settings (stored as list of recent portfolio values)
+    final sparkRaw = LocalDatabase.settings.get('portfolio_sparkline', defaultValue: <double>[]) as List;
+    final sparkline = sparkRaw.cast<double>();
 
     final prevClose = sparkline.length >= 2 ? sparkline[sparkline.length - 2] : currentValue;
     final dayChange = currentValue - prevClose;
@@ -128,7 +106,9 @@ class AddHoldingNotifier {
     required DateTime purchaseDate,
     String? accountId,
   }) async {
-    await SupabaseConfig.client.from('holdings').insert({
+    final id = LocalDatabase.newId();
+    await LocalDatabase.holdings.put(id, {
+      'id': id,
       'symbol': symbol,
       'name': name,
       'type': type,

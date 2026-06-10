@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../core/config/supabase_config.dart';
+import '../../data/datasources/local/local_database.dart';
 import 'investment_providers.dart';
 
 class AddHoldingScreen extends ConsumerStatefulWidget {
@@ -33,8 +33,8 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
   }
 
   Future<void> _loadAccounts() async {
-    final data = await SupabaseConfig.client.from('accounts').select('id, name');
-    setState(() => _accounts = List<Map<String, dynamic>>.from(data));
+    final data = LocalDatabase.accounts.values.map((e) => Map<String, dynamic>.from(e)).toList();
+    setState(() => _accounts = data);
   }
 
   @override

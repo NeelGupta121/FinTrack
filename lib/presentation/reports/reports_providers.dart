@@ -1,16 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../data/datasources/local/local_database.dart';
 import '../../services/report_service.dart';
 
 final reportServiceProvider = Provider((_) => ReportService());
 
 final reportsListProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
-  final response = await Supabase.instance.client
-      .from('reports')
-      .select()
-      .order('generated_at', ascending: false)
-      .limit(20);
-  return List<Map<String, dynamic>>.from(response as List);
+  final items = LocalDatabase.insights.values
+      .where((e) => e['type'] == 'weekly' || e['type'] == 'monthly')
+      .toList();
+  items.sort((a, b) => (b['generated_at'] as String? ?? '').compareTo(a['generated_at'] as String? ?? ''));
+  return items.take(20).map((e) => Map<String, dynamic>.from(e)).toList();
 });
 
 final generateReportProvider = FutureProvider.family<String, String>((ref, type) async {
