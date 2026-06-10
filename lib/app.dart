@@ -13,6 +13,7 @@ import 'presentation/insights/insights_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 import 'presentation/onboarding/onboarding_screen.dart';
 import 'presentation/investments/add_holding_screen.dart';
+import 'presentation/chat/chat_screen.dart';
 
 final _onboardingDone = FutureProvider<bool>((ref) async {
   final prefs = await SharedPreferences.getInstance();
@@ -27,6 +28,11 @@ final _router = GoRouter(
       builder: (context, state, shell) => Scaffold(
         body: shell,
         bottomNavigationBar: BottomNav(shell: shell),
+        floatingActionButton: FloatingActionButton(
+          heroTag: 'chat_fab',
+          onPressed: () => GoRouter.of(context).push('/chat'),
+          child: const Icon(Icons.smart_toy),
+        ),
       ),
       branches: [
         StatefulShellBranch(routes: [
@@ -57,6 +63,7 @@ final _router = GoRouter(
         ]),
       ],
     ),
+    GoRoute(path: '/chat', builder: (_, __) => const ChatScreen()),
     GoRoute(path: '/settings', pageBuilder: (_, state) =>
         AppAnimations.fadeSlideTransition(state, const SettingsScreen())),
   ],

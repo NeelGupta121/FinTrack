@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../services/sms_parser_service.dart';
-import 'package:telephony/telephony.dart';
 
 const _key = 'onboarding_complete';
 
@@ -33,15 +31,3 @@ class PermissionsNotifier extends StateNotifier<Map<String, bool>> {
     state = {...state, 'notification': s.isGranted};
   }
 }
-
-final smsImportProvider = FutureProvider.family<int, bool>((ref, run) async {
-  if (!run) return 0;
-  final telephony = Telephony.instance;
-  final since = DateTime.now().subtract(const Duration(days: 90));
-  final msgs = await telephony.getInboxSms(
-    filter: SmsFilter.where(SmsColumn.DATE)
-        .greaterThanOrEqualTo(since.millisecondsSinceEpoch.toString()),
-  );
-  final parser = SmsParserService();
-  return msgs.where((m) => parser.parse(m.body ?? '') != null).length;
-});
