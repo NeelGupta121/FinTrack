@@ -20,7 +20,7 @@ class _CategoryIconState extends State<CategoryIcon>
   void initState() {
     super.initState();
     _ctrl = AnimationController(
-        vsync: this, duration: AppAnimations.fast, upperBound: 0.1);
+        vsync: this, duration: AppAnimations.fast);
   }
 
   @override
@@ -52,10 +52,8 @@ class _CategoryIconState extends State<CategoryIcon>
       onTapDown: (_) => _ctrl.forward(),
       onTapUp: (_) { _ctrl.reverse(); widget.onTap?.call(); },
       onTapCancel: () => _ctrl.reverse(),
-      child: AnimatedBuilder(
-        animation: _ctrl,
-        builder: (_, child) => Transform.scale(
-          scale: 1.0 + _ctrl.value, child: child),
+      child: ScaleTransition(
+        scale: Tween(begin: 1.0, end: 1.1).animate(_ctrl),
         child: CircleAvatar(
           radius: widget.size / 2,
           backgroundColor: color.withOpacity(0.15),

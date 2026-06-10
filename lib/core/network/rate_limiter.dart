@@ -1,3 +1,5 @@
+import '../utils/logger.dart';
+
 /// Per-key rate limiter with daily reset.
 class RateLimitExceeded implements Exception {
   final String message;
@@ -28,8 +30,10 @@ class _Bucket {
     if (DateTime.now().isAfter(_resetAt)) {
       _count = 0;
       _resetAt = DateTime.now().add(const Duration(days: 1));
+      AppLogger.debug('Rate limiter bucket reset', tag: 'RateLimiter');
     }
     if (_count >= maxPerDay) {
+      AppLogger.warning('Rate limit reached: $maxPerDay/day', tag: 'RateLimiter');
       throw RateLimitExceeded('$maxPerDay/day limit reached');
     }
     _count++;

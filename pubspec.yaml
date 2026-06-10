@@ -55,6 +55,9 @@ dependencies:
   pdf: ^3.10.8
   timezone: ^0.9.3
 
+  # Background Tasks
+  workmanager: ^0.5.2
+
   # Preferences
   shared_preferences: ^2.2.3
 

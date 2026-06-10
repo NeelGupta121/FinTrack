@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'env.dart';
+import '../utils/logger.dart';
 
 /// Supabase initialization and client access.
 class SupabaseConfig {
@@ -11,6 +12,7 @@ class SupabaseConfig {
         authFlowType: AuthFlowType.pkce,
       ),
     );
+    AppLogger.info('Supabase initialized successfully', tag: 'Supabase');
   }
 
   static SupabaseClient get client => Supabase.instance.client;

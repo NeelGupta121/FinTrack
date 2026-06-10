@@ -1,22 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/config/supabase_config.dart';
+import '../../core/utils/logger.dart';
 import '../../domain/entities/holding.dart';
 
 final holdingsListProvider = FutureProvider.autoDispose<List<Holding>>((ref) async {
-  final data = await SupabaseConfig.client
-      .from('holdings')
-      .select()
-      .order('type')
-      .order('name');
-  return (data as List).map((e) => Holding(
-    id: e['id'],
-    symbol: e['symbol'] ?? '',
-    name: e['name'],
-    type: e['type'],
-    quantity: (e['quantity'] as num).toDouble(),
-    avgPrice: (e['avg_price'] as num).toDouble(),
-    currency: e['currency'] ?? 'INR',
-  )).toList();
+  try {
+    final data = await SupabaseConfig.client
+        .from('holdings')
+        .select()
+        .order('type')
+        .order('name');
+    return (data as List).map((e) => Holding(
+      id: e['id'],
+      symbol: e['symbol'] ?? '',
+      name: e['name'],
+      type: e['type'],
+      quantity: (e['quantity'] as num).toDouble(),
+      avgPrice: (e['avg_price'] as num).toDouble(),
+      currency: e['currency'] ?? 'INR',
+    )).toList();
+  } catch (e, st) {
+    AppLogger.error('Failed to fetch holdings', tag: 'Investments', error: e, stackTrace: st);
+    rethrow;
+  }
 });
 
 class PortfolioValue {
@@ -38,46 +44,49 @@ class PortfolioValue {
 }
 
 final portfolioValueProvider = FutureProvider.autoDispose<PortfolioValue>((ref) async {
-  final holdings = await ref.watch(holdingsListProvider.future);
-  double totalInvested = 0;
-  double currentValue = 0;
+  try {
+    final holdings = await ref.watch(holdingsListProvider.future);
+    double totalInvested = 0;
+    double currentValue = 0;
 
-  // Fetch current prices from price_cache table
-  final symbols = holdings.map((h) => h.symbol).toList();
-  final priceData = await SupabaseConfig.client
-      .from('price_cache')
-      .select()
-      .inFilter('symbol', symbols);
+    final symbols = holdings.map((h) => h.symbol).toList();
+    final priceData = await SupabaseConfig.client
+        .from('price_cache')
+        .select()
+        .inFilter('symbol', symbols);
 
-  final prices = <String, Map<String, dynamic>>{};
-  for (final p in priceData as List) {
-    prices[p['symbol']] = p;
+    final prices = <String, Map<String, dynamic>>{};
+    for (final p in priceData as List) {
+      prices[p['symbol']] = p;
+    }
+
+    for (final h in holdings) {
+      totalInvested += h.investedValue;
+      final price = prices[h.symbol];
+      final currentPrice = price != null ? (price['price'] as num).toDouble() : h.avgPrice;
+      currentValue += h.quantity * currentPrice;
+    }
+
+    final history = await SupabaseConfig.client
+        .from('portfolio_snapshots')
+        .select('value')
+        .order('date', ascending: true)
+        .limit(7);
+    final sparkline = (history as List).map((e) => (e['value'] as num).toDouble()).toList();
+
+    final prevClose = sparkline.length >= 2 ? sparkline[sparkline.length - 2] : currentValue;
+    final dayChange = currentValue - prevClose;
+
+    return PortfolioValue(
+      totalInvested: totalInvested,
+      currentValue: currentValue,
+      dayChange: dayChange,
+      sparkline: sparkline.isEmpty ? [currentValue] : sparkline,
+    );
+  } catch (e, st) {
+    AppLogger.error('Failed to compute portfolio value', tag: 'Investments', error: e, stackTrace: st);
+    rethrow;
   }
-
-  for (final h in holdings) {
-    totalInvested += h.investedValue;
-    final price = prices[h.symbol];
-    final currentPrice = price != null ? (price['price'] as num).toDouble() : h.avgPrice;
-    currentValue += h.quantity * currentPrice;
-  }
-
-  // Fetch 7-day portfolio history
-  final history = await SupabaseConfig.client
-      .from('portfolio_snapshots')
-      .select('value')
-      .order('date', ascending: true)
-      .limit(7);
-  final sparkline = (history as List).map((e) => (e['value'] as num).toDouble()).toList();
-
-  final prevClose = sparkline.length >= 2 ? sparkline[sparkline.length - 2] : currentValue;
-  final dayChange = currentValue - prevClose;
-
-  return PortfolioValue(
-    totalInvested: totalInvested,
-    currentValue: currentValue,
-    dayChange: dayChange,
-    sparkline: sparkline.isEmpty ? [currentValue] : sparkline,
-  );
 });
 
 class AllocationEntry {

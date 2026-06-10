@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:tflite_flutter/tflite_flutter.dart';
+import '../../../core/utils/logger.dart';
 
 class TfliteDatasource {
   static const int _ngramDim = 256;
@@ -19,19 +20,31 @@ class TfliteDatasource {
   Interpreter? _interpreter;
 
   Future<void> load() async {
-    _interpreter = await Interpreter.fromAsset('ml/expense_categorizer.tflite');
+    try {
+      _interpreter = await Interpreter.fromAsset('ml/expense_categorizer.tflite');
+      AppLogger.info('TFLite model loaded successfully', tag: 'TFLite');
+    } catch (e, st) {
+      AppLogger.error('Failed to load TFLite model', tag: 'TFLite', error: e, stackTrace: st);
+      rethrow;
+    }
   }
 
   String categorize(String description, {double? amount}) {
-    final input = _tokenize(description, amount ?? 0);
-    final output = List.filled(_labels.length, 0.0).reshape([1, _labels.length]);
-    _interpreter!.run([input], output);
-    final scores = output[0] as List<double>;
-    int maxIdx = 0;
-    for (int i = 1; i < scores.length; i++) {
-      if (scores[i] > scores[maxIdx]) maxIdx = i;
+    try {
+      final input = _tokenize(description, amount ?? 0);
+      final output = List.filled(_labels.length, 0.0).reshape([1, _labels.length]);
+      _interpreter!.run([input], output);
+      final scores = output[0] as List<double>;
+      int maxIdx = 0;
+      for (int i = 1; i < scores.length; i++) {
+        if (scores[i] > scores[maxIdx]) maxIdx = i;
+      }
+      AppLogger.debug('Categorized "$description" -> ${_labels[maxIdx]} (score: ${scores[maxIdx].toStringAsFixed(3)})', tag: 'TFLite');
+      return _labels[maxIdx];
+    } catch (e, st) {
+      AppLogger.error('Categorization failed for "$description"', tag: 'TFLite', error: e, stackTrace: st);
+      return 'other';
     }
-    return _labels[maxIdx];
   }
 
   Float32List _tokenize(String description, double amount) {

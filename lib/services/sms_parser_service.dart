@@ -1,3 +1,5 @@
+import '../core/utils/logger.dart';
+
 /// Parses Indian bank SMS messages into structured transaction drafts.
 class TransactionDraft {
   final double amount;
@@ -26,15 +28,17 @@ class SmsParserService {
     for (final p in _patterns) {
       final m = p.firstMatch(sms);
       if (m != null) {
-        // Amount is in group 1 for HDFC/UPI, group 2 for SBI
         final amountStr = m.group(1) ?? m.group(2);
         if (amountStr == null) continue;
-        return TransactionDraft(
+        final draft = TransactionDraft(
           amount: double.parse(amountStr.replaceAll(',', '')),
           rawText: sms,
         );
+        AppLogger.debug('Parsed SMS: ₹${draft.amount}', tag: 'SmsParser');
+        return draft;
       }
     }
+    AppLogger.debug('No pattern matched for SMS (${sms.length} chars)', tag: 'SmsParser');
     return null;
   }
 }

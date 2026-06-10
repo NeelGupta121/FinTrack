@@ -12,6 +12,7 @@ import 'presentation/investments/investments_screen.dart';
 import 'presentation/insights/insights_screen.dart';
 import 'presentation/settings/settings_screen.dart';
 import 'presentation/onboarding/onboarding_screen.dart';
+import 'presentation/investments/add_holding_screen.dart';
 
 final _onboardingDone = FutureProvider<bool>((ref) async {
   final prefs = await SharedPreferences.getInstance();
@@ -47,7 +48,7 @@ final _router = GoRouter(
             builder: (_, __) => const InvestmentsScreen(),
             routes: [
               GoRoute(path: 'add', pageBuilder: (_, state) =>
-                  AppAnimations.fadeSlideTransition(state, const AddInvestmentScreen())),
+                  AppAnimations.fadeSlideTransition(state, const AddHoldingScreen())),
             ],
           ),
         ]),
