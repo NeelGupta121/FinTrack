@@ -100,7 +100,10 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             date: _date,
             description: _notesCtrl.text.isEmpty ? null : _notesCtrl.text,
           );
-      if (mounted) Navigator.pop(context);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Expense added ✅')));
+        Navigator.pop(context);
+      }
     } finally {
       if (mounted) setState(() => _saving = false);
     }

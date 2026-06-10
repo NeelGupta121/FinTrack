@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../common/widgets/empty_state.dart';
 import 'goals_providers.dart';
 import 'widgets/goal_card.dart';
 
@@ -20,7 +21,12 @@ class GoalsScreen extends ConsumerWidget {
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, _) => Center(child: Text('Error: $e')),
         data: (goals) => goals.isEmpty
-            ? const Center(child: Text('No goals yet. Tap + to add one.'))
+            ? EmptyState(
+                icon: Icons.flag,
+                message: 'Set your first financial goal',
+                actionLabel: 'Add Goal',
+                onAction: () => _showAddGoalSheet(context, ref),
+              )
             : ListView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: goals.length,

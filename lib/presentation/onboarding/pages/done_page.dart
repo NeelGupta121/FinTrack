@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../data/datasources/local/local_database.dart';
 
 class DonePage extends StatefulWidget {
   final VoidCallback onFinish;
@@ -24,9 +25,18 @@ class _DonePageState extends State<DonePage>
   @override
   void dispose() { _ctrl.dispose(); super.dispose(); }
 
+  int get _expenseCount => LocalDatabase.transactions.values
+      .where((e) => e['type'] == 'expense').length;
+
+  int get _investmentCount => LocalDatabase.holdings.values.length;
+
+  int get _incomeCount => LocalDatabase.transactions.values
+      .where((e) => e['type'] == 'income').length;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final total = _expenseCount + _investmentCount + _incomeCount;
     return Padding(
       padding: const EdgeInsets.all(32),
       child: Column(
@@ -42,9 +52,20 @@ class _DonePageState extends State<DonePage>
               style: theme.textTheme.headlineMedium
                   ?.copyWith(fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
-          Text('FinTrack is ready to manage your finances',
-              style: theme.textTheme.bodyLarge
-                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+          if (total > 0) ...[
+            Text('Imported $total transactions',
+                style: theme.textTheme.bodyLarge
+                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            const SizedBox(height: 8),
+            Text(
+              '${_expenseCount} expenses • ${_investmentCount} investments • ${_incomeCount} income',
+              style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              textAlign: TextAlign.center,
+            ),
+          ] else
+            Text('FinTrack is ready to manage your finances',
+                style: theme.textTheme.bodyLarge
+                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
           const SizedBox(height: 48),
           FilledButton.icon(
             onPressed: widget.onFinish,

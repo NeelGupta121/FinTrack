@@ -59,7 +59,10 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
         purchaseDate: _purchaseDate,
         accountId: _accountId,
       );
-      if (mounted) Navigator.pop(context);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Holding added ✅')));
+        Navigator.pop(context);
+      }
     } finally {
       if (mounted) setState(() => _saving = false);
     }

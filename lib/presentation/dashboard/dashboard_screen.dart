@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import '../expenses/expense_providers.dart';
+import '../investments/investment_providers.dart';
 import '../common/theme/app_theme.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -34,11 +35,11 @@ class DashboardScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Net Worth', style: Theme.of(context).textTheme.bodyLarge),
+                  Text('Total Spent', style: Theme.of(context).textTheme.bodyLarge),
                   const SizedBox(height: 8),
                   expenses.when(
                     data: (list) {
-                      final total = list.fold<double>(0, (sum, t) => sum + t.amount);
+                      final total = list.where((t) => t.type == 'expense').fold<double>(0, (sum, t) => sum + t.amount);
                       return Text('₹${NumberFormat('#,##0').format(total)}',
                           style: AppTheme.amountStyle(context));
                     },
@@ -46,7 +47,7 @@ class DashboardScreen extends ConsumerWidget {
                     error: (_, __) => Text('₹0', style: AppTheme.amountStyle(context)),
                   ),
                   const SizedBox(height: 4),
-                  Text('Total expenses tracked',
+                  Text('Across all tracked expenses',
                       style: TextStyle(color: cs.onPrimaryContainer.withOpacity(0.7))),
                 ],
               ),
@@ -75,16 +76,75 @@ class DashboardScreen extends ConsumerWidget {
                 children: [
                   Text('Portfolio', style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _PortfolioStat(label: 'Invested', value: '₹0'),
-                      _PortfolioStat(label: 'Current', value: '₹0'),
-                      _PortfolioStat(label: 'Returns', value: '0%'),
-                    ],
+                  Consumer(
+                    builder: (context, ref, _) {
+                      final pv = ref.watch(portfolioValueProvider);
+                      return pv.when(
+                        data: (p) {
+                          final fmt = NumberFormat('#,##0');
+                          final returns = p.totalInvested > 0
+                              ? ((p.currentValue - p.totalInvested) / p.totalInvested * 100)
+                              : 0.0;
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _PortfolioStat(label: 'Invested', value: '₹${fmt.format(p.totalInvested)}'),
+                              _PortfolioStat(label: 'Current', value: '₹${fmt.format(p.currentValue)}'),
+                              _PortfolioStat(
+                                label: 'Returns',
+                                value: '${returns >= 0 ? '+' : ''}${returns.toStringAsFixed(1)}%',
+                              ),
+                            ],
+                          );
+                        },
+                        loading: () => const Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Center(child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))),
+                        ),
+                        error: (_, __) => const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _PortfolioStat(label: 'Invested', value: '₹0'),
+                            _PortfolioStat(label: 'Current', value: '₹0'),
+                            _PortfolioStat(label: 'Returns', value: '0%'),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
+            ),
+          ),
+          const SizedBox(height: 24),
+
+          // Manage section — links to Bills, Goals, Reports
+          Text('Manage', style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: 8),
+          Card(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.receipt_long),
+                  title: const Text('Bills & Subscriptions'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/bills'),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.flag),
+                  title: const Text('Goals'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/goals'),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.description),
+                  title: const Text('Reports'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/reports'),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 24),

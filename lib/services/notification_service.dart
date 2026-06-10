@@ -26,6 +26,8 @@ class NotificationService {
         android: AndroidNotificationDetails('bills', 'Bill Reminders', importance: Importance.high),
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: null,
     );
   }

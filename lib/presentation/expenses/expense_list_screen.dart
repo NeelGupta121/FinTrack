@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../common/widgets/empty_state.dart';
 import 'expense_providers.dart';
 import 'add_expense_screen.dart';
 import 'widgets/expense_card.dart';
@@ -17,6 +18,7 @@ class ExpenseListScreen extends ConsumerWidget {
     final filter = ref.watch(expenseFilterProvider);
 
     return Scaffold(
+      appBar: AppBar(title: const Text('Expenses')),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(expenseListProvider);
@@ -58,7 +60,14 @@ class ExpenseListScreen extends ConsumerWidget {
             expenses.when(
               data: (items) {
                 if (items.isEmpty) {
-                  return const SliverFillRemaining(child: Center(child: Text('No expenses yet')));
+                  return SliverFillRemaining(
+                    child: EmptyState(
+                      icon: Icons.receipt_long,
+                      message: 'Add your first expense',
+                      actionLabel: 'Add Expense',
+                      onAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddExpenseScreen())),
+                    ),
+                  );
                 }
                 final grouped = <String, List<dynamic>>{};
                 for (final t in items) {

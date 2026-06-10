@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../common/widgets/empty_state.dart';
 import 'insights_providers.dart';
 import 'widgets/anomaly_card.dart';
 import 'widgets/sentiment_badge.dart';
@@ -125,7 +126,10 @@ class _NewsTab extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final holdings = ref.watch(holdingsInputProvider);
     if (holdings.isEmpty) {
-      return const Center(child: Text('Add holdings to see related news'));
+      return const EmptyState(
+        icon: Icons.lightbulb_outline,
+        message: 'Add transactions to get insights',
+      );
     }
     return ListView.builder(
       padding: const EdgeInsets.all(16),

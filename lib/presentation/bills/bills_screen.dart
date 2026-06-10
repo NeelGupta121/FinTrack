@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../common/widgets/empty_state.dart';
 import '../../domain/usecases/detect_recurring_bills.dart';
 import 'bills_providers.dart';
 
@@ -37,11 +38,9 @@ class BillsScreen extends ConsumerWidget {
         const SizedBox(height: 16),
         ...bills.map((b) => _BillTile(bill: b)),
         if (bills.isEmpty)
-          const Center(
-            child: Padding(
-              padding: EdgeInsets.all(32),
-              child: Text('No recurring bills detected yet.\nAdd transactions to auto-detect.'),
-            ),
+          const EmptyState(
+            icon: Icons.receipt_long,
+            message: 'No recurring bills detected yet.\nAdd more transactions for auto-detection.',
           ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/holding.dart';
+import '../common/widgets/empty_state.dart';
 import 'investment_providers.dart';
 import 'add_holding_screen.dart';
 import 'widgets/portfolio_value_card.dart';
@@ -44,7 +45,14 @@ class HoldingsListScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             holdingsAsync.when(
-              data: (holdings) => _HoldingsGrouped(holdings: holdings),
+              data: (holdings) => holdings.isEmpty
+                  ? EmptyState(
+                      icon: Icons.trending_up,
+                      message: 'Track your first investment',
+                      actionLabel: 'Add Holding',
+                      onAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddHoldingScreen())),
+                    )
+                  : _HoldingsGrouped(holdings: holdings),
               loading: () => const Center(child: CircularProgressIndicator()),
               error: (e, _) => Center(child: Text('Error: $e')),
             ),

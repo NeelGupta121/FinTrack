@@ -14,6 +14,9 @@ import 'presentation/settings/settings_screen.dart';
 import 'presentation/onboarding/onboarding_screen.dart';
 import 'presentation/investments/add_holding_screen.dart';
 import 'presentation/chat/chat_screen.dart';
+import 'presentation/bills/bills_screen.dart';
+import 'presentation/goals/goals_screen.dart';
+import 'presentation/reports/reports_screen.dart';
 
 final _onboardingDone = FutureProvider<bool>((ref) async {
   final prefs = await SharedPreferences.getInstance();
@@ -64,6 +67,12 @@ final _router = GoRouter(
       ],
     ),
     GoRoute(path: '/chat', builder: (_, __) => const ChatScreen()),
+    GoRoute(path: '/bills', pageBuilder: (_, state) =>
+        AppAnimations.fadeSlideTransition(state, const BillsScreen())),
+    GoRoute(path: '/goals', pageBuilder: (_, state) =>
+        AppAnimations.fadeSlideTransition(state, const GoalsScreen())),
+    GoRoute(path: '/reports', pageBuilder: (_, state) =>
+        AppAnimations.fadeSlideTransition(state, const ReportsScreen())),
     GoRoute(path: '/settings', pageBuilder: (_, state) =>
         AppAnimations.fadeSlideTransition(state, const SettingsScreen())),
   ],
