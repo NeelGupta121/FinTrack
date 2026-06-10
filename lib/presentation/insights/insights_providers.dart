@@ -6,19 +6,25 @@ import '../../domain/entities/transaction.dart';
 import '../../domain/entities/holding.dart';
 import '../../domain/usecases/analyze_spending.dart';
 import '../../domain/usecases/analyze_portfolio.dart';
+import '../expenses/expense_providers.dart';
+import '../investments/investment_providers.dart';
 
 final newsApiProvider = Provider((ref) => NewsApiDatasource());
 final geminiProvider = Provider((ref) => GeminiDatasource());
 final analyzeSpendingProvider = Provider((ref) => AnalyzeSpendingUseCase());
 final analyzePortfolioProvider = Provider((ref) => AnalyzePortfolioUseCase());
 
-// Input providers (set by parent screens)
-final transactionsInputProvider = StateProvider<List<Transaction>>((ref) => []);
-final holdingsInputProvider = StateProvider<List<Holding>>((ref) => []);
+// Read from real data providers
+final transactionsInputProvider = FutureProvider<List<Transaction>>((ref) async {
+  return ref.watch(expenseListProvider.future);
+});
+final holdingsInputProvider = FutureProvider<List<Holding>>((ref) async {
+  return ref.watch(holdingsListProvider.future);
+});
 
 final spendingAnomaliesProvider = FutureProvider<List<Anomaly>>((ref) async {
   try {
-    final txns = ref.watch(transactionsInputProvider);
+    final txns = await ref.watch(transactionsInputProvider.future);
     final useCase = ref.read(analyzeSpendingProvider);
     return useCase.detectAnomalies(txns);
   } catch (e, st) {
@@ -39,7 +45,7 @@ final portfolioInsightsProvider = FutureProvider<BenchmarkResult?>((ref) async {
 
 final driftAlertsProvider = FutureProvider<List<DriftAlert>>((ref) async {
   try {
-    final holdings = ref.watch(holdingsInputProvider);
+    final holdings = await ref.watch(holdingsInputProvider.future);
     final useCase = ref.read(analyzePortfolioProvider);
     return useCase.detectDrift(holdings);
   } catch (e, st) {
@@ -76,7 +82,7 @@ final newsWithSentimentProvider = FutureProvider.family<List<NewsWithSentiment>,
 final weeklyDigestProvider = FutureProvider<String>((ref) async {
   try {
     final gemini = ref.read(geminiProvider);
-    final holdings = ref.watch(holdingsInputProvider);
+    final holdings = await ref.watch(holdingsInputProvider.future);
     if (holdings.isEmpty) return 'Add investments to get a weekly digest.';
     final holdingsMap = {for (final h in holdings) h.symbol: {'qty': h.quantity, 'avg': h.avgPrice, 'type': h.type}};
     return gemini.portfolioReview(holdingsMap);

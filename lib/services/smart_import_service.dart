@@ -91,7 +91,7 @@ class SmartImportService {
       'id': id,
       'amount': draft.amount,
       'merchant': draft.merchant ?? 'Unknown',
-      'category': _categorize(draft),
+      'category_id': _categorize(draft),
       'date': date,
       'type': 'expense',
       'source': 'sms',
@@ -105,9 +105,13 @@ class SmartImportService {
     await LocalDatabase.holdings.put(id, {
       'id': id,
       'name': draft.merchant ?? 'Unknown Fund',
+      'symbol': draft.merchant ?? 'UNKNOWN',
+      'type': 'mutual_fund',
+      'quantity': 1.0,
+      'avg_price': draft.amount,
       'amount': draft.amount,
+      'currency': 'INR',
       'date': date,
-      'type': 'investment',
       'source': 'sms',
     });
   }
@@ -119,7 +123,7 @@ class SmartImportService {
       'id': id,
       'amount': draft.amount,
       'merchant': draft.merchant ?? 'Unknown',
-      'category': 'salary',
+      'category_id': 'salary',
       'date': date,
       'type': 'income',
       'source': 'sms',

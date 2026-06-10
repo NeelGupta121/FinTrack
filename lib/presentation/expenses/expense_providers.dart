@@ -32,10 +32,10 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
         .toList();
 
     if (filter.startDate != null) {
-      items = items.where((e) => DateTime.parse(e['date'] as String).isAfter(filter.startDate!.subtract(const Duration(days: 1)))).toList();
+      items = items.where((e) => (DateTime.tryParse(e['date'] as String? ?? '') ?? DateTime(2000)).isAfter(filter.startDate!.subtract(const Duration(days: 1)))).toList();
     }
     if (filter.endDate != null) {
-      items = items.where((e) => DateTime.parse(e['date'] as String).isBefore(filter.endDate!.add(const Duration(days: 1)))).toList();
+      items = items.where((e) => (DateTime.tryParse(e['date'] as String? ?? '') ?? DateTime(2000)).isBefore(filter.endDate!.add(const Duration(days: 1)))).toList();
     }
     if (filter.categoryId != null) {
       items = items.where((e) => e['category_id'] == filter.categoryId).toList();
@@ -55,7 +55,7 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
       type: 'expense',
       description: e['description'] as String?,
       merchant: e['merchant'] as String?,
-      date: DateTime.parse(e['date'] as String),
+      date: DateTime.tryParse(e['date'] as String? ?? '') ?? DateTime(2000),
       categoryId: e['category_id'] as String?,
       source: (e['source'] as String?) ?? 'manual',
     )).toList();
@@ -118,7 +118,7 @@ final monthlySummaryProvider = FutureProvider.autoDispose<MonthlySummary>((ref) 
     final items = LocalDatabase.transactions.values
         .where((e) => e['type'] == 'expense')
         .where((e) {
-          final d = DateTime.parse(e['date'] as String);
+          final d = DateTime.tryParse(e['date'] as String? ?? '') ?? DateTime(2000);
           return d.isAfter(start.subtract(const Duration(days: 1))) && d.isBefore(end.add(const Duration(days: 1)));
         })
         .toList();

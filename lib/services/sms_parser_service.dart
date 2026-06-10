@@ -89,7 +89,16 @@ class SmsParserService {
     if (m != null) {
       final y = int.tryParse(m.group(3)!) ?? 0;
       final year = y < 100 ? 2000 + y : y;
-      return DateTime(year, int.parse(m.group(2)!), int.parse(m.group(1)!));
+      var day = int.parse(m.group(1)!);
+      var month = int.parse(m.group(2)!);
+      // Swap guard: if month > 12, assume MM/DD format
+      if (month > 12 && day <= 12) {
+        final tmp = day;
+        day = month;
+        month = tmp;
+      }
+      if (month < 1 || month > 12) return null;
+      return DateTime(year, month, day);
     }
     final m2 = _dateRe2.firstMatch(sms);
     if (m2 != null) {

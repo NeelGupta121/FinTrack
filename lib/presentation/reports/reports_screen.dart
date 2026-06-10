@@ -21,7 +21,10 @@ class ReportsScreen extends ConsumerWidget {
               children: [
                 Expanded(
                   child: FilledButton.icon(
-                    onPressed: () => ref.read(generateReportProvider('weekly')),
+                    onPressed: () async {
+                      await ref.read(generateReportProvider('weekly').future);
+                      ref.invalidate(reportsListProvider);
+                    },
                     icon: const Icon(Icons.summarize),
                     label: const Text('Weekly Digest'),
                   ),
@@ -29,7 +32,10 @@ class ReportsScreen extends ConsumerWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: FilledButton.icon(
-                    onPressed: () => ref.read(generateReportProvider('monthly')),
+                    onPressed: () async {
+                      await ref.read(generateReportProvider('monthly').future);
+                      ref.invalidate(reportsListProvider);
+                    },
                     icon: const Icon(Icons.picture_as_pdf),
                     label: const Text('Monthly PDF'),
                   ),

@@ -124,38 +124,44 @@ class _NewsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final holdings = ref.watch(holdingsInputProvider);
-    if (holdings.isEmpty) {
-      return const EmptyState(
-        icon: Icons.lightbulb_outline,
-        message: 'Add transactions to get insights',
-      );
-    }
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: holdings.length,
-      itemBuilder: (_, i) {
-        final h = holdings[i];
-        final news = ref.watch(newsWithSentimentProvider(h.symbol));
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: Text(h.name, style: Theme.of(context).textTheme.titleMedium),
-            ),
-            news.when(
-              data: (items) => Column(children: items.map((n) => Card(
-                child: ListTile(
-                  title: Text(n.article.title, maxLines: 2, overflow: TextOverflow.ellipsis),
-                  subtitle: Text(n.article.snippet, maxLines: 1, overflow: TextOverflow.ellipsis),
-                  trailing: SentimentBadge(sentiment: n.sentiment),
+    final holdingsAsync = ref.watch(holdingsInputProvider);
+    return holdingsAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (e, _) => Center(child: Text('Error: $e')),
+      data: (holdings) {
+        if (holdings.isEmpty) {
+          return const EmptyState(
+            icon: Icons.lightbulb_outline,
+            message: 'Add transactions to get insights',
+          );
+        }
+        return ListView.builder(
+          padding: const EdgeInsets.all(16),
+          itemCount: holdings.length,
+          itemBuilder: (_, i) {
+            final h = holdings[i];
+            final news = ref.watch(newsWithSentimentProvider(h.symbol));
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: Text(h.name, style: Theme.of(context).textTheme.titleMedium),
                 ),
-              )).toList()),
-              loading: () => const Padding(padding: EdgeInsets.all(8), child: LinearProgressIndicator()),
-              error: (e, _) => Text('$e'),
-            ),
-          ],
+                news.when(
+                  data: (items) => Column(children: items.map((n) => Card(
+                    child: ListTile(
+                      title: Text(n.article.title, maxLines: 2, overflow: TextOverflow.ellipsis),
+                      subtitle: Text(n.article.snippet, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      trailing: SentimentBadge(sentiment: n.sentiment),
+                    ),
+                  )).toList()),
+                  loading: () => const Padding(padding: EdgeInsets.all(8), child: LinearProgressIndicator()),
+                  error: (e, _) => Text('$e'),
+                ),
+              ],
+            );
+          },
         );
       },
     );

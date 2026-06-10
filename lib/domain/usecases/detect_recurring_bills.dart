@@ -25,7 +25,7 @@ class DetectRecurringBills {
   List<RecurringBill> call(List<Map<String, dynamic>> transactions) {
     final grouped = <String, List<Map<String, dynamic>>>{};
     for (final tx in transactions) {
-      final merchant = tx['merchant'] as String? ?? tx['description'] as String;
+      final merchant = tx['merchant'] as String? ?? tx['description'] as String? ?? 'Unknown';
       grouped.putIfAbsent(merchant, () => []).add(tx);
     }
 

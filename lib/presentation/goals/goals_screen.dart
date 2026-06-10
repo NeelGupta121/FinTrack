@@ -72,14 +72,14 @@ class GoalsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: () {
+                onPressed: () async {
                   if (nameCtrl.text.isNotEmpty && amountCtrl.text.isNotEmpty) {
-                    ref.read(addGoalProvider({
+                    await ref.read(addGoalProvider({
                       'name': nameCtrl.text,
                       'type': selectedType.name,
                       'target_amount': double.tryParse(amountCtrl.text) ?? 0,
                       'current_amount': 0,
-                    }));
+                    }).future);
                     Navigator.pop(ctx);
                   }
                 },

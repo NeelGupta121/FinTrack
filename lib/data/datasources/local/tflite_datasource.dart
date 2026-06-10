@@ -30,6 +30,7 @@ class TfliteDatasource {
   }
 
   String categorize(String description, {double? amount}) {
+    if (_interpreter == null) return 'other';
     try {
       final input = _tokenize(description, amount ?? 0);
       final output = List.filled(_labels.length, 0.0).reshape([1, _labels.length]);

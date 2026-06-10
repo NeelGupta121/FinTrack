@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
 
@@ -20,7 +21,7 @@ class FinancialGoal {
     this.deadline,
   });
 
-  double get progress => (currentAmount / targetAmount).clamp(0.0, 1.0);
+  double get progress => targetAmount == 0 ? 0.0 : (currentAmount / targetAmount).clamp(0.0, 1.0);
   double get remaining => targetAmount - currentAmount;
 
   factory FinancialGoal.fromJson(Map<String, dynamic> json) => FinancialGoal(
@@ -51,7 +52,7 @@ final goalProgressProvider = Provider.family<Map<String, dynamic>, FinancialGoal
     'eta': eta,
     'on_track': onTrack,
     'monthly_needed': goal.deadline != null
-        ? remaining / (goal.deadline!.difference(DateTime.now()).inDays / 30).ceil()
+        ? remaining / max(1, (goal.deadline!.difference(DateTime.now()).inDays / 30).ceil())
         : monthlySavings,
   };
 });

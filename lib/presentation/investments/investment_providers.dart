@@ -6,14 +6,14 @@ import '../../domain/entities/holding.dart';
 final holdingsListProvider = FutureProvider.autoDispose<List<Holding>>((ref) async {
   try {
     final items = LocalDatabase.holdings.values.toList()
-      ..sort((a, b) => (a['type'] as String).compareTo(b['type'] as String));
+      ..sort((a, b) => (a['type'] as String? ?? '').compareTo(b['type'] as String? ?? ''));
     return items.map((e) => Holding(
       id: e['id'] as String,
       symbol: (e['symbol'] as String?) ?? '',
-      name: e['name'] as String,
-      type: e['type'] as String,
-      quantity: (e['quantity'] as num).toDouble(),
-      avgPrice: (e['avg_price'] as num).toDouble(),
+      name: (e['name'] as String?) ?? '',
+      type: (e['type'] as String?) ?? 'other',
+      quantity: (e['quantity'] as num?)?.toDouble() ?? 1.0,
+      avgPrice: (e['avg_price'] as num?)?.toDouble() ?? 0.0,
       currency: (e['currency'] as String?) ?? 'INR',
     )).toList();
   } catch (e, st) {
@@ -50,7 +50,7 @@ final portfolioValueProvider = FutureProvider.autoDispose<PortfolioValue>((ref) 
 
     // Sparkline from settings (stored as list of recent portfolio values)
     final sparkRaw = LocalDatabase.settings.get('portfolio_sparkline', defaultValue: <double>[]) as List;
-    final sparkline = sparkRaw.cast<double>();
+    final sparkline = sparkRaw.map((e) => (e as num).toDouble()).toList();
 
     final prevClose = sparkline.length >= 2 ? sparkline[sparkline.length - 2] : currentValue;
     final dayChange = currentValue - prevClose;

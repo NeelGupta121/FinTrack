@@ -12,7 +12,7 @@ class ReportService {
 
     final transactions = LocalDatabase.transactions.values
         .where((t) {
-          final d = DateTime.parse(t['date'] as String);
+          final d = DateTime.tryParse(t['date'] as String? ?? '') ?? DateTime(2000);
           return d.isAfter(weekAgo) && d.isBefore(now.add(const Duration(days: 1)));
         })
         .toList();
@@ -46,7 +46,7 @@ class ReportService {
 
     final transactions = LocalDatabase.transactions.values
         .where((t) {
-          final d = DateTime.parse(t['date'] as String);
+          final d = DateTime.tryParse(t['date'] as String? ?? '') ?? DateTime(2000);
           return d.isAfter(monthStart.subtract(const Duration(days: 1))) && d.isBefore(now.add(const Duration(days: 1)));
         })
         .toList();
