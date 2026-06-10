@@ -22,11 +22,26 @@ class SmartImportService {
   /// Scans SMS from last [days] days, parses, categorizes, and stores.
   Future<ImportResult> scanAndImport({int days = 90}) async {
     final telephony = Telephony.instance;
+
+    // Request SMS permission via telephony's own mechanism (permission_handler
+    // alone is not sufficient for the telephony plugin to read the inbox).
+    final granted = await telephony.requestPhoneAndSmsPermissions ?? false;
+    if (!granted) {
+      AppLogger.warning('SMS permission not granted — skipping import', tag: 'SmartImport');
+      return ImportResult();
+    }
+
     final since = DateTime.now().subtract(Duration(days: days));
-    final msgs = await telephony.getInboxSms(
-      filter: SmsFilter.where(SmsColumn.DATE)
-          .greaterThanOrEqualTo(since.millisecondsSinceEpoch.toString()),
-    );
+    List<SmsMessage> msgs;
+    try {
+      msgs = await telephony.getInboxSms(
+        filter: SmsFilter.where(SmsColumn.DATE)
+            .greaterThanOrEqualTo(since.millisecondsSinceEpoch.toString()),
+      );
+    } catch (e, st) {
+      AppLogger.error('Failed to read SMS inbox', tag: 'SmartImport', error: e, stackTrace: st);
+      return ImportResult();
+    }
 
     int expenses = 0, investments = 0, income = 0, skipped = 0;
 

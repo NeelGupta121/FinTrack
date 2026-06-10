@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../services/smart_import_service.dart';
+import '../../data/datasources/local/tflite_datasource.dart';
+import '../expenses/expense_providers.dart';
+import '../investments/investment_providers.dart';
 
 /// Cached value loaded in main.dart before runApp.
 ThemeMode savedThemeMode = ThemeMode.system;
@@ -18,6 +22,41 @@ final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((_
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
+
+  Future<void> _scanSms(BuildContext context, WidgetRef ref) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const AlertDialog(
+        content: Row(children: [
+          CircularProgressIndicator(),
+          SizedBox(width: 16),
+          Expanded(child: Text('Scanning SMS...')),
+        ]),
+      ),
+    );
+    try {
+      final tflite = TfliteDatasource();
+      await tflite.load();
+      final result = await SmartImportService(tflite).scanAndImport();
+      if (!context.mounted) return;
+      Navigator.pop(context); // close progress dialog
+      ref.invalidate(expenseListProvider);
+      ref.invalidate(holdingsListProvider);
+      final total = result.expenses + result.investments + result.income;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(total == 0
+            ? 'No new transactions found in SMS (check SMS permission).'
+            : 'Imported $total: ${result.expenses} expenses, ${result.investments} investments, ${result.income} income'),
+      ));
+    } catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('SMS scan failed. Grant SMS permission and try again.'),
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -52,6 +91,17 @@ class SettingsScreen extends ConsumerWidget {
             value: themeMode == ThemeMode.dark,
             onChanged: (v) => ref.read(themeModeProvider.notifier).set(
                 v ? ThemeMode.dark : ThemeMode.light),
+          ),
+          const Divider(),
+
+          // Data
+          const _SectionHeader('Data'),
+          ListTile(
+            leading: const Icon(Icons.sms),
+            title: const Text('Scan SMS for transactions'),
+            subtitle: const Text('Auto-import expenses & investments from bank SMS'),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _scanSms(context, ref),
           ),
           const Divider(),
 
