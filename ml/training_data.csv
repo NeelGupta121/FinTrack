@@ -1,570 +1,2117 @@
 description,amount,category
-"HDFC Bank: Rs 459.00 debited from a/c **1234 for SWIGGY order #SW982341",459.00,food_delivery
-"SBI SMS: INR 312 debited UPI txn to zomato@paytm",312.00,food_delivery
-"ICICI: Rs.189 paid to SWIGGY via UPI Ref 412983012",189.00,food_delivery
-"Axis Bank: Debit of Rs 547 to zomato@ybl UPI",547.00,food_delivery
-"Kotak: Rs 275 debited for UPI payment to swiggy@axl",275.00,food_delivery
-"HDFC: Rs 99 paid to dominos@hdfcbank via UPI",99.00,food_delivery
-"SBI: Rs 650 debited for ZOMATO GOLD order",650.00,food_delivery
-"UPI: Rs 420 to box8@paytm for food order",420.00,food_delivery
-"ICICI Credit Card: SWIGGY INSTAMART BLR Rs 387",387.00,food_delivery
-"Kotak CC: ZOMATO HYPERPURE MUM Rs 1200",1200.00,food_delivery
-"HDFC UPI: Rs 180 to eatsure@ybl",180.00,food_delivery
-"SBI Debit: Rs 345 DUNZO DAILY BLR",345.00,food_delivery
-"ICICI: Rs 520 debited for UPI to blinkit@axisbank",520.00,food_delivery
-"Axis CC: FAASOS/BEHROUZ BLR Rs 445",445.00,food_delivery
-"HDFC: Rs 89 to chaayos@paytm UPI",89.00,food_delivery
-"Kotak UPI: Rs 155 to mcdonald@icici food delivery",155.00,food_delivery
-"SBI SMS: Rs 275 debited to burgerking@ybl",275.00,food_delivery
-"ICICI UPI: Paid Rs 630 to zepto@axisbank",630.00,food_delivery
-"HDFC: Rs 199 debited for KFC order via Swiggy",199.00,food_delivery
-"Axis: Rs 340 to eatclub@upi for dinner order",340.00,food_delivery
-"SBI: Rs 780 debit for Pizza Hut delivery PHUT0034",780.00,food_delivery
-"HDFC CC: UBER EATS INDIA Rs 290",290.00,food_delivery
-"Kotak: Rs 165 to magicpin@ybl food",165.00,food_delivery
-"ICICI Bank: Rs 485 debited SWIGGY DINEOUT",485.00,food_delivery
-"HDFC Bank: Rs 1245 debited from a/c **5678 for BIGBASKET order",1245.00,groceries
-"SBI: Rs 890 debited for UPI to bigbasket@axl",890.00,groceries
-"ICICI: Rs 2340 paid to DMART READY via UPI",2340.00,groceries
-"Axis Bank: Debit Rs 567 to blinkit@ybl groceries",567.00,groceries
-"Kotak: Rs 1890 debited for GROFERS/BLINKIT order",1890.00,groceries
-"HDFC UPI: Rs 432 to zepto@icici for groceries",432.00,groceries
-"SBI: Rs 3200 debited RELIANCE FRESH MART",3200.00,groceries
-"ICICI CC: MORE MEGASTORE BLR Rs 1567",1567.00,groceries
-"Axis UPI: Rs 780 to bigbazaar@ybl",780.00,groceries
-"Kotak CC: NATURE'S BASKET MUM Rs 2100",2100.00,groceries
-"HDFC: Rs 450 paid to milkbasket@paytm",450.00,groceries
-"SBI: Rs 1650 debited for SPENCER'S RETAIL",1650.00,groceries
-"ICICI: Rs 340 to countryde@upi for organic veggies",340.00,groceries
-"HDFC CC: SPAR HYPERMARKET BLR Rs 4500",4500.00,groceries
-"Axis: Rs 289 debited LICIOUS order meat/fish",289.00,groceries
-"Kotak UPI: Rs 1200 to freshtoho@ybl vegetables",1200.00,groceries
-"SBI: Rs 890 paid to jiomart@sbi",890.00,groceries
-"ICICI UPI: Rs 2100 to starquik@icici groceries",2100.00,groceries
-"HDFC: Rs 567 debited DUNZO daily essentials",567.00,groceries
-"Axis CC: RATNADEEP SUPERMARKET HYD Rs 3400",3400.00,groceries
-"Kotak: Rs 1450 to swiggyinstamart@axl",1450.00,groceries
-"SBI: Rs 780 debited EASYDAY CLUB store",780.00,groceries
-"ICICI: Rs 2890 paid to BB DAILY subscription",2890.00,groceries
-"HDFC Bank: Rs 189 debited for UBER TRIP",189.00,transport_ride
-"SBI: Rs 245 debited UPI txn to ola@axisbank",245.00,transport_ride
-"ICICI: Rs 156 paid to UBER via UPI Ref 5012983",156.00,transport_ride
-"Axis Bank: Debit Rs 312 to rapido@ybl auto ride",312.00,transport_ride
-"Kotak: Rs 89 debited for OLA AUTO trip",89.00,transport_ride
-"HDFC CC: UBER BV TRIP BLR Rs 432",432.00,transport_ride
-"SBI: Rs 567 debited for UBER PREMIER trip",567.00,transport_ride
-"ICICI UPI: Rs 145 to olacabs@icici",145.00,transport_ride
-"Axis: Rs 78 to rapido@paytm auto ride",78.00,transport_ride
-"Kotak CC: OLA CABS RIDE MUM Rs 290",290.00,transport_ride
-"HDFC UPI: Rs 1200 to uber@axl airport trip",1200.00,transport_ride
-"SBI: Rs 55 debited RAPIDO BIKE auto",55.00,transport_ride
-"ICICI: Rs 890 paid MERU CABS airport",890.00,transport_ride
-"HDFC: Rs 345 debited OLA RENTALS hourly",345.00,transport_ride
-"Axis UPI: Rs 210 to nammayatri@ybl ride",210.00,transport_ride
-"Kotak: Rs 450 uber@hdfcbank intercity",450.00,transport_ride
-"SBI CC: BLUESMART TRIP DEL Rs 780",780.00,transport_ride
-"ICICI: Rs 125 to shuttl@upi bus ride",125.00,transport_ride
-"HDFC: Rs 67 paid UBER MOTO bike taxi",67.00,transport_ride
-"Axis: Rs 1500 to olacabs@axisbank outstation",1500.00,transport_ride
-"HDFC Bank: Rs 4500 debited for HP PETROL PUMP",4500.00,transport_fuel
-"SBI: Rs 2000 debited INDIAN OIL IOCL UPI",2000.00,transport_fuel
-"ICICI: Rs 3200 paid to BPCL fuel station",3200.00,transport_fuel
-"Axis Bank: Debit Rs 1500 to hpcl@ybl petrol",1500.00,transport_fuel
-"Kotak CC: BHARAT PETROLEUM BLR Rs 5000",5000.00,transport_fuel
-"HDFC UPI: Rs 800 to reliancebp@icici fuel",800.00,transport_fuel
-"SBI: Rs 3500 debited for SHELL PETROL",3500.00,transport_fuel
-"ICICI CC: HP PETROL PUMP HYD Rs 2800",2800.00,transport_fuel
-"Axis: Rs 1200 to indianoil@paytm CNG",1200.00,transport_fuel
-"Kotak UPI: Rs 600 to hpcl@ybl CNG refill",600.00,transport_fuel
-"HDFC: Rs 4200 debited ESSAR PETROL PUMP",4200.00,transport_fuel
-"SBI CC: IOCL FUEL STN CHN Rs 1800",1800.00,transport_fuel
-"ICICI UPI: Rs 2500 to bpcl@axisbank diesel",2500.00,transport_fuel
-"Axis: Rs 3800 paid HP PETROL PUMP fuel",3800.00,transport_fuel
-"Kotak: Rs 5500 debited RELIANCE BP fuel stn",5500.00,transport_fuel
-"HDFC Bank: Rs 2499 debited for AMAZON.IN order",2499.00,shopping_online
-"SBI: Rs 1599 debited FLIPKART order FK12389",1599.00,shopping_online
-"ICICI: Rs 899 paid MYNTRA via UPI",899.00,shopping_online
-"Axis Bank: Debit Rs 4999 to AMAZON PAY EMI",4999.00,shopping_online
-"Kotak CC: FLIPKART INTERNET PVT Rs 3299",3299.00,shopping_online
-"HDFC CC: AMAZON SELLER SVCS Rs 799",799.00,shopping_online
-"SBI: Rs 2199 debited for AJIO order",2199.00,shopping_online
-"ICICI UPI: Rs 1499 to meesho@axisbank",1499.00,shopping_online
-"Axis CC: NYKAA E-RETAIL Rs 1899",1899.00,shopping_online
-"Kotak: Rs 599 to snapdeal@paytm order",599.00,shopping_online
-"HDFC UPI: Rs 12999 to croma@icici electronics",12999.00,shopping_online
-"SBI CC: TATACLIQ COM BLR Rs 5499",5499.00,shopping_online
-"ICICI: Rs 3499 paid AMAZON FRESH order",3499.00,shopping_online
-"Axis UPI: Rs 749 to purplle@ybl cosmetics",749.00,shopping_online
-"Kotak CC: LENSKART SOLUTIONS Rs 2490",2490.00,shopping_online
-"HDFC: Rs 899 debited for BOAT lifestyle order",899.00,shopping_online
-"SBI: Rs 15999 paid to APPLE INDIA STORE",15999.00,shopping_online
-"ICICI CC: BEWAKOOF BRANDS Rs 699",699.00,shopping_online
-"Axis: Rs 1299 debited PEPPERFRY furniture",1299.00,shopping_online
-"Kotak UPI: Rs 449 to firstcry@axl baby products",449.00,shopping_online
-"HDFC: Rs 2899 paid URBANLADDER via UPI",2899.00,shopping_online
-"SBI: Rs 4599 to reliancedigital@sbi",4599.00,shopping_online
-"ICICI: Rs 799 debited DECATHLON SPORTS",799.00,shopping_online
-"HDFC Bank: Rs 5670 debited at SHOPPERS STOP BLR",5670.00,shopping_offline
-"SBI: Rs 2340 debited WESTSIDE MUM POS",2340.00,shopping_offline
-"ICICI CC: PANTALOONS FASHION Rs 3200",3200.00,shopping_offline
-"Axis Bank: Debit Rs 1890 at LIFESTYLE INTL",1890.00,shopping_offline
-"Kotak CC: CENTRAL MALL HYD Rs 4500",4500.00,shopping_offline
-"HDFC: Rs 890 debited at DECATHLON store",890.00,shopping_offline
-"SBI CC: RELIANCE TRENDS CHN Rs 1567",1567.00,shopping_offline
-"ICICI: Rs 7800 paid CROMA STORE BLR POS",7800.00,shopping_offline
-"Axis CC: ZARA INDIA MUM Rs 5990",5990.00,shopping_offline
-"Kotak: Rs 2450 debited at MAX FASHION store",2450.00,shopping_offline
-"HDFC CC: FABINDIA STORE DEL Rs 3400",3400.00,shopping_offline
-"SBI: Rs 12000 debited TANISHQ JEWELLERS",12000.00,shopping_offline
-"ICICI UPI: Rs 1200 to dmartready@icici store",1200.00,shopping_offline
-"Axis: Rs 4500 paid at LANDMARK BOOKSTORE",4500.00,shopping_offline
-"Kotak CC: LEVIS STORE BLR Rs 3899",3899.00,shopping_offline
-"HDFC: Rs 990 debited at MINISO MUM store",990.00,shopping_offline
-"SBI: Rs 6700 paid V-MART RETAIL POS",6700.00,shopping_offline
-"ICICI CC: HAMLEYS TOY STORE Rs 2300",2300.00,shopping_offline
-"Axis UPI: Rs 1500 to localshop@paytm clothes",1500.00,shopping_offline
-"Kotak: Rs 8900 debited VIJAY SALES electronics",8900.00,shopping_offline
-"HDFC Bank: Rs 599 debited for JIO PREPAID RECH",599.00,bills_telecom
-"SBI: Rs 299 debited AIRTEL RECHARGE via UPI",299.00,bills_telecom
-"ICICI: Rs 239 paid VI VODAFONE IDEA recharge",239.00,bills_telecom
-"Axis Bank: Debit Rs 999 to JIO FIBER bill",999.00,bills_telecom
-"Kotak CC: BHARTI AIRTEL POSTPAID Rs 849",849.00,bills_telecom
-"HDFC UPI: Rs 199 to jio@axl prepaid recharge",199.00,bills_telecom
-"SBI: Rs 449 debited for AIRTEL POSTPAID bill",449.00,bills_telecom
-"ICICI: Rs 155 paid BSNL RECHARGE",155.00,bills_telecom
-"Axis UPI: Rs 699 to airtel@icici broadband",699.00,bills_telecom
-"Kotak: Rs 1499 debited JIO POSTPAID bill",1499.00,bills_telecom
-"HDFC CC: ACT FIBERNET BROADBAND Rs 1199",1199.00,bills_telecom
-"SBI: Rs 349 debited for VI PREPAID recharge",349.00,bills_telecom
-"ICICI UPI: Rs 799 to hathway@axisbank internet",799.00,bills_telecom
-"Axis: Rs 499 paid TATA PLAY DTH recharge",499.00,bills_telecom
-"Kotak UPI: Rs 599 to airtelxstream@paytm",599.00,bills_telecom
-"HDFC Bank: Rs 2340 debited for TATA POWER bill",2340.00,bills_electricity
-"SBI: Rs 1890 debited BESCOM electricity UPI",1890.00,bills_electricity
-"ICICI: Rs 3450 paid ADANI ELECTRICITY bill",3450.00,bills_electricity
-"Axis Bank: Debit Rs 1200 to MSEDCL elec bill",1200.00,bills_electricity
-"Kotak CC: BSES RAJDHANI POWER Rs 2100",2100.00,bills_electricity
-"HDFC UPI: Rs 890 to bescom@ybl electricity",890.00,bills_electricity
-"SBI: Rs 4500 debited TORRENT POWER bill",4500.00,bills_electricity
-"ICICI: Rs 1567 paid CESC KOLKATA electricity",1567.00,bills_electricity
-"Axis UPI: Rs 2800 to tatapower@icici elec",2800.00,bills_electricity
-"Kotak: Rs 1100 debited TNEB electricity bill",1100.00,bills_electricity
-"HDFC CC: RELIANCE ENERGY MUM Rs 3200",3200.00,bills_electricity
-"SBI: Rs 2670 paid UPPCL electricity bill",2670.00,bills_electricity
-"ICICI UPI: Rs 1450 to adanielec@axisbank",1450.00,bills_electricity
-"Axis: Rs 3100 debited BSES YAMUNA POWER",3100.00,bills_electricity
-"Kotak UPI: Rs 980 to pgvcl@sbi electricity",980.00,bills_electricity
-"HDFC Bank: Rs 450 debited for DELHI JAL BOARD",450.00,bills_water
-"SBI: Rs 320 debited BWSSB water bill UPI",320.00,bills_water
-"ICICI: Rs 890 paid MCGM WATER DEPT bill",890.00,bills_water
-"Axis Bank: Debit Rs 560 to HMWSSB water bill",560.00,bills_water
-"Kotak: Rs 240 debited CMWSSB water bill",240.00,bills_water
-"HDFC UPI: Rs 670 to delhijalboard@ybl water",670.00,bills_water
-"SBI: Rs 380 debited PHED water supply bill",380.00,bills_water
-"ICICI UPI: Rs 510 to bwssb@icici water bill",510.00,bills_water
-"Axis: Rs 290 paid GWSSB water charges",290.00,bills_water
-"Kotak UPI: Rs 430 to kuws@ybl water supply",430.00,bills_water
-"HDFC Bank: Rs 199 debited for NETFLIX subscription",199.00,entertainment
-"SBI: Rs 299 debited AMAZON PRIME membership",299.00,entertainment
-"ICICI: Rs 159 paid SPOTIFY INDIA via UPI",159.00,entertainment
-"Axis Bank: Debit Rs 499 to HOTSTAR DISNEY+",499.00,entertainment
-"Kotak CC: PVR CINEMAS BLR Rs 780",780.00,entertainment
-"HDFC CC: INOX MOVIES MUM Rs 650",650.00,entertainment
-"SBI: Rs 599 debited SONY LIV PREMIUM",599.00,entertainment
-"ICICI UPI: Rs 149 to youtube@google premium",149.00,entertainment
-"Axis CC: BOOKMYSHOW TICKET Rs 1200",1200.00,entertainment
-"Kotak: Rs 299 debited ZEE5 PREMIUM sub",299.00,entertainment
-"HDFC UPI: Rs 350 to smaaash@ybl gaming",350.00,entertainment
-"SBI CC: APPLE ITUNES MUSIC Rs 99",99.00,entertainment
-"ICICI: Rs 450 paid KINGDOM OF DREAMS ticket",450.00,entertainment
-"Axis UPI: Rs 199 to jiocinemapremium@axl",199.00,entertainment
-"Kotak CC: FUNCITY AMUSEMENT Rs 1500",1500.00,entertainment
-"HDFC: Rs 249 debited AUDIBLE INDIA sub",249.00,entertainment
-"SBI: Rs 999 paid CULT.FIT LIVE membership",999.00,entertainment
-"ICICI: Rs 800 to eventbrite@icici concert",800.00,entertainment
-"Axis: Rs 2500 debited WONDERLA tickets",2500.00,entertainment
-"Kotak UPI: Rs 179 to gaana@paytm plus",179.00,entertainment
-"HDFC Bank: Rs 1500 debited for APOLLO PHARMACY",1500.00,health_medical
-"SBI: Rs 850 debited PRACTO consultation UPI",850.00,health_medical
-"ICICI: Rs 4500 paid FORTIS HOSPITAL bill",4500.00,health_medical
-"Axis Bank: Debit Rs 2200 to 1MG order medicines",2200.00,health_medical
-"Kotak CC: MAX HOSPITAL DEL Rs 12000",12000.00,health_medical
-"HDFC UPI: Rs 650 to pharmeasy@ybl medicines",650.00,health_medical
-"SBI: Rs 3400 debited DR LAL PATH LABS test",3400.00,health_medical
-"ICICI CC: MANIPAL HOSPITAL BLR Rs 8900",8900.00,health_medical
-"Axis UPI: Rs 980 to netmeds@icici order",980.00,health_medical
-"Kotak: Rs 1200 debited THYROCARE diagnostics",1200.00,health_medical
-"HDFC CC: MEDPLUS PHARMACY HYD Rs 780",780.00,health_medical
-"SBI: Rs 500 paid TATA 1MG consult",500.00,health_medical
-"ICICI UPI: Rs 2500 to apolloclinic@axisbank",2500.00,health_medical
-"Axis: Rs 350 debited HEALTHKART supplements",350.00,health_medical
-"Kotak CC: NARAYANA HEALTH Rs 5600",5600.00,health_medical
-"HDFC Bank: Rs 3500 debited for CULT.FIT membership",3500.00,health_fitness
-"SBI: Rs 12000 debited GOLD'S GYM annual",12000.00,health_fitness
-"ICICI: Rs 1500 paid FITTERNITY via UPI",1500.00,health_fitness
-"Axis Bank: Debit Rs 999 to CUREFIT monthly",999.00,health_fitness
-"Kotak CC: ANYTIME FITNESS Rs 2500",2500.00,health_fitness
-"HDFC UPI: Rs 799 to cultfit@ybl class pack",799.00,health_fitness
-"SBI: Rs 5000 debited TALWALKAR'S GYM",5000.00,health_fitness
-"ICICI CC: YOGA HOUSE STD Rs 2000",2000.00,health_fitness
-"Axis: Rs 1200 to stepsetgo@paytm fitness",1200.00,health_fitness
-"Kotak: Rs 8000 debited SNAP FITNESS annual",8000.00,health_fitness
-"HDFC Bank: Rs 45000 debited for BYJU'S course",45000.00,education
-"SBI: Rs 9999 debited UNACADEMY subscription",9999.00,education
-"ICICI: Rs 5000 paid COURSERA via UPI",5000.00,education
-"Axis Bank: Debit Rs 15000 to UPGRAD course",15000.00,education
-"Kotak CC: VEDANTU CLASSES Rs 25000",25000.00,education
-"HDFC UPI: Rs 3500 to testbook@ybl exam prep",3500.00,education
-"SBI: Rs 2999 debited UDEMY COURSE purchase",2999.00,education
-"ICICI CC: ALLEN COACHING Rs 50000",50000.00,education
-"Axis UPI: Rs 1500 to skillshare@icici",1500.00,education
-"Kotak: Rs 4999 debited GREAT LEARNING course",4999.00,education
-"HDFC CC: WHITEHAT JR Rs 12000",12000.00,education
-"SBI: Rs 799 paid LINKEDIN LEARNING sub",799.00,education
-"ICICI: Rs 8000 to physicswallah@axisbank",8000.00,education
-"Axis: Rs 35000 debited SCALER ACADEMY",35000.00,education
-"Kotak UPI: Rs 6500 to simplilearn@paytm",6500.00,education
-"HDFC Bank: Salary credit Rs 125000 from INFOSYS LTD",125000.00,salary
-"SBI: Rs 85000 credited WIPRO TECHNOLOGIES salary",85000.00,salary
-"ICICI: Salary Rs 150000 from TCS LIMITED",150000.00,salary
-"Axis Bank: Credit Rs 95000 HCL TECHNOLOGIES payroll",95000.00,salary
-"Kotak: Salary credited Rs 200000 AMAZON INDIA",200000.00,salary
-"HDFC: Rs 75000 credited COGNIZANT salary",75000.00,salary
-"SBI: Salary Rs 110000 ACCENTURE SOLUTIONS",110000.00,salary
-"ICICI: Rs 180000 credited MICROSOFT INDIA salary",180000.00,salary
-"Axis: Salary credit Rs 65000 CAPGEMINI INDIA",65000.00,salary
-"Kotak: Rs 220000 credited GOOGLE INDIA payroll",220000.00,salary
-"HDFC: Salary Rs 92000 from TECH MAHINDRA",92000.00,salary
-"SBI: Rs 135000 credited DELOITTE INDIA salary",135000.00,salary
-"ICICI: Salary Rs 78000 L&T INFOTECH payroll",78000.00,salary
-"Axis: Rs 105000 credited MINDTREE salary",105000.00,salary
-"Kotak: Salary Rs 160000 FLIPKART INTERNET",160000.00,salary
-"HDFC Bank: Rs 25000 credited UPI from client@ybl freelance",25000.00,freelance
-"SBI: Rs 45000 credited NEFT freelance payment",45000.00,freelance
-"ICICI: Rs 15000 received UPI from startup@icici project",15000.00,freelance
-"Axis Bank: Credit Rs 80000 WIRE TXN freelance",80000.00,freelance
-"Kotak: Rs 35000 credited from fiverr@ybl",35000.00,freelance
-"HDFC UPI: Rs 12000 received from client@okaxis",12000.00,freelance
-"SBI: Rs 50000 credited IMPS freelance work",50000.00,freelance
-"ICICI: Rs 20000 received UPI consultancy fee",20000.00,freelance
-"Axis: Rs 75000 credited NEFT design project",75000.00,freelance
-"Kotak UPI: Rs 8000 from upwork@ybl earnings",8000.00,freelance
-"HDFC Bank: Rs 10000 debited for ZERODHA MF purchase",10000.00,investment
-"SBI: Rs 5000 debited GROWW SIP investment",5000.00,investment
-"ICICI: Rs 25000 paid to COIN ZERODHA MF",25000.00,investment
-"Axis Bank: Debit Rs 15000 KUVERA SIP auto",15000.00,investment
-"Kotak CC: UPSTOX TRADING Rs 50000",50000.00,investment
-"HDFC UPI: Rs 2500 to groww@axl SIP monthly",2500.00,investment
-"SBI: Rs 100000 debited for FD FIXED DEPOSIT",100000.00,investment
-"ICICI: Rs 5000 paid ET MONEY SIP",5000.00,investment
-"Axis UPI: Rs 10000 to paytmmoney@icici stocks",10000.00,investment
-"Kotak: Rs 1000 debited SMALLCASE investment",1000.00,investment
-"HDFC: Rs 50000 debited NPS CONTRIBUTION",50000.00,investment
-"SBI: Rs 8000 paid ANGEL BROKING trade",8000.00,investment
-"ICICI UPI: Rs 3000 to zerodha@axisbank coin",3000.00,investment
-"Axis: Rs 25000 debited PPF deposit",25000.00,investment
-"Kotak UPI: Rs 5000 to indmoney@ybl gold",5000.00,investment
-"HDFC Bank: Rs 25000 debited for RENT payment UPI",25000.00,rent
-"SBI: Rs 18000 debited rent to landlord@ybl",18000.00,rent
-"ICICI: Rs 35000 paid HOUSE RENT via NEFT",35000.00,rent
-"Axis Bank: Debit Rs 22000 rent to owner@icici",22000.00,rent
-"Kotak: Rs 15000 debited NOBROKER RENT pay",15000.00,rent
-"HDFC UPI: Rs 30000 to landlord@okaxis monthly rent",30000.00,rent
-"SBI: Rs 45000 debited flat rent NEFT transfer",45000.00,rent
-"ICICI: Rs 20000 paid rent to society@axisbank",20000.00,rent
-"Axis UPI: Rs 28000 to owner@ybl house rent",28000.00,rent
-"Kotak: Rs 12000 debited PG ACCOMMODATION rent",12000.00,rent
-"HDFC: Rs 55000 rent payment to NESTAWAY",55000.00,rent
-"SBI UPI: Rs 16000 to flatowner@sbi rent July",16000.00,rent
-"ICICI: Rs 40000 debited rent apartment IMPS",40000.00,rent
-"Axis: Rs 32000 paid to housingrent@paytm",32000.00,rent
-"Kotak UPI: Rs 8500 to pgrent@ybl monthly",8500.00,rent
-"HDFC Bank: Rs 15234 debited for HOME LOAN EMI",15234.00,emi
-"SBI: Rs 12500 debited CAR LOAN EMI auto debit",12500.00,emi
-"ICICI: Rs 8900 paid PERSONAL LOAN EMI",8900.00,emi
-"Axis Bank: Debit Rs 22000 HOME LOAN EMI",22000.00,emi
-"Kotak CC: BAJAJ FINSERV EMI Rs 5000",5000.00,emi
-"HDFC: Rs 18000 debited VEHICLE LOAN EMI",18000.00,emi
-"SBI: Rs 9500 debited EDUCATION LOAN EMI",9500.00,emi
-"ICICI CC: HDFC LTD HOME LOAN EMI Rs 25000",25000.00,emi
-"Axis: Rs 7500 debited TATA CAPITAL EMI",7500.00,emi
-"Kotak: Rs 3500 debited AMAZON PAY LATER EMI",3500.00,emi
-"HDFC: Rs 45000 debited SBI HOME LOAN EMI",45000.00,emi
-"SBI: Rs 6000 paid IDFC FIRST BANK loan EMI",6000.00,emi
-"ICICI: Rs 11000 debited TWO WHEELER LOAN EMI",11000.00,emi
-"Axis UPI: Rs 4500 to bajajfin@ybl EMI payment",4500.00,emi
-"Kotak: Rs 28000 debited LICHFL HOME LOAN EMI",28000.00,emi
-"HDFC Bank: Rs 199 debited for NETFLIX monthly",199.00,subscription
-"SBI: Rs 1499 debited AMAZON PRIME annual",1499.00,subscription
-"ICICI: Rs 59 paid SPOTIFY monthly sub",59.00,subscription
-"Axis Bank: Debit Rs 499 DISNEY+ HOTSTAR",499.00,subscription
-"Kotak CC: YOUTUBE PREMIUM Rs 149",149.00,subscription
-"HDFC UPI: Rs 299 to zomato@ybl gold membership",299.00,subscription
-"SBI: Rs 999 debited SWIGGY ONE subscription",999.00,subscription
-"ICICI CC: LINKEDIN PREMIUM Rs 1800",1800.00,subscription
-"Axis: Rs 129 debited APPLE ICLOUD storage",129.00,subscription
-"Kotak: Rs 399 debited CRED MINT subscription",399.00,subscription
-"HDFC CC: GOOGLE ONE STORAGE Rs 130",130.00,subscription
-"SBI: Rs 199 paid MX PLAYER GOLD sub",199.00,subscription
-"ICICI: Rs 349 debited AMAZON AUDIBLE monthly",349.00,subscription
-"Axis UPI: Rs 99 to notion@stripe subscription",99.00,subscription
-"Kotak UPI: Rs 499 to chatgpt@stripe plus",499.00,subscription
-"HDFC: Rs 599 debited HEADSPACE annual",599.00,subscription
-"SBI: Rs 2999 paid MICROSOFT 365 annual",2999.00,subscription
-"ICICI: Rs 179 debited APPLE MUSIC monthly",179.00,subscription
-"Axis: Rs 899 paid ADOBE CREATIVE sub",899.00,subscription
-"Kotak: Rs 149 debited GOOGLE DRIVE storage",149.00,subscription
-"HDFC Bank: Rs 4500 debited for MAKEMYTRIP booking",4500.00,travel
-"SBI: Rs 8900 debited IRCTC train ticket",8900.00,travel
-"ICICI: Rs 12000 paid CLEARTRIP flight",12000.00,travel
-"Axis Bank: Debit Rs 3500 to OYO ROOMS hotel",3500.00,travel
-"Kotak CC: INDIGO AIRLINES Rs 6780",6780.00,travel
-"HDFC CC: AIRINDIA BOOKING Rs 15000",15000.00,travel
-"SBI: Rs 2500 debited REDBUS ticket",2500.00,travel
-"ICICI UPI: Rs 1800 to irctc@icici tatkal",1800.00,travel
-"Axis CC: GOIBIBO HOTELS Rs 4200",4200.00,travel
-"Kotak: Rs 890 debited ABHIBUS booking",890.00,travel
-"HDFC UPI: Rs 6500 to spicejet@ybl flight",6500.00,travel
-"SBI CC: YATRA COM FLIGHT Rs 9800",9800.00,travel
-"ICICI: Rs 3200 paid TREEBO HOTEL stay",3200.00,travel
-"Axis: Rs 25000 debited THOMAS COOK package",25000.00,travel
-"Kotak UPI: Rs 1500 to ixigo@paytm train",1500.00,travel
-"HDFC: Rs 8000 debited VISTARA AIRLINES",8000.00,travel
-"SBI: Rs 45000 paid BOOKING.COM hotel intl",45000.00,travel
-"ICICI CC: AIRBNB STAY GOA Rs 5500",5500.00,travel
-"Axis: Rs 12000 debited EASEMYTRIP flight",12000.00,travel
-"Kotak: Rs 780 to RAPIDO OUTSTATION trip",780.00,travel
-"HDFC Bank: Rs 1200 debited at LAKME SALON",1200.00,personal_care
-"SBI: Rs 890 debited URBAN COMPANY service",890.00,personal_care
-"ICICI: Rs 2500 paid KAYA SKIN CLINIC",2500.00,personal_care
-"Axis Bank: Debit Rs 450 to urbancompany@ybl",450.00,personal_care
-"Kotak CC: JAWED HABIB SALON Rs 1800",1800.00,personal_care
-"HDFC UPI: Rs 650 to mancompany@icici grooming",650.00,personal_care
-"SBI: Rs 3500 debited VLCC WELLNESS centre",3500.00,personal_care
-"ICICI CC: BODYCRAFT SPA BLR Rs 4000",4000.00,personal_care
-"Axis: Rs 299 debited BOMBAY SHAVING CO order",299.00,personal_care
-"Kotak: Rs 1500 debited GREEN TRENDS salon",1500.00,personal_care
-"HDFC CC: NATURALS SALON CHN Rs 800",800.00,personal_care
-"SBI UPI: Rs 550 to urbanclap@ybl beauty",550.00,personal_care
-"ICICI: Rs 1200 paid LOOKS SALON service",1200.00,personal_care
-"Axis: Rs 2800 debited ENRICH SALON BLR",2800.00,personal_care
-"Kotak UPI: Rs 350 to mangrooming@paytm",350.00,personal_care
-"HDFC Bank: Rs 5000 debited UPI gift to friend@ybl",5000.00,gifts
-"SBI: Rs 2500 debited AMAZON GIFT CARD purchase",2500.00,gifts
-"ICICI: Rs 10000 paid UPI to sister@icici birthday",10000.00,gifts
-"Axis Bank: Debit Rs 3500 ARCHIES GALLERY gift",3500.00,gifts
-"Kotak CC: FERNS N PETALS Rs 1800",1800.00,gifts
-"HDFC UPI: Rs 1100 to ferns@ybl flowers delivery",1100.00,gifts
-"SBI: Rs 5000 debited TANISHQ gift purchase",5000.00,gifts
-"ICICI UPI: Rs 2000 to friend@okaxis shagun",2000.00,gifts
-"Axis: Rs 500 debited IGP COM online gift",500.00,gifts
-"Kotak: Rs 8000 to relative@ybl wedding gift",8000.00,gifts
-"HDFC CC: CROSSWORD BOOKSTORE GIFT Rs 1500",1500.00,gifts
-"SBI: Rs 3000 paid FLIPKART GIFT CARD",3000.00,gifts
-"ICICI: Rs 1500 debited ARCHIES ONLINE order",1500.00,gifts
-"Axis UPI: Rs 11000 to cousin@axisbank rakhi",11000.00,gifts
-"Kotak: Rs 2500 paid WINNI CAKES gift delivery",2500.00,gifts
-"HDFC Bank: Rs 5000 debited for SOCIETY MAINTENANCE",5000.00,other
-"SBI: Rs 1200 debited PARKING charges MUL",1200.00,other
-"ICICI: Rs 8500 paid HOUSEJOY home services",8500.00,other
-"Axis Bank: Debit Rs 3000 PORTER delivery",3000.00,other
-"Kotak CC: INDIA POST SPEED POST Rs 250",250.00,other
-"HDFC UPI: Rs 2000 to maid@ybl monthly salary",2000.00,other
-"SBI: Rs 15000 debited PACKERS MOVERS service",15000.00,other
-"ICICI: Rs 450 paid DUNZO delivery charges",450.00,other
-"Axis: Rs 6000 debited PET VET consultation",6000.00,other
-"Kotak: Rs 800 debited DRY CLEANING service",800.00,other
-"HDFC CC: URBAN COMPANY PEST CTRL Rs 1500",1500.00,other
-"SBI: Rs 350 paid BLUE DART courier",350.00,other
-"ICICI UPI: Rs 2500 to carpenter@ybl furniture",2500.00,other
-"Axis: Rs 1000 debited COOK/CHEF monthly",1000.00,other
-"Kotak UPI: Rs 4000 to plumber@paytm repair",4000.00,other
-"HDFC: Rs 7500 debited INSURANCE PREMIUM LIC",7500.00,other
-"SBI: Rs 900 paid STAMP PAPER notary",900.00,other
-"ICICI: Rs 2000 debited CAR WASHING monthly",2000.00,other
-"Axis: Rs 500 to donation@ybl temple",500.00,other
-"Kotak: Rs 3500 debited KEY MAKER locksmith",3500.00,other
-"HDFC: Rs 350 debited SWIGGY late night order",350.00,food_delivery
-"SBI CC: FAASOS REBEL FOODS Rs 410",410.00,food_delivery
-"ICICI: Rs 220 paid to eatfit@upi healthy meal",220.00,food_delivery
-"HDFC: Rs 1580 debited BIGBASKET BB NOW express",1580.00,groceries
-"SBI: Rs 420 paid to INSTAMART@ybl veggies",420.00,groceries
-"ICICI CC: METRO CASH CARRY Rs 5600",5600.00,groceries
-"HDFC UPI: Rs 310 to olaauto@ybl short ride",310.00,transport_ride
-"SBI: Rs 1890 paid UBER INTERCITY BLR-MYS",1890.00,transport_ride
-"ICICI: Rs 95 debited RAPIDO AUTO quick",95.00,transport_ride
-"HDFC: Rs 2800 debited ESSAR PETROL pump fill",2800.00,transport_fuel
-"SBI UPI: Rs 1500 to iocl@sbi CNG refuel",1500.00,transport_fuel
-"ICICI: Rs 6000 paid HP PETROL PUMP full tank",6000.00,transport_fuel
-"HDFC CC: AMAZON PANTRY ORDER Rs 1200",1200.00,shopping_online
-"SBI: Rs 7999 debited SAMSUNG STORE online",7999.00,shopping_online
-"ICICI UPI: Rs 599 to mamaearth@axisbank",599.00,shopping_online
-"HDFC: Rs 3200 paid at BRAND FACTORY outlet",3200.00,shopping_offline
-"SBI CC: MARKS SPENCER MUM Rs 4500",4500.00,shopping_offline
-"ICICI: Rs 1890 debited BATA STORE shoes",1890.00,shopping_offline
-"HDFC: Rs 719 debited JIO FIBER monthly bill",719.00,bills_telecom
-"SBI UPI: Rs 249 to airtel@sbi data pack",249.00,bills_telecom
-"ICICI: Rs 1999 paid AIRTEL BLACK combined",1999.00,bills_telecom
-"HDFC CC: MSEDCL ELECTRICITY Rs 2450",2450.00,bills_electricity
-"SBI: Rs 3200 paid APEPDCL electricity bill",3200.00,bills_electricity
-"ICICI UPI: Rs 1890 to bescom@ybl elec monthly",1890.00,bills_electricity
-"HDFC: Rs 550 debited GWMC WATER BILL",550.00,bills_water
-"SBI: Rs 780 paid PCMC WATER SUPPLY bill",780.00,bills_water
-"ICICI: Rs 310 debited WATER TANKER payment UPI",310.00,bills_water
-"HDFC: Rs 350 debited PVR INOX movie tickets",350.00,entertainment
-"SBI CC: SPOTIFY PREMIUM FAM Rs 179",179.00,entertainment
-"ICICI: Rs 2000 paid KINGDOM DREAMS show",2000.00,entertainment
-"HDFC: Rs 1800 debited PRACTO DOCTOR consult",1800.00,health_medical
-"SBI UPI: Rs 3200 to apollopharmacy@sbi meds",3200.00,health_medical
-"ICICI CC: COLUMBIA ASIA HOSP Rs 15000",15000.00,health_medical
-"HDFC: Rs 2000 debited CULT.FIT quarterly pack",2000.00,health_fitness
-"SBI: Rs 1500 paid FITPASS monthly",1500.00,health_fitness
-"ICICI UPI: Rs 6000 to goldsgym@axisbank annual",6000.00,health_fitness
-"HDFC CC: SIMPLILEARN COURSE Rs 15000",15000.00,education
-"SBI: Rs 4500 debited CODINGNINJAS sub",4500.00,education
-"ICICI: Rs 999 paid BRILLIANT ORG annual",999.00,education
-"HDFC: Rs 140000 credited salary TCS MUMBAI",140000.00,salary
-"SBI: Rs 95000 salary credit MINDTREE LTD",95000.00,salary
-"ICICI: Salary Rs 170000 from ADOBE INDIA",170000.00,salary
-"HDFC UPI: Rs 30000 received client@okicici project",30000.00,freelance
-"SBI: Rs 18000 credited TOPTAL freelance pay",18000.00,freelance
-"ICICI: Rs 55000 received contract@neft work",55000.00,freelance
-"HDFC: Rs 15000 debited COIN by ZERODHA SIP",15000.00,investment
-"SBI UPI: Rs 3000 to icicidirect@sbi stocks",3000.00,investment
-"ICICI: Rs 20000 paid HDFC AMC MF purchase",20000.00,investment
-"HDFC: Rs 28000 debited FLAT RENT June UPI",28000.00,rent
-"SBI: Rs 14000 paid PG HOSTEL RENT monthly",14000.00,rent
-"ICICI UPI: Rs 42000 to landlord@ybl apartment",42000.00,rent
-"HDFC: Rs 13500 debited HDFC HOME LOAN EMI",13500.00,emi
-"SBI: Rs 8500 paid BAJAJ FINANCE EMI auto",8500.00,emi
-"ICICI: Rs 4000 debited SAMSUNG FINANCE EMI",4000.00,emi
-"HDFC: Rs 299 debited APPLE TV+ monthly sub",299.00,subscription
-"SBI: Rs 999 paid SWIGGY SUPER subscription",999.00,subscription
-"ICICI: Rs 79 debited TRUECALLER PREMIUM",79.00,subscription
-"HDFC CC: AIR INDIA EXPRESS Rs 4500",4500.00,travel
-"SBI: Rs 2200 debited KSRTC BUS booking",2200.00,travel
-"ICICI: Rs 18000 paid TAJ HOTEL GOA stay",18000.00,travel
-"HDFC: Rs 700 debited NATURALS BEAUTY salon",700.00,personal_care
-"SBI UPI: Rs 1200 to urbancompany@sbi facial",1200.00,personal_care
-"ICICI: Rs 450 paid BOMBAY SHAVE CO products",450.00,personal_care
-"HDFC UPI: Rs 5500 to brother@ybl bday gift",5500.00,gifts
-"SBI: Rs 2000 debited HALLMARK CARD SHOP",2000.00,gifts
-"ICICI: Rs 3500 paid FNPGIFTS online order",3500.00,gifts
-"HDFC: Rs 3000 debited DRIVER SALARY monthly",3000.00,other
-"SBI UPI: Rs 500 to watchman@sbi tip",500.00,other
-"ICICI: Rs 12000 paid INTERIOR DESIGNER consult",12000.00,other
-"Kotak: Rs 280 to chaijunction@ybl tea snacks",280.00,food_delivery
-"Axis CC: BURGER KING DRIVE BLR Rs 345",345.00,food_delivery
-"HDFC: Rs 890 debited LICIOUS MEAT delivery",890.00,groceries
-"Kotak: Rs 2200 to nilgiris@ybl supermarket",2200.00,groceries
-"Axis: Rs 180 paid OLA SHARE ride pool",180.00,transport_ride
-"Kotak UPI: Rs 420 to uber@hdfcbank trip",420.00,transport_ride
-"Axis CC: SHELL FUEL STATION Rs 3500",3500.00,transport_fuel
-"Kotak: Rs 4800 debited TOTAL PETROL PUMP",4800.00,transport_fuel
-"Axis: Rs 2599 debited NOISE smartwatch order",2599.00,shopping_online
-"Kotak CC: BEWAKOOF.COM Rs 799",799.00,shopping_online
-"Axis CC: W FOR WOMEN STORE Rs 2800",2800.00,shopping_offline
-"Kotak: Rs 5500 paid TITAN EYE PLUS glasses",5500.00,shopping_offline
-"Axis: Rs 399 debited AIRTEL THANKS recharge",399.00,bills_telecom
-"Kotak UPI: Rs 1199 to jiofiber@sbi monthly",1199.00,bills_telecom
-"Axis CC: UHBVN ELECTRICITY HRY Rs 1800",1800.00,bills_electricity
-"Kotak: Rs 2900 debited TANGEDCO TN elec bill",2900.00,bills_electricity
-"Axis: Rs 420 paid NAGPUR WATER SUPPLY",420.00,bills_water
-"Kotak: Rs 350 debited JUSCO WATER BILL",350.00,bills_water
-"Axis CC: CINEPOLIS TICKET BLR Rs 560",560.00,entertainment
-"Kotak: Rs 499 debited LIONSGATE PLAY sub",499.00,entertainment
-"Axis: Rs 950 debited MEDLIFE order medicines",950.00,health_medical
-"Kotak CC: ASTER HOSPITAL BLR Rs 7500",7500.00,health_medical
-"Axis UPI: Rs 2500 to crossfit@ybl membership",2500.00,health_fitness
-"Kotak: Rs 4500 debited FITNESS FIRST annual",4500.00,health_fitness
-"Axis CC: TOPPER LEARNING Rs 8000",8000.00,education
-"Kotak: Rs 2500 debited DOUBTNUT PREMIUM",2500.00,education
-"Axis: Salary Rs 88000 from MPHASIS LTD credit",88000.00,salary
-"Kotak: Rs 115000 credited SWIGGY salary",115000.00,salary
-"Axis UPI: Rs 22000 from startup@axl freelance",22000.00,freelance
-"Kotak: Rs 40000 credited consulting@neft work",40000.00,freelance
-"Axis: Rs 8000 debited 5PAISA SIP monthly",8000.00,investment
-"Kotak UPI: Rs 12000 to mfcentral@ybl SIP",12000.00,investment
-"Axis: Rs 20000 debited FLAT RENT NEFT July",20000.00,rent
-"Kotak: Rs 35000 paid to society@kotak rent",35000.00,rent
-"Axis CC: ADITYA BIRLA FINANCE EMI Rs 6500",6500.00,emi
-"Kotak: Rs 9800 debited MAHINDRA FINANCE EMI",9800.00,emi
-"Axis: Rs 199 debited PARAMOUNT+ monthly",199.00,subscription
-"Kotak: Rs 599 paid DUNZO DAILY PASS sub",599.00,subscription
-"Axis CC: AKASA AIR FLIGHT Rs 5500",5500.00,travel
-"Kotak: Rs 3800 debited ZOSTEL HOSTEL booking",3800.00,travel
-"Axis: Rs 1600 debited TONI&GUY SALON service",1600.00,personal_care
-"Kotak UPI: Rs 900 to hennaartist@ybl mehndi",900.00,personal_care
-"Axis UPI: Rs 7000 to friend@axl wedding shagun",7000.00,gifts
-"Kotak: Rs 1200 paid ARCHIES CARDS gift",1200.00,gifts
-"Axis: Rs 1500 debited URBAN LADDER assembly",1500.00,other
-"Kotak: Rs 2000 paid DOG GROOMING service",2000.00,other
-"HDFC: Rs 245 paid CHAI POINT office order UPI",245.00,food_delivery
-"SBI: Rs 399 debited OVEN STORY PIZZA delivery",399.00,food_delivery
-"ICICI UPI: Rs 180 to chaayos@icici beverages",180.00,food_delivery
-"HDFC: Rs 950 debited COUNTRY DELIGHT milk monthly",950.00,groceries
-"SBI UPI: Rs 3400 to starmarket@ybl weekly shop",3400.00,groceries
-"ICICI: Rs 1100 paid NATURES BASKET organic",1100.00,groceries
-"HDFC CC: OLA OUTSTATION BLR Rs 2800",2800.00,transport_ride
-"SBI: Rs 175 paid UBER GO ride short",175.00,transport_ride
-"ICICI: Rs 65 debited OLA BIKE ride campus",65.00,transport_ride
-"HDFC UPI: Rs 3000 to hpcl@ybl petrol full",3000.00,transport_fuel
-"SBI CC: INDIAN OIL CORP FUEL Rs 4200",4200.00,transport_fuel
-"ICICI: Rs 1800 paid SERVO LUBRICANTS service",1800.00,transport_fuel
-"Axis CC: BOAT LIFESTYLE ORDER Rs 1499",1499.00,shopping_online
-"Kotak: Rs 3999 debited REALME STORE online",3999.00,shopping_online
-"HDFC: Rs 799 paid WROGN FASHION order",799.00,shopping_online
-"Axis: Rs 6500 paid SOCH STORE ethnic wear",6500.00,shopping_offline
-"Kotak CC: WOODLAND STORE SHOES Rs 3200",3200.00,shopping_offline
-"HDFC: Rs 4200 debited BEING HUMAN store",4200.00,shopping_offline
-"Axis: Rs 349 debited VI RECHARGE 84 days",349.00,bills_telecom
-"Kotak: Rs 899 paid TIKONA BROADBAND bill",899.00,bills_telecom
-"HDFC UPI: Rs 399 to bsnl@ybl fiber bill",399.00,bills_telecom
-"Axis CC: SBPDCL ELECTRICITY BIHAR Rs 1600",1600.00,bills_electricity
-"Kotak: Rs 2100 paid DGVCL GUJARAT elec",2100.00,bills_electricity
-"HDFC: Rs 3800 debited MSEB ELECTRICITY bill",3800.00,bills_electricity
-"Axis: Rs 280 debited BWSSB WATER BLR bill",280.00,bills_water
-"Kotak UPI: Rs 500 to mcgmwater@ybl monthly",500.00,bills_water
-"HDFC: Rs 380 paid HMWSSB WATER SUPPLY HYD",380.00,bills_water
-"Axis: Rs 1800 debited INSIDER EVENT tickets",1800.00,entertainment
-"Kotak CC: SUPERKICKS SNEAKER EVENT Rs 2500",2500.00,entertainment
-"HDFC UPI: Rs 299 to mubi@ybl film streaming",299.00,entertainment
-"Axis: Rs 450 debited TRUEMEDS order monthly",450.00,health_medical
-"Kotak: Rs 5000 paid CLOUDNINE HOSPITAL consult",5000.00,health_medical
-"HDFC CC: SRL DIAGNOSTICS LAB Rs 2800",2800.00,health_medical
-"Axis: Rs 1800 debited DECATHLON SPORTS GYM eq",1800.00,health_fitness
-"Kotak UPI: Rs 3500 to cureFit@ybl cult pass",3500.00,health_fitness
-"HDFC: Rs 999 paid HEALTHIFYME pro sub",999.00,health_fitness
-"Axis CC: MASAI SCHOOL FEE Rs 30000",30000.00,education
-"Kotak: Rs 5999 debited ERUDITUS COURSE",5999.00,education
-"HDFC: Rs 12000 paid APTECH TRAINING fee",12000.00,education
-"Axis: Rs 250000 salary RAZORPAY INDIA credit",250000.00,salary
-"Kotak: Rs 72000 credited ZOHO CORP salary",72000.00,salary
-"HDFC: Salary Rs 130000 from MEESHO payroll",130000.00,salary
-"Axis UPI: Rs 15000 from freelance@okaxis design",15000.00,freelance
-"Kotak: Rs 28000 credited YOUTUBE ADSENSE",28000.00,freelance
-"HDFC: Rs 60000 received consulting@neft project",60000.00,freelance
-"Axis: Rs 5000 debited PAYTM MONEY gold SIP",5000.00,investment
-"Kotak: Rs 30000 paid AXIS BLUECHIP MF SIP",30000.00,investment
-"HDFC UPI: Rs 7500 to icicipru@ybl MF invest",7500.00,investment
-"Axis: Rs 24000 debited apartment rent NEFT Aug",24000.00,rent
-"Kotak: Rs 9000 paid COLIVE PG rent monthly",9000.00,rent
-"HDFC: Rs 38000 debited RENT flat owner IMPS",38000.00,rent
-"Axis: Rs 5500 debited HDFC LTD CARLOAN EMI",5500.00,emi
-"Kotak CC: ADITYA BIRLA FIN EMI Rs 3200",3200.00,emi
-"HDFC: Rs 17500 debited PNB HFL HOME LOAN EMI",17500.00,emi
-"Axis: Rs 499 debited DISCOVERY+ annual sub",499.00,subscription
-"Kotak: Rs 129 paid TELEGRAM PREMIUM monthly",129.00,subscription
-"HDFC UPI: Rs 799 to strava@stripe sub annual",799.00,subscription
-"Axis CC: SPICEJET FLIGHT DEL-GOA Rs 3800",3800.00,travel
-"Kotak: Rs 5500 debited LEMON TREE HOTEL stay",5500.00,travel
-"HDFC: Rs 1200 paid KSRTC VOLVO bus ticket",1200.00,travel
-"Axis: Rs 2200 debited MONSOON SALON premium",2200.00,personal_care
-"Kotak: Rs 400 paid BEARDO products order",400.00,personal_care
-"HDFC UPI: Rs 1500 to naturals@ybl haircut",1500.00,personal_care
-"Axis: Rs 3000 debited TITAN WATCH gift order",3000.00,gifts
-"Kotak UPI: Rs 6000 to mom@kotak mothers day",6000.00,gifts
-"HDFC: Rs 1800 paid FLOWERAURA delivery",1800.00,gifts
-"Axis: Rs 850 debited LAUNDRY EXPRESS service",850.00,other
-"Kotak: Rs 5000 paid SULEKHA PAINTING service",5000.00,other
-"HDFC CC: DTDC COURIER CHARGES Rs 180",180.00,other
+Yes Bank Debit: Rs. 9323 to titaneyeplus@hdfcbank UPI,9322.74,shopping_offline
+ICICI UPI: Rs 619.06 to adanielectri@kotak,619.06,bills_electricity
+BOB Alert: INR 360 spent at Barbeque Nation,359.79,food_delivery
+"Payment of Rs 7,107 to UHBVN successful",7107.46,bills_electricity
+paid rs 2372 to indrive via gpay,2371.52,transport_ride
+BOB: Rs 1492 debited from a/c **1434 for Shell,1491.6,transport_fuel
+"UPI: Rs 1,065 to airtel@okhdfcbank for purchase",1064.85,bills_telecom
+"investment: rs 5,267.66 to groww via upi",5267.66,investment
+Payment of Rs 30916/- to Cleartrip successful,30916.05,travel
+Axis Debit: Rs 5365/- to courier@kotak UPI,5365.14,other
+"rs 13,667.36/- debited great learning canara",13667.36,education
+SBI: Rs 642 debited from a/c **2679 for Apple TV+,642.45,entertainment
+Kotak Debit: Rs 2032 to nayaraenergy@ybl UPI,2032.01,transport_fuel
+"ICICI: Rs.1,735 paid to Vi Vodafone via UPI Ref 234587291",1734.96,bills_telecom
+YES BANK ALERT: INR 14008/- SPENT AT PANTALOONS,14007.84,shopping_offline
+PhonePe: Rs 14031/- paid to OYO,14031.16,travel
+CARD **7873 used at Google One for Rs.1347/-,1346.83,subscription
+Salary for Aug - Rs 142262/- from Tata Motors,142262.08,salary
+"Kotak: Rs. 17,566.97 debited for ICICI Personal Loan EMI",17566.97,emi
+Rs 1343/-/- debited Country Delight HDFC,1342.89,groceries
+payment of rs 2302 to natures basket successful,2301.66,groceries
+"UPI: Rs 1,418.33 to airtelxstrea@axisbank for purchase",1418.33,bills_telecom
+"BOB SMS: INR 2,033.22 DEBITED UPI TXN TO UBER@YBL",2033.22,transport_ride
+UPI: Rs 110.48 to dropbox@axl for purchase,110.48,subscription
+ICICI Alert: INR 1233/- spent at ChatGPT Plus,1232.98,subscription
+"ICICI: Rs 9,121 debited for ICICI Personal Loan EMI",9121.21,emi
+Kuvera - Rs 71896 invested in mutual fund,71895.69,investment
+"IndusInd: Rs 13,801.69 debited for Sugar Cosmetics purchase",13801.69,shopping_online
+PhonePe: Rs 945.54 paid to Metro Cash,945.54,groceries
+Payment of Rs 25318 to PeoplePerHour successful,25318.06,freelance
+PhonePe: Rs 11685 paid to Lifestyle,11685.39,shopping_offline
+Boat Lifestyle - Rs.9317 paid via UPI,9316.75,shopping_online
+Payment of Rs 874 to Indane Gas successful,873.78,transport_fuel
+"Laundry - Rs.9,280 paid via UPI",9280.07,other
+"ICICI SMS: INR 6,477 debited UPI txn to bescom@ybl",6476.93,bills_electricity
+"UPI: Rs 14,193 to udemy@axisbank for purchase",14193.31,education
+"Payment of Rs 1,267.34 to Essar Petrol successful",1267.34,transport_fuel
+CANARA DEBIT: RS 3319 TO HOUSEWARMING@PAYTM UPI,3319.12,gifts
+"PNB: Rs. 2,519.66 debited for BESCOM purchase",2519.66,bills_electricity
+"BOB: Rs.2,019.98 paid to Titan Eye Plus via UPI Ref 182621546",2019.98,shopping_offline
+SBI: Rs 232/- debited for Excitel purchase,232.47,bills_telecom
+"UPI: RS 3,384 TO BPCL@OKAXIS FOR PURCHASE",3384.1,transport_fuel
+BOB: Rs.23039/- paid to Max Hospital via UPI Ref 236668521,23038.64,health_medical
+Yes Bank: Rs.1691/- paid to Grammarly via UPI Ref 498049146,1691.43,subscription
+"BOB: Rs 10,684.76 debited for HDFC Home Loan EMI",10684.76,emi
+Kotak: Rs 170 debited for Adobe CC purchase,169.6,subscription
+Loan EMI Rs 47067 paid to ICICI Personal Loan,47066.53,emi
+"Yes Bank Alert: INR 7,239.47 spent at Anniversary gift",7239.47,gifts
+"IndusInd Debit: Rs 1,494 to mojopizza@axl UPI",1493.5,food_delivery
+House rent payment Rs 43983 for May,43983.44,rent
+"UPI: Rs 27,078.52 to coursera@okhdfcbank for purchase",27078.52,education
+"canara alert: inr 30,537.84 spent at vedantu",30537.84,education
+IndusInd: Rs 8665 debited for Chumbak purchase,8664.63,shopping_online
+HDFC: Rs.137.17 paid to Haldirams via UPI Ref 121882877,137.17,food_delivery
+"PhonePe: Rs 6,634.22 paid to BSES Rajdhani",6634.22,bills_electricity
+Headspace - Rs..526.92 paid via UPI,526.92,subscription
+Rs 777/- debited Jio Fiber Yes Bank,776.77,bills_telecom
+"Rs 1,944.04/- debited Jawed Habib BOB",1944.04,personal_care
+"Auto debit Rs 29,193.42 Mahindra Finance loan account",29193.42,emi
+"Room rent payment Rs. 21,098.62 for Jul",21098.62,rent
+"Yes Bank: Rs 2,850 debited from a/c **4257 for IMPS Transfer",2850.4,other
+"UPI: Rs 38,652 to scaleracadem@ybl for purchase",38651.67,education
+SBI UPI: Rs 8380/- to titaneyeplus@kotak,8379.98,shopping_offline
+"BOB: RS.69,611 PAID TO CONSULTING FEE VIA UPI REF 950492145",69611.47,freelance
+"rs 7,883.00/- debited development work pnb",7883.0,freelance
+"Yes Bank Credit: Rs 193,864 NEFT-Wipro-SALARY",193864.5,salary
+Yes Bank: Rs.698/- paid to BPCL via UPI Ref 828419083,697.82,transport_fuel
+Payment of Rs 1568 to Uber Auto successful,1567.55,transport_ride
+PHONEPE: RS 1255 PAID TO APPLE TV+,1255.38,entertainment
+UPI: Rs 267 to mcgmwater@paytm for purchase,266.86,bills_water
+Diwali gift - Rs.5808 paid via UPI,5808.49,gifts
+"Paid Rs 9,416.76 to boAt via GPay",9416.76,shopping_online
+canara alert: inr 93711 spent at design work,93710.64,freelance
+BOB: Rs 302.28 debited from a/c **4811 for EatFit,302.28,food_delivery
+Paytm Money - Rs 38355 invested in mutual fund,38354.61,investment
+Canara Alert: INR 9738 spent at Peter England,9738.43,shopping_offline
+"BOB: Rs 4,278.30 debited for Sugar Cosmetics purchase",4278.3,shopping_online
+"ICICI: RS 35,510.39 DEBITED FOR KHAN ACADEMY PURCHASE",35510.39,education
+"axis upi: rs 4,478.23 to bpcl@paytm",4478.23,transport_fuel
+Paid Rs 14440 to Metro Shoes via GPay,14440.49,shopping_offline
+INDUSIND SMS: INR 301 DEBITED UPI TXN TO HEADSPACE@AXISBANK,301.18,subscription
+Investment: Rs 66400/- to ET Money via UPI,66400.2,investment
+YES BANK: RS.1727 PAID TO TOTAL ENERGIES VIA UPI REF 211787506,1727.44,transport_fuel
+BOB: Rs 2203/- debited for Boat Lifestyle purchase,2202.54,shopping_online
+"HDFC Alert: INR 45,004 spent at Yatra",45003.58,travel
+Paid Rs 839.53 to Amazon Gift via GPay,839.53,gifts
+UPI: Rs 1235 to chaayos@axisbank for purchase,1235.26,food_delivery
+card **2424 used at pspcl for rs.5583/-,5583.01,bills_electricity
+"CARD **5012 used at ACT Fibernet for Rs.1,331.69",1331.69,bills_telecom
+"Paytm Money: SIP of Rs 23,904 debited",23904.31,investment
+"Axis CC: Apollo Pharmacy Rs 6,777",6776.81,health_medical
+IndusInd Credit: Rs 251206/- NEFT-Google India-SALARY,251205.86,salary
+"axis: rs 2,005.03 debited from a/c **2535 for amazon.in",2005.03,shopping_online
+Axis: Rs 2464 debited from a/c **4657 for HealthifyMe,2464.47,health_fitness
+Uber Moto - Rs.685 paid via UPI,685.16,transport_ride
+"Auto debit Rs 27,393.76 Samsung Finance loan account",27393.76,emi
+UPI: Rs 1408 to indrive@okaxis for purchase,1407.84,transport_ride
+Paradise Biryani - Rs.177/- paid via UPI,177.16,food_delivery
+salary credited rs 260434 from bajaj auto,260433.98,salary
+"Paid Rs. 77,782 to project payment via GPay",77781.89,freelance
+"BOB Debit: Rs 1,531 to actfibernet@okhdfcbank UPI",1530.67,bills_telecom
+UPI: Rs 5552 to lenskart@sbi for purchase,5551.71,shopping_online
+ICICI: Rs 19869 debited for Unacademy purchase,19868.94,education
+"Payment of Rs 1,758.36 to Namma Yatri successful",1758.36,transport_ride
+"PNB: Rs 9,374.85 debited for Birthday gift purchase",9374.85,gifts
+"Paid Rs 7,431 to Ferns N Petals via GPay",7430.58,gifts
+IndusInd UPI: Rs 2915/- to courier@axisbank,2914.72,other
+"PNB Debit: Rs 3,582 to nayaraenergy@sbi UPI",3582.22,transport_fuel
+Axis: Rs 424 debited from a/c **1434 for Dropbox,423.74,subscription
+"RENT TRANSFER RS 30,525 TO LANDLORD",30524.96,rent
+axis debit: rs 2051/- to bigbasket@axisbank upi,2050.88,groceries
+CARD **5506 used at KFC for Rs.561,560.76,food_delivery
+"Rs 4,688.35/- debited CSPDCL PNB",4688.35,bills_electricity
+"Rs 14,699.74/- debited Coursera ICICI",14699.74,education
+"indusind cc: meesho rs 9,424",9423.53,shopping_online
+ICICI SMS: INR 4110 debited UPI txn to milkbasket@ybl,4110.05,groceries
+"BOB: Rs.1,053.53 paid to Pune Municipal Water via UPI Ref 215834822",1053.53,bills_water
+"sbi debit: rs 1,624.59 to ajio@axl upi",1624.59,shopping_online
+"Paid Rs 2,445 to Snapdeal via GPay",2445.28,shopping_online
+Rs 1050/-/- debited Municipal Water Canara,1049.68,bills_water
+"indusind alert: inr 6,754.42 spent at fastag",6754.42,other
+"ICICI: Rs 4,872.53 debited for Essar Petrol purchase",4872.53,transport_fuel
+"Yes Bank CC: Fun Cinemas Rs. 1,338.64",1338.64,entertainment
+"PhonePe: Rs 9,834.57 paid to Amazon Gift",9834.57,gifts
+"MONTHLY RENT RS 12,959 PAID VIA UPI",12959.49,rent
+Yes Bank: Rs. 57451 debited from a/c **7912 for design work,57451.42,freelance
+"Yes Bank SMS: INR 1,512.83 debited UPI txn to voot@kotak",1512.83,entertainment
+PHONEPE: RS 1540/- PAID TO CHATGPT PLUS,1539.64,subscription
+Monthly rent Rs 27990/- paid via UPI,27990.42,rent
+"ICICI Debit: Rs 28,472 to abhibus@axl UPI",28472.33,travel
+UPI: RS 750 TO DISHTV@ICICI FOR PURCHASE,750.42,bills_telecom
+BOB CC: Swiggy Rs 1017/-,1017.25,food_delivery
+Canara UPI: Rs 719 to hathway@paytm,719.27,bills_telecom
+IndusInd Alert: INR 453 spent at Courier,453.23,other
+"Paid Rs 7,487.81 to Flipkart Gift via GPay",7487.81,gifts
+"Kotak: Rs 2,159 debited for Christmas gift purchase",2159.3,gifts
+SBI Debit: Rs 46079 to redbus@icici UPI,46078.97,travel
+PhonePe: Rs 363.96 paid to Adobe CC,363.96,subscription
+"paid rs 2,397.71 to blinkit via gpay",2397.71,groceries
+"CARD **3286 used at Tikona for Rs.1,564.84",1564.84,bills_telecom
+"Payment of Rs 6,718.86 to Nykaa successful",6718.86,shopping_online
+"Loan EMI Rs 44,157.77 paid to HDFC Home Loan",44157.77,emi
+Cinepolis - Rs.208.68 paid via UPI,208.68,entertainment
+"SBI: Rs 1,050.37 dbtd for iCloud purchase",1050.37,subscription
+SBI SMS: INR 5470 debited UPI txn to delhivery@hdfcbank,5470.46,other
+"Yes Bank UPI: Rs 17,666.99 to medanta@hdfcbank",17666.99,health_medical
+"PhonePe: Rs 4,220 paid to Nayara Energy",4219.84,transport_fuel
+"Rs 38,388.82/- debited Vistara ICICI",38388.82,travel
+indusind cc: rakhi gift rs 1831,1831.3,gifts
+"PNB Debit: Rs 9,557 to giftcard@ybl UPI",9557.49,gifts
+Jawed Habib - Rs..659/- paid via UPI,659.1,personal_care
+"rs 71,064.62/- debited upwork kotak",71064.62,freelance
+UPI: Rs 2925 to ajio@okaxis for purchase,2925.2,shopping_online
+"phonepe: rs 1,905.21 paid to act fibernet",1905.21,bills_telecom
+"SBI: Rs 3,762 debited from a/c **5012 for FASTag",3761.61,other
+"AXIS: RS.1,872.78 PAID TO SPA VIA UPI REF 286093591",1872.78,personal_care
+Investment: Rs 49525/- to HDFC MF via UPI,49524.83,investment
+PhonePe: Rs 1125 paid to La Pinos,1125.07,food_delivery
+PhonePe: Rs 3909/- paid to Wedding gift,3908.83,gifts
+"Paid Rs 2,980.15 to Metro Cash via GPay",2980.15,groceries
+"Paid Rs 91,947 to project payment via GPay",91947.32,freelance
+"sbi cc: printing rs 8,357",8356.65,other
+icici: rs 1350/- debited from a/c **2679 for anytime fitness,1349.81,health_fitness
+"Canara Alert: INR 1,680 spent at Tikona",1680.2,bills_telecom
+"CARD **7873 used at Archies for Rs.7,281",7281.2,gifts
+SBI: Rs 1628/- debited for Apple TV+ purchase,1628.21,entertainment
+Paid Rs. 2387 to Flipkart Grocery via GPay,2387.39,groceries
+"Payment of Rs 1,257.55 to Airtel successful",1257.55,bills_telecom
+FabHotels - Rs.5538/- paid via UPI,5537.71,travel
+Yes Bank Debit: Rs. 91840 to clientpaymen@icici UPI,91839.99,freelance
+"PhonePe: Rs. 1,397 paid to FreshMenu",1397.3,food_delivery
+CANARA SMS: INR 17201/- DEBITED UPI TXN TO GEEKSFORGEEK@OKHDFCBANK,17201.14,education
+yes bank credit: rs 77930 neft-infosys-salary,77930.04,salary
+"Monthly salary credit INR 216,180.91 ICICI Bank",216180.91,salary
+CARD **3286 used at Cult.fit for Rs.1202,1201.55,health_fitness
+"Axis: Rs. 1,999 debited from a/c **1488 for HMWSSB",1998.95,bills_water
+Rs 4363/-/- dbtd Indane Gas HDFC,4362.51,transport_fuel
+payment of rs 1062/- to zee5 successful,1061.66,entertainment
+"Kotak: Rs..3,478 paid to Max Fashion via UPI Ref 714483748",3478.3,shopping_offline
+"IndusInd: Rs 1,803 debited from a/c **9279 for Naturals Salon",1803.24,personal_care
+Monthly salary credit INR 147312 HCL Tech,147312.14,salary
+"Paid Rs 2,889.88 to BlueDart via GPay",2889.88,other
+"Axis: Rs 5,291 debited for TATA Power purchase",5290.75,bills_electricity
+"HDFC Debit: Rs 1,030 to lifestyle@ybl UPI",1029.74,shopping_offline
+"Axis: Rs 3,310 debited from a/c **2679 for CESC",3309.84,bills_electricity
+card **4657 used at fitness first for rs.1649,1649.11,health_fitness
+Paid Rs 897 to WBSEDCL via GPay,896.56,bills_electricity
+"Auto debit Rs 28,459 HDFC Home Loan loan account",28458.9,emi
+"Axis CC: PCMC Water Rs 1,078",1078.34,bills_water
+Canara: Rs.11966 paid to Westside via UPI Ref 204855083,11965.61,shopping_offline
+"Kotak: Rs.1,542 paid to Rapido Bike via UPI Ref 113598909",1541.64,transport_ride
+sbi alert: inr 2945 spent at reliance trends,2945.27,shopping_offline
+"Payment of Rs 4,449 to Anytime Fitness successful",4449.37,health_fitness
+"CARD **7912 used at Medanta for Rs.14,068.81",14068.81,health_medical
+"ICICI CC: development work Rs 13,842.24",13842.24,freelance
+"MONTHLY SALARY CREDIT INR 90,897 INFOSYS",90897.21,salary
+"Payment of Rs 5,347.66 to Diwali gift successful",5347.66,gifts
+"Axis: Rs 3,607.30 debited for Bajaj Finance EMI EMI",3607.3,emi
+Canara: Rs 7492 debited for Diwali gift purchase,7492.2,gifts
+coin by zerodha - rs 18903/- invested in mutual fund,18902.98,investment
+Auto debit Rs 4752/- Bajaj Auto Finance loan account,4751.93,emi
+Axis: Rs 17708 debited from a/c **7912 for Max Fashion,17708.17,shopping_offline
+PHONEPE: RS 1350/- PAID TO TALWALKARS,1349.94,health_fitness
+PNB SMS: INR 401 debited UPI txn to d2h@sbi,400.57,bills_telecom
+"UPI: Rs 22,405.53 to udemy@sbi for purchase",22405.53,education
+Canara: Rs.5668 paid to BSES Yamuna via UPI Ref 254990533,5667.63,bills_electricity
+"BOB SMS: INR 3,702.65 debited UPI txn to amazongift@okaxis",3702.65,gifts
+"ICICI UPI: Rs 47,645 to abhibus@paytm",47644.64,travel
+Paid Rs 27145 to Scaler Academy via GPay,27144.63,education
+"Kotak UPI: Rs 4,193 to irctc@ybl",4193.06,travel
+CARD **4257 used at Tanishq for Rs.18033/-,18033.44,shopping_offline
+CARD **7912 used at Headspace for Rs.88,88.0,subscription
+"UPI: Rs 23,486.20 to thyrocare@paytm for purchase",23486.2,health_medical
+SBI: Rs 12953 debited for Central purchase,12952.54,shopping_offline
+Rs 3353/- debited Ferns N Petals Yes Bank,3352.62,gifts
+Paid Rs 123 to InDrive via GPay,122.58,transport_ride
+IndusInd SMS: INR 2189 debited UPI txn to healthifyme@okhdfcbank,2188.78,health_fitness
+PhonePe: Rs 1994 paid to Hathway,1993.96,bills_telecom
+"BOB: Rs 44,336 NEFT to Office rent",44336.01,rent
+"PHONEPE: RS 1,447.03 PAID TO ACT FIBERNET",1447.03,bills_telecom
+"Kotak: Rs 21,378 debited from a/c **2535 for AirAsia",21377.82,travel
+"CARD **1409 used at Municipal Water for Rs.1,711.33",1711.33,bills_water
+"IndusInd CC: CESC Rs 4,369",4368.69,bills_electricity
+Yes Bank Credit: Rs 211128 NEFT-L&T-SALARY,211128.4,salary
+RS 520/-/- DEBITED PARKING BOB,519.56,other
+PHONEPE: RS 6744 PAID TO ADANI ELECTRICITY,6743.88,bills_electricity
+Payment of Rs. 770 to Dunzo Daily successful,769.61,food_delivery
+"Paid Rs 1,090.46 to Lionsgate Play via GPay",1090.46,entertainment
+"INDUSIND UPI: RS 2,346.67 TO YLGSALON@ICICI",2346.67,personal_care
+"HDFC SMS: INR 1,351.45 debited UPI txn to drycleaning@axl",1351.45,other
+"BOB Debit: Rs 16,638 to simplilearn@sbi UPI",16637.54,education
+UPI: Rs 24644 to toptal@icici for purchase,24644.24,freelance
+IndusInd: Rs 80782 dbtd from a/c **9935 for Toptal,80781.51,freelance
+"IndusInd Alert: INR 10,390 spent at Purplle",10390.27,shopping_online
+"Payment of Rs 7,862.87 to Narayana Health successful",7862.87,health_medical
+"PAYMENT OF RS 39,054 TO UDEMY SUCCESSFUL",39054.4,education
+"UPI: Rs 3,250.89 to salon@icici for purchase",3250.89,personal_care
+"CARD **9279 used at Airtel for Rs.1,673",1672.74,bills_telecom
+Cleartrip - Rs.40310/- paid via UPI,40310.08,travel
+card **1409 used at 99designs for rs.56185/-,56185.26,freelance
+Rs 1429/-/- debited Amazon Fresh IndusInd,1428.55,groceries
+Axis: Rs.11563 paid to Narayana Health via UPI Ref 902523694,11562.69,health_medical
+Kotak: Rs 599/- debited from a/c **1488 for Google One,598.74,subscription
+"IndusInd: Rs 21,452 debited for Yatra purchase",21452.25,travel
+BOB Debit: Rs 11804/- to codingninjas@axl UPI,11804.41,education
+PNB: RS 1021/- DEBITED FROM A/C **9279 FOR SRL DIAGNOSTICS,1021.39,health_medical
+SBI Alert: INR 11485/- spent at Titan Eye Plus,11485.45,shopping_offline
+PhonePe: Rs 6927/- paid to Dr Lal PathLabs,6926.93,health_medical
+Rent transfer Rs 14980 to landlord,14980.06,rent
+"Yes Bank Alert: INR 2,191.55 spent at ATM Withdrawal",2191.55,other
+Investment: Rs 15120/- to ET Money via UPI,15119.72,investment
+card **2824 used at strava for rs.972,971.54,subscription
+"Axis SMS: INR 3,005.39 debited UPI txn to manyavar@kotak",3005.39,shopping_offline
+"Rs 1,032/- debited Rapido Bike IndusInd",1031.97,transport_ride
+SBI Alert: INR 3734 spent at Sugar Cosmetics,3734.04,shopping_online
+"Payment of Rs 4,907 to HP Petrol Pump successful",4906.83,transport_fuel
+indusind alert: inr 370 spent at cinepolis,369.74,entertainment
+"HDFC SMS: INR 2,415 debited UPI txn to haircut@okhdfcbank",2414.74,personal_care
+"Axis UPI: Rs 83,274 to contentwriti@hdfcbank",83274.07,freelance
+ICICI Alert: INR 11741 spent at boAt,11741.43,shopping_online
+Payment of Rs 280 to Grammarly successful,280.4,subscription
+"HDFC Alert: INR 1,137.08 spent at Disney+ Hotstar",1137.08,entertainment
+Canara Debit: Rs 21965/- to vistara@sbi UPI,21964.9,travel
+BOB: Rs.933.51 paid to Excitel via UPI Ref 742028580,933.51,bills_telecom
+Kotak SMS: INR 2305/- debited UPI txn to fastag@okhdfcbank,2305.06,other
+Rs 2092/-/- debited Rapido Bike Canara,2091.74,transport_ride
+"CARD **9935 used at BluSmart for Rs.1,624",1624.5,transport_ride
+SBI CC: Chicago Pizza Rs 778/-,778.25,food_delivery
+Kotak CC: Bata Rs 13316,13316.46,shopping_offline
+Payment of Rs 242.15 to Uber Moto successful,242.15,transport_ride
+Kotak: Rs.1379/- paid to Spa via UPI Ref 711744649,1379.28,personal_care
+"SBI: Rs 3,650.08 debited for Indane Gas purchase",3650.08,transport_fuel
+Paid Rs 6957 to Sugar Cosmetics via GPay,6956.84,shopping_online
+PhonePe: Rs 1765/- paid to Indane Gas,1765.41,transport_fuel
+UPI: Rs 45274/- to udemy@ybl for purchase,45274.47,education
+RS 620/- DEBITED BWSSB YES BANK,619.56,bills_water
+"CARD **4657 used at Physics Wallah for Rs.42,658",42658.34,education
+UPI: Rs. 5940/- to giftcard@paytm for purchase,5940.09,gifts
+Payment of Rs 1548/- to MTNL successful,1547.92,bills_telecom
+"paid rs 1,836 to apple tv+ via gpay",1835.53,entertainment
+phonepe: rs 149 paid to voot,149.01,entertainment
+Zepto Cafe - Rs.269 paid via UPI,269.34,food_delivery
+"Mirae Asset: SIP of Rs 41,306.10 dbtd",41306.1,investment
+HDFC CC: Dropbox Rs 1586,1585.54,subscription
+CANARA DEBIT: RS 6346/- TO FLIPKARTGIFT@AXISBANK UPI,6345.78,gifts
+ICICI SMS: INR 4306/- DEBITED UPI TXN TO NATURESBASKE@SBI,4306.19,groceries
+"UPI: Rs 7,912.86 to pspcl@kotak for purchase",7912.86,bills_electricity
+"ICICI Debit: Rs 2,025.11 to autorickshaw@paytm UPI",2025.11,transport_ride
+Payment of Rs 1546 to Spar Hypermarket successful,1545.62,groceries
+"card **4657 used at jaipur water for rs.1,249.39",1249.39,bills_water
+"SBI UPI: Rs. 1,436 to indrive@ybl",1436.35,transport_ride
+"SBI: Rs 1,489 debited for McDonalds purchase",1489.01,food_delivery
+BOB CC: Uber Auto Rs 224,223.53,transport_ride
+"sbi cc: medplus rs 11,449.95",11449.95,health_medical
+"HDFC CC: BPCL Rs 1,214",1213.71,transport_fuel
+"PG rent payment Rs 17,548 for Jul",17548.44,rent
+"Payment of Rs 10,332.68 to boAt successful",10332.68,shopping_online
+SBI: RS 1778 DEBITED FOR TATA PLAY PURCHASE,1778.11,bills_telecom
+CARD **4257 USED AT EXCITEL FOR RS.1183,1183.07,bills_telecom
+UPI: Rs 235/- to indianoil@kotak for purchase,235.27,transport_fuel
+"PhonePe: Rs 2,973.83 paid to Spa",2973.83,personal_care
+Paid Rs 395/- to Burger King via GPay,394.67,food_delivery
+UPI: RS 519 TO FUNCINEMAS@OKHDFCBANK FOR PURCHASE,519.06,entertainment
+UPI: Rs. 1034/- to hmwssb@okaxis for purchase,1033.76,bills_water
+PNB UPI: Rs 3272 to cesc@sbi,3272.3,bills_electricity
+BOB SMS: INR 263.80 debited UPI txn to pvr@hdfcbank,263.8,entertainment
+"Rs 8,890/- debited Tanishq SBI",8890.34,shopping_offline
+Payment of Rs 12819/- to Manipal Hospital successful,12818.82,health_medical
+"CARD **4257 used at D2H for Rs.1,208.16",1208.16,bills_telecom
+UPI: Rs 699 to zeptocafe@okaxis for purchase,698.52,food_delivery
+"SBI: Rs 23,093 NEFT to Society maintenance",23092.91,rent
+"Canara Alert: INR 49,903 spent at development work",49902.73,freelance
+"card **1409 used at google one for rs.1,426.61",1426.61,subscription
+BOB UPI: Rs 11279/- to medplus@kotak,11279.3,health_medical
+"Salary credited Rs 287,252.53 from TCS",287252.53,salary
+Vi Vodafone - Rs.1217/- paid via UPI,1216.74,bills_telecom
+"monthly rent rs 11,405.29 paid via upi",11405.29,rent
+PNB: Rs.284.96 paid to Flipkart Grocery via UPI Ref 741288486,284.96,groceries
+INDUSIND DEBIT: RS 2394/- TO BIRTHDAYGIFT@AXL UPI,2393.58,gifts
+Paid Rs 17904 to Titan Eye Plus via GPay,17903.57,shopping_offline
+"Investment: Rs 63,924 to ET Money via UPI",63924.0,investment
+"hdfc cc: printing rs 4,118",4118.13,other
+IndusInd: Rs.400 paid to Namma Yatri via UPI Ref 755325292,399.99,transport_ride
+CARD **9279 used at Zee5 for Rs.1702,1701.75,entertainment
+"Salary credited Rs 256,853 from Google India",256852.71,salary
+SBI Debit: Rs 1249/- to notion@hdfcbank UPI,1249.28,subscription
+IndusInd: Rs 14372/- debited from a/c **2824 for Physics Wallah,14372.17,education
+"IndusInd: Rs.2,332.22 paid to Miscellaneous via UPI Ref 287893255",2332.22,other
+Axis Alert: INR 19645 spent at Allen Career,19644.97,education
+SBI DEBIT: RS 1065 TO VLCC@KOTAK UPI,1064.88,personal_care
+CARD **7873 used at Theobroma for Rs.889/-,888.94,food_delivery
+Axis Debit: Rs 692 to pcmcwater@okhdfcbank UPI,691.78,bills_water
+"Axis: Rs 6,816.49 debited from a/c **2424 for Miscellaneous",6816.49,other
+HDFC SMS: INR 22699/- DEBITED UPI TXN TO PHYSICSWALLA@AXISBANK,22699.18,education
+HDFC UPI: Rs 895 to rapido@paytm,895.17,transport_ride
+"HDFC: Rs. 5,587.42 debited from a/c **7873 for Dry cleaning",5587.42,other
+"SBI CC: The Quad Rs 4,656",4656.23,health_fitness
+CARD **1488 used at BigBasket for Rs.2894/-,2894.38,groceries
+Yes Bank CC: VLCC Rs 836,835.5,personal_care
+HDFC Debit: Rs 829 to adanielectri@icici UPI,829.29,bills_electricity
+"upi: rs 21,862.02 to aiims@axl for purchase",21862.02,health_medical
+CARD **4257 used at FreshMenu for Rs.430,430.21,food_delivery
+SBI: Rs 41154 debited for Zerodha MF purchase,41154.39,investment
+Axis UPI: Rs 162/- to autorickshaw@ybl,162.0,transport_ride
+"SBI Debit: Rs 1,921 to pepperfry@icici UPI",1920.77,shopping_online
+"Ola Auto - Rs.1,537 paid via UPI",1536.97,transport_ride
+"Salary for Jun - Rs 269,567 from Infosys",269567.23,salary
+"IndusInd UPI: Rs 2,555 to spa@okhdfcbank",2554.58,personal_care
+Yes Bank: Rs 11362 debited for Practo purchase,11361.53,health_medical
+"Motilal Oswal: SIP of Rs 13,669.45 debited",13669.45,investment
+"CARD **9935 USED AT YOGA HOUSE FOR RS.2,255.28",2255.28,health_fitness
+"Salary for Jul - Rs 38,743 from ICICI Bank",38742.79,salary
+SBI UPI: Rs 1720 to hmwssb@axl,1720.17,bills_water
+IndusInd: Rs 45095 NEFT to Office rent,45094.81,rent
+UPI: RS 1632/- TO LAKMESALON@HDFCBANK FOR PURCHASE,1631.7,personal_care
+Coding Ninjas - Rs.12937 paid via UPI,12936.83,education
+"UPI: Rs 22,193 to indigo@ybl for purchase",22192.51,travel
+Yes Bank: Rs 6888 NEFT to Rent to owner,6888.09,rent
+BOB: Rs 33015/- NEFT to Landlord,33014.64,rent
+"BOB Debit: Rs 7,270 to xerox@ybl UPI",7270.01,other
+"DSP MF: SIP of Rs 66,894 debited",66894.0,investment
+"BOB SMS: INR 3,329.93 debited UPI txn to thyrocare@paytm",3329.93,health_medical
+"Canara: Rs.4,053 paid to Apollo Pharmacy via UPI Ref 795657256",4052.89,health_medical
+Rs 223.85/- debited Airtel PNB,223.85,bills_telecom
+"Groww: SIP of Rs 51,927 debited",51926.77,investment
+Rs 11135/-/- debited Kalyan Jewellers HDFC,11134.87,shopping_offline
+5Paisa: SIP of Rs 99495 debited,99495.42,investment
+"payment of rs 4,192.53 to christmas gift successful",4192.53,gifts
+"BOB: Rs 19,174 NEFT to Flat rent",19174.25,rent
+"Monthly rent Rs 17,436 paid via UPI",17436.36,rent
+PNB SMS: INR 473.00 debited UPI txn to diwaligift@sbi,473.0,gifts
+"PNB: Rs 3,027 debited for Pantaloons purchase",3026.59,shopping_offline
+"rs 2,481.69/- debited toll plaza sbi",2481.69,other
+"IndusInd Debit: Rs 2,659.01 to essarpetrol@sbi UPI",2659.01,transport_fuel
+Paid Rs 78344/- to Upwork via GPay,78343.51,freelance
+Rs 1733/-/- debited JioMart Yes Bank,1733.47,groceries
+"Scaler Academy - Rs.33,478 paid via UPI",33478.02,education
+"CARD **7912 used at HealthifyMe for Rs.3,479",3479.25,health_fitness
+UPI: Rs 67548 to peopleperhou@ybl for purchase,67548.46,freelance
+Yes Bank Debit: Rs. 1317 to paradisebiry@axisbank UPI,1316.59,food_delivery
+ICICI: Rs 37523/- debited from a/c **4811 for Yatra,37522.77,travel
+"SBI DEBIT: RS 4,449.54 TO NAYARAENERGY@AXISBANK UPI",4449.54,transport_fuel
+CARD **1520 used at Calm for Rs.476,475.85,subscription
+KOTAK DEBIT: RS 845 TO SPA@PAYTM UPI,845.45,personal_care
+"CARD **4657 used at Municipal Water for Rs.1,985.85",1985.85,bills_water
+"HDFC: Rs.4,785.70 paid to Thai Spa via UPI Ref 965942293",4785.7,personal_care
+"Yes Bank SMS: INR 1,153 debited UPI txn to strava@hdfcbank",1153.13,subscription
+KOTAK UPI: RS 521/- TO LENSKART@SBI,521.18,shopping_online
+ICICI Debit: Rs 661 to crossfit@sbi UPI,660.85,health_fitness
+"phonepe: rs 18,278 paid to westside",18278.4,shopping_offline
+Anniversary gift - Rs.3314/- paid via UPI,3314.18,gifts
+UPI: Rs 1712 to sarvayoga@hdfcbank for purchase,1712.22,health_fitness
+"SBI: Rs 45,659.71 debited for Kuvera MF purchase",45659.71,investment
+Canara: Rs 919 debited from a/c **7912 for Tikona,918.99,bills_telecom
+paid rs 4021/- to msedcl via gpay,4021.43,bills_electricity
+"Nykaa - Rs.2,847 paid via UPI",2847.23,shopping_online
+"Canara Credit: Rs 293,564 NEFT-Tata Motors-SALARY",293563.77,salary
+"ICICI UPI: Rs 17,951.23 to maxfashion@hdfcbank",17951.23,shopping_offline
+BlueDart - Rs.4355/- paid via UPI,4355.22,other
+Axis SMS: INR 311/- debited UPI txn to anniversaryg@hdfcbank,310.82,gifts
+Yes Bank CC: CrossFit Rs. 2840/-,2839.63,health_fitness
+"HDFC: Rs 71,753 credited - Salary from Google India",71752.97,salary
+"BOB CC: RedBus Rs 38,630.75",38630.75,travel
+"IndusInd SMS: INR 2,035 debited UPI txn to healthifyme@hdfcbank",2035.14,health_fitness
+"ICICI SMS: INR 2,731 debited UPI txn to thequad@okhdfcbank",2731.05,health_fitness
+"PHONEPE: RS 7,982 PAID TO PEPPERFRY",7982.16,shopping_online
+CARD **2424 used at Canva Pro for Rs.290,289.8,subscription
+"paid rs 49,288.98 to simplilearn via gpay",49288.98,education
+RS 458/-/- DEBITED TIKONA PNB,458.37,bills_telecom
+"BOB: Rs 3,477.50 debited for DTDC purchase",3477.5,other
+"HDFC: Rs.1,716 paid to Apple TV+ via UPI Ref 116675283",1715.6,entertainment
+Investment: Rs 80032 to Coin by Zerodha via UPI,80031.55,investment
+"Payment of Rs 24,000 to Fortis Hospital successful",24000.43,health_medical
+"Auto debit Rs 39,383 Axis Car Loan loan account",39382.54,emi
+"Axis CC: Amazon Fresh Rs 4,524",4524.15,groceries
+Canara SMS: INR 17080 dbtd UPI txn to makemytrip@okaxis,17080.41,travel
+"IndusInd: Rs 1,346.91 debited for YouTube Premium purchase",1346.91,subscription
+ICICI SMS: INR 1615 debited UPI txn to hmwssb@kotak,1615.28,bills_water
+"SIP debit Rs 44,926 Zerodha folio",44925.85,investment
+"Canara SMS: INR 2,360.25 dbtd UPI txn to uber@hdfcbank",2360.25,transport_ride
+"PNB UPI: RS 18,956 TO NETMEDS@OKHDFCBANK",18955.58,health_medical
+"icici sms: inr 1,820.01 debited upi txn to grofers@kotak",1820.01,groceries
+"Bajaj Finance EMI: EMI Rs 18,040.37 debited",18040.37,emi
+"paid rs 3,371 to igp via gpay",3371.35,gifts
+Paid Rs 33344/- to BYJUS via GPay,33343.87,education
+CARD **4811 USED AT MISCELLANEOUS FOR RS.1019/-,1018.6,other
+Rs. 813/- debited Chennai Metro Water Yes Bank,812.78,bills_water
+"Salary credited Rs 38,972 from Tata Motors",38971.58,salary
+rs 13221/-/- debited bewakoof bob,13220.93,shopping_online
+"Salary for Aug - Rs 236,394 from Wipro",236394.17,salary
+"Axis: Rs 1,421 dbtd for Indian Oil purchase",1420.59,transport_fuel
+"Paid Rs 16,251 to Tanishq via GPay",16251.42,shopping_offline
+"SBI: Rs.17,496 paid to MakeMyTrip via UPI Ref 295147039",17496.37,travel
+"Payment of Rs 1,589.09 to Spotify successful",1589.09,entertainment
+Yes Bank: Rs.856 paid to Pune Municipal Water via UPI Ref 302747423,855.57,bills_water
+ICICI: Rs. 141951/- credited - Salary from Google India,141950.51,salary
+HDFC CC: TATA Power Rs 3819,3819.34,bills_electricity
+Yes Bank: Rs 2197 debited from a/c **1434 for F45 Training,2196.67,health_fitness
+"IndusInd Debit: Rs. 2,454.20 to swiggyinstam@okhdfcbank UPI",2454.2,groceries
+canara: rs 635 debited for vi vodafone purchase,635.22,bills_telecom
+"Yes Bank: Rs.19,877.33 paid to Central via UPI Ref 379610097",19877.33,shopping_offline
+SBI: Rs.615 paid to Jaipur Water via UPI Ref 441446020,615.0,bills_water
+"Kotak: Rs 3,674.12 debited from a/c **7873 for Decathlon",3674.12,shopping_offline
+"HDFC: Rs 5,160 debited from a/c **9928 for Christmas gift",5159.64,gifts
+"yes bank: rs 47,783.02 debited for hdfc home loan emi",47783.02,emi
+Air India - Rs.21146 paid via UPI,21146.43,travel
+"Yes Bank: Rs.19,137 paid to Titan Eye Plus via UPI Ref 406281188",19137.41,shopping_offline
+IndusInd: Rs 52103/- debited for Mirae Asset MF purchase,52103.09,investment
+"PNB: Rs.4,978 paid to Nayara Energy via UPI Ref 905430477",4978.27,transport_fuel
+BOB Debit: Rs 4708 to naturalssalo@axl UPI,4707.54,personal_care
+"House rent payment Rs 9,877.94 for Apr",9877.94,rent
+"Monthly rent Rs 45,237 paid via UPI",45237.36,rent
+FreshToHome - Rs.314 paid via UPI,314.09,groceries
+SBI SMS: INR 103 debited UPI txn to ola@axisbank,103.41,transport_ride
+"Monthly rent Rs 24,984 paid via UPI",24983.98,rent
+"UPI: Rs 9,214 to myntra@kotak for purchase",9213.63,shopping_online
+Loan EMI Rs 21441/- paid to Kotak EMI,21441.31,emi
+"Kotak CC: Talwalkars Rs 3,313.91",3313.91,health_fitness
+"Paid Rs 14,454.13 to WOW Skin via GPay",14454.13,shopping_online
+indusind sms: inr 9822 debited upi txn to archies@paytm,9822.18,gifts
+PNB Alert: INR 982.67 spent at Zepto Cafe,982.67,food_delivery
+ICICI SMS: INR 659.78 debited UPI txn to haldirams@ybl,659.78,food_delivery
+"SIP debit Rs 57,319 Groww folio",57318.85,investment
+"salary for nov - rs 267,389 from hcl tech",267389.25,salary
+"ICICI CC: Allen Career Rs 6,531",6531.45,education
+"CARD **4257 used at Snap Fitness for Rs.1,882",1881.64,health_fitness
+Dunzo - Rs..3423/- paid via UPI,3422.64,groceries
+Yes Bank UPI: Rs 4753 to kayaskin@okhdfcbank,4753.41,personal_care
+PNB CC: Wendy's Rs 137,136.65,food_delivery
+Dropbox - Rs.1201/- paid via UPI,1201.4,subscription
+PAYMENT OF RS 5921/- TO MAMAEARTH SUCCESSFUL,5920.54,shopping_online
+"MONTHLY RENT RS 19,913.33 PAID VIA UPI",19913.33,rent
+"Salon - Rs.2,270.83 paid via UPI",2270.83,personal_care
+YES BANK: RS 1707/- DEBITED FOR STRAVA PURCHASE,1706.87,subscription
+"HDFC: Rs.1,624.89 paid to Haircut via UPI Ref 861734945",1624.89,personal_care
+"House rent payment Rs 6,477.26 for Nov",6477.26,rent
+"IndusInd SMS: INR 2,191 debited UPI txn to lionsgatepla@hdfcbank",2190.97,entertainment
+"SALARY FOR APR - RS 121,062.73 FROM COGNIZANT",121062.73,salary
+"Canara Debit: Rs 1,449.51 to spectra@ybl UPI",1449.51,bills_telecom
+UPI: Rs 526/- to jiofiber@hdfcbank for purchase,525.79,bills_telecom
+HDFC: Rs.45724 paid to PeoplePerHour via UPI Ref 225104500,45723.6,freelance
+Yes Bank Alert: INR 4001/- spent at Indian Oil,4000.56,transport_fuel
+PNB Debit: Rs 787.86 to tataplay@okaxis UPI,787.86,bills_telecom
+Kotak CC: McDonalds Rs 717.88,717.88,food_delivery
+Axis UPI: Rs 186.66 to municipalwat@ybl,186.66,bills_water
+"ICICI: Rs 31,044.88 NEFT to Rent to owner",31044.88,rent
+IndusInd Debit: Rs 1004/- to indianoil@ybl UPI,1003.5,transport_fuel
+Canara UPI: Rs 296 to tataplay@axl,295.57,bills_telecom
+ICICI: Rs 261304/- credited - Salary from Bajaj Auto,261303.99,salary
+"Salary credited Rs 293,625 from Amazon India",293624.95,salary
+"IndusInd: Rs 7,503 debited from a/c **9279 for upGrad",7503.15,education
+Yes Bank Alert: INR 19582 spent at Dr Lal PathLabs,19582.41,health_medical
+PNB UPI: Rs 8326/- to fernsnpetals@axl,8326.5,gifts
+"Office rent payment Rs 19,744.42 for Jan",19744.42,rent
+Canara Alert: INR 282 spent at Delhi Jal Board,282.49,bills_water
+"Payment of Rs 4,884 to Golds Gym successful",4884.02,health_fitness
+BOB UPI: Rs 506.65 to rapido@ybl,506.65,transport_ride
+"PhonePe: Rs 1,313.25 paid to Auto Rickshaw",1313.25,transport_ride
+"PhonePe: Rs 12,328 paid to Max Fashion",12327.6,shopping_offline
+"BOB Alert: INR 22,545 spent at IRCTC",22545.01,travel
+ICICI UPI: Rs 990 to rapidobike@sbi,990.09,transport_ride
+"Axis: Rs.1,382.69 paid to Diwali gift via UPI Ref 736047284",1382.69,gifts
+"UPI: Rs 1,738.14 to myntra@paytm for purchase",1738.14,shopping_online
+HDFC: Rs 289 debited for Pizza Hut purchase,289.24,food_delivery
+"Paid Rs 12,564 to Lifestyle via GPay",12564.44,shopping_offline
+Monthly salary credit INR 142667/- TCS,142667.24,salary
+IndusInd SMS: INR 651 debited UPI txn to googleone@paytm,650.62,subscription
+"Axis: Rs 6,062.82 debited for ICICI Personal Loan EMI",6062.82,emi
+Kotak Alert: INR 787/- spent at HealthifyMe,786.75,health_fitness
+Rs 1402/-/- debited JioCinema BOB,1402.17,entertainment
+"Axis Debit: Rs 1,480 to spotify@sbi UPI",1480.13,entertainment
+PG rent payment Rs 46379 for Jan,46379.41,rent
+Paid Rs. 3723 to Dunzo via GPay,3722.66,groceries
+"AXIS ALERT: INR 1,498 SPENT AT PUNE MUNICIPAL WATER",1497.76,bills_water
+IndusInd Alert: INR 40022/- spent at Allen Career,40021.61,education
+Swiggy - Rs.781.92 paid via UPI,781.92,food_delivery
+KOTAK UPI: RS 1223 TO JIO@SBI,1223.48,bills_telecom
+"UPI: Rs 15,945 to narayanaheal@ybl for purchase",15944.95,health_medical
+"Loan EMI Rs 47,877.76 paid to Samsung Finance",47877.76,emi
+"PhonePe: Rs 6,145 paid to UHBVN",6144.7,bills_electricity
+Canara: Rs 25726 NEFT to Flat rent,25725.68,rent
+"Investment: Rs 40,160 to Groww via UPI",40160.07,investment
+"Rs 4,973.38/- debited Netmeds Canara",4973.38,health_medical
+RENT TRANSFER RS 42296/- TO LANDLORD,42296.48,rent
+Yes Bank UPI: Rs 2339 to reliancepetr@icici,2339.2,transport_fuel
+SBI CC: Sugar Cosmetics Rs 8660,8660.24,shopping_online
+"ICICI UPI: Rs 3,510.75 to bbdaily@axisbank",3510.75,groceries
+"SBI Alert: INR 1,011 spent at Lucknow Jal Nigam",1011.05,bills_water
+PNB: Rs 3294 debited from a/c **7873 for Swiggy Instamart,3294.0,groceries
+"Canara SMS: INR 32,006 debited UPI txn to udemy@sbi",32005.85,education
+"IndusInd: Rs 1,863.29 debited for Cinepolis purchase",1863.29,entertainment
+BOB: Rs 20746 debited from a/c **5506 for Narayana Health,20745.53,health_medical
+"ICICI SMS: INR 5,581.52 debited UPI txn to atmwithdrawa@hdfcbank",5581.52,other
+Office rent payment Rs 23265 for Jun,23265.15,rent
+SBI: RS 572 DEBITED FROM A/C **2424 FOR MCGM WATER,571.85,bills_water
+"UPI: Rs 30,429 to fiverr@hdfcbank for purchase",30429.2,freelance
+"Axis: Rs 1,708 debited for iCloud purchase",1708.21,subscription
+"UPI: Rs 4,902 to zepto@ybl for purchase",4901.5,groceries
+paid rs 23776/- to max hospital via gpay,23775.74,health_medical
+phonepe: rs 1185/- paid to canva pro,1184.71,subscription
+Payment of Rs. 1812/- to Porter successful,1811.5,transport_ride
+Monthly rent Rs 12169/- paid via UPI,12168.75,rent
+CrossFit - Rs.3353/- paid via UPI,3352.53,health_fitness
+"bob upi: rs 1,405 to uber@okaxis",1404.52,transport_ride
+Rent transfer Rs 43004/- to landlord,43003.62,rent
+CARD **5506 used at Rapido Bike for Rs.774,773.68,transport_ride
+"Yes Bank: Rs. 17,868.91 debited from a/c **4657 for Decathlon",17868.91,shopping_offline
+Payment of Rs 561/- to Wendy's successful,560.98,food_delivery
+Paid Rs 89 to Uber Auto via GPay,88.54,transport_ride
+BOB Debit: Rs 126.15 to rapido@sbi UPI,126.15,transport_ride
+"Paid Rs 4,968 to VLCC via GPay",4967.97,personal_care
+MedPlus - Rs.3384/- paid via UPI,3383.63,health_medical
+"CARD **1520 used at Lionsgate Play for Rs.2,341.10",2341.1,entertainment
+PNB UPI: Rs 70 to nefttransfer@axisbank,70.07,other
+"HDFC MF: SIP of Rs 79,427 debited",79426.75,investment
+"SBI Debit: Rs 70,697.96 to projectpayme@axl UPI",70697.96,freelance
+"Paytm Money - Rs 8,420.89 invested in mutual fund",8420.89,investment
+UPI: Rs 12885/- to zara@icici for purchase,12885.36,shopping_offline
+"SBI UPI: Rs 3,874.21 to firstcry@okaxis",3874.21,shopping_online
+"monthly rent rs 40,779.65 paid via upi",40779.65,rent
+"Payment of Rs 10,660.49 to WOW Skin successful",10660.49,shopping_online
+SBI Alert: INR 1939/- spent at BookMyShow,1938.65,entertainment
+"HDFC: Rs.1,165 paid to Fun Cinemas via UPI Ref 534390135",1164.6,entertainment
+ICICI ALERT: INR 965 SPENT AT LUCKNOW JAL NIGAM,965.39,bills_water
+Monthly rent Rs 18459/- paid via UPI,18459.09,rent
+Payment of Rs 3164/- to Diwali gift successful,3164.5,gifts
+Kotak: Rs 772 debited for Ratnadeep purchase,772.45,groceries
+"PhonePe: Rs 1,134 paid to Namma Yatri",1133.84,transport_ride
+HDFC: Rs 236990 credited - Salary from Wipro,236990.49,salary
+Paid Rs. 1551/- to DishTV via GPay,1550.83,bills_telecom
+House rent payment Rs 23276/- for May,23275.53,rent
+Rs 1148/-/- debited KFC BOB,1147.85,food_delivery
+"UPI: Rs 11,534.71 to pepperfry@kotak for purchase",11534.71,shopping_online
+HDFC: Rs 2595/- debited from a/c **5012 for Anniversary gift,2594.73,gifts
+"PhonePe: Rs 4,837 paid to Spa",4836.79,personal_care
+"BOB: Rs.1,067.81 paid to Porter via UPI Ref 677303044",1067.81,transport_ride
+"ICICI: Rs.6,092.32 paid to boAt via UPI Ref 579527597",6092.32,shopping_online
+Axis Alert: INR 4525/- spent at Golds Gym,4525.01,health_fitness
+CARD **4257 used at Scaler Academy for Rs..41400/-,41399.91,education
+bob: rs 31663 debited for toptal purchase,31663.47,freelance
+"TATA CAPITAL EMI: EMI RS 19,786.11 DEBITED",19786.11,emi
+Payment of Rs 260 to Natures Basket successful,260.31,groceries
+"canara: rs.37,625 paid to upgrad via upi ref 691926077",37624.88,education
+"HDFC SMS: INR 6,266 debited UPI txn to peterengland@okaxis",6265.71,shopping_offline
+HDFC SMS: INR 433 debited UPI txn to totalenergie@ybl,433.22,transport_fuel
+"Pune Municipal Water - Rs.1,214 paid via UPI",1213.55,bills_water
+"SIP debit Rs 32,915 ET Money folio",32914.92,investment
+"Kotak SMS: INR 1,474 debited UPI txn to bsnl@sbi",1473.97,bills_telecom
+CARD **4257 used at Van Heusen for Rs.747,747.0,shopping_offline
+Yes Bank Debit: Rs 1633 to lionsgatepla@ybl UPI,1633.04,entertainment
+"SBI: Rs 2,806.85 debited from a/c **1520 for Talwalkars",2806.85,health_fitness
+Monthly salary credit INR 45049 ICICI Bank,45049.05,salary
+CARD **3286 used at Jio for Rs.880,880.02,bills_telecom
+"ZERODHA - RS 72,735.67 INVESTED IN MUTUAL FUND",72735.67,investment
+"Rs 2,282.97/- debited Sarva Yoga ICICI",2282.97,health_fitness
+ICICI: Rs 42376/- debited from a/c **1434 for Great Learning,42375.67,education
+HDFC: Rs.819.82 paid to Calm via UPI Ref 986397259,819.82,subscription
+"SBI UPI: Rs 1,992.21 to starbazaar@icici",1992.21,groceries
+PhonePe: Rs 2513/- paid to Delhivery,2512.8,other
+"SBI Alert: INR 1,965.50 spent at Headspace",1965.5,subscription
+"SIP debit Rs 1,256.43 ET Money folio",1256.43,investment
+CARD **2679 used at Box8 for Rs.626.98,626.98,food_delivery
+JAIPUR WATER - RS.1889 PAID VIA UPI,1889.19,bills_water
+PAYMENT OF RS 464/- TO DIWALI GIFT SUCCESSFUL,464.35,gifts
+"PhonePe: Rs 11,858.93 paid to development work",11858.93,freelance
+upi: rs 13079 to toptal@kotak for purchase,13078.84,freelance
+"Kotak: Rs.6,511.68 paid to Nykaa via UPI Ref 582291740",6511.68,shopping_online
+Payment of Rs 570.08 to Subway successful,570.08,food_delivery
+"Essar Petrol - Rs.4,700 paid via UPI",4699.97,transport_fuel
+Yes Bank: Rs 240.95 debited from a/c **9935 for Uber Auto,240.95,transport_ride
+"BOB: Rs 16,961 debited for Tata Capital EMI EMI",16960.87,emi
+Snap Fitness - Rs.2018/- paid via UPI,2017.65,health_fitness
+"Loan EMI Rs 34,372 paid to Tata Capital EMI",34372.22,emi
+"Auto debit Rs 40,280.50 Mahindra Finance loan account",40280.5,emi
+Canara CC: Delhivery Rs 1635/-,1634.58,other
+"UPI: Rs 9,999.24 to delhivery@hdfcbank for purchase",9999.24,other
+"Kotak SMS: INR 1,304 debited UPI txn to dishtv@axl",1303.67,bills_telecom
+"PNB SMS: INR 4,116.59 DEBITED UPI TXN TO GOLDSGYM@ICICI",4116.59,health_fitness
+"PhonePe: Rs 1,562 paid to Thai Spa",1561.78,personal_care
+PNB Alert: INR 1366 spent at EatFit,1365.7,food_delivery
+"BOB: Rs 90,710 credited - Salary from Wipro",90709.99,salary
+Payment of Rs 391 to Kaya Skin successful,390.84,personal_care
+BOB CC: Thai Spa Rs 486,485.6,personal_care
+monthly rent rs 6971 paid via upi,6970.59,rent
+"Paid Rs 23,970 to Max Hospital via GPay",23969.77,health_medical
+"PhonePe: Rs 7,470.61 paid to Peter England",7470.61,shopping_offline
+"UPI: Rs 1,350 to dishtv@sbi for purchase",1349.6,bills_telecom
+PNB CC: Great Learning Rs 20365/-,20365.38,education
+"KOTAK DEBIT: RS 4,231.57 TO WBSEDCL@YBL UPI",4231.57,bills_electricity
+"Rs 6,424.33/- debited Allen Career SBI",6424.33,education
+paid rs 3811 to bb daily via gpay,3811.02,groceries
+"HDFC UPI: Rs 4,745 to byjus@okaxis",4744.63,education
+"Salary credited Rs 26,581.57 from Google India",26581.57,salary
+CARD **4257 USED AT GRAMMARLY FOR RS.456.88,456.88,subscription
+Kotak: Rs. 49690/- debited for ICICI Personal Loan EMI,49690.26,emi
+UPI: Rs 9825/- to rakhigift@okhdfcbank for purchase,9824.7,gifts
+AUTO DEBIT RS 19901 ICICI PERSONAL LOAN LOAN ACCOUNT,19900.67,emi
+HDFC UPI: Rs 6750/- to bata@icici,6749.94,shopping_offline
+"Payment of Rs 4,115.35 to Talwalkars successful",4115.35,health_fitness
+"UPI: Rs 1,495 to fernsnpetals@kotak for purchase",1495.08,gifts
+ICICI Personal Loan: EMI Rs. 16770/- debited,16770.33,emi
+Swiggy Instamart - Rs.634 paid via UPI,634.36,groceries
+"CARD **2535 used at Apollo Pharmacy for Rs.13,857",13857.15,health_medical
+"PhonePe: Rs 1,394 paid to Cult.fit",1394.05,health_fitness
+"Sugar Cosmetics - Rs.7,451.15 paid via UPI",7451.15,shopping_online
+"Yes Bank Alert: INR 4,208.97 spent at Cash deposit",4208.97,other
+Yes Bank Alert: INR 783 spent at Ola,783.23,transport_ride
+"PNB CC: Zara Rs 8,713",8712.96,shopping_offline
+Salary for Sep - Rs 130115 from Accenture,130114.86,salary
+"SBI: Rs 4,050 debited for Vishal Mega Mart purchase",4050.38,groceries
+Auto debit Rs 29058/- Samsung Finance loan account,29058.34,emi
+IndusInd CC: LinkedIn Premium Rs 670.76,670.76,subscription
+"BOB Debit: Rs 8,793.63 to raymond@okaxis UPI",8793.63,shopping_offline
+CARD **7912 used at Zepto for Rs.492.34,492.34,groceries
+BOB: Rs 4970/- debited from a/c **2824 for VLCC,4969.84,personal_care
+"IndusInd Credit: Rs 150,654 NEFT-L&T-SALARY",150653.66,salary
+UPI: Rs 7561 to marksspencer@okhdfcbank for purchase,7560.82,shopping_offline
+"LANDLORD PAYMENT RS 9,821 FOR OCT",9821.31,rent
+Rs 795.58/- debited Spotify ICICI,795.58,entertainment
+"AXIS SMS: INR 5,735 DEBITED UPI TXN TO BESCOM@OKHDFCBANK",5735.33,bills_electricity
+Kotak: Rs 4835/- debited from a/c **1409 for Rakhi gift,4834.58,gifts
+"IndusInd Alert: INR 1,850 spent at Beauty Parlor",1849.95,personal_care
+ICICI: Rs 50828 debited for Axis MF MF purchase,50827.65,investment
+"Landlord payment Rs 9,815 for May",9815.4,rent
+"PNB CC: Udemy Rs 38,543",38543.19,education
+"Kotak SMS: INR 4,829.28 debited UPI txn to nayaraenergy@sbi",4829.28,transport_fuel
+Yes Bank UPI: Rs 947/- to archies@axisbank,946.92,gifts
+UPI: Rs 651/- to microsoft365@kotak for purchase,651.19,subscription
+"CARD **4582 used at Sarva Yoga for Rs.4,905",4905.03,health_fitness
+"PhonePe: Rs 15,943 paid to Manipal Hospital",15943.03,health_medical
+IndusInd Debit: Rs 461/- to mtnl@kotak UPI,460.51,bills_telecom
+Payment of Rs 713/- to Wow Momo successful,713.2,food_delivery
+"Canara SMS: INR 29,567 debited UPI txn to yatra@okhdfcbank",29566.76,travel
+RS 1965/-/- DEBITED NYKAA KOTAK,1965.17,personal_care
+IndusInd UPI: Rs 54425 to developmentw@kotak,54424.88,freelance
+"Paid Rs 4,614 to Rakhi gift via GPay",4614.21,gifts
+RS 4178/- DEBITED INDANE GAS BOB,4177.99,transport_fuel
+"Canara Credit: Rs 206,099.47 NEFT-Flipkart-SALARY",206099.47,salary
+"INDUSIND ALERT: INR 4,290.81 SPENT AT TOTAL ENERGIES",4290.81,transport_fuel
+"PNB CC: BPCL Rs 2,914.65",2914.65,transport_fuel
+SBI: RS.1546/- PAID TO JIO VIA UPI REF 730933965,1545.67,bills_telecom
+SBI: Rs 1595 debited for Dunzo purchase,1595.22,transport_ride
+Manyavar - Rs.13663/- paid via UPI,13662.67,shopping_offline
+"Uber Moto - Rs.2,108 paid via UPI",2107.73,transport_ride
+"IndusInd Alert: INR 1,079 spent at Snap Fitness",1079.33,health_fitness
+"Payment of Rs 21,185.37 to Fortis Hospital successful",21185.37,health_medical
+rs 17522/-/- debited reliance trends bob,17521.72,shopping_offline
+"Rs 1,006.04/- debited Pune Municipal Water ICICI",1006.04,bills_water
+"ICICI Debit: Rs 1,811.94 to ratnadeep@paytm UPI",1811.94,groceries
+Monthly rent Rs 44649 paid via UPI,44649.35,rent
+"Canara: Rs 42,285 debited for EaseMyTrip purchase",42284.9,travel
+"PHONEPE: RS 4,612 PAID TO BLUEDART",4612.43,other
+Payment of Rs. 320 to Notion successful,320.37,subscription
+CSPDCL - Rs.909.55 paid via UPI,909.55,bills_electricity
+"Canara Alert: INR 1,037.31 spent at PVR",1037.31,entertainment
+DishTV - Rs.794 paid via UPI,793.54,bills_telecom
+"Kotak Debit: Rs 66,293 to consultingfe@hdfcbank UPI",66292.68,freelance
+"Printing - Rs.8,144.88 paid via UPI",8144.88,other
+"Kotak Alert: INR 8,423 spent at Gift card",8423.14,gifts
+AXIS: RS.7913 PAID TO UHBVN VIA UPI REF 659926223,7912.82,bills_electricity
+PhonePe: Rs 2076 paid to Haircut,2076.43,personal_care
+PhonePe: Rs 34250/- paid to RedBus,34250.4,travel
+HDFC CC: Ferns N Petals Rs 2891/-,2891.05,gifts
+"ICICI Direct - Rs. 92,403.11 invested in mutual fund",92403.11,investment
+PHONEPE: RS 978 PAID TO XEROX,977.67,other
+Kotak CC: Spa Rs 3057/-,3057.43,personal_care
+"Payment of Rs 1,834 to Amazon Prime successful",1834.26,entertainment
+Axis SMS: INR 396 debited UPI txn to punemunicipa@okaxis,395.72,bills_water
+Axis UPI: Rs 8159 to metropolisla@paytm,8159.12,health_medical
+Auto debit Rs 20534 Samsung Finance loan account,20533.8,emi
+Rs 1022/- debited Yoga House Canara,1021.81,health_fitness
+"UPI: Rs 52,180 to upwork@sbi for purchase",52180.38,freelance
+"Salary for Aug - Rs 38,781 from Infosys",38780.73,salary
+"SBI Alert: INR 22,829.98 spent at content writing",22829.98,freelance
+SBI UPI: Rs 1768/- to thequad@axisbank,1767.71,health_fitness
+"SBI MF - Rs 93,529 invested in mutual fund",93528.68,investment
+"PAYMENT OF RS 25,594.31 TO CLIENT PAYMENT SUCCESSFUL",25594.31,freelance
+"Canara SMS: INR 1,435.84 debited UPI txn to uberauto@sbi",1435.84,transport_ride
+HDFC Debit: Rs 8640/- to amazongift@okhdfcbank UPI,8640.2,gifts
+"Payment of Rs 5,427.67 to KSEB successful",5427.67,bills_electricity
+"PNB CC: UPWORK RS 98,828",98827.93,freelance
+Canara: Rs 1130 debited from a/c **1434 for WBSEDCL,1130.21,bills_electricity
+"CARD **7873 used at PSPCL for Rs.1,111",1110.56,bills_electricity
+"Axis Debit: Rs 1,928.76 to indrive@paytm UPI",1928.76,transport_ride
+"IndusInd: Rs.23,364.27 paid to AIIMS via UPI Ref 183189355",23364.27,health_medical
+"pnb alert: inr 6,414 spent at kalyan jewellers",6414.07,shopping_offline
+"SpiceJet - Rs.37,053 paid via UPI",37052.63,travel
+"Salary credited Rs 186,164.89 from Tech Mahindra",186164.89,salary
+Rs 558/- debited BWSSB Canara,557.63,bills_water
+PNB: Rs.1974 paid to Golds Gym via UPI Ref 316575262,1973.57,health_fitness
+"Rs 2,493.30/- debited Rapido Bike ICICI",2493.3,transport_ride
+"Monthly salary credit INR 196,154 Accenture",196153.98,salary
+rs 2985/- debited star bazaar hdfc,2985.38,groceries
+"SBI: Rs 3,871.97 debited for Thai Spa purchase",3871.97,personal_care
+"Paid Rs 2,024.15 to Rapido via GPay",2024.15,transport_ride
+"CARD **2424 USED AT FREELANCER.COM FOR RS.53,714.52",53714.52,freelance
+Max Hospital - Rs.17700/- paid via UPI,17699.56,health_medical
+Axis Alert: INR 538 spent at Indane Gas,538.12,transport_fuel
+Canara: Rs.2299/- paid to Amazon Prime via UPI Ref 750517675,2298.7,entertainment
+UPI: Rs 1865/- to mcgmwater@hdfcbank for purchase,1865.11,bills_water
+Monthly salary credit INR 113656 Accenture,113656.01,salary
+UPI: Rs 6223 to apollopharma@icici for purchase,6223.25,health_medical
+"SBI SMS: INR 5,235 debited UPI txn to weddinggift@ybl",5235.19,gifts
+Payment of Rs 679 to Jawed Habib successful,679.4,personal_care
+"Salary for Dec - Rs 131,210.82 from Flipkart",131210.82,salary
+mcdonalds - rs.290 paid via upi,289.55,food_delivery
+ICICI: Rs 36971/- NEFT to Society maintenance,36971.27,rent
+SBI Debit: Rs 2062 to swiggyinstam@hdfcbank UPI,2062.2,groceries
+BPCL - Rs.3462 paid via UPI,3461.98,transport_fuel
+SBI: Rs 2969/- debited from a/c **2824 for Spa,2968.95,personal_care
+UPI: Rs 4820/- to bpcl@okhdfcbank for purchase,4819.88,transport_fuel
+"PhonePe: Rs 16,980.43 paid to client payment",16980.43,freelance
+"yes bank: rs 2,759 debited from a/c **5012 for pepperfry",2758.96,shopping_online
+Yes Bank Debit: Rs 456/- to madoverdonut@okhdfcbank UPI,455.67,food_delivery
+Rs 416/- debited Mad Over Donuts ICICI,416.17,food_delivery
+Office rent payment Rs 19164/- for Sep,19163.64,rent
+AXIS MF - RS 77479/- INVESTED IN MUTUAL FUND,77478.6,investment
+UPI: Rs 1850 to mcgmwater@okaxis for purchase,1849.72,bills_water
+Axis UPI: Rs 3891 to cesc@icici,3890.6,bills_electricity
+"Axis SMS: INR 3,363.37 debited UPI txn to thaispa@icici",3363.37,personal_care
+"axis alert: inr 56,781.01 spent at toptal",56781.01,freelance
+"HDFC: Rs.2,097 paid to IOCL via UPI Ref 672806655",2096.54,transport_fuel
+F45 Training - Rs.2181/- paid via UPI,2180.63,health_fitness
+"UPI: Rs 2,554 to crossfit@okhdfcbank for purchase",2554.01,health_fitness
+Investment: Rs 48268 to ICICI Direct via UPI,48267.92,investment
+Toptal - Rs.24827 paid via UPI,24826.84,freelance
+"PNB UPI: Rs 2,814.71 to countrydelig@sbi",2814.71,groceries
+Payment of Rs 9268/- to Gift card successful,9268.05,gifts
+"Delhivery - Rs.9,153.92 paid via UPI",9153.92,other
+Groww: SIP of Rs 22573/- debited,22572.77,investment
+ICICI Debit: Rs 5550/- to christmasgif@sbi UPI,5550.13,gifts
+Paid Rs 601 to Westside via GPay,600.56,shopping_offline
+Yes Bank: Rs 6062/- debited for Samsung Finance EMI,6062.5,emi
+"MONTHLY RENT RS 20,508 PAID VIA UPI",20507.62,rent
+"PNB Debit: Rs 80,594 to freelancerco@paytm UPI",80593.62,freelance
+"BOB: Rs 10,303.06 debited for Scaler Academy purchase",10303.06,education
+UPI: Rs 4329 to cultfit@axl for purchase,4329.14,health_fitness
+ICICI CC: Anytime Fitness Rs 4876,4875.81,health_fitness
+SBI: Rs.498.70 paid to Jaipur Water via UPI Ref 139442778,498.7,bills_water
+Salary for Jun - Rs 196589 from Google India,196588.86,salary
+Tata Capital EMI: EMI Rs 3852 debited,3851.57,emi
+sbi: rs.44686/- paid to coursera via upi ref 321009450,44685.61,education
+"PNB Debit: Rs 8,456.61 to metroshoes@sbi UPI",8456.61,shopping_offline
+Axis UPI: Rs 1987/- to nefttransfer@hdfcbank,1987.14,other
+"PNB CC: DTDC Rs 9,105",9104.83,other
+Canara Alert: INR 50633 spent at Toptal,50633.28,freelance
+"HDFC Debit: Rs 40,437.27 to consultingfe@axisbank UPI",40437.27,freelance
+"axis cc: narayana health rs 18,239.44",18239.44,health_medical
+Microsoft 365 - Rs.1231/- paid via UPI,1230.8,subscription
+"Canara Credit: Rs 266,150 NEFT-Tata Motors-SALARY",266149.64,salary
+BOB Alert: INR 73484 spent at 99designs,73483.67,freelance
+IndusInd: Rs 4925 debited from a/c **4811 for The Quad,4925.16,health_fitness
+kotak cc: vi vodafone rs 202/-,202.26,bills_telecom
+"Axis UPI: Rs 1,638 to thaispa@okhdfcbank",1638.42,personal_care
+PhonePe: Rs 138/- paid to PCMC Water,137.64,bills_water
+"Loan EMI Rs 23,002 paid to HDFC Home Loan",23001.9,emi
+BOB Debit: Rs 248 to mcdonalds@kotak UPI,248.2,food_delivery
+"Axis: Rs 27,141.49 NEFT to Office rent",27141.49,rent
+Kotak: Rs 1694 debited from a/c **9279 for Carnival Cinemas,1694.03,entertainment
+"sip debit rs 11,393 motilal oswal folio",11393.34,investment
+"ICICI UPI: RS 1,204 TO DRYCLEANING@KOTAK",1204.26,other
+"Loan EMI Rs 18,167 paid to Bajaj Auto Finance",18166.92,emi
+Kotak Debit: Rs 1312/- to hpgas@icici UPI,1312.4,transport_fuel
+client payment - rs.97858/- paid via upi,97857.92,freelance
+"PNB CC: IRCTC Rs 7,539",7538.53,travel
+PNB SMS: INR 550 debited UPI txn to reliancepetr@icici,549.83,transport_fuel
+Payment of Rs 595 to O2 Spa successful,595.3,personal_care
+"Investment: Rs 88,784.63 to Axis MF via UPI",88784.63,investment
+"Auto debit Rs 20,248 Samsung Finance loan account",20247.53,emi
+Loan EMI Rs 43496 paid to IDFC First EMI,43495.68,emi
+SBI: Rs.1872 paid to HMWSSB via UPI Ref 935139248,1872.48,bills_water
+"rent to owner payment rs 48,763 for mar",48763.36,rent
+"Investment: Rs 86,899.26 to ET Money via UPI",86899.26,investment
+PhonePe: Rs 2044 paid to WBSEDCL,2043.54,bills_electricity
+"Rs 6,043.87/- debited MSEDCL Yes Bank",6043.87,bills_electricity
+"HDFC Alert: INR 2,300.24 spent at Anytime Fitness",2300.24,health_fitness
+UPI: RS 1632/- TO HEADSPACE@ICICI FOR PURCHASE,1632.44,subscription
+CARD **9279 used at DishTV for Rs.973.51,973.51,bills_telecom
+"Rent transfer Rs 16,472 to landlord",16471.85,rent
+Angel One: SIP of Rs 51337 debited,51337.35,investment
+"Narayana Health - Rs.10,845 paid via UPI",10844.74,health_medical
+"Rs 8,693/- debited Toll Plaza PNB",8692.61,other
+Axis UPI: Rs 2124 to jiomart@sbi,2123.5,groceries
+Rs 851/- debited Ola Auto Yes Bank,850.54,transport_ride
+"Axis: Rs 4,401 debited from a/c **1409 for Shell",4400.87,transport_fuel
+Kotak UPI: Rs 434/- to jiofiber@okhdfcbank,434.3,bills_telecom
+"Allen Solly - Rs.16,044 paid via UPI",16043.75,shopping_offline
+"IndusInd CC: IGP Rs 7,548",7547.97,gifts
+"PNB CC: Allen Solly Rs. 5,384",5383.64,shopping_offline
+Paid Rs 504 to LinkedIn Premium via GPay,503.56,subscription
+"HDFC: Rs 36,660.32 debited from a/c **4657 for design work",36660.32,freelance
+"Printing - Rs.1,119 paid via UPI",1118.99,other
+"Rent transfer Rs 25,265.14 to landlord",25265.14,rent
+"Payment of Rs 48,181 to Great Learning successful",48180.6,education
+"SBI: RS 12,550.25 NEFT TO ROOM RENT",12550.25,rent
+SBI Debit: Rs 459 to mcdonalds@ybl UPI,458.86,food_delivery
+Paid Rs 730 to Zepto via GPay,730.45,groceries
+"INDUSIND: RS 26,356.34 NEFT TO FLAT RENT",26356.34,rent
+ICICI CC: HP Gas Rs 440,440.38,transport_fuel
+"PhonePe: Rs 19,518.45 paid to FabIndia",19518.45,shopping_offline
+IndusInd Debit: Rs 1442 to essarpetrol@okaxis UPI,1441.53,transport_fuel
+UPI: Rs 32328/- to consultingfe@paytm for purchase,32327.96,freelance
+"Vedantu - Rs.28,383.25 paid via UPI",28383.25,education
+CARD **2824 used at Guru.com for Rs.10439/-,10438.52,freelance
+"Rs 7,924.49/- debited Fortis Hospital IndusInd",7924.49,health_medical
+Canara: Rs 996 debited from a/c **4257 for Salon,996.46,personal_care
+"Canara: Rs 1,693 debited for Amazon Fresh purchase",1692.74,groceries
+"CARD **4582 used at CESC for Rs.1,637",1637.08,bills_electricity
+ICICI UPI: Rs 696 to medanta@axl,695.89,health_medical
+"PNB Alert: INR 1,837 spent at Jio Fiber",1837.31,bills_telecom
+"HDFC: Rs 34,906 NEFT to Rent to owner",34906.25,rent
+HDFC: Rs 1221/- debited for Total Energies purchase,1221.25,transport_fuel
+"Canara UPI: Rs 13,070 to srldiagnosti@paytm",13070.26,health_medical
+"SBI: Rs 159,069 credited - Salary from Amazon India",159069.45,salary
+Yes Bank: Rs 68511/- debited for HDFC MF MF purchase,68510.8,investment
+CARD **9928 used at ACT Fibernet for Rs.1565,1564.68,bills_telecom
+"Kotak UPI: Rs 1,453.51 to bharatpetrol@axl",1453.51,transport_fuel
+IndusInd: Rs. 242 debited for BWSSB purchase,242.27,bills_water
+Payment of Rs 26598 to OYO successful,26597.8,travel
+IndusInd Alert: INR 576/- spent at ChatGPT Plus,576.43,subscription
+"PNB: Rs 3,013 debited for Miscellaneous purchase",3013.21,other
+ICICI: RS.20472 PAID TO OYO VIA UPI REF 414752120,20471.7,travel
+"Salary for Feb - Rs 211,470.66 from TCS",211470.66,salary
+IndusInd: Rs 737 debited from a/c **9928 for WheelsEye,736.91,transport_ride
+"Canara UPI: Rs 13,799.30 to reliancetren@axl",13799.3,shopping_offline
+Paid Rs 842.63 to Bharat Petroleum via GPay,842.63,transport_fuel
+"paid rs 14,405.40 to reliance digital via gpay",14405.4,shopping_online
+"Canara Alert: INR 1,805 spent at JioCinema",1805.28,entertainment
+SBI: Rs.5288/- paid to CSPDCL via UPI Ref 637220565,5288.27,bills_electricity
+"Google One - Rs.1,426.57 paid via UPI",1426.57,subscription
+"AUTO DEBIT RS 43,579.17 AXIS CAR LOAN LOAN ACCOUNT",43579.17,emi
+SBI CC: Purplle Rs 403.25,403.25,shopping_online
+CARD **2424 used at TATA Power for Rs.951,951.31,bills_electricity
+payment of rs 1176/- to microsoft 365 successful,1175.92,subscription
+"Rs 30,206.42/- debited upGrad BOB",30206.42,education
+Kotak: Rs 1035/- debited for Oven Story purchase,1034.64,food_delivery
+Kotak EMI: EMI Rs 20620/- debited,20620.27,emi
+"paid rs 2,203.89 to essar petrol via gpay",2203.89,transport_fuel
+"indusind sms: inr 87,679 debited upi txn to consultingfe@sbi",87678.54,freelance
+"ICICI: Rs 19,172.13 debited for IDFC First EMI EMI",19172.13,emi
+"hdfc debit: rs 5,898.23 to abhibus@axisbank upi",5898.23,travel
+IndusInd CC: Canva Pro Rs 884/-,883.9,subscription
+rent transfer rs 40859/- to landlord,40858.68,rent
+Yes Bank CC: BESCOM Rs 6499/-,6498.59,bills_electricity
+"Kotak: Rs 9,637 debited for Noise purchase",9636.82,shopping_online
+Kotak CC: Auto Rickshaw Rs 2423,2423.38,transport_ride
+Kotak: Rs 417 debited from a/c **4657 for Delhi Jal Board,417.18,bills_water
+"PNB CC: Westside Rs 18,378.93",18378.93,shopping_offline
+"CARD **2824 used at Airtel Xstream for Rs.1,548.57",1548.57,bills_telecom
+"Nykaa - Rs.11,728 paid via UPI",11728.29,shopping_online
+PNB: Rs 252 debited for PCMC Water purchase,252.03,bills_water
+"PNB: RS 20,860 NEFT TO LANDLORD",20859.76,rent
+Canara: Rs.849 paid to Uber Moto via UPI Ref 180195016,849.32,transport_ride
+"Axis SMS: INR 13,235 debited UPI txn to allensolly@paytm",13235.13,shopping_offline
+Axis: Rs 405/- debited for Delhi Jal Board purchase,404.59,bills_water
+HDFC: Rs 6696/- debited from a/c **1488 for MSEDCL,6695.63,bills_electricity
+CARD **1520 used at Dr Lal PathLabs for Rs.19917/-,19916.81,health_medical
+"PhonePe: Rs 22,585.45 paid to Air India",22585.45,travel
+upi: rs 884.87 to spectra@okhdfcbank for purchase,884.87,bills_telecom
+Hero FinCorp: EMI Rs 49284 debited,49284.32,emi
+"IndusInd: Rs. 49,340 NEFT to Flat rent",49339.87,rent
+"UPI: Rs 2,041 to indianoil@axl for purchase",2041.04,transport_fuel
+CARD **4657 used at Guru.com for Rs.24602,24601.68,freelance
+UPI: Rs 175/- to canvapro@ybl for purchase,175.04,subscription
+"PhonePe: Rs 38,044 paid to Vedantu",38043.75,education
+IndusInd Debit: Rs 1458 to lucknowjalni@icici UPI,1458.35,bills_water
+"Axis Debit: Rs 3,956 to jiomart@sbi UPI",3956.19,groceries
+Payment of Rs 288 to Printing successful,288.46,other
+CARD **5012 used at Printing for Rs.7085,7085.45,other
+BOB SMS: INR 699.30 debited UPI txn to pvr@icici,699.3,entertainment
+"Society maintenance payment Rs 22,199.96 for Jul",22199.96,rent
+Rs 235/-/- debited Haircut IndusInd,234.76,personal_care
+HDFC: RS.2087 PAID TO PVR VIA UPI REF 847088874,2086.6,entertainment
+"RS 20,907.96/- DEBITED ALLEN CAREER KOTAK",20907.96,education
+Payment of Rs 480.09 to KFC successful,480.09,food_delivery
+"PhonePe: Rs 2,219.02 paid to Spa",2219.02,personal_care
+"Rent transfer Rs 45,792.75 to landlord",45792.75,rent
+Naturals Salon - Rs.634/- paid via UPI,634.24,personal_care
+"Monthly salary credit INR 297,714 Amazon India",297714.44,salary
+Monthly rent Rs 41352/- paid via UPI,41352.44,rent
+UPI: Rs 256 to nammayatri@kotak for purchase,256.41,transport_ride
+indusind: rs.3195 paid to amazon.in via upi ref 750162509,3194.76,shopping_online
+"PhonePe: Rs. 1,385 paid to Reliance Trends",1384.76,shopping_offline
+"IndusInd Alert: INR 20,302.46 spent at IRCTC",20302.46,travel
+"PhonePe: Rs. 45,364.20 paid to client payment",45364.2,freelance
+CARD **5012 used at Coding Ninjas for Rs.9471/-,9471.29,education
+"PhonePe: Rs 1,086.80 paid to Lakme Salon",1086.8,personal_care
+"PhonePe: Rs 1,264.63 paid to Dropbox",1264.63,subscription
+Paid Rs 7961/- to Purplle via GPay,7960.87,shopping_online
+"SBI CC: BSES Rajdhani Rs 7,541.92",7541.92,bills_electricity
+"BOB: RS.2,800.96 PAID TO MSEDCL VIA UPI REF 759787964",2800.96,bills_electricity
+"Paid Rs. 5,353 to IGP via GPay",5353.42,gifts
+"UPI: Rs 23,064.61 to thyrocare@okaxis for purchase",23064.61,health_medical
+BOB UPI: Rs 930/- to laundry@ybl,929.89,other
+Salary credited Rs 291198 from Amazon India,291198.14,salary
+BOB Alert: INR 2314 spent at Rapido,2314.12,transport_ride
+Paid Rs 787.53 to Netflix via GPay,787.53,entertainment
+"Auto debit Rs 16,500 Tata Capital EMI loan account",16500.18,emi
+Payment of Rs 757.04 to Biryani Blues successful,757.04,food_delivery
+"RS 11,856/- DEBITED DR LAL PATHLABS AXIS",11855.54,health_medical
+UPI: Rs 1221 to notion@hdfcbank for purchase,1220.94,subscription
+SBI: Rs.3805/- paid to H&M via UPI Ref 755306663,3805.21,shopping_offline
+Salary credited Rs 286601/- from Bajaj Auto,286601.0,salary
+"CARD **2424 used at CrossFit for Rs.2,408",2408.07,health_fitness
+Salary credited Rs 247984/- from Amazon India,247983.69,salary
+Carnival Cinemas - Rs.162.44 paid via UPI,162.44,entertainment
+"Canara CC: JioMart Rs 4,270.19",4270.19,groceries
+"PhonePe: Rs 11,332.50 paid to boAt",11332.5,shopping_online
+sip debit rs 87536/- et money folio,87535.96,investment
+Paid Rs 17249 to Netmeds via GPay,17249.05,health_medical
+"SBI SMS: INR 4,380 debited UPI txn to thequad@hdfcbank",4379.76,health_fitness
+CARD **1434 USED AT METRO CASH FOR RS.3979/-,3979.14,groceries
+YES BANK ALERT: INR 673 SPENT AT YOUTUBE PREMIUM,673.1,entertainment
+"Canara Alert: INR 1,052.40 spent at Porter",1052.4,transport_ride
+Canara Alert: INR 605 spent at Airtel,604.64,bills_telecom
+"UPI: Rs 11,051 to reliancedigi@okaxis for purchase",11051.19,shopping_online
+"SBI Alert: INR 5,161 spent at NEFT Transfer",5160.52,other
+"SIP debit Rs. 66,568.83 ICICI Direct folio",66568.83,investment
+"Auto debit Rs 11,793.93 SBI Home Loan loan account",11793.93,emi
+"Canara UPI: Rs 3,482 to moresupermar@axisbank",3482.18,groceries
+rs 25269/- debited treebo axis,25268.78,travel
+Paid Rs 1665/- to Easy Day via GPay,1664.65,groceries
+"loan emi rs 17,132.25 paid to bajaj auto finance",17132.25,emi
+PNB: Rs 637 debited for Excitel purchase,637.22,bills_telecom
+UPI: Rs 4421 to tatapower@hdfcbank for purchase,4420.83,bills_electricity
+"Yes Bank CC: CESC Rs 1,174.75",1174.75,bills_electricity
+"Axis UPI: Rs 18,815 to vedantu@okaxis",18815.42,education
+Axis UPI: Rs 184.03 to box8@hdfcbank,184.03,food_delivery
+"Salary credited Rs 59,715 from Cognizant",59714.66,salary
+"Loan EMI Rs 45,376 paid to Bajaj Auto Finance",45376.01,emi
+"PhonePe: Rs 66,086.83 paid to 99designs",66086.83,freelance
+"UPI: Rs 3,839.57 to nayaraenergy@axisbank for purchase",3839.57,transport_fuel
+CARD **2424 used at Dropbox for Rs.1389,1388.87,subscription
+Axis CC: Swiggy Rs 512,511.5,food_delivery
+"PhonePe: Rs 1,804.64 paid to MTNL",1804.64,bills_telecom
+PhonePe: Rs 9092/- paid to Courier,9091.66,other
+"PNB: RS.11,758.42 PAID TO RELIANCE DIGITAL VIA UPI REF 583493761",11758.42,shopping_online
+HDFC: RS.583 PAID TO RELIANCE TRENDS VIA UPI REF 589824472,582.99,shopping_offline
+Paid Rs 7168 to Torrent Power via GPay,7167.93,bills_electricity
+Rs 925/- debited Burger King Yes Bank,924.96,food_delivery
+"Kuvera - Rs 32,360 invested in mutual fund",32360.27,investment
+"ICICI: Rs.8,575 paid to MakeMyTrip via UPI Ref 836929662",8574.99,travel
+ICICI: Rs..19870/- paid to Unacademy via UPI Ref 168343004,19869.94,education
+Payment of Rs 348 to Zepto successful,347.97,groceries
+"SOCIETY MAINTENANCE PAYMENT RS 35,829 FOR JAN",35828.73,rent
+Paid Rs 4082 to Thai Spa via GPay,4082.49,personal_care
+yes bank upi: rs 4875/- to amazonfresh@sbi,4875.28,groceries
+"Kotak UPI: Rs 3,062.85 to sparhypermar@axisbank",3062.85,groceries
+UPI: Rs 21144/- to contentwriti@paytm for purchase,21143.77,freelance
+UPI: Rs 2400/- to indrive@icici for purchase,2400.28,transport_ride
+Hathway - Rs.928.03 paid via UPI,928.03,bills_telecom
+"Paid Rs 2,756.64 to Amazon Fresh via GPay",2756.64,groceries
+Kotak Debit: Rs. 6194/- to diwaligift@axl UPI,6193.9,gifts
+"CARD **9279 used at GeeksforGeeks for Rs.36,524.14",36524.14,education
+Yes Bank: Rs 15218 NEFT to House rent,15218.12,rent
+"Paid Rs. 37,225 to Airbnb via GPay",37225.38,travel
+PhonePe: Rs 235/- paid to Tikona,235.4,bills_telecom
+"Payment of Rs 2,515 to O2 Spa successful",2514.82,personal_care
+"HDFC: Rs 2,511 debited from a/c **2679 for Max Fashion",2510.96,shopping_offline
+"Monthly salary credit INR 280,963 L&T",280962.83,salary
+"Axis UPI: Rs 1,914.26 to reliancepetr@hdfcbank",1914.26,transport_fuel
+"Wedding gift - Rs.2,291.75 paid via UPI",2291.75,gifts
+BOB: RS 1696/- DEBITED FOR DROPBOX PURCHASE,1695.63,subscription
+CARD **1434 used at Parking for Rs.3729,3728.83,other
+ICICI Debit: Rs 1801/- to excitel@okaxis UPI,1800.88,bills_telecom
+ICICI: RS 9799/- DEBITED FOR BOAT PURCHASE,9798.93,shopping_online
+"Canara UPI: Rs 15,979.09 to medplus@axl",15979.09,health_medical
+Kotak: Rs.7806/- paid to Courier via UPI Ref 616589157,7805.9,other
+HDFC Debit: Rs 650 to uber@axisbank UPI,649.6,transport_ride
+"Paid Rs 43,644 to Vistara via GPay",43643.65,travel
+"ICICI: Rs 3,575.72 debited for Adani Electricity purchase",3575.72,bills_electricity
+IndusInd: Rs 175.13 debited for Airtel purchase,175.13,bills_telecom
+Paid Rs 3715/- to BPCL via GPay,3715.29,transport_fuel
+"CARD **4657 used at AbhiBus for Rs.27,475",27474.65,travel
+"CARD **4582 used at Auto Rickshaw for Rs.1,975.22",1975.22,transport_ride
+Payment of Rs 809 to DishTV successful,808.92,bills_telecom
+PhonePe: Rs 891/- paid to CESC,890.8,bills_electricity
+Paid Rs 427.63 to Mojo Pizza via GPay,427.63,food_delivery
+"CANARA CC: ABHIBUS RS 12,715",12715.45,travel
+HDFC SMS: INR 864/- dbtd UPI txn to mcgmwater@okhdfcbank,863.93,bills_water
+"ICICI: Rs.8,687.60 paid to Nykaa via UPI Ref 142080866",8687.6,shopping_online
+"Kotak Debit: Rs 7,198 to bsesrajdhani@paytm UPI",7197.58,bills_electricity
+"Axis: Rs..1,873.56 paid to Cinepolis via UPI Ref 831693296",1873.56,entertainment
+ICICI SMS: INR 690.68 debited UPI txn to adobecc@ybl,690.68,subscription
+"icici upi: rs 44,753.53 to indigo@paytm",44753.53,travel
+Kotak: Rs..1296/- paid to Cinepolis via UPI Ref 233243500,1296.26,entertainment
+Monthly salary credit INR 223336 Reliance Industries,223335.61,salary
+"Payment of Rs 6,579 to DTDC successful",6578.76,other
+UPI: Rs 4038/- to metrocash@axisbank for purchase,4037.9,groceries
+"Paid Rs 2,866.16 to Spa via GPay",2866.16,personal_care
+INDUSIND ALERT: INR 959/- SPENT AT DUNZO,959.14,transport_ride
+"ICICI: Rs 3,384.99 debited from a/c **9928 for BSES Yamuna",3384.99,bills_electricity
+"HDFC SMS: INR 1,116 debited UPI txn to municipalwat@kotak",1115.73,bills_water
+"IndusInd: Rs 38,686.66 debited for Bajaj Auto Finance EMI",38686.66,emi
+"yes bank: rs 4,882.35 debited from a/c **5012 for imps transfer",4882.35,other
+SBI SMS: INR 765 debited UPI txn to zepto@axl,765.07,groceries
+boAt - Rs.6753 paid via UPI,6752.98,shopping_online
+"Yes Bank: Rs.13,109.75 paid to Dr Lal PathLabs via UPI Ref 798169178",13109.75,health_medical
+SBI: Rs 4536/- debited for BSES Rajdhani purchase,4535.99,bills_electricity
+axis sms: inr 51598/- debited upi txn to peopleperhou@icici,51598.29,freelance
+SBI: Rs.1774 paid to Porter via UPI Ref 958459117,1774.21,transport_ride
+Vistara - Rs.33865 paid via UPI,33864.59,travel
+"BOB SMS: INR 27,144 debited UPI txn to physicswalla@paytm",27143.59,education
+"PNB Debit: Rs 1,916.87 to excitel@okhdfcbank UPI",1916.87,bills_telecom
+"UPI: Rs 4,485.14 to flipkartgroc@icici for purchase",4485.14,groceries
+SBI Alert: INR 242/- spent at Subway,242.0,food_delivery
+Paid Rs 3089 to PSPCL via GPay,3089.38,bills_electricity
+"SBI Debit: Rs 4,806.07 to snapfitness@axisbank UPI",4806.07,health_fitness
+"Rent transfer Rs 45,537 to landlord",45537.46,rent
+"Axis Car Loan: EMI Rs 20,312 debited",20312.07,emi
+Yes Bank Alert: INR 252 spent at La Pinos,251.9,food_delivery
+"payment of rs 39,831 to freelancer.com successful",39831.03,freelance
+Rs 5847/- debited Return gift HDFC,5846.94,gifts
+"Canara Alert: INR 4,106.70 spent at Anytime Fitness",4106.7,health_fitness
+Paid Rs 6360/- to Adani Electricity via GPay,6360.12,bills_electricity
+CANARA SMS: INR 739 DEBITED UPI TXN TO JIOCINEMA@AXISBANK,739.48,entertainment
+axis alert: inr 43145 spent at cleartrip,43145.35,travel
+Payment of Rs 16514/- to Metropolis Lab successful,16514.02,health_medical
+"ICICI SMS: INR 2,475.19 debited UPI txn to maxhospital@axisbank",2475.19,health_medical
+"CARD **4257 used at Fortis Hospital for Rs.13,014",13014.36,health_medical
+"KSEB - Rs.2,706.37 paid via UPI",2706.37,bills_electricity
+HDFC SMS: INR 1742/- DEBITED UPI TXN TO CSPDCL@HDFCBANK,1742.11,bills_electricity
+"indusind upi: rs 2,394.26 to weddinggift@hdfcbank",2394.26,gifts
+ICICI Alert: INR 1678/- spent at Namma Yatri,1678.5,transport_ride
+"Kotak: Rs 2,310 debited from a/c **4582 for Torrent Power",2310.05,bills_electricity
+"Loan EMI Rs 5,722 paid to ICICI Personal Loan",5722.32,emi
+Canara Alert: INR 10966 spent at SpiceJet,10966.16,travel
+"Canara: Rs 4,129 debited from a/c **7873 for IndiGo",4129.36,travel
+"PhonePe: Rs 1,189 paid to NEFT Transfer",1188.84,other
+IndusInd Debit: Rs 4411/- to boatlifestyl@okaxis UPI,4410.51,shopping_online
+Paid Rs 3384 to Shell via GPay,3384.01,transport_fuel
+"IndusInd SMS: INR 3,612 debited UPI txn to msedcl@okhdfcbank",3612.02,bills_electricity
+IndusInd Debit: Rs 150.99 to icloud@ybl UPI,150.99,subscription
+Rs 4259/- debited Flipkart Gift IndusInd,4258.84,gifts
+Payment of Rs 302 to Lucknow Jal Nigam successful,302.24,bills_water
+MONTHLY RENT RS 9264/- PAID VIA UPI,9263.96,rent
+Auto debit Rs 16696/- Tata Capital EMI loan account,16696.18,emi
+BOB UPI: RS 419 TO BEHROUZ@HDFCBANK,418.93,food_delivery
+"BOB CC: Xerox Rs 6,047",6047.29,other
+Yes Bank: Rs 24980/- debited for ICICI Personal Loan EMI,24980.01,emi
+SBI CC: Disney+ Hotstar Rs 900,899.69,entertainment
+Paid Rs. 484 to Apple Music via GPay,483.58,subscription
+"Axis: Rs. 3,343 debited from a/c **3286 for Talwalkars",3343.46,health_fitness
+ICICI: Rs.169.82 paid to PVR via UPI Ref 881409059,169.82,entertainment
+"Axis: Rs 1,777 debited from a/c **4811 for Nykaa",1777.12,personal_care
+"RS 2,968/- DEBITED ESSAR PETROL YES BANK",2967.92,transport_fuel
+"Yes Bank SMS: INR 3,168.08 debited UPI txn to essarpetrol@paytm",3168.08,transport_fuel
+Yes Bank Alert: INR 1108 spent at Pune Municipal Water,1107.91,bills_water
+"PhonePe: Rs 21,477 paid to Thyrocare",21477.0,health_medical
+"IndusInd UPI: Rs 76,090.81 to upwork@icici",76090.81,freelance
+Rs 76978/-/- debited Guru.com HDFC,76977.51,freelance
+HDFC: Rs 2283/- dbtd for Flipkart Grocery purchase,2282.87,groceries
+"Auto debit Rs 31,256 Mahindra Finance loan account",31256.09,emi
+"ICICI Debit: Rs 2,725 to bsesyamuna@icici UPI",2724.61,bills_electricity
+Canara CC: Vedantu Rs 18227/-,18226.57,education
+Axis SMS: INR 131 debited UPI txn to pvr@okhdfcbank,130.52,entertainment
+ICICI: Rs.9729/- paid to FabIndia via UPI Ref 749012758,9729.45,shopping_offline
+sbi sms: inr 1786/- debited upi txn to sonyliv@okhdfcbank,1786.08,entertainment
+"Paid Rs 72,574.03 to Fiverr via GPay",72574.03,freelance
+ICICI: Rs 1076/- debited from a/c **4657 for Cult.fit,1075.77,health_fitness
+"SBI: Rs 6,650 debited from a/c **7912 for ATM Withdrawal",6650.2,other
+HDFC ALERT: INR 1330/- SPENT AT MCGM WATER,1330.37,bills_water
+"Rs 1,462.51/- debited Adobe CC ICICI",1462.51,subscription
+Salary for Jan - Rs 116200 from ICICI Bank,116200.47,salary
+"Payment of Rs 6,085 to Gift card successful",6084.55,gifts
+Haircut - Rs.3022/- paid via UPI,3022.34,personal_care
+Paid Rs 4710 to Christmas gift via GPay,4710.3,gifts
+"UPI: Rs 64,318 to contentwriti@axl for purchase",64317.82,freelance
+axis: rs.166.50 paid to 1mg via upi ref 962594605,166.5,health_medical
+"Mahindra Finance: EMI Rs 42,807 debited",42807.22,emi
+"PhonePe: Rs 2,019.99 paid to Auto Rickshaw",2019.99,transport_ride
+upi: rs 917.21 to mojopizza@hdfcbank for purchase,917.21,food_delivery
+BOB: RS 25284 NEFT TO FLAT RENT,25283.76,rent
+hdfc alert: inr 608 spent at amazon prime,607.8,entertainment
+"Axis CC: Metropolis Lab Rs 7,455.89",7455.89,health_medical
+HDFC UPI: Rs 380.96 to westside@paytm,380.96,shopping_offline
+Rent transfer Rs 24222/- to landlord,24221.73,rent
+INDUSIND CC: BHARAT PETROLEUM RS 637.46,637.46,transport_fuel
+BOB: Rs 816.71 dbtd from a/c **7912 for Airtel Xstream,816.71,bills_telecom
+Axis UPI: Rs 179 to wheelseye@ybl,179.05,transport_ride
+SIP debit Rs 37172/- Mirae Asset folio,37172.33,investment
+"RS 1,590/- DEBITED NYKAA HDFC",1590.05,personal_care
+"Canara: Rs 243,982 credited - Salary from L&T",243981.86,salary
+"BOB Alert: INR 3,923.24 spent at HealthifyMe",3923.24,health_fitness
+Rs 518/- debited Amazon Prime ICICI,517.97,entertainment
+Salary for Jun - Rs 184214 from Flipkart,184214.49,salary
+yes bank: rs 4427/- debited for sarva yoga purchase,4427.08,health_fitness
+ICICI UPI: Rs 1800 to zee5@paytm,1800.14,entertainment
+HDFC: Rs 306 debited from a/c **3286 for Google One,306.19,subscription
+Canara Debit: Rs 14858 to raymond@axl UPI,14857.65,shopping_offline
+"SBI: RS.8,713.77 PAID TO SUGAR COSMETICS VIA UPI REF 411152157",8713.77,shopping_online
+"IndusInd UPI: Rs 20,910 to udemy@okhdfcbank",20910.02,education
+"Paid Rs 26,947.46 to Unacademy via GPay",26947.46,education
+"UPI: Rs 1,407 to behrouz@ybl for purchase",1406.63,food_delivery
+"PhonePe: Rs 1,000 paid to Microsoft 365",999.53,subscription
+"Yes Bank: Rs 3,291 debited for Natures Basket purchase",3290.54,groceries
+PhonePe: Rs 17668/- paid to AirAsia,17667.63,travel
+"CARD **9928 used at UHBVN for Rs.6,493.59",6493.59,bills_electricity
+Yes Bank Debit: Rs 15305 to vistara@hdfcbank UPI,15304.74,travel
+"icici alert: inr 18,150 spent at narayana health",18150.28,health_medical
+"Paid Rs 4,080.49 to Decathlon via GPay",4080.49,shopping_offline
+"axis: rs 82,122 debited for content writing purchase",82121.9,freelance
+UPI: RS 434/- TO HATHWAY@AXISBANK FOR PURCHASE,433.64,bills_telecom
+IndusInd Credit: Rs 215267/- NEFT-HCL Tech-SALARY,215266.88,salary
+"Investment: Rs 62,722 to Nippon MF via UPI",62722.17,investment
+"Canara: Rs.37,213.57 paid to IRCTC via UPI Ref 632161763",37213.57,travel
+kotak upi: rs 2288/- to netflix@okhdfcbank,2287.86,entertainment
+"Yes Bank UPI: Rs 10,891 to cleartrip@paytm",10890.76,travel
+"cash deposit - rs.3,915.65 paid via upi",3915.65,other
+PNB: Rs 591 debited from a/c **9279 for BigBasket,590.97,groceries
+Yes Bank Alert: INR 3911 spent at Fitness First,3910.73,health_fitness
+"Rs 1,042/- debited Biryani Blues BOB",1041.83,food_delivery
+CARD **4811 used at Air India for Rs.5344/-,5343.71,travel
+IndusInd: Rs 319 debited for Bharat Petroleum purchase,318.59,transport_fuel
+"Rs 1,452.05/- debited Jaipur Water IndusInd",1452.05,bills_water
+"Yes Bank SMS: INR 11,708.20 debited UPI txn to oyo@icici",11708.2,travel
+salary for feb - rs 232835/- from reliance industries,232834.84,salary
+Rs 256/-/- debited BB Daily BOB,255.5,groceries
+IndusInd: Rs 111/- debited from a/c **2424 for Carnival Cinemas,111.04,entertainment
+Yes Bank: Rs 2432 debited from a/c **2824 for PVR,2432.16,entertainment
+"ICICI Personal Loan: EMI Rs 7,756 debited",7755.92,emi
+"BOB Credit: Rs 90,817.59 NEFT-Bharti Airtel-SALARY",90817.59,salary
+"PG rent payment Rs 23,930 for Jul",23930.46,rent
+"kotak credit: rs 76,756 neft-tata motors-salary",76755.62,salary
+BOB: Rs.44188 paid to Air India via UPI Ref 323600426,44188.44,travel
+"Axis CC: Zepto Rs 2,932",2931.8,groceries
+BOB: Rs 9984 debited for Ajio purchase,9984.42,shopping_online
+"CARD **4811 used at Unacademy for Rs.17,692",17691.57,education
+"hdfc mf: sip of rs 21,595.25 debited",21595.25,investment
+"Blinkit - Rs.2,665 paid via UPI",2665.07,groceries
+"Rs 47,165.34/- debited Ixigo Axis",47165.34,travel
+Kotak Debit: Rs 620/- to notion@axl UPI,620.24,subscription
+"Payment of Rs 5,825.06 to Reliance Trends successful",5825.06,shopping_offline
+bob: rs 4015/- debited from a/c **2824 for f45 training,4015.01,health_fitness
+"PNB: Rs.3,791.82 paid to Shell via UPI Ref 793563667",3791.82,transport_fuel
+"IndusInd: Rs.1,069 paid to Mojo Pizza via UPI Ref 897005281",1069.01,food_delivery
+ICICI: Rs..2387 paid to Anytime Fitness via UPI Ref 896680642,2386.58,health_fitness
+"phonepe: rs 1,718 paid to jio fiber",1717.96,bills_telecom
+CARD **4657 used at EatFit for Rs.1153/-,1153.21,food_delivery
+"Payment of Rs 81,312 to content writing successful",81311.96,freelance
+Monthly rent Rs 46378 paid via UPI,46378.48,rent
+BOB: Rs 228 debited for Zee5 purchase,227.54,entertainment
+rs 42440/- debited coursera icici,42439.64,education
+Payment of Rs 1077/- to Spar Hypermarket successful,1077.4,groceries
+"Salary credited Rs 288,163 from Google India",288163.19,salary
+BOB: RS.3952/- PAID TO GOLDS GYM VIA UPI REF 584567424,3952.02,health_fitness
+Kotak: Rs 3402 debited for BigBasket purchase,3402.45,groceries
+Rs 222.52/- debited Wendy's Canara,222.52,food_delivery
+Kotak UPI: Rs 3300/- to fernsnpetals@axisbank,3300.31,gifts
+PNB Alert: INR 357 spent at Dunzo,356.59,groceries
+IndusInd Debit: Rs 2369 to spencers@sbi UPI,2368.72,groceries
+"HDFC Alert: INR 1,258 spent at Dunzo Daily",1257.67,food_delivery
+ICICI SMS: INR 1387/- debited UPI txn to lenskart@hdfcbank,1387.3,shopping_online
+"monthly rent rs 40,322 paid via upi",40322.01,rent
+"BOB CC: Parking Rs 3,915.93",3915.93,other
+PhonePe: Rs 2402/- paid to JioCinema,2401.94,entertainment
+"Investment: Rs 36,897.52 to ICICI Direct via UPI",36897.52,investment
+"ICICI SMS: INR 46,921.71 DEBITED UPI TXN TO PROJECTPAYME@ICICI",46921.71,freelance
+"Payment of Rs 6,301 to Bewakoof successful",6300.62,shopping_online
+SBI: Rs. 4335/- debited for Metro Cash purchase,4334.83,groceries
+"CANARA DEBIT: RS 8,799.94 TO FLIPKART@AXL UPI",8799.94,shopping_online
+CARD **1488 used at Municipal Water for Rs.912/-,911.56,bills_water
+ICICI: Rs 533.44 debited from a/c **4811 for ChatGPT Plus,533.44,subscription
+indusind: rs.4844/- paid to crossfit via upi ref 907292889,4843.56,health_fitness
+"BOB CC: RAKHI GIFT RS 1,712",1711.78,gifts
+"ICICI: Rs 16,018 debited for Hero FinCorp EMI",16017.77,emi
+PhonePe: Rs 3446 paid to Enrich Salon,3446.01,personal_care
+CARD **9928 used at PSPCL for Rs.2984,2983.59,bills_electricity
+"Investment: Rs 82,437.62 to DSP MF via UPI",82437.62,investment
+"Bajaj Finance EMI: EMI Rs 26,975.07 debited",26975.07,emi
+salary for apr - rs 39029 from bajaj auto,39029.23,salary
+"Salary for Jan - Rs 30,405 from TCS",30405.13,salary
+Auto debit Rs 31581 Bajaj Finance EMI loan account,31580.78,emi
+Kotak UPI: Rs 27916/- to fiverr@icici,27916.45,freelance
+Jaipur Water - Rs.451 paid via UPI,451.29,bills_water
+Kotak SMS: INR 320.31 debited UPI txn to tataplay@icici,320.31,bills_telecom
+Kotak: Rs.3230 paid to Zepto via UPI Ref 337135066,3229.69,groceries
+ICICI SMS: INR 1934 debited UPI txn to naturesbaske@paytm,1934.08,groceries
+ICICI: Rs 25814/- debited for Bajaj Auto Finance EMI,25814.26,emi
+"PNB SMS: INR 22,169.57 debited UPI txn to scaleracadem@axl",22169.57,education
+"Axis SMS: INR 1,093.23 debited UPI txn to eatfit@okaxis",1093.23,food_delivery
+"Canara Debit: Rs 2,712 to o2spa@ybl UPI",2712.12,personal_care
+Canara CC: Barbeque Nation Rs 1314/-,1314.5,food_delivery
+HDFC: Rs.540.61 paid to Zomato via UPI Ref 502482554,540.61,food_delivery
+Kotak CC: La Pinos Rs 527.94,527.94,food_delivery
+Payment of Rs 52964 to content writing successful,52964.21,freelance
+"Rs 1,757.35/- debited Uber Moto HDFC",1757.35,transport_ride
+BOB: Rs.1451 paid to Cult.fit via UPI Ref 512388297,1450.55,health_fitness
+card **2824 used at air india for rs.30448/-,30447.6,travel
+"Salary credited Rs 41,749 from Microsoft India",41748.76,salary
+Kotak SMS: INR 6613 debited UPI txn to decathlon@okhdfcbank,6613.14,shopping_offline
+Rs 538.69/- debited Adani Electricity Axis,538.69,bills_electricity
+PHONEPE: RS 502/- PAID TO FITNESS FIRST,501.59,health_fitness
+"Kotak Alert: INR 2,841 spent at Thai Spa",2841.29,personal_care
+"Auto debit Rs 14,280.06 SBI Home Loan loan account",14280.06,emi
+"ET Money: SIP of Rs 25,502.48 debited",25502.48,investment
+Yes Bank CC: Fitness First Rs 3896/-,3895.52,health_fitness
+"Zerodha: SIP of Rs 52,266 debited",52265.53,investment
+"Canara: Rs 77,213 debited from a/c **3286 for development work",77213.26,freelance
+"CARD **1409 used at iCloud for Rs..1,491.62",1491.62,subscription
+axis cc: mx player rs 1652/-,1651.6,entertainment
+YES BANK CC: INDIAN OIL RS 438.25,438.25,transport_fuel
+PHONEPE: RS 3934 PAID TO HEALTHIFYME,3934.28,health_fitness
+CARD **9928 USED AT MERU FOR RS.724/-,724.13,transport_ride
+PhonePe: Rs 8465 paid to Meesho,8464.67,shopping_online
+Paid Rs 825 to Dropbox via GPay,824.86,subscription
+INDUSIND: RS 709.26 DEBITED FROM A/C **5012 FOR NOTION,709.26,subscription
+"CARD **9279 used at Metro Shoes for Rs.11,039",11038.84,shopping_offline
+Salary credited Rs 212218 from TCS,212217.81,salary
+BOB UPI: Rs 529.58 to chennaimetro@hdfcbank,529.58,bills_water
+"PhonePe: Rs 3,155.75 paid to Bodycraft",3155.75,personal_care
+Canara Debit: Rs 2059/- to snapfitness@axisbank UPI,2058.65,health_fitness
+"sbi: rs 19,220 debited from a/c **4257 for peter england",19220.1,shopping_offline
+"IndusInd Debit: Rs 1,046 to pcmcwater@okhdfcbank UPI",1045.83,bills_water
+Lifestyle - Rs.14479/- paid via UPI,14478.86,shopping_offline
+"AUTO DEBIT RS 7,351 HDFC HOME LOAN LOAN ACCOUNT",7350.81,emi
+HDFC Alert: INR 665.28 spent at O2 Spa,665.28,personal_care
+NIPPON MF - RS 52069/- INVESTED IN MUTUAL FUND,52068.6,investment
+"SBI: Rs 14,355 debited for Samsung Finance EMI",14355.1,emi
+"ICICI: Rs.33,362 paid to BYJUS via UPI Ref 911398262",33361.52,education
+Rs 1787/- debited ACT Fibernet ICICI,1786.58,bills_telecom
+"indusind: rs 1,971 debited for uber auto purchase",1971.46,transport_ride
+card **2424 used at amazon.in for rs.14640,14639.56,shopping_online
+salary credited rs 285754 from reliance industries,285754.25,salary
+Paid Rs 1941 to Milk Basket via GPay,1940.66,groceries
+UPI: Rs 5726/- to medanta@icici for purchase,5726.41,health_medical
+"Torrent Power - Rs.2,881.54 paid via UPI",2881.54,bills_electricity
+"Yes Bank CC: Canva Pro Rs 1,945",1945.49,subscription
+"PhonePe: Rs 3,918.25 paid to F45 Training",3918.25,health_fitness
+"PNB Debit: Rs 4,821 to yogahouse@sbi UPI",4821.08,health_fitness
+Canara Alert: INR 520 spent at D2H,520.4,bills_telecom
+"BESCOM - Rs.3,866 paid via UPI",3865.53,bills_electricity
+Canara: Rs 440/- debited for Thai Spa purchase,439.57,personal_care
+IndusInd Alert: INR 515 spent at ChatGPT Plus,515.33,subscription
+"Coding Ninjas - Rs.24,793 paid via UPI",24793.02,education
+Axis Alert: INR 2430/- spent at Cash deposit,2429.66,other
+"PNB Credit: Rs 81,340.00 NEFT-HDFC Bank-SALARY",81340.0,salary
+SBI Alert: INR 592/- spent at BESCOM,592.16,bills_electricity
+"YES BANK DEBIT: RS 4,288 TO DELHIVERY@SBI UPI",4287.89,other
+"BOB Alert: INR 7,678.25 spent at Wedding gift",7678.25,gifts
+HDFC SMS: INR 3103 DEBITED UPI TXN TO ANNIVERSARYG@AXL,3103.41,gifts
+SBI: Rs 16375/- debited from a/c **1488 for Aakash Institute,16374.58,education
+Investment: Rs 3027/- to Motilal Oswal via UPI,3026.88,investment
+"UPI: Rs 7,492.50 to cashdeposit@kotak for purchase",7492.5,other
+kotak sms: inr 293 debited upi txn to municipalwat@paytm,293.3,bills_water
+"ICICI CC: Rapido Bike Rs 1,777",1776.51,transport_ride
+BOB SMS: INR 136.60 dbtd UPI txn to paradisebiry@kotak,136.6,food_delivery
+"DSP MF - Rs 15,922.58 invested in mutual fund",15922.58,investment
+BOB SMS: INR 4860 debited UPI txn to urbancompany@sbi,4860.31,personal_care
+Axis: Rs 770 debited from a/c **2535 for Dunzo Daily,769.61,food_delivery
+Bajaj Finance EMI: EMI Rs 29316/- debited,29315.88,emi
+Axis: Rs 64216 debited for Angel One MF purchase,64215.57,investment
+UPI: Rs 716.81 to chennaimetro@okaxis for purchase,716.81,bills_water
+"PhonePe: Rs 4,907.81 paid to Xerox",4907.81,other
+Canara UPI: Rs 1038/- to box8@kotak,1038.27,food_delivery
+"Payment of Rs 1,389 to Uber Moto successful",1389.04,transport_ride
+"PNB: Rs 30,280 NEFT to Office rent",30279.85,rent
+"PNB: Rs 4,286.15 debited for TANGEDCO purchase",4286.15,bills_electricity
+"Kuvera: SIP of Rs 10,445 debited",10444.6,investment
+upi: rs 1916/- to blusmart@axl for purchase,1915.61,transport_ride
+monthly salary credit inr 200972 icici bank,200971.93,salary
+"Spa - Rs.4,801.23 paid via UPI",4801.23,personal_care
+"BOB: Rs 7,375 debited from a/c **1520 for TATA Power",7375.36,bills_electricity
+NEFT TRANSFER - RS.65 PAID VIA UPI,64.88,other
+Bajaj Finance EMI: EMI Rs 15722/- debited,15721.72,emi
+"CARD **2535 used at YouTube Premium for Rs.2,445.63",2445.63,entertainment
+BOB UPI: Rs 4411 to weddinggift@sbi,4410.91,gifts
+"Miscellaneous - Rs.5,383.34 paid via UPI",5383.34,other
+PAYMENT OF RS 211 TO FERNS N PETALS SUCCESSFUL,210.68,gifts
+ICICI CC: Pune Municipal Water Rs 1871/-,1871.05,bills_water
+CARD **4582 used at Dunzo Daily for Rs.550,549.85,food_delivery
+"CARD **4582 used at client payment for Rs.57,018.56",57018.56,freelance
+phonepe: rs 187/- paid to box8,186.85,food_delivery
+Salary credited Rs. 112443/- from HDFC Bank,112442.58,salary
+"UPI: RS 17,073 TO SHOPPERSSTOP@AXL FOR PURCHASE",17073.47,shopping_offline
+Canara UPI: Rs 9579/- to shoppersstop@okhdfcbank,9578.51,shopping_offline
+"HDFC: Rs 24,104.22 debited for Tata Capital EMI EMI",24104.22,emi
+"Monthly rent Rs 43,047.95 paid via UPI",43047.95,rent
+"axis cc: natures basket rs 4,101",4100.62,groceries
+"Yes Bank: Rs.1,016.16 paid to Dunzo via UPI Ref 567059305",1016.16,transport_ride
+"ICICI UPI: Rs 1,579 to ajio@sbi",1579.21,shopping_online
+ICICI: Rs 896 debited from a/c **3286 for Grammarly,896.33,subscription
+"BOB: Rs 5,537 debited for HDFC Home Loan EMI",5537.01,emi
+"hdfc sms: inr 9,439.00 debited upi txn to easemytrip@icici",9439.0,travel
+"IndusInd CC: IRCTC Rs 26,638",26637.75,travel
+Office rent payment Rs 12431/- for Aug,12431.42,rent
+UPI: Rs 627 to hmwssb@paytm for purchase,627.05,bills_water
+"Paid Rs 1,356 to Notion via GPay",1356.4,subscription
+sbi debit: rs 1571/- to vivodafone@hdfcbank upi,1570.57,bills_telecom
+"Yes Bank CC: HP Gas Rs 1,793",1793.47,transport_fuel
+"CANARA: RS 8,592 DEBITED FROM A/C **4657 FOR AMAZON GIFT",8591.9,gifts
+HDFC UPI: Rs 501 to bwssb@kotak,501.03,bills_water
+"BOB Credit: Rs 67,146.86 NEFT-HDFC Bank-SALARY",67146.86,salary
+CARD **4657 used at Chaayos for Rs.1070/-,1070.04,food_delivery
+Kotak SMS: INR 1325/- debited UPI txn to box8@kotak,1325.39,food_delivery
+IndusInd Alert: INR 16748/- spent at Decathlon,16748.47,shopping_offline
+Yes Bank CC: Hathway Rs 655,655.0,bills_telecom
+"SBI Alert: INR 6,815 spent at Chumbak",6814.57,shopping_online
+UPI: Rs 8021 to metroshoes@axisbank for purchase,8020.76,shopping_offline
+PNB: Rs.4418 paid to Golds Gym via UPI Ref 902378486,4418.26,health_fitness
+"Axis: Rs..1,531.67 paid to BWSSB via UPI Ref 743281527",1531.67,bills_water
+PNB Credit: Rs 73190/- NEFT-Cognizant-SALARY,73190.49,salary
+Salary credited Rs 159197/- from Cognizant,159197.38,salary
+"phonepe: rs 1,291.74 paid to chaayos",1291.74,food_delivery
+BOB UPI: Rs 486/- to hathway@icici,485.68,bills_telecom
+"UPI: Rs 2,306 to bookmyshow@icici for purchase",2305.88,entertainment
+PNB SMS: INR 8860/- debited UPI txn to narayanaheal@ybl,8859.55,health_medical
+BOB: Rs.315.01 paid to BWSSB via UPI Ref 197116745,315.01,bills_water
+card **4657 used at pune municipal water for rs.290,290.44,bills_water
+BOB UPI: Rs. 980/- to bsesyamuna@icici,979.78,bills_electricity
+BOB CC: NEFT TRANSFER RS 4584,4584.06,other
+PNB Credit: Rs 187477 NEFT-Google India-SALARY,187476.75,salary
+ICICI SMS: INR 454 debited UPI txn to hmwssb@axisbank,454.16,bills_water
+Canara SMS: INR 622.91 debited UPI txn to punemunicipa@ybl,622.91,bills_water
+"Loan EMI Rs 28,145.44 paid to Bajaj Auto Finance",28145.44,emi
+"ICICI Alert: INR 17,454.52 spent at Narayana Health",17454.52,health_medical
+"AXIS: RS.68,294.26 PAID TO 99DESIGNS VIA UPI REF 259687864",68294.26,freelance
+"PhonePe: Rs 17,367 paid to Physics Wallah",17367.49,education
+"Scaler Academy - Rs.16,178 paid via UPI",16177.81,education
+"Axis Debit: Rs 3,537 to ylgsalon@icici UPI",3536.68,personal_care
+"SBI CC: MX Player Rs 1,055.33",1055.33,entertainment
+"Axis Credit: Rs 257,030.39 NEFT-Amazon India-SALARY",257030.39,salary
+"CARD **9935 used at Ola for Rs.1,880",1879.85,transport_ride
+"Rs 3,306/- debited YLG Salon HDFC",3305.68,personal_care
+Yes Bank: Rs. 1196/- debited from a/c **2535 for Zee5,1196.45,entertainment
+"SBI CC: DRY CLEANING RS 9,652.04",9652.04,other
+IndusInd: Rs.682 paid to Thai Spa via UPI Ref 457776706,682.42,personal_care
+"Canara: Rs.78,393 paid to PeoplePerHour via UPI Ref 223853455",78393.02,freelance
+"Rs 1,677.77/- debited BSES Rajdhani SBI",1677.77,bills_electricity
+Yes Bank Debit: Rs 1232 to bodycraft@kotak UPI,1231.76,personal_care
+Auto debit Rs 35288 Samsung Finance loan account,35287.65,emi
+"PhonePe: Rs 1,857.68 paid to Naturals Salon",1857.68,personal_care
+"ICICI: RS 1,368 DEBITED FROM A/C **1409 FOR ACT FIBERNET",1368.2,bills_telecom
+Kotak: Rs.519.34 paid to Tata Play via UPI Ref 188295994,519.34,bills_telecom
+SBI CC: Pepperfry Rs. 12617/-,12616.78,shopping_online
+"UPI: Rs 2,209.43 to indanegas@kotak for purchase",2209.43,transport_fuel
+"UPI: Rs 1,500.35 to beautyparlor@kotak for purchase",1500.35,personal_care
+"Yes Bank: Rs.3,452 paid to Total Energies via UPI Ref 913025234",3452.17,transport_fuel
+"BOB SMS: INR 4,252 debited UPI txn to bbdaily@axisbank",4251.76,groceries
+"Cleartrip - Rs.1,056.16 paid via UPI",1056.16,travel
+"SBI: Rs.3,795 paid to Bharat Petroleum via UPI Ref 515071728",3795.01,transport_fuel
+"AXIS: RS 2,440 DEBITED FROM A/C **7912 FOR BB DAILY",2439.5,groceries
+Rs 330/- debited Apple TV+ IndusInd,329.6,entertainment
+HDFC: Rs 241.39 debited from a/c **5012 for Google One,241.39,subscription
+Payment of Rs 7123 to Christmas gift successful,7123.39,gifts
+"PNB Credit: Rs 71,150 NEFT-Cognizant-SALARY",71149.78,salary
+"Yes Bank Debit: Rs 1,304 to theobroma@paytm UPI",1303.62,food_delivery
+"SBI ALERT: INR 7,885 SPENT AT RAKHI GIFT",7884.55,gifts
+SBI Debit: Rs 634 to municipalwat@icici UPI,634.16,bills_water
+phonepe: rs 584 paid to healthifyme,584.24,health_fitness
+"Axis: Rs 64,339 debited for client payment purchase",64338.83,freelance
+"CANARA CC: MEDPLUS RS 1,567",1567.43,health_medical
+Rs 275/- debited FASTag Axis,274.6,other
+PhonePe: Rs 4967/- paid to CSPDCL,4966.62,bills_electricity
+IndusInd Alert: INR 1376 spent at Microsoft 365,1375.88,subscription
+pnb sms: inr 41592 debited upi txn to oyo@axisbank,41591.68,travel
+ICICI: Rs 2942 dbtd for Cult.fit purchase,2942.37,health_fitness
+Yes Bank: Rs 229 debited from a/c **5506 for Porter,228.83,transport_ride
+"RAPIDO BIKE - RS.2,138 PAID VIA UPI",2138.44,transport_ride
+HDFC: Rs.24774 paid to Fortis Hospital via UPI Ref 182261164,24774.37,health_medical
+PNB: Rs.14879/- paid to Apollo Pharmacy via UPI Ref 444066478,14879.48,health_medical
+"CARD **1488 used at Canva Pro for Rs.1,786.01",1786.01,subscription
+"monthly rent rs 40,171.52 paid via upi",40171.52,rent
+"UPI: Rs 4,792.17 to iocl@ybl for purchase",4792.17,transport_fuel
+"Rs 28,842/- debited IndiGo HDFC",28841.61,travel
+"Urban Ladder - Rs.9,258.67 paid via UPI",9258.67,shopping_online
+Kotak Debit: Rs 11144/- to medplus@sbi UPI,11144.19,health_medical
+"HDFC: RS 26,919 DEBITED FOR BAJAJ AUTO FINANCE EMI",26918.91,emi
+BOB Debit: Rs 220/- to haldirams@paytm UPI,219.75,food_delivery
+Kotak Debit: Rs 954 to uber@hdfcbank UPI,953.85,transport_ride
+"Rs 18,317.68/- debited Dr Lal PathLabs SBI",18317.68,health_medical
+"ICICI UPI: Rs 1,364.36 to physicswalla@okaxis",1364.36,education
+"PhonePe: Rs 4,976.34 paid to Ferns N Petals",4976.34,gifts
+CARD **2679 used at McDonalds for Rs.1194,1194.16,food_delivery
+"Canara Debit: Rs 13,058 to noise@sbi UPI",13057.78,shopping_online
+1mg - Rs.21922/- paid via UPI,21922.5,health_medical
+Rs 9447/- debited Allen Career PNB,9446.52,education
+"UPI: Rs 1,102 to theobroma@sbi for purchase",1101.95,food_delivery
+BOB Debit: Rs 10766/- to titaneyeplus@kotak UPI,10765.74,shopping_offline
+"Rent transfer Rs 38,000 to landlord",38000.09,rent
+Paid Rs 6114 to DTDC via GPay,6113.65,other
+Rs 365/- debited ACT Fibernet HDFC,365.27,bills_telecom
+SBI SMS: INR 1750/- DEBITED UPI TXN TO XEROX@AXISBANK,1749.76,other
+Canara: Rs 200/- debited from a/c **9928 for Strava,199.89,subscription
+Axis Debit: Rs. 1389/- to wheelseye@ybl UPI,1389.07,transport_ride
+"UPI: Rs 2,097.78 to fastag@axl for purchase",2097.78,other
+Payment of Rs 3334 to Nykaa successful,3333.62,personal_care
+"Auto debit Rs 18,104 Bajaj Auto Finance loan account",18104.17,emi
+"UPI: RS 1,935.87 TO JAIPURWATER@ICICI FOR PURCHASE",1935.87,bills_water
+SBI ALERT: INR 4868/- SPENT AT JAWED HABIB,4867.89,personal_care
+Rs 2545/- debited Reliance Fresh BOB,2545.32,groceries
+HDFC UPI: Rs 4128 to fernsnpetals@okhdfcbank,4127.61,gifts
+Auto debit Rs 16448/- SBI Home Loan loan account,16447.88,emi
+BOB: Rs 781 debited for Chumbak purchase,780.92,shopping_online
+Axis UPI: Rs. 6474 to igp@hdfcbank,6474.15,gifts
+"CARD **2424 used at GeeksforGeeks for Rs.31,496",31496.43,education
+"monthly salary credit inr 47,225.15 flipkart",47225.15,salary
+"SBI DEBIT: RS 2,136.66 TO CINEPOLIS@KOTAK UPI",2136.66,entertainment
+BWSSB - Rs.414 paid via UPI,413.71,bills_water
+"IndusInd Debit: Rs 5,624.74 to anniversaryg@okaxis UPI",5624.74,gifts
+Paid Rs 3336 to Total Energies via GPay,3336.02,transport_fuel
+"PAID RS 4,688 TO FORTIS HOSPITAL VIA GPAY",4687.96,health_medical
+IOCL - Rs.2121 paid via UPI,2121.2,transport_fuel
+Rs 7907/- debited Airbnb HDFC,7907.27,travel
+PNB SMS: INR 3315 debited UPI txn to salon@sbi,3315.37,personal_care
+YES BANK DEBIT: RS 2745 TO SNAPFITNESS@SBI UPI,2744.56,health_fitness
+Rs 1006/- debited Apple Music IndusInd,1005.82,subscription
+phonepe: rs 721/- paid to taco bell,721.11,food_delivery
+"Axis CC: Bewakoof Rs 13,335.29",13335.29,shopping_online
+HDFC SMS: INR 657 debited UPI txn to googleone@axl,657.0,subscription
+"IndusInd: Rs 8,339 debited for Meesho purchase",8339.49,shopping_online
+SALARY CREDITED RS 76685/- FROM MICROSOFT INDIA,76685.23,salary
+"PhonePe: Rs 14,724.19 paid to Cipla Health",14724.19,health_medical
+"Axis: Rs 32,571 debited from a/c **4657 for Vedantu",32570.81,education
+SBI SMS: INR 5563/- debited UPI txn to fastag@axisbank,5563.37,other
+"UPI: Rs 1,220.37 to zee5@sbi for purchase",1220.37,entertainment
+"CARD **4257 used at Titan Eye Plus for Rs.10,935",10935.37,shopping_offline
+"Room rent payment Rs 16,966 for Oct",16966.32,rent
+SBI Home Loan: EMI Rs 34822 debited,34821.78,emi
+"SIP DEBIT RS 60,239.05 AXIS MF FOLIO",60239.05,investment
+CARD **2424 used at Ratnadeep for Rs.334,334.24,groceries
+Kotak: Rs 1037 debited from a/c **3286 for Parking,1037.13,other
+"BOB UPI: Rs 1,271.84 to allencareer@paytm",1271.84,education
+"Axis Alert: INR 8,092.84 spent at Housewarming gift",8092.84,gifts
+CARD **9279 used at Medanta for Rs.12430,12430.09,health_medical
+ICICI: Rs 4321/- debited from a/c **9279 for O2 Spa,4321.18,personal_care
+"Rs 3,063.84/- debited Thyrocare PNB",3063.84,health_medical
+"kotak sms: inr 1,234 debited upi txn to miscellaneou@paytm",1233.76,other
+UPI: Rs 4944 to indianoil@axl for purchase,4943.74,transport_fuel
+Paid Rs 89020/- to project payment via GPay,89020.0,freelance
+"Canara UPI: Rs 1,143.43 to canvapro@kotak",1143.43,subscription
+SBI: Rs 554 debited for Strava purchase,554.18,subscription
+BOB: Rs 3386/- debited from a/c **4657 for Reliance Petrol,3385.81,transport_fuel
+UPI: Rs. 1616/- to dishtv@axisbank for purchase,1616.35,bills_telecom
+"Canara: Rs.4,226 paid to IOCL via UPI Ref 842833609",4226.32,transport_fuel
+"Kotak: Rs 18,501.92 debited for Tata Capital EMI EMI",18501.92,emi
+Salary for Jan - Rs 263542 from Bharti Airtel,263541.7,salary
+Axis: Rs 23606/- debited from a/c **2679 for Toptal,23606.33,freelance
+"PhonePe: Rs 2,279.51 paid to Kaya Skin",2279.51,personal_care
+"UPI: RS 2,224.67 TO METROSHOES@OKAXIS FOR PURCHASE",2224.67,shopping_offline
+IndusInd Debit: Rs 317 to central@paytm UPI,316.61,shopping_offline
+Chennai Metro Water - Rs.112/- paid via UPI,112.2,bills_water
+"rs 15,057/- debited peter england yes bank",15057.09,shopping_offline
+"YES BANK: RS 15,684.27 DEBITED FOR IDFC FIRST EMI EMI",15684.27,emi
+"SBI Alert: INR 45,751.48 spent at BYJUS",45751.48,education
+PhonePe: Rs 3011/- paid to Bharat Petroleum,3010.74,transport_fuel
+"Motilal Oswal - Rs 18,588 invested in mutual fund",18588.03,investment
+Canara: Rs 1140 debited from a/c **9928 for Disney+ Hotstar,1139.74,entertainment
+"Axis: Rs 7,889.82 debited from a/c **4257 for KSEB",7889.82,bills_electricity
+"Rs 2,309.35/- debited Carnival Cinemas SBI",2309.35,entertainment
+"SBI: Rs.7,210.58 paid to UHBVN via UPI Ref 824652824",7210.58,bills_electricity
+"Salary for Jan - Rs 145,579.48 from Google India",145579.48,salary
+ICICI Debit: Rs 1028 to lakmesalon@axl UPI,1027.69,personal_care
+HDFC SMS: INR 6318 DEBITED UPI TXN TO GIFTCARD@ICICI,6318.29,gifts
+"Payment of Rs 25,169 to consulting fee successful",25169.49,freelance
+"PhonePe: Rs 1,815 paid to Adani Electricity",1814.98,bills_electricity
+"Rs 14,222.80/- debited Shoppers Stop Yes Bank",14222.8,shopping_offline
+"Axis Debit: Rs 10,310 to chumbak@icici UPI",10309.99,shopping_online
+"Municipal Water - Rs.1,497 paid via UPI",1497.11,bills_water
+RS 9558/-/- DEBITED ARCHIES HDFC,9557.95,gifts
+"BOB Debit: Rs 4,019 to goldsgym@sbi UPI",4018.79,health_fitness
+"bses rajdhani - rs.2,555.27 paid via upi",2555.27,bills_electricity
+Rs 515/-/- debited KFC Axis,515.4,food_delivery
+"Canara UPI: Rs 2,095 to pspcl@axl",2094.82,bills_electricity
+"BOB: RS 25,106.89 NEFT TO LANDLORD",25106.89,rent
+icici: rs 1153/- debited from a/c **5012 for barbeque nation,1152.92,food_delivery
+"IndusInd SMS: INR 3,317 debited UPI txn to manipalhospi@ybl",3317.46,health_medical
+"Country Delight - Rs..2,775.47 paid via UPI",2775.47,groceries
+"canara: rs 1,408 debited from a/c **4657 for spotify",1407.74,entertainment
+"RS 3,216/- DEBITED NATURALS SALON PNB",3215.76,personal_care
+Canara CC: Cash deposit Rs 2775,2775.37,other
+CARD **1409 used at development work for Rs.8741/-,8740.72,freelance
+"RS 5,187/- DEBITED ARCHIES PNB",5187.06,gifts
+"HDFC Alert: INR 3,932 spent at Talwalkars",3932.13,health_fitness
+"Kuvera: SIP of Rs 53,846.77 dbtd",53846.77,investment
+"Monthly rent Rs 24,132 paid via UPI",24131.82,rent
+"KOTAK DEBIT: RS 3,058.52 TO BLUEDART@YBL UPI",3058.52,other
+"Yes Bank CC: KSEB Rs 6,434",6434.45,bills_electricity
+UPI: Rs 962 to appletv+@okhdfcbank for purchase,961.97,entertainment
+"HDFC CC: MCGM Water Rs 1,076",1076.0,bills_water
+"Kotak CC: Netmeds Rs 10,820.39",10820.39,health_medical
+"Canara UPI: Rs 18,438.02 to codingninjas@kotak",18438.02,education
+"Axis UPI: Rs. 16,166 to khanacademy@axisbank",16166.29,education
+"Axis: Rs 1,686 dbtd for BB Daily purchase",1685.65,groceries
+Yes Bank Alert: INR 332 spent at Strava,331.66,subscription
+INDUSIND ALERT: INR 811.91 SPENT AT INOX,811.91,entertainment
+SBI SMS: INR 1935 DEBITED UPI TXN TO CULTFIT@AXISBANK,1934.86,health_fitness
+Payment of Rs 530.72 to JioCinema successful,530.72,entertainment
+UPI: Rs 916 to hmwssb@okhdfcbank for purchase,916.36,bills_water
+IndusInd: Rs 802/- debited for F45 Training purchase,802.39,health_fitness
+"UPI: RS 1,213 TO DELHIJALBOAR@PAYTM FOR PURCHASE",1212.73,bills_water
+PhonePe: Rs 683.91 paid to Ola,683.91,transport_ride
+"Loan EMI Rs 18,737 paid to Tata Capital EMI",18736.69,emi
+rs 1288/-/- debited bookmyshow icici,1287.91,entertainment
+"Monthly rent Rs 37,268 paid via UPI",37268.45,rent
+Coin by Zerodha - Rs 28749/- invested in mutual fund,28748.99,investment
+hdfc sms: inr 24833/- debited upi txn to maxhospital@icici,24833.43,health_medical
+"IndusInd UPI: Rs 6,508 to birthdaygift@kotak",6508.33,gifts
+Axis SMS: INR 236.36 dbtd UPI txn to dropbox@axisbank,236.36,subscription
+Hero FinCorp: EMI Rs 44275 debited,44274.78,emi
+"HDFC UPI: Rs 25,682.91 to coursera@paytm",25682.91,education
+"IndusInd: Rs 18,664.33 debited for Paytm Money MF purchase",18664.33,investment
+"PNB Debit: Rs 3,130 to healthifyme@axisbank UPI",3129.69,health_fitness
+"PhonePe: Rs 7,579.78 paid to Amazon Gift",7579.78,gifts
+SBI: RS.1690 PAID TO DISNEY+ HOTSTAR VIA UPI REF 269837180,1690.26,entertainment
+"UPI: Rs 1,451.30 to blusmart@axl for purchase",1451.3,transport_ride
+Kotak UPI: Rs 11375 to fabhotels@okhdfcbank,11374.54,travel
+PNB CC: Dr Lal PathLabs Rs 501.34,501.34,health_medical
+HDFC Alert: INR 3492/- spent at Essar Petrol,3491.55,transport_fuel
+CANARA: RS.532 PAID TO ZOMATO VIA UPI REF 812630453,531.81,food_delivery
+"Monthly salary credit INR 278,567.12 Bajaj Auto",278567.12,salary
+Payment of Rs 1842 to WheelsEye successful,1842.22,transport_ride
+Dropbox - Rs.986.29 paid via UPI,986.29,subscription
+Central - Rs.6143/- paid via UPI,6142.82,shopping_offline
+"PNB CC: Scaler Academy Rs 13,546.09",13546.09,education
+PHONEPE: RS 5168/- PAID TO PRACTO,5168.14,health_medical
+CANARA ALERT: INR 14056 SPENT AT MEDANTA,14056.1,health_medical
+SBI DEBIT: RS 23771 TO TREEBO@KOTAK UPI,23770.59,travel
+"SBI: Rs.7,013.42 paid to Yatra via UPI Ref 453814892",7013.42,travel
+"tata capital emi: emi rs 48,189.21 dbtd",48189.21,emi
+"PhonePe: Rs 1,908 paid to Pune Municipal Water",1908.39,bills_water
+TORRENT POWER - RS.2103/- PAID VIA UPI,2103.01,bills_electricity
+UPI: RS 4359/- TO YOGAHOUSE@AXL FOR PURCHASE,4358.85,health_fitness
+Paid Rs 1243 to Pune Municipal Water via GPay,1243.31,bills_water
+"Mahindra Finance: EMI Rs 8,118.12 debited",8118.12,emi
+"Paid Rs 3,274 to FASTag via GPay",3273.62,other
+"Axis UPI: Rs 41,849 to toptal@hdfcbank",41848.66,freelance
+Yes Bank Credit: Rs. 74458/- NEFT-Amazon India-SALARY,74458.16,salary
+Payment of Rs 365.13 to Dominos successful,365.13,food_delivery
+Paid Rs. 239 to Headspace via GPay,238.72,subscription
+Tata Capital EMI: EMI Rs 44745 dbtd,44745.27,emi
+"Rs 4,855/- debited CrossFit Canara",4854.76,health_fitness
+"Rs 6,918/- debited BSES Rajdhani BOB",6918.3,bills_electricity
+Kotak Debit: Rs 934 to irctc@icici UPI,933.58,travel
+"SBI: Rs 7,580.28 debited for AIIMS purchase",7580.28,health_medical
+CARD **9935 used at Spectra for Rs.1281/-,1280.88,bills_telecom
+axis sms: inr 13868/- dbtd upi txn to netmeds@ybl,13868.48,health_medical
+IndusInd UPI: Rs 3696 to purplle@ybl,3695.83,shopping_online
+ICICI: Rs 74231/- debited from a/c **3286 for Freelancer.com,74231.12,freelance
+"HDFC Debit: Rs 4,537.10 to thequad@okaxis UPI",4537.1,health_fitness
+"ICICI: Rs.4,766 paid to Salon via UPI Ref 515486106",4766.32,personal_care
+"IndusInd Alert: INR 5,235 spent at Wedding gift",5234.67,gifts
+CONTENT WRITING - RS.27915/- PAID VIA UPI,27914.95,freelance
+"card **9928 used at project payment for rs.42,116",42115.57,freelance
+"Kotak CC: F45 Training Rs 2,480",2480.46,health_fitness
+paid rs 7637 to flipkart via gpay,7636.63,shopping_online
+"HDFC: Rs 6,793.59 debited for MSEDCL purchase",6793.59,bills_electricity
+Bewakoof - Rs.5355 paid via UPI,5354.96,shopping_online
+"Kuvera - Rs 26,479 invested in mutual fund",26479.29,investment
+"CARD **7912 used at Dunzo for Rs.4,423.46",4423.46,groceries
+Kotak: Rs.1821 paid to TATA Power via UPI Ref 992758059,1820.58,bills_electricity
+"Axis Alert: INR 1,962.59 spent at Cult.fit",1962.59,health_fitness
+IndusInd: Rs.1989/- paid to Municipal Water via UPI Ref 752162382,1989.02,bills_water
+SBI Alert: INR 750 spent at Headspace,749.99,subscription
+AXIS: RS 2629 DEBITED FROM A/C **7912 FOR BSES RAJDHANI,2628.63,bills_electricity
+HDFC Alert: INR 4940 spent at VLCC,4939.57,personal_care
+SBI: Rs 19246/- debited for Tanishq purchase,19246.23,shopping_offline
+Payment of Rs 856/- to MTNL successful,855.66,bills_telecom
+"Yes Bank: Rs 46,414 debited for Kotak EMI EMI",46414.07,emi
+ICICI: Rs.199 paid to Jio Fiber via UPI Ref 829290130,198.51,bills_telecom
+"BB Daily - Rs.4,529.47 paid via UPI",4529.47,groceries
+CARD **1409 used at Dunzo for Rs.4991,4990.94,groceries
+YLG Salon - Rs.401.74 paid via UPI,401.74,personal_care
+PhonePe: Rs 5100 paid to Titan Eye Plus,5099.8,shopping_offline
+"ICICI: Rs 1,905.41 debited for Grammarly purchase",1905.41,subscription
+paid rs 426 to subway via gpay,426.1,food_delivery
+Monthly rent Rs 13052 paid via UPI,13051.74,rent
+Monthly rent Rs 29606/- paid via UPI,29605.93,rent
+"PG rent payment Rs 48,983.19 for Apr",48983.19,rent
+SBI SMS: INR 47873 debited UPI txn to contentwriti@sbi,47872.7,freelance
+Payment of Rs 27329 to GeeksforGeeks successful,27328.92,education
+Paid Rs 648 to Microsoft 365 via GPay,647.76,subscription
+PG RENT PAYMENT RS 7636 FOR JUL,7636.46,rent
+"Kotak Debit: Rs 8,749 to returngift@axl UPI",8749.45,gifts
+hdfc cc: boat lifestyle rs 13910,13909.98,shopping_online
+PNB: Rs 2787/- debited for Swiggy Instamart purchase,2786.95,groceries
+PNB SMS: INR 45570/- debited UPI txn to scaleracadem@ybl,45570.06,education
+"hdfc: rs.6,098 paid to dtdc via upi ref 447222742",6098.17,other
+"PNB: RS.8,749.07 PAID TO XEROX VIA UPI REF 992217608",8749.07,other
+Axis: Rs 766 dbtd for Salon purchase,765.94,personal_care
+IndusInd Debit: Rs 576.94 to adobecc@sbi UPI,576.94,subscription
+Groww: SIP of Rs 41528 debited,41527.94,investment
+"BOB ALERT: INR 3,396 SPENT AT YOGA HOUSE",3396.12,health_fitness
+Loan EMI Rs 49686 paid to IDFC First EMI,49685.82,emi
+VISTARA - RS.40353 PAID VIA UPI,40353.32,travel
+Fortis Hospital - Rs.14100 paid via UPI,14100.21,health_medical
+"kotak alert: inr 21,567 spent at spicejet",21567.4,travel
+CARD **1488 used at Delhi Jal Board for Rs..678.15,678.15,bills_water
+BOB Debit: Rs 586 to spectra@axl UPI,585.72,bills_telecom
+SBI UPI: Rs 4911/- to bescom@hdfcbank,4911.23,bills_electricity
+"Paid Rs 2,130.49 to Uber via GPay",2130.49,transport_ride
+PhonePe: Rs 291 paid to BigBasket,290.68,groceries
+"IndusInd: Rs.4,884.32 paid to IMPS Transfer via UPI Ref 606497318",4884.32,other
+Yes Bank Debit: Rs 12245 to developmentw@icici UPI,12245.49,freelance
+"PAYMENT OF RS 2,852 TO AMAZON FRESH SUCCESSFUL",2852.25,groceries
+Yes Bank: Rs.349/- paid to BWSSB via UPI Ref 591271783,348.71,bills_water
+"Paid Rs 9,421.02 to Pepperfry via GPay",9421.02,shopping_online
+"PAID RS 12,666 TO CODING NINJAS VIA GPAY",12665.92,education
+"Miscellaneous - Rs.2,996 paid via UPI",2995.55,other
+"Society maintenance payment Rs 17,953.05 for Dec",17953.05,rent
+"canara: rs.1,915 paid to pcmc water via upi ref 361301518",1914.6,bills_water
+"HDFC Credit: Rs 102,717.06 NEFT-HCL Tech-SALARY",102717.06,salary
+"SBI: Rs..13,059 paid to Decathlon via UPI Ref 818371516",13058.51,shopping_offline
+"HDFC: Rs 4,630.75 debited for Nayara Energy purchase",4630.75,transport_fuel
+"IndusInd SMS: INR 7,692 debited UPI txn to croma@sbi",7692.32,shopping_online
+UPI: Rs 556/- to porter@kotak for purchase,556.22,transport_ride
+BOB: Rs.5141/- paid to IndiGo via UPI Ref 609910484,5140.99,travel
+"SIP debit Rs 23,465.28 DSP MF folio",23465.28,investment
+BOB Alert: INR 34852/- spent at Unacademy,34851.5,education
+"SBI Alert: INR 1,059.04 spent at Jio Fiber",1059.04,bills_telecom
+Paid Rs 1702 to Spotify via GPay,1702.17,entertainment
+PNB SMS: INR 272/- debited UPI txn to pcmcwater@kotak,271.84,bills_water
+"SBI: Rs 4,639 debited for Coursera purchase",4638.6,education
+"BOB: RS.7,720.96 PAID TO AIR INDIA VIA UPI REF 536877463",7720.96,travel
+PhonePe: Rs 1460 paid to BluSmart,1460.45,transport_ride
+"Kotak CC: Anniversary gift Rs 6,683.54",6683.54,gifts
+IndusInd SMS: INR 1525/- debited UPI txn to jiocinema@axisbank,1525.31,entertainment
+BOB UPI: RS 9283 TO RAKHIGIFT@OKAXIS,9282.53,gifts
+"Salary for Oct - Rs 129,417 from Reliance Industries",129417.34,salary
+"PHONEPE: RS 3,604 PAID TO COURIER",3603.75,other
+"Nippon MF - Rs 87,023.21 invested in mutual fund",87023.21,investment
+"IndusInd CC: Toptal Rs 37,499.61",37499.61,freelance
+"BOB Alert: INR 3,982 spent at BSES Rajdhani",3981.57,bills_electricity
+PAYMENT OF RS 709.25 TO EATFIT SUCCESSFUL,709.25,food_delivery
+Rs 850.72/- debited Adobe CC BOB,850.72,subscription
+Payment of Rs 7127 to Myntra successful,7127.28,shopping_online
+"BOB Alert: INR 2,800 spent at Diwali gift",2800.41,gifts
+Axis: Rs.1862 paid to Metro Cash via UPI Ref 599714064,1861.81,groceries
+"RS 67,458.43/- DEBITED TOPTAL KOTAK",67458.43,freelance
+Rent transfer Rs 21291 to landlord,21291.31,rent
+HDFC: Rs 42846 NEFT to House rent,42846.23,rent
+BOB CC: Talwalkars Rs 1308/-,1307.83,health_fitness
+Rs 458/- debited Apple TV+ ICICI,458.47,entertainment
+ICICI: Rs 22480/- credited - Salary from L&T,22480.1,salary
+"UPI: Rs 38,697 to byjus@icici for purchase",38697.07,education
+SIP debit Rs 64903 Angel One folio,64903.44,investment
+"Nayara Energy - Rs..3,750 paid via UPI",3749.56,transport_fuel
+"Payment of Rs 2,801.01 to F45 Training successful",2801.01,health_fitness
+"Auto debit Rs 34,533 Mahindra Finance loan account",34533.0,emi
+"SBI: Rs 1,021.46 debited from a/c **4582 for Biryani Blues",1021.46,food_delivery
+pnb: rs.873 paid to jaipur water via upi ref 458111525,872.88,bills_water
+CANARA: RS.35461/- PAID TO ALLEN CAREER VIA UPI REF 165784237,35460.56,education
+"SIP debit Rs 78,134 Mirae Asset folio",78134.2,investment
+Axis CC: Cipla Health Rs 12455/-,12454.77,health_medical
+UPI: RS 365 TO DISNEY+HOTST@PAYTM FOR PURCHASE,365.35,entertainment
+"BOB: Rs.4,086 paid to Urbanic via UPI Ref 930888412",4085.86,shopping_online
+Rent transfer Rs. 7403/- to landlord,7402.76,rent
+Reliance Digital - Rs..4576/- paid via UPI,4575.96,shopping_online
+"payment of rs 25,090.61 to spicejet successful",25090.61,travel
+SBI CC: Coding Ninjas Rs 39783/-,39783.2,education
+"HDFC: Rs 11,977 debited for Bajaj Auto Finance EMI",11977.17,emi
+Axis: Rs. 14899/- debited for Reliance Trends purchase,14898.71,shopping_offline
+BOB CC: Apple Music Rs 1854,1854.12,subscription
+O2 Spa - Rs.4150 paid via UPI,4150.01,personal_care
+"PhonePe: Rs 8,027 paid to IGP",8027.46,gifts
+"PNB Alert: INR 19,519.34 spent at Manyavar",19519.34,shopping_offline
+Paid Rs. 4843/- to Talwalkars via GPay,4843.22,health_fitness
+"PhonePe: Rs 1,985 paid to Courier",1984.79,other
+Fitness First - Rs.3062/- paid via UPI,3061.98,health_fitness
+SIP debit Rs 5813 Coin by Zerodha folio,5813.33,investment
+"MONTHLY RENT RS 32,313 PAID VIA UPI",32313.32,rent
+"Axis CC: Ratnadeep Rs 2,802",2801.54,groceries
+"linkedin premium - rs.1,608 paid via upi",1607.8,subscription
+"Taco Bell - Rs.1,426.25 paid via UPI",1426.25,food_delivery
+CARD **9279 used at BPCL for Rs.2966/-,2966.14,transport_fuel
+PhonePe: Rs 443.74 paid to iCloud,443.74,subscription
+Bajaj Auto Finance: EMI Rs 18427/- debited,18426.6,emi
+Canara Debit: Rs 26654 to goibibo@ybl UPI,26653.58,travel
+Rs 3491/- debited BB Daily PNB,3491.14,groceries
+PhonePe: Rs 2051/- paid to Dunzo,2050.99,transport_ride
+"SBI UPI: Rs 7,337.55 to vistara@paytm",7337.55,travel
+CARD **2824 used at Amazon.in for Rs.3646,3645.6,shopping_online
+UPI: Rs 997/- to mxplayer@axl for purchase,996.88,entertainment
+"Axis Alert: INR 1,956.94 spent at Anytime Fitness",1956.94,health_fitness
+"Payment of Rs 3,685 to O2 Spa successful",3685.34,personal_care
+"Loan EMI Rs 45,975 paid to SBI Home Loan",45975.21,emi
+Bharat Petroleum - Rs.2908/- paid via UPI,2908.38,transport_fuel
+"Payment of Rs 40,843 to development work successful",40842.66,freelance
+PhonePe: Rs 1780/- paid to Tata CLiQ,1780.22,shopping_online
+ICICI DEBIT: RS 85978/- TO CONSULTINGFE@PAYTM UPI,85977.57,freelance
+PhonePe: Rs. 996.34 paid to Salon,996.34,personal_care
+PNB UPI: Rs 622.86 to meesho@axisbank,622.86,shopping_online
+"Paid Rs 1,423.77 to Lucknow Jal Nigam via GPay",1423.77,bills_water
+IndusInd SMS: INR 949 debited UPI txn to burgerking@sbi,948.58,food_delivery
+"Payment of Rs 2,436 to Nykaa successful",2436.36,personal_care
+"MakeMyTrip - Rs.3,235.78 paid via UPI",3235.78,travel
+KOTAK: RS 18210/- DEBITED FOR YATRA PURCHASE,18210.36,travel
+"UPI: Rs. 1,292.22 to chennaimetro@ybl for purchase",1292.22,bills_water
+"Canara: Rs 2,519 debited for O2 Spa purchase",2518.63,personal_care
+Jaipur Water - Rs..1946 paid via UPI,1945.92,bills_water
+"Zerodha - Rs 21,118.34 invested in mutual fund",21118.34,investment
+UPI: Rs 2727 to dunzo@icici for purchase,2726.66,groceries
+CARD **1434 used at Adani Electricity for Rs.559,559.27,bills_electricity
+CARD **1434 used at DishTV for Rs.737.17,737.17,bills_telecom
+"HDFC MF - Rs 87,927 invested in mutual fund",87927.07,investment
+"SIP debit Rs 4,002 Angel One folio",4001.62,investment
+SBI UPI: RS 4624 TO URBANCOMPANY@ICICI,4623.64,personal_care
+Yes Bank Alert: INR 2521/- spent at Metro Cash,2521.17,groceries
+"Yes Bank: Rs 68,718.44 debited for Motilal Oswal MF purchase",68718.44,investment
+"PNB Alert: INR 8,941.60 spent at Printing",8941.6,other
+Office rent payment Rs 38771 for Oct,38771.44,rent
+IndusInd: Rs.20087/- paid to 99designs via UPI Ref 458697233,20086.66,freelance
+"IndusInd Alert: INR 1,339 spent at PVR",1338.55,entertainment
+Payment of Rs 7852/- to Mamaearth successful,7851.7,shopping_online
+BOB: Rs 14756/- debited from a/c **1488 for Raymond,14756.15,shopping_offline
+Auto debit Rs 49249 Bajaj Auto Finance loan account,49249.34,emi
+"Payment of Rs 1,340 to Essar Petrol successful",1340.38,transport_fuel
+IndusInd: Rs 1788/- debited for Notion purchase,1787.97,subscription
+"Investment: Rs 10,276 to Axis MF via UPI",10276.15,investment
+PhonePe: Rs 15927/- paid to GeeksforGeeks,15927.43,education
+"IndusInd Alert: INR 15,504.26 spent at AIIMS",15504.26,health_medical
+"phonepe: rs 34,498 paid to goibibo",34498.17,travel
+"UPI: RS 1,825 TO RAPIDOBIKE@AXISBANK FOR PURCHASE",1824.55,transport_ride
+"Yes Bank Alert: INR 1,625.32 spent at Toll Plaza",1625.32,other
+Sarva Yoga - Rs.3222/- paid via UPI,3221.82,health_fitness
+BOB Credit: Rs 163113/- NEFT-Accenture-SALARY,163113.15,salary
+Yes Bank Debit: Rs 55311 to contentwriti@okaxis UPI,55311.27,freelance
+"Kotak: Rs 16,751.58 debited from a/c **9928 for Central",16751.58,shopping_offline
+PNB: Rs.1089 paid to Mamaearth via UPI Ref 949830412,1088.77,shopping_online
+"Payment of Rs 5,114.99 to IMPS Transfer successful",5114.99,other
+"Kotak UPI: Rs 13,359.05 to medanta@sbi",13359.05,health_medical
+"Licious - Rs.2,323 paid via UPI",2322.86,groceries
+ICICI: Rs 57847/- dbtd from a/c **2824 for client payment,57847.25,freelance
+"SIP debit Rs 24,195.81 Coin by Zerodha folio",24195.81,investment
+"Kotak SMS: INR 1,873 debited UPI txn to tikona@paytm",1873.31,bills_telecom
+Golds Gym - Rs.3933/- paid via UPI,3932.84,health_fitness
+yes bank debit: rs 6861 to delhivery@okhdfcbank upi,6860.75,other
+Paid Rs 741 to Pune Municipal Water via GPay,741.08,bills_water
+Canara UPI: Rs 431 to hppetrolpump@axl,431.11,transport_fuel
+"Canara Debit: Rs 35,422.35 to irctc@hdfcbank UPI",35422.35,travel
+"Kotak: Rs 23,567.74 debited from a/c **7873 for Metropolis Lab",23567.74,health_medical
+IndusInd Debit: Rs 45068 to simplilearn@okaxis UPI,45067.54,education
+Rent transfer Rs 15498/- to landlord,15498.45,rent
+"Thyrocare - Rs.5,265.43 paid via UPI",5265.43,health_medical
+Rs 6617/-/- debited PSPCL Kotak,6616.74,bills_electricity
+PHONEPE: RS 681 PAID TO BSNL,680.9,bills_telecom
+"Rs 1,318.85/- debited Taco Bell BOB",1318.85,food_delivery
+SIP debit Rs 75898/- HDFC MF folio,75897.6,investment
+"Rent to owner payment Rs 32,087.41 for Feb",32087.41,rent
+"HDFC Alert: INR 84,016.57 spent at consulting fee",84016.57,freelance
+SIP debit Rs 55962 Motilal Oswal folio,55961.96,investment
+PhonePe: Rs 28569/- paid to MakeMyTrip,28569.46,travel
+SBI: Rs 57158 dbtd for Nippon MF MF purchase,57158.46,investment
+"icici cc: indigo rs 48,472.37",48472.37,travel
+Axis: Rs 48836/- debited for Aakash Institute purchase,48836.4,education
+Kotak Debit: Rs. 11067/- to maxhospital@hdfcbank UPI,11066.94,health_medical
+CARD **9928 used at 1mg for Rs.11933/-,11932.72,health_medical
+"IndusInd UPI: Rs 1,177 to salon@ybl",1177.22,personal_care
+"SBI SMS: INR 10,570.31 debited UPI txn to chumbak@axl",10570.31,shopping_online
+"Loan EMI Rs 32,954 paid to Hero FinCorp",32954.02,emi
+"Kotak: Rs 4,064.41 debited for Total Energies purchase",4064.41,transport_fuel
+Paid Rs. 359/- to Reliance Digital via GPay,358.51,shopping_online
+"Paid Rs 7,527.67 to Delhivery via GPay",7527.67,other
+ICICI: Rs 1188 debited from a/c **1520 for BWSSB,1188.39,bills_water
+"BOB Debit: Rs 85,076.23 to designwork@paytm UPI",85076.23,freelance
+Loan EMI Rs 14753/- paid to SBI Home Loan,14753.36,emi
+"Return gift - Rs.7,690.69 paid via UPI",7690.69,gifts
+"PhonePe: Rs 8,484 paid to Housewarming gift",8483.63,gifts
+UPI: Rs 498.69 to jio@axl for purchase,498.69,bills_telecom
+ICICI Alert: INR 4261/- spent at BlueDart,4261.28,other
+"Rs 31,734.64/- debited Vedantu PNB",31734.64,education
+yes bank: rs 135 debited for rapido purchase,134.89,transport_ride
+IndusInd: Rs.728.89 paid to Ferns N Petals via UPI Ref 166398450,728.89,gifts
+Rs 954/-/- debited IOCL SBI,954.1,transport_fuel
+"CARD **2424 used at Cleartrip for Rs.28,219",28218.6,travel
+"Paid Rs 11,794 to Pantaloons via GPay",11793.6,shopping_offline
+"CARD **2424 used at Treebo for Rs.24,692.54",24692.54,travel
+Mirae Asset: SIP of Rs 1559 debited,1558.82,investment
+HDFC: RS 1153/- DEBITED FOR TITAN EYE PLUS PURCHASE,1153.35,shopping_offline
+"HDFC Alert: INR 7,081 spent at Flipkart",7081.42,shopping_online
+"Loan EMI Rs 48,496 paid to Axis Car Loan",48495.56,emi
+Monthly salary credit INR 119727 Tech Mahindra,119727.26,salary
+"HDFC UPI: Rs 1,132.21 to netflix@hdfcbank",1132.21,entertainment
+"SALARY FOR JUL - RS 134,390 FROM WIPRO",134389.69,salary
+"HDFC CC: Enrich Salon Rs. 1,851.45",1851.45,personal_care
+"ET Money: SIP of Rs 42,595.70 debited",42595.7,investment
+"CARD **4811 USED AT TANGEDCO FOR RS.1,944",1944.16,bills_electricity
+PNB: Rs 25754 NEFT to House rent,25754.19,rent
+"PNB: Rs 14,194 debited for Zara purchase",14193.74,shopping_offline
+"Monthly salary credit INR 206,098 Bajaj Auto",206098.34,salary
+Paid Rs 2609/- to HP Petrol Pump via GPay,2608.82,transport_fuel
+Paid Rs 11297/- to Cipla Health via GPay,11296.86,health_medical
+Yes Bank: Rs 8723 debited for DSP MF MF purchase,8723.46,investment
+Lionsgate Play - Rs.1093 paid via UPI,1093.14,entertainment
+"PAID RS 3,618 TO INDIGO VIA GPAY",3618.46,travel
+"Paid Rs 1,222 to SonyLIV via GPay",1222.44,entertainment
+"Monthly rent Rs 10,693 paid via UPI",10692.69,rent
+CARD **5012 USED AT PORTER FOR RS.1660,1660.39,transport_ride
+"LOAN EMI RS 33,786 PAID TO ICICI PERSONAL LOAN",33786.19,emi
+"Kotak SMS: INR 2,123.12 dbtd UPI txn to youtubepremi@axl",2123.12,entertainment
+IndusInd: Rs 22028 debited from a/c **5506 for OYO,22028.44,travel
+"bob: rs 1,519 debited for licious purchase",1518.62,groceries
+"Yes Bank Debit: Rs. 65,732.41 to projectpayme@paytm UPI",65732.41,freelance
+Kotak Debit: Rs 7024/- to fernsnpetals@kotak UPI,7024.05,gifts
+"Total Energies - Rs.3,840.21 paid via UPI",3840.21,transport_fuel
+BOB CC: Namma Yatri Rs 818,817.84,transport_ride
+"Yes Bank: Rs.31,145 paid to IRCTC via UPI Ref 781065609",31144.93,travel
+"PhonePe: Rs 2,831 paid to Adani Electricity",2831.04,bills_electricity
+BOB Debit: Rs 926.55 to sarvayoga@kotak UPI,926.55,health_fitness
+Axis: Rs.1444 paid to HMWSSB via UPI Ref 858906506,1444.25,bills_water
+CARD **4257 used at TANGEDCO for Rs.5563,5563.23,bills_electricity
+rs 314/- debited disney+ hotstar hdfc,314.22,entertainment
+"Paid Rs 43,570 to Scaler Academy via GPay",43570.49,education
+"ICICI ALERT: INR 2,457 SPENT AT PORTER",2457.29,transport_ride
+rs 22574/-/- debited great learning sbi,22573.63,education
+"Axis CC: YouTube Premium Rs 1,943",1943.49,entertainment
+Theobroma - Rs.886/- paid via UPI,885.65,food_delivery
+"Paid Rs 7,772.28 to BSES Yamuna via GPay",7772.28,bills_electricity
+"bob alert: inr 7,058 spent at wedding gift",7057.98,gifts
+Monthly salary credit INR 258166/- Reliance Industries,258166.27,salary
+ICICI: Rs 625 debited for Spotify purchase,624.59,entertainment
+Canara SMS: INR 179 debited UPI txn to d2h@axl,179.11,bills_telecom
+"BOB SMS: INR 1,784 debited UPI txn to rakhigift@sbi",1783.83,gifts
+Payment of Rs 224 to Rapido Bike successful,223.98,transport_ride
+"Payment of Rs 4,643.74 to Ferns N Petals successful",4643.74,gifts
+Yes Bank: Rs.8706/- paid to IGP via UPI Ref 392848031,8706.46,gifts
+"PNB: RS 21,816.60 DEBITED FOR COIN BY ZERODHA MF PURCHASE",21816.6,investment
+BOB: Rs 729/- debited for D2H purchase,729.02,bills_telecom
+"SBI UPI: Rs 37,838 to upgrad@paytm",37837.71,education
+Auto debit Rs 8196 IDFC First EMI loan account,8196.26,emi
+CARD **1520 used at iCloud for Rs.801,800.68,subscription
+SBI Debit: Rs 963/- to vivodafone@okaxis UPI,962.82,bills_telecom
+"ICICI CC: Essar Petrol Rs 3,320",3320.41,transport_fuel
+"Paid Rs 3,806.86 to Indian Oil via GPay",3806.86,transport_fuel
+PhonePe: Rs 497 paid to Zee5,496.73,entertainment
+"ICICI Credit: Rs 285,990.49 NEFT-Microsoft India-SALARY",285990.49,salary
+Axis Alert: INR 1672 spent at Excitel,1671.83,bills_telecom
+BOB UPI: Rs 769/- to sarvayoga@okaxis,769.04,health_fitness
+"UPI: Rs 1,811.39 to amazonprime@okhdfcbank for purchase",1811.39,entertainment
+Yes Bank UPI: Rs 3969/- to healthifyme@paytm,3969.43,health_fitness
+"UPI: Rs 9,937.50 to kalyanjewell@axisbank for purchase",9937.5,shopping_offline
+"SBI: Rs.1,413 paid to Zee5 via UPI Ref 588346218",1412.67,entertainment
+UPI: Rs 1302 to manipalhospi@kotak for purchase,1302.37,health_medical
+Monthly salary credit INR 276935 Flipkart,276935.15,salary
+Rs 651/-/- debited BWSSB Canara,651.12,bills_water
+"Rent transfer Rs 18,623 to landlord",18622.66,rent
+Payment of Rs 439.67 to Hathway successful,439.67,bills_telecom
+"Rs 1,564/- debited Jaipur Water ICICI",1563.88,bills_water
+"ICICI: Rs.23,497.06 paid to PeoplePerHour via UPI Ref 746354547",23497.06,freelance
+BOB: RS.592.77 PAID TO MUNICIPAL WATER VIA UPI REF 217247719,592.77,bills_water
+card **2824 used at google one for rs.875,875.15,subscription
+"HDFC: Rs.1,051 paid to Practo via UPI Ref 857674720",1051.02,health_medical
+"UPI: Rs 15,467 to peterengland@axl for purchase",15466.65,shopping_offline
+"Rs 3,261/- debited Kaya Skin Kotak",3261.01,personal_care
+"ICICI Personal Loan: EMI Rs 3,054 debited",3054.4,emi
+"PHONEPE: RS 2,762.69 PAID TO URBAN COMPANY",2762.69,personal_care
+"BSES Rajdhani - Rs.7,594 paid via UPI",7593.61,bills_electricity
+"CARD **1409 used at UHBVN for Rs.1,632",1632.14,bills_electricity
+Payment of Rs 970.76 to MTNL successful,970.76,bills_telecom
+"boAt - Rs.8,041 paid via UPI",8041.28,shopping_online
+"PNB UPI: Rs 14,696.09 to apollopharma@okaxis",14696.09,health_medical
+PhonePe: Rs 845/- paid to Shell,845.05,transport_fuel
+Samsung Finance: EMI Rs 29813/- debited,29813.39,emi
+Kotak Debit: Rs 2174 to flipkartgroc@hdfcbank UPI,2173.95,groceries
+"MCGM Water - Rs.1,752.73 paid via UPI",1752.73,bills_water
+Payment of Rs 39509 to IRCTC successful,39509.23,travel
+ICICI Debit: Rs 16620/- to airbnb@hdfcbank UPI,16620.36,travel
+"axis: rs 1,708 debited from a/c **1434 for anniversary gift",1708.05,gifts
+"HDFC Debit: Rs 19,264.40 to treebo@kotak UPI",19264.4,travel
+Kotak EMI: EMI Rs 17284 debited,17284.18,emi
+"ICICI UPI: Rs 33,788.33 to vistara@axisbank",33788.33,travel
+"PhonePe: Rs 1,596 paid to Cinepolis",1596.42,entertainment
+PNB: Rs.279 paid to Zee5 via UPI Ref 389815857,279.18,entertainment
+Axis: Rs.5750 paid to Amazon.in via UPI Ref 488984224,5750.44,shopping_online
+"Hathway - Rs.1,669 paid via UPI",1669.35,bills_telecom
+PhonePe: Rs 266 paid to Pune Municipal Water,265.74,bills_water
+CARD **7873 used at PVR for Rs.346/-,346.11,entertainment
+"Investment: Rs 78,867 to Motilal Oswal via UPI",78866.97,investment
+"BOB CC: Indane Gas Rs 4,431",4430.67,transport_fuel
+"SBI CC: PSPCL Rs 3,431.37",3431.37,bills_electricity
+"Loan EMI Rs 47,116 paid to Mahindra Finance",47116.18,emi
+BOB SMS: INR 365.76 DEBITED UPI TXN TO MCGMWATER@OKAXIS,365.76,bills_water
+UPI: Rs 455/- to chatgptplus@hdfcbank for purchase,454.56,subscription
+Dunzo Daily - Rs.513.64 paid via UPI,513.64,food_delivery
+"Paid Rs 21,841 to OYO via GPay",21841.19,travel
+"development work - Rs.7,210.09 paid via UPI",7210.09,freelance
+Kotak UPI: Rs 402 to jio@axisbank,402.49,bills_telecom
+"ICICI: Rs 47,467.27 debited for Axis Car Loan EMI",47467.27,emi
+"BOB: RS 1,043 DEBITED FROM A/C **4257 FOR OLA",1042.93,transport_ride
+InDrive - Rs.806 paid via UPI,805.63,transport_ride
+Swiggy - Rs.884 paid via UPI,883.62,food_delivery
+HDFC SMS: INR 1158 debited UPI txn to hpgas@axl,1158.44,transport_fuel
+"Paid Rs 1,400 to CrossFit via GPay",1399.97,health_fitness
+"BOB: Rs 3,777.71 debited from a/c **4657 for Bodycraft",3777.71,personal_care
+Yes Bank SMS: INR 5633/- debited UPI txn to firstcry@icici,5632.83,shopping_online
+"OYO - Rs.13,133.47 paid via UPI",13133.47,travel
+"BOB ALERT: INR 1,937.61 SPENT AT CESC",1937.61,bills_electricity
+"IndusInd: Rs.35,733.79 paid to Yatra via UPI Ref 162764682",35733.79,travel
+"HDFC: Rs 5,578 debited for Diwali gift purchase",5577.84,gifts
+Paid Rs 21052/- to Coursera via GPay,21051.7,education
+PhonePe: Rs. 5844 paid to Adani Electricity,5843.65,bills_electricity
+"PNB UPI: Rs 1,706 to lionsgatepla@axisbank",1705.63,entertainment
+"Canara CC: The Quad Rs 3,508",3507.97,health_fitness
+"Paytm Money - Rs 2,173.38 invested in mutual fund",2173.38,investment
+"Loan EMI Rs 36,701.60 paid to Hero FinCorp",36701.6,emi
+"Kotak: Rs 10,285 debited from a/c **1520 for Urbanic",10285.35,shopping_online
+"UPI: Rs 8,841.40 to byjus@ybl for purchase",8841.4,education
+"CARD **1409 used at Birthday gift for Rs.9,697.92",9697.92,gifts
+PHONEPE: RS 2295/- PAID TO SRL DIAGNOSTICS,2295.23,health_medical
+kotak debit: rs 238 to porter@axisbank upi,238.46,transport_ride
+"Axis CC: Raymond Rs 6,721.65",6721.65,shopping_offline
+"Kuvera: SIP of Rs 70,212 debited",70212.26,investment
+"PhonePe: Rs 1,344.87 paid to Snap Fitness",1344.87,health_fitness
+"Rent transfer Rs 7,651 to landlord",7651.29,rent
+"UPI: Rs 18,613 to ciplahealth@axisbank for purchase",18612.74,health_medical
+AXIS: RS 158 DEBITED FOR OLA PURCHASE,157.56,transport_ride
+"UPI: Rs 7,841 to dtdc@axl for purchase",7840.82,other
+Salary for Sep - Rs 279798 from Accenture,279798.43,salary
+HDFC: Rs. 9091 debited from a/c **2679 for Gift card,9090.72,gifts
+"Rs 1,886.38/- debited Pune Municipal Water ICICI",1886.38,bills_water
+Headspace - Rs.539 paid via UPI,538.9,subscription
+IndusInd CC: CrossFit Rs 1598,1598.45,health_fitness
+BOB Debit: Rs 6693/- to courier@kotak UPI,6693.08,other
+"Paid Rs 42,488 to client payment via GPay",42487.67,freelance
+Monthly salary credit INR 215389 TCS,215389.18,salary
+SBI SMS: INR 4346 debited UPI txn to kseb@icici,4345.93,bills_electricity
+"yes bank: rs.2,065 paid to spotify via upi ref 664003494",2065.24,entertainment
+"PhonePe: Rs 4,631 paid to Marks Spencer",4631.12,shopping_offline
+Canara: Rs.2946/- paid to HP Gas via UPI Ref 395723682,2945.71,transport_fuel
+"Rs 12,549.96/- debited Myntra SBI",12549.96,shopping_online
+PAYMENT OF RS 856 TO SWIGGY INSTAMART SUCCESSFUL,855.55,groceries
+Investment: Rs 82846/- to Motilal Oswal via UPI,82846.13,investment
+"SIP debit Rs 21,311 5Paisa folio",21310.51,investment
+"VAN HEUSEN - RS.9,621 PAID VIA UPI",9621.26,shopping_offline
+"UPI: Rs 15,716.34 to indigo@axisbank for purchase",15716.34,travel
+"CARD **7912 used at BPCL for Rs.3,662",3662.16,transport_fuel
+"Kuvera: SIP of Rs 52,393 debited",52393.49,investment
+sbi sms: inr 1409 debited upi txn to o2spa@ybl,1409.0,personal_care
+Axis: Rs 28564/- debited from a/c **1409 for Scaler Academy,28564.26,education
+Payment of Rs 1250/- to F45 Training successful,1250.39,health_fitness
+"Rent transfer Rs 17,614.89 to landlord",17614.89,rent
+"IndusInd SMS: INR 1,657.64 debited UPI txn to atmwithdrawa@paytm",1657.64,other
+Rs 4255/- debited Diwali gift IndusInd,4254.9,gifts
+"Rs 1,713.94/- dbtd Naturals Salon ICICI",1713.94,personal_care
+"SBI: Rs 43,292 debited for Samsung Finance EMI",43292.21,emi
+"Paid Rs 6,478 to MSEDCL via GPay",6477.69,bills_electricity
+Kotak Debit: Rs 967 to headspace@sbi UPI,966.59,subscription
+"PharmEasy - Rs.5,185 paid via UPI",5185.41,health_medical
+ICICI Debit: Rs 12032/- to reliancetren@okhdfcbank UPI,12032.22,shopping_offline
+"Monthly rent Rs 24,529 paid via UPI",24528.67,rent
+"Kotak SMS: INR 4,293.95 debited UPI txn to jawedhabib@paytm",4293.95,personal_care
+UPI: Rs 866 to zomato@paytm for purchase,865.77,food_delivery
+PhonePe: Rs 488.44 paid to Theobroma,488.44,food_delivery
+Paid Rs 757 to Chaayos via GPay,757.31,food_delivery
+BOB: RS.8419 PAID TO SNAPDEAL VIA UPI REF 959033676,8419.03,shopping_online
+"Rs 1,629.35/- debited DishTV ICICI",1629.35,bills_telecom
+"PNB Credit: Rs 255,135.87 NEFT-ICICI Bank-SALARY",255135.87,salary
+"HDFC Alert: INR 3,707.16 spent at Shell",3707.16,transport_fuel
+"Apple Music - Rs.1,520.93 paid via UPI",1520.93,subscription
+"PhonePe: Rs 1,237.37 paid to DishTV",1237.37,bills_telecom
+"HDFC UPI: Rs 4,267 to heritagefres@okhdfcbank",4266.63,groceries
+"HDFC UPI: Rs 4,396 to spencers@kotak",4396.04,groceries
+HEALTHIFYME - RS.2161 PAID VIA UPI,2161.1,health_fitness
+"Rs. 4,182/- debited Lakme Salon IndusInd",4181.8,personal_care
+"hdfc alert: inr 6,247 spent at flipkart",6247.12,shopping_online
+Axis Alert: INR 611.42 spent at Cinepolis,611.42,entertainment
+PhonePe: Rs 5277 paid to Miscellaneous,5277.34,other
+"Canara CC: Yoga House Rs 3,621.72",3621.72,health_fitness
+"YES BANK DEBIT: RS 70,673.50 TO 99DESIGNS@KOTAK UPI",70673.5,freelance
+HDFC CC: ACT Fibernet Rs 742,742.21,bills_telecom
+Monthly rent Rs 36476 paid via UPI,36476.48,rent
+"ICICI Debit: Rs 4,577.63 to goldsgym@hdfcbank UPI",4577.63,health_fitness
+"Kotak Debit: Rs 29,143 to consultingfe@sbi UPI",29143.48,freelance
+"Axis SMS: INR 1,181.46 debited UPI txn to strava@paytm",1181.46,subscription
+PhonePe: Rs 188 paid to Chennai Metro Water,187.72,bills_water
+INDUSIND UPI: RS 3714 TO BPCL@OKAXIS,3713.53,transport_fuel
+upi: rs 367.26 to makemytrip@kotak for purchase,367.26,travel
+Yes Bank SMS: INR 2106 debited UPI txn to ratnadeep@axl,2106.22,groceries
+"rs 2,167/- debited essar petrol icici",2166.83,transport_fuel
+"Monthly salary credit INR 145,071.83 Amazon India",145071.83,salary
+"Kotak UPI: Rs 5,434.71 to bescom@okaxis",5434.71,bills_electricity
+CARD **2535 used at Vedantu for Rs.41211/-,41210.84,education
+"Canara: Rs 1,587 debited for Rapido Bike purchase",1587.46,transport_ride
+"Paid Rs 12,841 to PharmEasy via GPay",12841.46,health_medical
+Zerodha: SIP of Rs 98207 debited,98207.25,investment
+"pepperfry - rs.14,214.97 paid via upi",14214.97,shopping_online
+Payment of Rs 9342/- to Dry cleaning successful,9342.17,other
+"Rs 2,016/- dbtd BPCL Kotak",2016.24,transport_fuel
+ICICI SMS: INR 318 debited UPI txn to dtdc@icici,317.67,other
+PhonePe: Rs 918 paid to UHBVN,918.42,bills_electricity
+"UPI: Rs 8,587 to tatacliq@okaxis for purchase",8587.19,shopping_online
+netflix - rs.864 paid via upi,863.93,entertainment
+"content writing - Rs.28,957 paid via UPI",28957.29,freelance
+SBI UPI: RS 941.07 TO MEDPLUS@OKHDFCBANK,941.07,health_medical
+Rs 438/- debited Grammarly Yes Bank,437.91,subscription
+"PHONEPE: RS 13,314.42 PAID TO CONSULTING FEE",13314.42,freelance
+"HDFC CC: Jaipur Water Rs 1,668.88",1668.88,bills_water
+"ICICI SMS: INR 1,169 debited UPI txn to kfc@kotak",1169.0,food_delivery
+SBI: Rs.1057/- paid to Apple TV+ via UPI Ref 741065526,1057.27,entertainment
+"bob cc: thai spa rs 2,358",2358.28,personal_care
+"Yes Bank: Rs.1,316.45 paid to Xerox via UPI Ref 903091954",1316.45,other
+"Payment of Rs 26,875 to Simplilearn successful",26874.97,education
+"Salary for Mar - Rs 34,360.24 from HDFC Bank",34360.24,salary
+PhonePe: Rs 602 paid to Medanta,601.84,health_medical
+"BOB Alert: INR 1,742 spent at BWSSB",1742.27,bills_water
+Payment of Rs 1310/- to Dunzo successful,1310.32,transport_ride
+"Investment: Rs 42,735.12 to DSP MF via UPI",42735.12,investment
+Paid Rs 4749 to FreshToHome via GPay,4749.24,groceries
+"ICICI UPI: Rs 9,649 to bata@okhdfcbank",9649.41,shopping_offline
+Kotak Debit: Rs 837.93 to olaauto@ybl UPI,837.93,transport_ride
+"Rs 3,411.31/- debited Total Energies ICICI",3411.31,transport_fuel
+"Canara SMS: INR 4,743.57 debited UPI txn to grofers@icici",4743.57,groceries
+"Canara Credit: Rs 94,342.15 NEFT-Infosys-SALARY",94342.15,salary
+Yes Bank: Rs 41925/- NEFT to Flat rent,41924.64,rent
+loan emi rs 40763 paid to idfc first emi,40762.6,emi
+Kotak: Rs.3456 paid to Spar Hypermarket via UPI Ref 839393192,3456.46,groceries
+PAID RS 64057 TO PROJECT PAYMENT VIA GPAY,64057.22,freelance
+"BOB: RS 1,024.57 DEBITED FOR GRAMMARLY PURCHASE",1024.57,subscription
+"UPI: Rs 1,555.49 to wheelseye@okaxis for purchase",1555.49,transport_ride
+PhonePe: Rs 2770 paid to Diwali gift,2770.46,gifts
+"IndusInd: Rs 28,374 debited from a/c **4582 for Guru.com",28373.57,freelance
+"PNB SMS: INR 3,450.99 debited UPI txn to bharatpetrol@sbi",3450.99,transport_fuel
+Paid Rs 2111/- to BSES Yamuna via GPay,2110.88,bills_electricity
+"CARD **1434 USED AT VISHAL MEGA MART FOR RS.3,425",3424.58,groceries
+BOB UPI: RS 18678 TO LIFESTYLE@AXL,18678.01,shopping_offline
+"PNB CC: Ola Auto Rs 1,221",1221.07,transport_ride
+UPI: Rs 576/- to youtubepremi@okhdfcbank for purchase,575.81,subscription
+Kotak: Rs.1686 paid to Urban Company via UPI Ref 229403043,1686.18,personal_care
+"INDUSIND: RS 6,773.76 DEBITED FOR TATA POWER PURCHASE",6773.76,bills_electricity
+"Investment: Rs 33,125.11 to ICICI Direct via UPI",33125.11,investment
+Rs 2264/-/- dbtd Namma Yatri ICICI,2264.31,transport_ride
+HDFC MF - Rs 43697 invested in mutual fund,43697.48,investment
+Rs 25461/- debited Goibibo Axis,25461.41,travel
+CARD **5012 used at Adobe CC for Rs.199,199.24,subscription
+"AirAsia - Rs.49,259 paid via UPI",49258.94,travel
+Rs 707.74/- debited FASTag PNB,707.74,other
+"Kotak: Rs 3,023 dbtd for Lakme Salon purchase",3022.94,personal_care
+Rs 2351/-/- dbtd Total Energies Canara,2350.87,transport_fuel
+"Paid Rs 11,509.93 to Croma via GPay",11509.93,shopping_online
+Canara: Rs.502.76 paid to HMWSSB via UPI Ref 208192050,502.76,bills_water
+"Canara: Rs 17,967 debited for DSP MF MF purchase",17967.12,investment
+"BOB: Rs 159,886 credited - Salary from Google India",159885.96,salary
+IndusInd Debit: Rs 15911/- to shoppersstop@okhdfcbank UPI,15910.89,shopping_offline
+Rs 696/-/- debited Box8 PNB,695.6,food_delivery
+"Rs 3,501/- debited RedBus Yes Bank",3501.4,travel
+"Payment of Rs 12,957 to Narayana Health successful",12956.88,health_medical
+CARD **2679 used at BYJUS for Rs.690,690.14,education
+"phonepe: rs 12,507 paid to cleartrip",12507.3,travel
+"Canara: Rs 23,514.77 debited for Khan Academy purchase",23514.77,education
+"HDFC Debit: Rs 3,265 to parking@hdfcbank UPI",3264.93,other
+Rs 89150/-/- debited 99designs BOB,89150.31,freelance
+"Rs 31,349.97/- debited Simplilearn PNB",31349.97,education
+SBI CC: ESSAR PETROL RS 1066/-,1065.71,transport_fuel
+"Paid Rs 3,279.61 to Spa via GPay",3279.61,personal_care
+"icici sms: inr 2,364.51 debited upi txn to vlcc@okhdfcbank",2364.51,personal_care
+IDFC First EMI: EMI Rs 36694/- debited,36693.89,emi
+"KOTAK DEBIT: RS 4,921 TO BPCL@YBL UPI",4920.96,transport_fuel
+"Rs 18,543.37/- debited SRL Diagnostics BOB",18543.37,health_medical
+Kotak CC: Spectra Rs 1214,1213.81,bills_telecom
+"PNB SMS: INR 1,133.47 debited UPI txn to funcinemas@axisbank",1133.47,entertainment
+Groww: SIP of Rs 49536 debited,49536.2,investment
+SBI Alert: INR 44381 spent at BYJUS,44381.29,education
+"paid rs 1,283.44 to faasos via gpay",1283.44,food_delivery
+"YES BANK: RS.23,752.70 PAID TO MAX HOSPITAL VIA UPI REF 692088353",23752.7,health_medical
+ICICI: Rs 361/- dbtd for ACT Fibernet purchase,360.89,bills_telecom
+payment of rs 659.15 to urban company successful,659.15,personal_care
+"HDFC SMS: INR 1,390 debited UPI txn to ovenstory@okaxis",1389.86,food_delivery
+SALARY FOR JAN - RS 111134/- FROM TCS,111133.8,salary
+Mirae Asset: SIP of Rs 767 debited,767.46,investment
+Monthly rent Rs 18235 paid via UPI,18235.05,rent
+UPI: RS 346 TO AUTORICKSHAW@AXISBANK FOR PURCHASE,345.81,transport_ride
+"HDFC: Rs.9,664.10 paid to Housewarming gift via UPI Ref 588210640",9664.1,gifts
+"Paid Rs 10,505 to GeeksforGeeks via GPay",10505.24,education
+"PG RENT PAYMENT RS 5,130 FOR AUG",5129.88,rent
+"HDFC MF: SIP of Rs. 24,440 debited",24439.78,investment
+Yes Bank Alert: INR 860 spent at PCMC Water,860.31,bills_water
+"SBI Alert: INR 1,443.99 spent at Hathway",1443.99,bills_telecom
+"PNB: Rs 14,880.08 NEFT to Society maintenance",14880.08,rent
+"Axis Debit: Rs 6,669.17 to boatlifestyl@okhdfcbank UPI",6669.17,shopping_online
+"Rs 1,783.52/- debited IRCTC PNB",1783.52,travel
+"Axis MF: SIP of Rs 67,304 debited",67303.65,investment
+"UPI: Rs 1,478 to punemunicipa@kotak for purchase",1477.92,bills_water
+HDFC CC: EatFit Rs 1203/-,1202.77,food_delivery
+bob: rs.52 paid to uber auto via upi ref 797929178,51.66,transport_ride
+Wow Momo - Rs.1302/- paid via UPI,1302.31,food_delivery
+"Axis Debit: Rs 1,820.81 to nammayatri@ybl UPI",1820.81,transport_ride

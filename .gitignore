@@ -55,3 +55,4 @@ Thumbs.db
 *.tflite
 /ml/__pycache__/
 /ml/*.h5
+ml/.venv/

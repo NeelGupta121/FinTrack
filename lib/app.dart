@@ -1,86 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'presentation/common/theme/app_theme.dart';
+import 'presentation/common/widgets/bottom_nav.dart';
+import 'presentation/dashboard/dashboard_screen.dart';
+import 'presentation/expenses/expense_list_screen.dart';
+import 'presentation/expenses/add_expense_screen.dart';
+import 'presentation/investments/investments_screen.dart';
+import 'presentation/insights/insights_screen.dart';
+import 'presentation/settings/settings_screen.dart';
 
-class FinTrackApp extends StatelessWidget {
+final _router = GoRouter(
+  initialLocation: '/',
+  routes: [
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, shell) => Scaffold(
+        body: shell,
+        bottomNavigationBar: BottomNav(shell: shell),
+      ),
+      branches: [
+        StatefulShellBranch(routes: [
+          GoRoute(path: '/', builder: (_, __) => const DashboardScreen()),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/expenses',
+            builder: (_, __) => const ExpenseListScreen(),
+            routes: [
+              GoRoute(path: 'add', builder: (_, __) => const AddExpenseScreen()),
+            ],
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(
+            path: '/investments',
+            builder: (_, __) => const InvestmentsScreen(),
+            routes: [
+              GoRoute(path: 'add', builder: (_, __) => const AddInvestmentScreen()),
+            ],
+          ),
+        ]),
+        StatefulShellBranch(routes: [
+          GoRoute(path: '/insights', builder: (_, __) => const InsightsScreen()),
+        ]),
+      ],
+    ),
+    GoRoute(path: '/settings', builder: (_, __) => const SettingsScreen()),
+  ],
+);
+
+class FinTrackApp extends ConsumerWidget {
   const FinTrackApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
     return MaterialApp.router(
       title: 'FinTrack',
       debugShowCheckedModeBanner: false,
-      theme: _lightTheme,
-      darkTheme: _darkTheme,
-      themeMode: ThemeMode.system,
+      theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
+      themeMode: themeMode,
       routerConfig: _router,
     );
   }
 }
-
-final _router = GoRouter(
-  initialLocation: '/dashboard',
-  routes: [
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, shell) => _ScaffoldWithNav(shell: shell),
-      branches: [
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/dashboard', builder: (_, __) => const _Placeholder('Dashboard')),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/expenses', builder: (_, __) => const _Placeholder('Expenses')),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/investments', builder: (_, __) => const _Placeholder('Investments')),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(path: '/insights', builder: (_, __) => const _Placeholder('Insights')),
-        ]),
-      ],
-    ),
-  ],
-);
-
-class _ScaffoldWithNav extends StatelessWidget {
-  final StatefulNavigationShell shell;
-  const _ScaffoldWithNav({required this.shell});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: shell,
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: shell.currentIndex,
-        onDestinationSelected: (i) => shell.goBranch(i, initialLocation: i == shell.currentIndex),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.dashboard), label: 'Dashboard'),
-          NavigationDestination(icon: Icon(Icons.receipt_long), label: 'Expenses'),
-          NavigationDestination(icon: Icon(Icons.trending_up), label: 'Investments'),
-          NavigationDestination(icon: Icon(Icons.lightbulb), label: 'Insights'),
-        ],
-      ),
-    );
-  }
-}
-
-class _Placeholder extends StatelessWidget {
-  final String title;
-  const _Placeholder(this.title);
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text(title)),
-    body: Center(child: Text(title, style: Theme.of(context).textTheme.headlineMedium)),
-  );
-}
-
-final _lightTheme = ThemeData(
-  useMaterial3: true,
-  colorSchemeSeed: const Color(0xFF1B5E20),
-  brightness: Brightness.light,
-);
-
-final _darkTheme = ThemeData(
-  useMaterial3: true,
-  colorSchemeSeed: const Color(0xFF1B5E20),
-  brightness: Brightness.dark,
-);
