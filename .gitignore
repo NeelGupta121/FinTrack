@@ -1,0 +1,57 @@
+# Flutter/Dart
+*.dart_tool/
+.packages
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+pubspec.lock
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Android
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+**/android/key.properties
+*.jks
+
+# iOS
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+
+# Coverage
+coverage/
+
+# Environment
+.env
+.env.*
+
+# Generated
+*.g.dart
+*.freezed.dart
+*.gr.dart
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ML artifacts
+*.tflite
+/ml/__pycache__/
+/ml/*.h5

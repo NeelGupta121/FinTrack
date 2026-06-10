@@ -1,0 +1,570 @@
+description,amount,category
+"HDFC Bank: Rs 459.00 debited from a/c **1234 for SWIGGY order #SW982341",459.00,food_delivery
+"SBI SMS: INR 312 debited UPI txn to zomato@paytm",312.00,food_delivery
+"ICICI: Rs.189 paid to SWIGGY via UPI Ref 412983012",189.00,food_delivery
+"Axis Bank: Debit of Rs 547 to zomato@ybl UPI",547.00,food_delivery
+"Kotak: Rs 275 debited for UPI payment to swiggy@axl",275.00,food_delivery
+"HDFC: Rs 99 paid to dominos@hdfcbank via UPI",99.00,food_delivery
+"SBI: Rs 650 debited for ZOMATO GOLD order",650.00,food_delivery
+"UPI: Rs 420 to box8@paytm for food order",420.00,food_delivery
+"ICICI Credit Card: SWIGGY INSTAMART BLR Rs 387",387.00,food_delivery
+"Kotak CC: ZOMATO HYPERPURE MUM Rs 1200",1200.00,food_delivery
+"HDFC UPI: Rs 180 to eatsure@ybl",180.00,food_delivery
+"SBI Debit: Rs 345 DUNZO DAILY BLR",345.00,food_delivery
+"ICICI: Rs 520 debited for UPI to blinkit@axisbank",520.00,food_delivery
+"Axis CC: FAASOS/BEHROUZ BLR Rs 445",445.00,food_delivery
+"HDFC: Rs 89 to chaayos@paytm UPI",89.00,food_delivery
+"Kotak UPI: Rs 155 to mcdonald@icici food delivery",155.00,food_delivery
+"SBI SMS: Rs 275 debited to burgerking@ybl",275.00,food_delivery
+"ICICI UPI: Paid Rs 630 to zepto@axisbank",630.00,food_delivery
+"HDFC: Rs 199 debited for KFC order via Swiggy",199.00,food_delivery
+"Axis: Rs 340 to eatclub@upi for dinner order",340.00,food_delivery
+"SBI: Rs 780 debit for Pizza Hut delivery PHUT0034",780.00,food_delivery
+"HDFC CC: UBER EATS INDIA Rs 290",290.00,food_delivery
+"Kotak: Rs 165 to magicpin@ybl food",165.00,food_delivery
+"ICICI Bank: Rs 485 debited SWIGGY DINEOUT",485.00,food_delivery
+"HDFC Bank: Rs 1245 debited from a/c **5678 for BIGBASKET order",1245.00,groceries
+"SBI: Rs 890 debited for UPI to bigbasket@axl",890.00,groceries
+"ICICI: Rs 2340 paid to DMART READY via UPI",2340.00,groceries
+"Axis Bank: Debit Rs 567 to blinkit@ybl groceries",567.00,groceries
+"Kotak: Rs 1890 debited for GROFERS/BLINKIT order",1890.00,groceries
+"HDFC UPI: Rs 432 to zepto@icici for groceries",432.00,groceries
+"SBI: Rs 3200 debited RELIANCE FRESH MART",3200.00,groceries
+"ICICI CC: MORE MEGASTORE BLR Rs 1567",1567.00,groceries
+"Axis UPI: Rs 780 to bigbazaar@ybl",780.00,groceries
+"Kotak CC: NATURE'S BASKET MUM Rs 2100",2100.00,groceries
+"HDFC: Rs 450 paid to milkbasket@paytm",450.00,groceries
+"SBI: Rs 1650 debited for SPENCER'S RETAIL",1650.00,groceries
+"ICICI: Rs 340 to countryde@upi for organic veggies",340.00,groceries
+"HDFC CC: SPAR HYPERMARKET BLR Rs 4500",4500.00,groceries
+"Axis: Rs 289 debited LICIOUS order meat/fish",289.00,groceries
+"Kotak UPI: Rs 1200 to freshtoho@ybl vegetables",1200.00,groceries
+"SBI: Rs 890 paid to jiomart@sbi",890.00,groceries
+"ICICI UPI: Rs 2100 to starquik@icici groceries",2100.00,groceries
+"HDFC: Rs 567 debited DUNZO daily essentials",567.00,groceries
+"Axis CC: RATNADEEP SUPERMARKET HYD Rs 3400",3400.00,groceries
+"Kotak: Rs 1450 to swiggyinstamart@axl",1450.00,groceries
+"SBI: Rs 780 debited EASYDAY CLUB store",780.00,groceries
+"ICICI: Rs 2890 paid to BB DAILY subscription",2890.00,groceries
+"HDFC Bank: Rs 189 debited for UBER TRIP",189.00,transport_ride
+"SBI: Rs 245 debited UPI txn to ola@axisbank",245.00,transport_ride
+"ICICI: Rs 156 paid to UBER via UPI Ref 5012983",156.00,transport_ride
+"Axis Bank: Debit Rs 312 to rapido@ybl auto ride",312.00,transport_ride
+"Kotak: Rs 89 debited for OLA AUTO trip",89.00,transport_ride
+"HDFC CC: UBER BV TRIP BLR Rs 432",432.00,transport_ride
+"SBI: Rs 567 debited for UBER PREMIER trip",567.00,transport_ride
+"ICICI UPI: Rs 145 to olacabs@icici",145.00,transport_ride
+"Axis: Rs 78 to rapido@paytm auto ride",78.00,transport_ride
+"Kotak CC: OLA CABS RIDE MUM Rs 290",290.00,transport_ride
+"HDFC UPI: Rs 1200 to uber@axl airport trip",1200.00,transport_ride
+"SBI: Rs 55 debited RAPIDO BIKE auto",55.00,transport_ride
+"ICICI: Rs 890 paid MERU CABS airport",890.00,transport_ride
+"HDFC: Rs 345 debited OLA RENTALS hourly",345.00,transport_ride
+"Axis UPI: Rs 210 to nammayatri@ybl ride",210.00,transport_ride
+"Kotak: Rs 450 uber@hdfcbank intercity",450.00,transport_ride
+"SBI CC: BLUESMART TRIP DEL Rs 780",780.00,transport_ride
+"ICICI: Rs 125 to shuttl@upi bus ride",125.00,transport_ride
+"HDFC: Rs 67 paid UBER MOTO bike taxi",67.00,transport_ride
+"Axis: Rs 1500 to olacabs@axisbank outstation",1500.00,transport_ride
+"HDFC Bank: Rs 4500 debited for HP PETROL PUMP",4500.00,transport_fuel
+"SBI: Rs 2000 debited INDIAN OIL IOCL UPI",2000.00,transport_fuel
+"ICICI: Rs 3200 paid to BPCL fuel station",3200.00,transport_fuel
+"Axis Bank: Debit Rs 1500 to hpcl@ybl petrol",1500.00,transport_fuel
+"Kotak CC: BHARAT PETROLEUM BLR Rs 5000",5000.00,transport_fuel
+"HDFC UPI: Rs 800 to reliancebp@icici fuel",800.00,transport_fuel
+"SBI: Rs 3500 debited for SHELL PETROL",3500.00,transport_fuel
+"ICICI CC: HP PETROL PUMP HYD Rs 2800",2800.00,transport_fuel
+"Axis: Rs 1200 to indianoil@paytm CNG",1200.00,transport_fuel
+"Kotak UPI: Rs 600 to hpcl@ybl CNG refill",600.00,transport_fuel
+"HDFC: Rs 4200 debited ESSAR PETROL PUMP",4200.00,transport_fuel
+"SBI CC: IOCL FUEL STN CHN Rs 1800",1800.00,transport_fuel
+"ICICI UPI: Rs 2500 to bpcl@axisbank diesel",2500.00,transport_fuel
+"Axis: Rs 3800 paid HP PETROL PUMP fuel",3800.00,transport_fuel
+"Kotak: Rs 5500 debited RELIANCE BP fuel stn",5500.00,transport_fuel
+"HDFC Bank: Rs 2499 debited for AMAZON.IN order",2499.00,shopping_online
+"SBI: Rs 1599 debited FLIPKART order FK12389",1599.00,shopping_online
+"ICICI: Rs 899 paid MYNTRA via UPI",899.00,shopping_online
+"Axis Bank: Debit Rs 4999 to AMAZON PAY EMI",4999.00,shopping_online
+"Kotak CC: FLIPKART INTERNET PVT Rs 3299",3299.00,shopping_online
+"HDFC CC: AMAZON SELLER SVCS Rs 799",799.00,shopping_online
+"SBI: Rs 2199 debited for AJIO order",2199.00,shopping_online
+"ICICI UPI: Rs 1499 to meesho@axisbank",1499.00,shopping_online
+"Axis CC: NYKAA E-RETAIL Rs 1899",1899.00,shopping_online
+"Kotak: Rs 599 to snapdeal@paytm order",599.00,shopping_online
+"HDFC UPI: Rs 12999 to croma@icici electronics",12999.00,shopping_online
+"SBI CC: TATACLIQ COM BLR Rs 5499",5499.00,shopping_online
+"ICICI: Rs 3499 paid AMAZON FRESH order",3499.00,shopping_online
+"Axis UPI: Rs 749 to purplle@ybl cosmetics",749.00,shopping_online
+"Kotak CC: LENSKART SOLUTIONS Rs 2490",2490.00,shopping_online
+"HDFC: Rs 899 debited for BOAT lifestyle order",899.00,shopping_online
+"SBI: Rs 15999 paid to APPLE INDIA STORE",15999.00,shopping_online
+"ICICI CC: BEWAKOOF BRANDS Rs 699",699.00,shopping_online
+"Axis: Rs 1299 debited PEPPERFRY furniture",1299.00,shopping_online
+"Kotak UPI: Rs 449 to firstcry@axl baby products",449.00,shopping_online
+"HDFC: Rs 2899 paid URBANLADDER via UPI",2899.00,shopping_online
+"SBI: Rs 4599 to reliancedigital@sbi",4599.00,shopping_online
+"ICICI: Rs 799 debited DECATHLON SPORTS",799.00,shopping_online
+"HDFC Bank: Rs 5670 debited at SHOPPERS STOP BLR",5670.00,shopping_offline
+"SBI: Rs 2340 debited WESTSIDE MUM POS",2340.00,shopping_offline
+"ICICI CC: PANTALOONS FASHION Rs 3200",3200.00,shopping_offline
+"Axis Bank: Debit Rs 1890 at LIFESTYLE INTL",1890.00,shopping_offline
+"Kotak CC: CENTRAL MALL HYD Rs 4500",4500.00,shopping_offline
+"HDFC: Rs 890 debited at DECATHLON store",890.00,shopping_offline
+"SBI CC: RELIANCE TRENDS CHN Rs 1567",1567.00,shopping_offline
+"ICICI: Rs 7800 paid CROMA STORE BLR POS",7800.00,shopping_offline
+"Axis CC: ZARA INDIA MUM Rs 5990",5990.00,shopping_offline
+"Kotak: Rs 2450 debited at MAX FASHION store",2450.00,shopping_offline
+"HDFC CC: FABINDIA STORE DEL Rs 3400",3400.00,shopping_offline
+"SBI: Rs 12000 debited TANISHQ JEWELLERS",12000.00,shopping_offline
+"ICICI UPI: Rs 1200 to dmartready@icici store",1200.00,shopping_offline
+"Axis: Rs 4500 paid at LANDMARK BOOKSTORE",4500.00,shopping_offline
+"Kotak CC: LEVIS STORE BLR Rs 3899",3899.00,shopping_offline
+"HDFC: Rs 990 debited at MINISO MUM store",990.00,shopping_offline
+"SBI: Rs 6700 paid V-MART RETAIL POS",6700.00,shopping_offline
+"ICICI CC: HAMLEYS TOY STORE Rs 2300",2300.00,shopping_offline
+"Axis UPI: Rs 1500 to localshop@paytm clothes",1500.00,shopping_offline
+"Kotak: Rs 8900 debited VIJAY SALES electronics",8900.00,shopping_offline
+"HDFC Bank: Rs 599 debited for JIO PREPAID RECH",599.00,bills_telecom
+"SBI: Rs 299 debited AIRTEL RECHARGE via UPI",299.00,bills_telecom
+"ICICI: Rs 239 paid VI VODAFONE IDEA recharge",239.00,bills_telecom
+"Axis Bank: Debit Rs 999 to JIO FIBER bill",999.00,bills_telecom
+"Kotak CC: BHARTI AIRTEL POSTPAID Rs 849",849.00,bills_telecom
+"HDFC UPI: Rs 199 to jio@axl prepaid recharge",199.00,bills_telecom
+"SBI: Rs 449 debited for AIRTEL POSTPAID bill",449.00,bills_telecom
+"ICICI: Rs 155 paid BSNL RECHARGE",155.00,bills_telecom
+"Axis UPI: Rs 699 to airtel@icici broadband",699.00,bills_telecom
+"Kotak: Rs 1499 debited JIO POSTPAID bill",1499.00,bills_telecom
+"HDFC CC: ACT FIBERNET BROADBAND Rs 1199",1199.00,bills_telecom
+"SBI: Rs 349 debited for VI PREPAID recharge",349.00,bills_telecom
+"ICICI UPI: Rs 799 to hathway@axisbank internet",799.00,bills_telecom
+"Axis: Rs 499 paid TATA PLAY DTH recharge",499.00,bills_telecom
+"Kotak UPI: Rs 599 to airtelxstream@paytm",599.00,bills_telecom
+"HDFC Bank: Rs 2340 debited for TATA POWER bill",2340.00,bills_electricity
+"SBI: Rs 1890 debited BESCOM electricity UPI",1890.00,bills_electricity
+"ICICI: Rs 3450 paid ADANI ELECTRICITY bill",3450.00,bills_electricity
+"Axis Bank: Debit Rs 1200 to MSEDCL elec bill",1200.00,bills_electricity
+"Kotak CC: BSES RAJDHANI POWER Rs 2100",2100.00,bills_electricity
+"HDFC UPI: Rs 890 to bescom@ybl electricity",890.00,bills_electricity
+"SBI: Rs 4500 debited TORRENT POWER bill",4500.00,bills_electricity
+"ICICI: Rs 1567 paid CESC KOLKATA electricity",1567.00,bills_electricity
+"Axis UPI: Rs 2800 to tatapower@icici elec",2800.00,bills_electricity
+"Kotak: Rs 1100 debited TNEB electricity bill",1100.00,bills_electricity
+"HDFC CC: RELIANCE ENERGY MUM Rs 3200",3200.00,bills_electricity
+"SBI: Rs 2670 paid UPPCL electricity bill",2670.00,bills_electricity
+"ICICI UPI: Rs 1450 to adanielec@axisbank",1450.00,bills_electricity
+"Axis: Rs 3100 debited BSES YAMUNA POWER",3100.00,bills_electricity
+"Kotak UPI: Rs 980 to pgvcl@sbi electricity",980.00,bills_electricity
+"HDFC Bank: Rs 450 debited for DELHI JAL BOARD",450.00,bills_water
+"SBI: Rs 320 debited BWSSB water bill UPI",320.00,bills_water
+"ICICI: Rs 890 paid MCGM WATER DEPT bill",890.00,bills_water
+"Axis Bank: Debit Rs 560 to HMWSSB water bill",560.00,bills_water
+"Kotak: Rs 240 debited CMWSSB water bill",240.00,bills_water
+"HDFC UPI: Rs 670 to delhijalboard@ybl water",670.00,bills_water
+"SBI: Rs 380 debited PHED water supply bill",380.00,bills_water
+"ICICI UPI: Rs 510 to bwssb@icici water bill",510.00,bills_water
+"Axis: Rs 290 paid GWSSB water charges",290.00,bills_water
+"Kotak UPI: Rs 430 to kuws@ybl water supply",430.00,bills_water
+"HDFC Bank: Rs 199 debited for NETFLIX subscription",199.00,entertainment
+"SBI: Rs 299 debited AMAZON PRIME membership",299.00,entertainment
+"ICICI: Rs 159 paid SPOTIFY INDIA via UPI",159.00,entertainment
+"Axis Bank: Debit Rs 499 to HOTSTAR DISNEY+",499.00,entertainment
+"Kotak CC: PVR CINEMAS BLR Rs 780",780.00,entertainment
+"HDFC CC: INOX MOVIES MUM Rs 650",650.00,entertainment
+"SBI: Rs 599 debited SONY LIV PREMIUM",599.00,entertainment
+"ICICI UPI: Rs 149 to youtube@google premium",149.00,entertainment
+"Axis CC: BOOKMYSHOW TICKET Rs 1200",1200.00,entertainment
+"Kotak: Rs 299 debited ZEE5 PREMIUM sub",299.00,entertainment
+"HDFC UPI: Rs 350 to smaaash@ybl gaming",350.00,entertainment
+"SBI CC: APPLE ITUNES MUSIC Rs 99",99.00,entertainment
+"ICICI: Rs 450 paid KINGDOM OF DREAMS ticket",450.00,entertainment
+"Axis UPI: Rs 199 to jiocinemapremium@axl",199.00,entertainment
+"Kotak CC: FUNCITY AMUSEMENT Rs 1500",1500.00,entertainment
+"HDFC: Rs 249 debited AUDIBLE INDIA sub",249.00,entertainment
+"SBI: Rs 999 paid CULT.FIT LIVE membership",999.00,entertainment
+"ICICI: Rs 800 to eventbrite@icici concert",800.00,entertainment
+"Axis: Rs 2500 debited WONDERLA tickets",2500.00,entertainment
+"Kotak UPI: Rs 179 to gaana@paytm plus",179.00,entertainment
+"HDFC Bank: Rs 1500 debited for APOLLO PHARMACY",1500.00,health_medical
+"SBI: Rs 850 debited PRACTO consultation UPI",850.00,health_medical
+"ICICI: Rs 4500 paid FORTIS HOSPITAL bill",4500.00,health_medical
+"Axis Bank: Debit Rs 2200 to 1MG order medicines",2200.00,health_medical
+"Kotak CC: MAX HOSPITAL DEL Rs 12000",12000.00,health_medical
+"HDFC UPI: Rs 650 to pharmeasy@ybl medicines",650.00,health_medical
+"SBI: Rs 3400 debited DR LAL PATH LABS test",3400.00,health_medical
+"ICICI CC: MANIPAL HOSPITAL BLR Rs 8900",8900.00,health_medical
+"Axis UPI: Rs 980 to netmeds@icici order",980.00,health_medical
+"Kotak: Rs 1200 debited THYROCARE diagnostics",1200.00,health_medical
+"HDFC CC: MEDPLUS PHARMACY HYD Rs 780",780.00,health_medical
+"SBI: Rs 500 paid TATA 1MG consult",500.00,health_medical
+"ICICI UPI: Rs 2500 to apolloclinic@axisbank",2500.00,health_medical
+"Axis: Rs 350 debited HEALTHKART supplements",350.00,health_medical
+"Kotak CC: NARAYANA HEALTH Rs 5600",5600.00,health_medical
+"HDFC Bank: Rs 3500 debited for CULT.FIT membership",3500.00,health_fitness
+"SBI: Rs 12000 debited GOLD'S GYM annual",12000.00,health_fitness
+"ICICI: Rs 1500 paid FITTERNITY via UPI",1500.00,health_fitness
+"Axis Bank: Debit Rs 999 to CUREFIT monthly",999.00,health_fitness
+"Kotak CC: ANYTIME FITNESS Rs 2500",2500.00,health_fitness
+"HDFC UPI: Rs 799 to cultfit@ybl class pack",799.00,health_fitness
+"SBI: Rs 5000 debited TALWALKAR'S GYM",5000.00,health_fitness
+"ICICI CC: YOGA HOUSE STD Rs 2000",2000.00,health_fitness
+"Axis: Rs 1200 to stepsetgo@paytm fitness",1200.00,health_fitness
+"Kotak: Rs 8000 debited SNAP FITNESS annual",8000.00,health_fitness
+"HDFC Bank: Rs 45000 debited for BYJU'S course",45000.00,education
+"SBI: Rs 9999 debited UNACADEMY subscription",9999.00,education
+"ICICI: Rs 5000 paid COURSERA via UPI",5000.00,education
+"Axis Bank: Debit Rs 15000 to UPGRAD course",15000.00,education
+"Kotak CC: VEDANTU CLASSES Rs 25000",25000.00,education
+"HDFC UPI: Rs 3500 to testbook@ybl exam prep",3500.00,education
+"SBI: Rs 2999 debited UDEMY COURSE purchase",2999.00,education
+"ICICI CC: ALLEN COACHING Rs 50000",50000.00,education
+"Axis UPI: Rs 1500 to skillshare@icici",1500.00,education
+"Kotak: Rs 4999 debited GREAT LEARNING course",4999.00,education
+"HDFC CC: WHITEHAT JR Rs 12000",12000.00,education
+"SBI: Rs 799 paid LINKEDIN LEARNING sub",799.00,education
+"ICICI: Rs 8000 to physicswallah@axisbank",8000.00,education
+"Axis: Rs 35000 debited SCALER ACADEMY",35000.00,education
+"Kotak UPI: Rs 6500 to simplilearn@paytm",6500.00,education
+"HDFC Bank: Salary credit Rs 125000 from INFOSYS LTD",125000.00,salary
+"SBI: Rs 85000 credited WIPRO TECHNOLOGIES salary",85000.00,salary
+"ICICI: Salary Rs 150000 from TCS LIMITED",150000.00,salary
+"Axis Bank: Credit Rs 95000 HCL TECHNOLOGIES payroll",95000.00,salary
+"Kotak: Salary credited Rs 200000 AMAZON INDIA",200000.00,salary
+"HDFC: Rs 75000 credited COGNIZANT salary",75000.00,salary
+"SBI: Salary Rs 110000 ACCENTURE SOLUTIONS",110000.00,salary
+"ICICI: Rs 180000 credited MICROSOFT INDIA salary",180000.00,salary
+"Axis: Salary credit Rs 65000 CAPGEMINI INDIA",65000.00,salary
+"Kotak: Rs 220000 credited GOOGLE INDIA payroll",220000.00,salary
+"HDFC: Salary Rs 92000 from TECH MAHINDRA",92000.00,salary
+"SBI: Rs 135000 credited DELOITTE INDIA salary",135000.00,salary
+"ICICI: Salary Rs 78000 L&T INFOTECH payroll",78000.00,salary
+"Axis: Rs 105000 credited MINDTREE salary",105000.00,salary
+"Kotak: Salary Rs 160000 FLIPKART INTERNET",160000.00,salary
+"HDFC Bank: Rs 25000 credited UPI from client@ybl freelance",25000.00,freelance
+"SBI: Rs 45000 credited NEFT freelance payment",45000.00,freelance
+"ICICI: Rs 15000 received UPI from startup@icici project",15000.00,freelance
+"Axis Bank: Credit Rs 80000 WIRE TXN freelance",80000.00,freelance
+"Kotak: Rs 35000 credited from fiverr@ybl",35000.00,freelance
+"HDFC UPI: Rs 12000 received from client@okaxis",12000.00,freelance
+"SBI: Rs 50000 credited IMPS freelance work",50000.00,freelance
+"ICICI: Rs 20000 received UPI consultancy fee",20000.00,freelance
+"Axis: Rs 75000 credited NEFT design project",75000.00,freelance
+"Kotak UPI: Rs 8000 from upwork@ybl earnings",8000.00,freelance
+"HDFC Bank: Rs 10000 debited for ZERODHA MF purchase",10000.00,investment
+"SBI: Rs 5000 debited GROWW SIP investment",5000.00,investment
+"ICICI: Rs 25000 paid to COIN ZERODHA MF",25000.00,investment
+"Axis Bank: Debit Rs 15000 KUVERA SIP auto",15000.00,investment
+"Kotak CC: UPSTOX TRADING Rs 50000",50000.00,investment
+"HDFC UPI: Rs 2500 to groww@axl SIP monthly",2500.00,investment
+"SBI: Rs 100000 debited for FD FIXED DEPOSIT",100000.00,investment
+"ICICI: Rs 5000 paid ET MONEY SIP",5000.00,investment
+"Axis UPI: Rs 10000 to paytmmoney@icici stocks",10000.00,investment
+"Kotak: Rs 1000 debited SMALLCASE investment",1000.00,investment
+"HDFC: Rs 50000 debited NPS CONTRIBUTION",50000.00,investment
+"SBI: Rs 8000 paid ANGEL BROKING trade",8000.00,investment
+"ICICI UPI: Rs 3000 to zerodha@axisbank coin",3000.00,investment
+"Axis: Rs 25000 debited PPF deposit",25000.00,investment
+"Kotak UPI: Rs 5000 to indmoney@ybl gold",5000.00,investment
+"HDFC Bank: Rs 25000 debited for RENT payment UPI",25000.00,rent
+"SBI: Rs 18000 debited rent to landlord@ybl",18000.00,rent
+"ICICI: Rs 35000 paid HOUSE RENT via NEFT",35000.00,rent
+"Axis Bank: Debit Rs 22000 rent to owner@icici",22000.00,rent
+"Kotak: Rs 15000 debited NOBROKER RENT pay",15000.00,rent
+"HDFC UPI: Rs 30000 to landlord@okaxis monthly rent",30000.00,rent
+"SBI: Rs 45000 debited flat rent NEFT transfer",45000.00,rent
+"ICICI: Rs 20000 paid rent to society@axisbank",20000.00,rent
+"Axis UPI: Rs 28000 to owner@ybl house rent",28000.00,rent
+"Kotak: Rs 12000 debited PG ACCOMMODATION rent",12000.00,rent
+"HDFC: Rs 55000 rent payment to NESTAWAY",55000.00,rent
+"SBI UPI: Rs 16000 to flatowner@sbi rent July",16000.00,rent
+"ICICI: Rs 40000 debited rent apartment IMPS",40000.00,rent
+"Axis: Rs 32000 paid to housingrent@paytm",32000.00,rent
+"Kotak UPI: Rs 8500 to pgrent@ybl monthly",8500.00,rent
+"HDFC Bank: Rs 15234 debited for HOME LOAN EMI",15234.00,emi
+"SBI: Rs 12500 debited CAR LOAN EMI auto debit",12500.00,emi
+"ICICI: Rs 8900 paid PERSONAL LOAN EMI",8900.00,emi
+"Axis Bank: Debit Rs 22000 HOME LOAN EMI",22000.00,emi
+"Kotak CC: BAJAJ FINSERV EMI Rs 5000",5000.00,emi
+"HDFC: Rs 18000 debited VEHICLE LOAN EMI",18000.00,emi
+"SBI: Rs 9500 debited EDUCATION LOAN EMI",9500.00,emi
+"ICICI CC: HDFC LTD HOME LOAN EMI Rs 25000",25000.00,emi
+"Axis: Rs 7500 debited TATA CAPITAL EMI",7500.00,emi
+"Kotak: Rs 3500 debited AMAZON PAY LATER EMI",3500.00,emi
+"HDFC: Rs 45000 debited SBI HOME LOAN EMI",45000.00,emi
+"SBI: Rs 6000 paid IDFC FIRST BANK loan EMI",6000.00,emi
+"ICICI: Rs 11000 debited TWO WHEELER LOAN EMI",11000.00,emi
+"Axis UPI: Rs 4500 to bajajfin@ybl EMI payment",4500.00,emi
+"Kotak: Rs 28000 debited LICHFL HOME LOAN EMI",28000.00,emi
+"HDFC Bank: Rs 199 debited for NETFLIX monthly",199.00,subscription
+"SBI: Rs 1499 debited AMAZON PRIME annual",1499.00,subscription
+"ICICI: Rs 59 paid SPOTIFY monthly sub",59.00,subscription
+"Axis Bank: Debit Rs 499 DISNEY+ HOTSTAR",499.00,subscription
+"Kotak CC: YOUTUBE PREMIUM Rs 149",149.00,subscription
+"HDFC UPI: Rs 299 to zomato@ybl gold membership",299.00,subscription
+"SBI: Rs 999 debited SWIGGY ONE subscription",999.00,subscription
+"ICICI CC: LINKEDIN PREMIUM Rs 1800",1800.00,subscription
+"Axis: Rs 129 debited APPLE ICLOUD storage",129.00,subscription
+"Kotak: Rs 399 debited CRED MINT subscription",399.00,subscription
+"HDFC CC: GOOGLE ONE STORAGE Rs 130",130.00,subscription
+"SBI: Rs 199 paid MX PLAYER GOLD sub",199.00,subscription
+"ICICI: Rs 349 debited AMAZON AUDIBLE monthly",349.00,subscription
+"Axis UPI: Rs 99 to notion@stripe subscription",99.00,subscription
+"Kotak UPI: Rs 499 to chatgpt@stripe plus",499.00,subscription
+"HDFC: Rs 599 debited HEADSPACE annual",599.00,subscription
+"SBI: Rs 2999 paid MICROSOFT 365 annual",2999.00,subscription
+"ICICI: Rs 179 debited APPLE MUSIC monthly",179.00,subscription
+"Axis: Rs 899 paid ADOBE CREATIVE sub",899.00,subscription
+"Kotak: Rs 149 debited GOOGLE DRIVE storage",149.00,subscription
+"HDFC Bank: Rs 4500 debited for MAKEMYTRIP booking",4500.00,travel
+"SBI: Rs 8900 debited IRCTC train ticket",8900.00,travel
+"ICICI: Rs 12000 paid CLEARTRIP flight",12000.00,travel
+"Axis Bank: Debit Rs 3500 to OYO ROOMS hotel",3500.00,travel
+"Kotak CC: INDIGO AIRLINES Rs 6780",6780.00,travel
+"HDFC CC: AIRINDIA BOOKING Rs 15000",15000.00,travel
+"SBI: Rs 2500 debited REDBUS ticket",2500.00,travel
+"ICICI UPI: Rs 1800 to irctc@icici tatkal",1800.00,travel
+"Axis CC: GOIBIBO HOTELS Rs 4200",4200.00,travel
+"Kotak: Rs 890 debited ABHIBUS booking",890.00,travel
+"HDFC UPI: Rs 6500 to spicejet@ybl flight",6500.00,travel
+"SBI CC: YATRA COM FLIGHT Rs 9800",9800.00,travel
+"ICICI: Rs 3200 paid TREEBO HOTEL stay",3200.00,travel
+"Axis: Rs 25000 debited THOMAS COOK package",25000.00,travel
+"Kotak UPI: Rs 1500 to ixigo@paytm train",1500.00,travel
+"HDFC: Rs 8000 debited VISTARA AIRLINES",8000.00,travel
+"SBI: Rs 45000 paid BOOKING.COM hotel intl",45000.00,travel
+"ICICI CC: AIRBNB STAY GOA Rs 5500",5500.00,travel
+"Axis: Rs 12000 debited EASEMYTRIP flight",12000.00,travel
+"Kotak: Rs 780 to RAPIDO OUTSTATION trip",780.00,travel
+"HDFC Bank: Rs 1200 debited at LAKME SALON",1200.00,personal_care
+"SBI: Rs 890 debited URBAN COMPANY service",890.00,personal_care
+"ICICI: Rs 2500 paid KAYA SKIN CLINIC",2500.00,personal_care
+"Axis Bank: Debit Rs 450 to urbancompany@ybl",450.00,personal_care
+"Kotak CC: JAWED HABIB SALON Rs 1800",1800.00,personal_care
+"HDFC UPI: Rs 650 to mancompany@icici grooming",650.00,personal_care
+"SBI: Rs 3500 debited VLCC WELLNESS centre",3500.00,personal_care
+"ICICI CC: BODYCRAFT SPA BLR Rs 4000",4000.00,personal_care
+"Axis: Rs 299 debited BOMBAY SHAVING CO order",299.00,personal_care
+"Kotak: Rs 1500 debited GREEN TRENDS salon",1500.00,personal_care
+"HDFC CC: NATURALS SALON CHN Rs 800",800.00,personal_care
+"SBI UPI: Rs 550 to urbanclap@ybl beauty",550.00,personal_care
+"ICICI: Rs 1200 paid LOOKS SALON service",1200.00,personal_care
+"Axis: Rs 2800 debited ENRICH SALON BLR",2800.00,personal_care
+"Kotak UPI: Rs 350 to mangrooming@paytm",350.00,personal_care
+"HDFC Bank: Rs 5000 debited UPI gift to friend@ybl",5000.00,gifts
+"SBI: Rs 2500 debited AMAZON GIFT CARD purchase",2500.00,gifts
+"ICICI: Rs 10000 paid UPI to sister@icici birthday",10000.00,gifts
+"Axis Bank: Debit Rs 3500 ARCHIES GALLERY gift",3500.00,gifts
+"Kotak CC: FERNS N PETALS Rs 1800",1800.00,gifts
+"HDFC UPI: Rs 1100 to ferns@ybl flowers delivery",1100.00,gifts
+"SBI: Rs 5000 debited TANISHQ gift purchase",5000.00,gifts
+"ICICI UPI: Rs 2000 to friend@okaxis shagun",2000.00,gifts
+"Axis: Rs 500 debited IGP COM online gift",500.00,gifts
+"Kotak: Rs 8000 to relative@ybl wedding gift",8000.00,gifts
+"HDFC CC: CROSSWORD BOOKSTORE GIFT Rs 1500",1500.00,gifts
+"SBI: Rs 3000 paid FLIPKART GIFT CARD",3000.00,gifts
+"ICICI: Rs 1500 debited ARCHIES ONLINE order",1500.00,gifts
+"Axis UPI: Rs 11000 to cousin@axisbank rakhi",11000.00,gifts
+"Kotak: Rs 2500 paid WINNI CAKES gift delivery",2500.00,gifts
+"HDFC Bank: Rs 5000 debited for SOCIETY MAINTENANCE",5000.00,other
+"SBI: Rs 1200 debited PARKING charges MUL",1200.00,other
+"ICICI: Rs 8500 paid HOUSEJOY home services",8500.00,other
+"Axis Bank: Debit Rs 3000 PORTER delivery",3000.00,other
+"Kotak CC: INDIA POST SPEED POST Rs 250",250.00,other
+"HDFC UPI: Rs 2000 to maid@ybl monthly salary",2000.00,other
+"SBI: Rs 15000 debited PACKERS MOVERS service",15000.00,other
+"ICICI: Rs 450 paid DUNZO delivery charges",450.00,other
+"Axis: Rs 6000 debited PET VET consultation",6000.00,other
+"Kotak: Rs 800 debited DRY CLEANING service",800.00,other
+"HDFC CC: URBAN COMPANY PEST CTRL Rs 1500",1500.00,other
+"SBI: Rs 350 paid BLUE DART courier",350.00,other
+"ICICI UPI: Rs 2500 to carpenter@ybl furniture",2500.00,other
+"Axis: Rs 1000 debited COOK/CHEF monthly",1000.00,other
+"Kotak UPI: Rs 4000 to plumber@paytm repair",4000.00,other
+"HDFC: Rs 7500 debited INSURANCE PREMIUM LIC",7500.00,other
+"SBI: Rs 900 paid STAMP PAPER notary",900.00,other
+"ICICI: Rs 2000 debited CAR WASHING monthly",2000.00,other
+"Axis: Rs 500 to donation@ybl temple",500.00,other
+"Kotak: Rs 3500 debited KEY MAKER locksmith",3500.00,other
+"HDFC: Rs 350 debited SWIGGY late night order",350.00,food_delivery
+"SBI CC: FAASOS REBEL FOODS Rs 410",410.00,food_delivery
+"ICICI: Rs 220 paid to eatfit@upi healthy meal",220.00,food_delivery
+"HDFC: Rs 1580 debited BIGBASKET BB NOW express",1580.00,groceries
+"SBI: Rs 420 paid to INSTAMART@ybl veggies",420.00,groceries
+"ICICI CC: METRO CASH CARRY Rs 5600",5600.00,groceries
+"HDFC UPI: Rs 310 to olaauto@ybl short ride",310.00,transport_ride
+"SBI: Rs 1890 paid UBER INTERCITY BLR-MYS",1890.00,transport_ride
+"ICICI: Rs 95 debited RAPIDO AUTO quick",95.00,transport_ride
+"HDFC: Rs 2800 debited ESSAR PETROL pump fill",2800.00,transport_fuel
+"SBI UPI: Rs 1500 to iocl@sbi CNG refuel",1500.00,transport_fuel
+"ICICI: Rs 6000 paid HP PETROL PUMP full tank",6000.00,transport_fuel
+"HDFC CC: AMAZON PANTRY ORDER Rs 1200",1200.00,shopping_online
+"SBI: Rs 7999 debited SAMSUNG STORE online",7999.00,shopping_online
+"ICICI UPI: Rs 599 to mamaearth@axisbank",599.00,shopping_online
+"HDFC: Rs 3200 paid at BRAND FACTORY outlet",3200.00,shopping_offline
+"SBI CC: MARKS SPENCER MUM Rs 4500",4500.00,shopping_offline
+"ICICI: Rs 1890 debited BATA STORE shoes",1890.00,shopping_offline
+"HDFC: Rs 719 debited JIO FIBER monthly bill",719.00,bills_telecom
+"SBI UPI: Rs 249 to airtel@sbi data pack",249.00,bills_telecom
+"ICICI: Rs 1999 paid AIRTEL BLACK combined",1999.00,bills_telecom
+"HDFC CC: MSEDCL ELECTRICITY Rs 2450",2450.00,bills_electricity
+"SBI: Rs 3200 paid APEPDCL electricity bill",3200.00,bills_electricity
+"ICICI UPI: Rs 1890 to bescom@ybl elec monthly",1890.00,bills_electricity
+"HDFC: Rs 550 debited GWMC WATER BILL",550.00,bills_water
+"SBI: Rs 780 paid PCMC WATER SUPPLY bill",780.00,bills_water
+"ICICI: Rs 310 debited WATER TANKER payment UPI",310.00,bills_water
+"HDFC: Rs 350 debited PVR INOX movie tickets",350.00,entertainment
+"SBI CC: SPOTIFY PREMIUM FAM Rs 179",179.00,entertainment
+"ICICI: Rs 2000 paid KINGDOM DREAMS show",2000.00,entertainment
+"HDFC: Rs 1800 debited PRACTO DOCTOR consult",1800.00,health_medical
+"SBI UPI: Rs 3200 to apollopharmacy@sbi meds",3200.00,health_medical
+"ICICI CC: COLUMBIA ASIA HOSP Rs 15000",15000.00,health_medical
+"HDFC: Rs 2000 debited CULT.FIT quarterly pack",2000.00,health_fitness
+"SBI: Rs 1500 paid FITPASS monthly",1500.00,health_fitness
+"ICICI UPI: Rs 6000 to goldsgym@axisbank annual",6000.00,health_fitness
+"HDFC CC: SIMPLILEARN COURSE Rs 15000",15000.00,education
+"SBI: Rs 4500 debited CODINGNINJAS sub",4500.00,education
+"ICICI: Rs 999 paid BRILLIANT ORG annual",999.00,education
+"HDFC: Rs 140000 credited salary TCS MUMBAI",140000.00,salary
+"SBI: Rs 95000 salary credit MINDTREE LTD",95000.00,salary
+"ICICI: Salary Rs 170000 from ADOBE INDIA",170000.00,salary
+"HDFC UPI: Rs 30000 received client@okicici project",30000.00,freelance
+"SBI: Rs 18000 credited TOPTAL freelance pay",18000.00,freelance
+"ICICI: Rs 55000 received contract@neft work",55000.00,freelance
+"HDFC: Rs 15000 debited COIN by ZERODHA SIP",15000.00,investment
+"SBI UPI: Rs 3000 to icicidirect@sbi stocks",3000.00,investment
+"ICICI: Rs 20000 paid HDFC AMC MF purchase",20000.00,investment
+"HDFC: Rs 28000 debited FLAT RENT June UPI",28000.00,rent
+"SBI: Rs 14000 paid PG HOSTEL RENT monthly",14000.00,rent
+"ICICI UPI: Rs 42000 to landlord@ybl apartment",42000.00,rent
+"HDFC: Rs 13500 debited HDFC HOME LOAN EMI",13500.00,emi
+"SBI: Rs 8500 paid BAJAJ FINANCE EMI auto",8500.00,emi
+"ICICI: Rs 4000 debited SAMSUNG FINANCE EMI",4000.00,emi
+"HDFC: Rs 299 debited APPLE TV+ monthly sub",299.00,subscription
+"SBI: Rs 999 paid SWIGGY SUPER subscription",999.00,subscription
+"ICICI: Rs 79 debited TRUECALLER PREMIUM",79.00,subscription
+"HDFC CC: AIR INDIA EXPRESS Rs 4500",4500.00,travel
+"SBI: Rs 2200 debited KSRTC BUS booking",2200.00,travel
+"ICICI: Rs 18000 paid TAJ HOTEL GOA stay",18000.00,travel
+"HDFC: Rs 700 debited NATURALS BEAUTY salon",700.00,personal_care
+"SBI UPI: Rs 1200 to urbancompany@sbi facial",1200.00,personal_care
+"ICICI: Rs 450 paid BOMBAY SHAVE CO products",450.00,personal_care
+"HDFC UPI: Rs 5500 to brother@ybl bday gift",5500.00,gifts
+"SBI: Rs 2000 debited HALLMARK CARD SHOP",2000.00,gifts
+"ICICI: Rs 3500 paid FNPGIFTS online order",3500.00,gifts
+"HDFC: Rs 3000 debited DRIVER SALARY monthly",3000.00,other
+"SBI UPI: Rs 500 to watchman@sbi tip",500.00,other
+"ICICI: Rs 12000 paid INTERIOR DESIGNER consult",12000.00,other
+"Kotak: Rs 280 to chaijunction@ybl tea snacks",280.00,food_delivery
+"Axis CC: BURGER KING DRIVE BLR Rs 345",345.00,food_delivery
+"HDFC: Rs 890 debited LICIOUS MEAT delivery",890.00,groceries
+"Kotak: Rs 2200 to nilgiris@ybl supermarket",2200.00,groceries
+"Axis: Rs 180 paid OLA SHARE ride pool",180.00,transport_ride
+"Kotak UPI: Rs 420 to uber@hdfcbank trip",420.00,transport_ride
+"Axis CC: SHELL FUEL STATION Rs 3500",3500.00,transport_fuel
+"Kotak: Rs 4800 debited TOTAL PETROL PUMP",4800.00,transport_fuel
+"Axis: Rs 2599 debited NOISE smartwatch order",2599.00,shopping_online
+"Kotak CC: BEWAKOOF.COM Rs 799",799.00,shopping_online
+"Axis CC: W FOR WOMEN STORE Rs 2800",2800.00,shopping_offline
+"Kotak: Rs 5500 paid TITAN EYE PLUS glasses",5500.00,shopping_offline
+"Axis: Rs 399 debited AIRTEL THANKS recharge",399.00,bills_telecom
+"Kotak UPI: Rs 1199 to jiofiber@sbi monthly",1199.00,bills_telecom
+"Axis CC: UHBVN ELECTRICITY HRY Rs 1800",1800.00,bills_electricity
+"Kotak: Rs 2900 debited TANGEDCO TN elec bill",2900.00,bills_electricity
+"Axis: Rs 420 paid NAGPUR WATER SUPPLY",420.00,bills_water
+"Kotak: Rs 350 debited JUSCO WATER BILL",350.00,bills_water
+"Axis CC: CINEPOLIS TICKET BLR Rs 560",560.00,entertainment
+"Kotak: Rs 499 debited LIONSGATE PLAY sub",499.00,entertainment
+"Axis: Rs 950 debited MEDLIFE order medicines",950.00,health_medical
+"Kotak CC: ASTER HOSPITAL BLR Rs 7500",7500.00,health_medical
+"Axis UPI: Rs 2500 to crossfit@ybl membership",2500.00,health_fitness
+"Kotak: Rs 4500 debited FITNESS FIRST annual",4500.00,health_fitness
+"Axis CC: TOPPER LEARNING Rs 8000",8000.00,education
+"Kotak: Rs 2500 debited DOUBTNUT PREMIUM",2500.00,education
+"Axis: Salary Rs 88000 from MPHASIS LTD credit",88000.00,salary
+"Kotak: Rs 115000 credited SWIGGY salary",115000.00,salary
+"Axis UPI: Rs 22000 from startup@axl freelance",22000.00,freelance
+"Kotak: Rs 40000 credited consulting@neft work",40000.00,freelance
+"Axis: Rs 8000 debited 5PAISA SIP monthly",8000.00,investment
+"Kotak UPI: Rs 12000 to mfcentral@ybl SIP",12000.00,investment
+"Axis: Rs 20000 debited FLAT RENT NEFT July",20000.00,rent
+"Kotak: Rs 35000 paid to society@kotak rent",35000.00,rent
+"Axis CC: ADITYA BIRLA FINANCE EMI Rs 6500",6500.00,emi
+"Kotak: Rs 9800 debited MAHINDRA FINANCE EMI",9800.00,emi
+"Axis: Rs 199 debited PARAMOUNT+ monthly",199.00,subscription
+"Kotak: Rs 599 paid DUNZO DAILY PASS sub",599.00,subscription
+"Axis CC: AKASA AIR FLIGHT Rs 5500",5500.00,travel
+"Kotak: Rs 3800 debited ZOSTEL HOSTEL booking",3800.00,travel
+"Axis: Rs 1600 debited TONI&GUY SALON service",1600.00,personal_care
+"Kotak UPI: Rs 900 to hennaartist@ybl mehndi",900.00,personal_care
+"Axis UPI: Rs 7000 to friend@axl wedding shagun",7000.00,gifts
+"Kotak: Rs 1200 paid ARCHIES CARDS gift",1200.00,gifts
+"Axis: Rs 1500 debited URBAN LADDER assembly",1500.00,other
+"Kotak: Rs 2000 paid DOG GROOMING service",2000.00,other
+"HDFC: Rs 245 paid CHAI POINT office order UPI",245.00,food_delivery
+"SBI: Rs 399 debited OVEN STORY PIZZA delivery",399.00,food_delivery
+"ICICI UPI: Rs 180 to chaayos@icici beverages",180.00,food_delivery
+"HDFC: Rs 950 debited COUNTRY DELIGHT milk monthly",950.00,groceries
+"SBI UPI: Rs 3400 to starmarket@ybl weekly shop",3400.00,groceries
+"ICICI: Rs 1100 paid NATURES BASKET organic",1100.00,groceries
+"HDFC CC: OLA OUTSTATION BLR Rs 2800",2800.00,transport_ride
+"SBI: Rs 175 paid UBER GO ride short",175.00,transport_ride
+"ICICI: Rs 65 debited OLA BIKE ride campus",65.00,transport_ride
+"HDFC UPI: Rs 3000 to hpcl@ybl petrol full",3000.00,transport_fuel
+"SBI CC: INDIAN OIL CORP FUEL Rs 4200",4200.00,transport_fuel
+"ICICI: Rs 1800 paid SERVO LUBRICANTS service",1800.00,transport_fuel
+"Axis CC: BOAT LIFESTYLE ORDER Rs 1499",1499.00,shopping_online
+"Kotak: Rs 3999 debited REALME STORE online",3999.00,shopping_online
+"HDFC: Rs 799 paid WROGN FASHION order",799.00,shopping_online
+"Axis: Rs 6500 paid SOCH STORE ethnic wear",6500.00,shopping_offline
+"Kotak CC: WOODLAND STORE SHOES Rs 3200",3200.00,shopping_offline
+"HDFC: Rs 4200 debited BEING HUMAN store",4200.00,shopping_offline
+"Axis: Rs 349 debited VI RECHARGE 84 days",349.00,bills_telecom
+"Kotak: Rs 899 paid TIKONA BROADBAND bill",899.00,bills_telecom
+"HDFC UPI: Rs 399 to bsnl@ybl fiber bill",399.00,bills_telecom
+"Axis CC: SBPDCL ELECTRICITY BIHAR Rs 1600",1600.00,bills_electricity
+"Kotak: Rs 2100 paid DGVCL GUJARAT elec",2100.00,bills_electricity
+"HDFC: Rs 3800 debited MSEB ELECTRICITY bill",3800.00,bills_electricity
+"Axis: Rs 280 debited BWSSB WATER BLR bill",280.00,bills_water
+"Kotak UPI: Rs 500 to mcgmwater@ybl monthly",500.00,bills_water
+"HDFC: Rs 380 paid HMWSSB WATER SUPPLY HYD",380.00,bills_water
+"Axis: Rs 1800 debited INSIDER EVENT tickets",1800.00,entertainment
+"Kotak CC: SUPERKICKS SNEAKER EVENT Rs 2500",2500.00,entertainment
+"HDFC UPI: Rs 299 to mubi@ybl film streaming",299.00,entertainment
+"Axis: Rs 450 debited TRUEMEDS order monthly",450.00,health_medical
+"Kotak: Rs 5000 paid CLOUDNINE HOSPITAL consult",5000.00,health_medical
+"HDFC CC: SRL DIAGNOSTICS LAB Rs 2800",2800.00,health_medical
+"Axis: Rs 1800 debited DECATHLON SPORTS GYM eq",1800.00,health_fitness
+"Kotak UPI: Rs 3500 to cureFit@ybl cult pass",3500.00,health_fitness
+"HDFC: Rs 999 paid HEALTHIFYME pro sub",999.00,health_fitness
+"Axis CC: MASAI SCHOOL FEE Rs 30000",30000.00,education
+"Kotak: Rs 5999 debited ERUDITUS COURSE",5999.00,education
+"HDFC: Rs 12000 paid APTECH TRAINING fee",12000.00,education
+"Axis: Rs 250000 salary RAZORPAY INDIA credit",250000.00,salary
+"Kotak: Rs 72000 credited ZOHO CORP salary",72000.00,salary
+"HDFC: Salary Rs 130000 from MEESHO payroll",130000.00,salary
+"Axis UPI: Rs 15000 from freelance@okaxis design",15000.00,freelance
+"Kotak: Rs 28000 credited YOUTUBE ADSENSE",28000.00,freelance
+"HDFC: Rs 60000 received consulting@neft project",60000.00,freelance
+"Axis: Rs 5000 debited PAYTM MONEY gold SIP",5000.00,investment
+"Kotak: Rs 30000 paid AXIS BLUECHIP MF SIP",30000.00,investment
+"HDFC UPI: Rs 7500 to icicipru@ybl MF invest",7500.00,investment
+"Axis: Rs 24000 debited apartment rent NEFT Aug",24000.00,rent
+"Kotak: Rs 9000 paid COLIVE PG rent monthly",9000.00,rent
+"HDFC: Rs 38000 debited RENT flat owner IMPS",38000.00,rent
+"Axis: Rs 5500 debited HDFC LTD CARLOAN EMI",5500.00,emi
+"Kotak CC: ADITYA BIRLA FIN EMI Rs 3200",3200.00,emi
+"HDFC: Rs 17500 debited PNB HFL HOME LOAN EMI",17500.00,emi
+"Axis: Rs 499 debited DISCOVERY+ annual sub",499.00,subscription
+"Kotak: Rs 129 paid TELEGRAM PREMIUM monthly",129.00,subscription
+"HDFC UPI: Rs 799 to strava@stripe sub annual",799.00,subscription
+"Axis CC: SPICEJET FLIGHT DEL-GOA Rs 3800",3800.00,travel
+"Kotak: Rs 5500 debited LEMON TREE HOTEL stay",5500.00,travel
+"HDFC: Rs 1200 paid KSRTC VOLVO bus ticket",1200.00,travel
+"Axis: Rs 2200 debited MONSOON SALON premium",2200.00,personal_care
+"Kotak: Rs 400 paid BEARDO products order",400.00,personal_care
+"HDFC UPI: Rs 1500 to naturals@ybl haircut",1500.00,personal_care
+"Axis: Rs 3000 debited TITAN WATCH gift order",3000.00,gifts
+"Kotak UPI: Rs 6000 to mom@kotak mothers day",6000.00,gifts
+"HDFC: Rs 1800 paid FLOWERAURA delivery",1800.00,gifts
+"Axis: Rs 850 debited LAUNDRY EXPRESS service",850.00,other
+"Kotak: Rs 5000 paid SULEKHA PAINTING service",5000.00,other
+"HDFC CC: DTDC COURIER CHARGES Rs 180",180.00,other
