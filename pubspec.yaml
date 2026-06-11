@@ -40,7 +40,7 @@ dependencies:
 
   # Permissions & Platform
   permission_handler: ^11.3.1
-  telephony: ^0.2.0
+  another_telephony: ^0.4.1
   local_auth: ^2.2.0
   share_plus: ^9.0.0
 

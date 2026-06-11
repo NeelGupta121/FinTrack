@@ -1,4 +1,4 @@
-import 'package:telephony/telephony.dart';
+import 'package:another_telephony/telephony.dart';
 import '../core/utils/logger.dart';
 import '../data/datasources/local/local_database.dart';
 import '../data/datasources/local/tflite_datasource.dart';
