@@ -88,10 +88,21 @@ class SettingsScreen extends ConsumerWidget {
       ref.invalidate(expenseListProvider);
       ref.invalidate(holdingsListProvider);
       final total = result.expenses + result.investments + result.income;
+      String msg;
+      if (!result.permissionGranted) {
+        msg = 'SMS permission denied. Enable it in system Settings → Apps → FinTrack → Permissions → SMS.';
+      } else if (result.error != null) {
+        msg = 'Scan error: ${result.error}';
+      } else if (result.scanned == 0) {
+        msg = 'No SMS found on device in the last 90 days.';
+      } else if (total == 0) {
+        msg = 'Read ${result.scanned} SMS but none matched bank/transaction patterns.';
+      } else {
+        msg = 'Imported $total of ${result.scanned} SMS: ${result.expenses} expenses, ${result.investments} investments, ${result.income} income';
+      }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(total == 0
-            ? 'No new transactions found in SMS (check SMS permission).'
-            : 'Imported $total: ${result.expenses} expenses, ${result.investments} investments, ${result.income} income'),
+        content: Text(msg),
+        duration: const Duration(seconds: 6),
       ));
     } catch (e) {
       if (!context.mounted) return;

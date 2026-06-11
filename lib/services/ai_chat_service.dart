@@ -6,7 +6,8 @@ import 'package:fintrack/data/datasources/local/local_database.dart';
 class AiChatService {
   static final _dio = Dio();
   static final _rateLimiter = RateLimiter();
-  static const _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent';
+  static const _model = 'gemini-1.5-flash';
+  static const _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/$_model:generateContent';
   static const _systemPrompt =
       'You are a personal finance assistant for an Indian user. '
       'Answer based on their financial data provided as context. '
@@ -93,23 +94,44 @@ class AiChatService {
         parts.add({'text': '$_systemPrompt\n\n$context\n\nUser question: $question'});
       }
 
-      final response = await _dio.post(
-        '$_baseUrl?key=$key',
-        data: {
-          'contents': [{'parts': parts}],
-          'generationConfig': {'maxOutputTokens': 512, 'temperature': 0.7},
-        },
-      );
+      try {
+        final response = await _dio.post(
+          '$_baseUrl?key=$key',
+          data: {
+            'contents': [{'parts': parts}],
+            'generationConfig': {'maxOutputTokens': 512, 'temperature': 0.7},
+          },
+        );
 
-      final candidates = response.data['candidates'] as List?;
-      if (candidates != null && candidates.isNotEmpty) {
-        final content = candidates[0]['content'];
-        final resParts = content['parts'] as List?;
-        if (resParts != null && resParts.isNotEmpty) {
-          return resParts[0]['text'] as String;
+        final candidates = response.data['candidates'] as List?;
+        if (candidates != null && candidates.isNotEmpty) {
+          final content = candidates[0]['content'];
+          final resParts = content['parts'] as List?;
+          if (resParts != null && resParts.isNotEmpty) {
+            return resParts[0]['text'] as String;
+          }
         }
+        // Check for safety blocks / empty response
+        final blockReason = response.data['promptFeedback']?['blockReason'];
+        if (blockReason != null) return 'Response blocked: $blockReason. Try rephrasing.';
+        return 'Sorry, I could not generate a response. Please try again.';
+      } on DioException catch (e) {
+        // Surface the actual Gemini API error so it's diagnosable
+        final status = e.response?.statusCode;
+        final apiMsg = e.response?.data is Map
+            ? (e.response?.data['error']?['message'] ?? '').toString()
+            : '';
+        if (status == 400 && apiMsg.contains('API key not valid')) {
+          return 'Your Gemini API key is invalid. Re-check it in Settings → AI.';
+        }
+        if (status == 429) {
+          return 'Gemini rate limit reached (free tier: 1500/day). Try again later.';
+        }
+        if (status == 404) {
+          return 'Model unavailable for this key. Error: $apiMsg';
+        }
+        return 'AI error${status != null ? ' ($status)' : ''}: ${apiMsg.isNotEmpty ? apiMsg : e.message}';
       }
-      return 'Sorry, I could not generate a response. Please try again.';
     });
   }
 }

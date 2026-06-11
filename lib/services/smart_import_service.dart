@@ -10,7 +10,11 @@ class ImportResult {
   final int investments;
   final int income;
   final int skipped;
-  ImportResult({this.expenses = 0, this.investments = 0, this.income = 0, this.skipped = 0});
+  final int scanned;        // raw SMS messages read
+  final bool permissionGranted;
+  final String? error;
+  ImportResult({this.expenses = 0, this.investments = 0, this.income = 0,
+      this.skipped = 0, this.scanned = 0, this.permissionGranted = true, this.error});
 }
 
 class SmartImportService {
@@ -28,7 +32,7 @@ class SmartImportService {
     final granted = await telephony.requestPhoneAndSmsPermissions ?? false;
     if (!granted) {
       AppLogger.warning('SMS permission not granted — skipping import', tag: 'SmartImport');
-      return ImportResult();
+      return ImportResult(permissionGranted: false, error: 'SMS permission denied');
     }
 
     final since = DateTime.now().subtract(Duration(days: days));
@@ -40,10 +44,11 @@ class SmartImportService {
       );
     } catch (e, st) {
       AppLogger.error('Failed to read SMS inbox', tag: 'SmartImport', error: e, stackTrace: st);
-      return ImportResult();
+      return ImportResult(error: 'Could not read SMS: $e');
     }
 
     int expenses = 0, investments = 0, income = 0, skipped = 0;
+    final scanned = msgs.length;
 
     for (final msg in msgs) {
       final draft = _parser.parse(msg.body ?? '');
@@ -68,7 +73,7 @@ class SmartImportService {
     }
 
     AppLogger.info('Import done: $expenses exp, $investments inv, $income inc, $skipped skip', tag: 'SmartImport');
-    return ImportResult(expenses: expenses, investments: investments, income: income, skipped: skipped);
+    return ImportResult(expenses: expenses, investments: investments, income: income, skipped: skipped, scanned: scanned);
   }
 
   bool _isDuplicate(TransactionDraft draft) {
