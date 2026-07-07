@@ -57,7 +57,7 @@ class ReceiptOcrService {
       final d = int.tryParse(dateMatch.group(1)!);
       final m = int.tryParse(dateMatch.group(2)!);
       var y = int.tryParse(dateMatch.group(3)!);
-      if (d != null && m != null && y != null) {
+      if (d != null && m != null && y != null && m >= 1 && m <= 12 && d >= 1 && d <= 31) {
         if (y < 100) y += 2000;
         date = DateTime(y, m, d);
       }

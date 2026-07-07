@@ -79,10 +79,10 @@ class AiChatService {
         q.contains('crypto') || q.contains('bitcoin');
   }
 
-  static Future<String> askQuestion(String question, {String? apiKey}) async {
-    final key = apiKey ?? Env.geminiApiKey;
+  static Future<String> askQuestion(String question) async {
+    const key = Env.geminiApiKey;
     if (key.isEmpty) {
-      return 'Add your free Gemini API key in Settings to enable AI chat.';
+      return 'AI chat is not configured. Please try again later.';
     }
     return _rateLimiter.execute('gemini_chat', 1000, () async {
       final context = buildContext();

@@ -81,3 +81,10 @@ flutter:
   assets:
     - assets/ml/
     - assets/fonts/
+  fonts:
+    - family: SpaceGrotesk
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf

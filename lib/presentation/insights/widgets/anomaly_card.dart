@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../domain/usecases/analyze_spending.dart';
+import '../../common/theme/app_theme.dart';
 
 class AnomalyCard extends StatelessWidget {
   final Anomaly anomaly;
@@ -8,7 +9,11 @@ class AnomalyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pct = anomaly.percentAboveAverage;
-    final color = pct > 100 ? Colors.red : pct > 50 ? Colors.orange : Colors.amber;
+    final color = pct > 100
+        ? AppTheme.negative
+        : pct > 50
+            ? AppTheme.warning
+            : AppTheme.warning.withOpacity(0.8);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -21,8 +26,8 @@ class AnomalyCard extends StatelessWidget {
         subtitle: Text('${pct.toStringAsFixed(0)}% above average (₹${anomaly.average.toStringAsFixed(0)})'),
         trailing: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-          child: Text('${anomaly.zScore.toStringAsFixed(1)}σ', style: TextStyle(color: color, fontWeight: FontWeight.bold)),
+          decoration: BoxDecoration(color: color.withOpacity(0.12), borderRadius: BorderRadius.circular(30)),
+          child: Text('${anomaly.zScore.toStringAsFixed(1)}σ', style: TextStyle(color: color, fontWeight: FontWeight.w700)),
         ),
       ),
     );

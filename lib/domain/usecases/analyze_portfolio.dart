@@ -68,15 +68,19 @@ class AnalyzePortfolioUseCase {
       double f = 0, df = 0;
       for (final t in sorted) {
         final years = t.date.difference(d0).inDays / 365.25;
-        final denom = pow(1 + xirr, years).toDouble();
+        final base = 1 + xirr;
+        final denom = pow(base, years).toDouble();
+        if (denom == 0 || !denom.isFinite) return 0; // diverged
         f += t.amount / denom;
-        df -= years * t.amount / (denom * (1 + xirr));
+        df -= years * t.amount / (denom * base);
       }
-      if (df == 0) break;
-      final next = xirr - f / df;
+      if (df == 0 || !df.isFinite) break;
+      var next = xirr - f / df;
+      if (!next.isFinite) return 0; // diverged to NaN/Infinity
+      if (next <= -1) next = -0.9999; // keep (1 + xirr) positive for pow()
       if ((next - xirr).abs() < 1e-7) return next;
       xirr = next;
     }
-    return xirr;
+    return xirr.isFinite ? xirr : 0;
   }
 }

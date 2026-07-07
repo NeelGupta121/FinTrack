@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/entities/holding.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_animations.dart';
 import 'investment_providers.dart';
 import 'add_holding_screen.dart';
 import 'widgets/portfolio_value_card.dart';
@@ -32,16 +33,22 @@ class HoldingsListScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            portfolioAsync.when(
-              data: (pv) => PortfolioValueCard(portfolio: pv),
-              loading: () => const SizedBox(height: 140, child: Center(child: CircularProgressIndicator())),
-              error: (_, __) => const Text('Something went wrong. Pull down to retry.'),
+            FadeSlideIn(
+              index: 0,
+              child: portfolioAsync.when(
+                data: (pv) => PortfolioValueCard(portfolio: pv),
+                loading: () => const SizedBox(height: 140, child: Center(child: CircularProgressIndicator())),
+                error: (_, __) => const Text('Something went wrong. Pull down to retry.'),
+              ),
             ),
             const SizedBox(height: 16),
-            allocationAsync.when(
-              data: (entries) => entries.isEmpty ? const SizedBox.shrink() : AllocationChart(entries: entries),
-              loading: () => const SizedBox.shrink(),
-              error: (_, __) => const SizedBox.shrink(),
+            FadeSlideIn(
+              index: 1,
+              child: allocationAsync.when(
+                data: (entries) => entries.isEmpty ? const SizedBox.shrink() : AllocationChart(entries: entries),
+                loading: () => const SizedBox.shrink(),
+                error: (_, __) => const SizedBox.shrink(),
+              ),
             ),
             const SizedBox(height: 16),
             holdingsAsync.when(
@@ -82,22 +89,27 @@ class _HoldingsGrouped extends StatelessWidget {
       (grouped[h.type] ??= []).add(h);
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: grouped.entries.map((entry) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              _typeLabels[entry.key] ?? entry.key.toUpperCase(),
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ),
-          ...entry.value.map((h) => HoldingCard(holding: h)),
-          const SizedBox(height: 8),
-        ],
-      )).toList(),
-    );
+    final children = <Widget>[];
+    var i = 0;
+    grouped.forEach((type, list) {
+      children.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Text(
+          _typeLabels[type] ?? type.toUpperCase(),
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ));
+      for (final h in list) {
+        // Cap the stagger window so long lists don't accumulate huge delays.
+        children.add(FadeSlideIn(
+          index: i < 6 ? i : 6,
+          child: PressableScale(scale: 0.97, child: HoldingCard(holding: h)),
+        ));
+        i++;
+      }
+      children.add(const SizedBox(height: 8));
+    });
+
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: children);
   }
 }

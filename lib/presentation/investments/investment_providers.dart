@@ -32,7 +32,10 @@ class PortfolioValue {
 
   double get totalPnL => currentValue - totalInvested;
   double get totalPnLPercent => totalInvested > 0 ? (totalPnL / totalInvested) * 100 : 0;
-  double get dayChangePercent => currentValue > 0 ? (dayChange / (currentValue - dayChange)) * 100 : 0;
+  double get dayChangePercent {
+    final prevClose = currentValue - dayChange;
+    return prevClose > 0 ? (dayChange / prevClose) * 100 : 0;
+  }
 }
 
 final portfolioValueProvider = FutureProvider.autoDispose<PortfolioValue>((ref) async {
@@ -49,8 +52,8 @@ final portfolioValueProvider = FutureProvider.autoDispose<PortfolioValue>((ref) 
     }
 
     // Sparkline from settings (stored as list of recent portfolio values)
-    final sparkRaw = LocalDatabase.settings.get('portfolio_sparkline', defaultValue: <double>[]) as List;
-    final sparkline = sparkRaw.map((e) => (e as num).toDouble()).toList();
+    final sparkRaw = LocalDatabase.settings.get('portfolio_sparkline', defaultValue: <double>[]) as List? ?? [];
+    final sparkline = sparkRaw.whereType<num>().map((e) => e.toDouble()).toList();
 
     final prevClose = sparkline.length >= 2 ? sparkline[sparkline.length - 2] : currentValue;
     final dayChange = currentValue - prevClose;

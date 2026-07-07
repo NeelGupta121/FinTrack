@@ -25,13 +25,16 @@ class FredDatasource {
       'api_key': _apiKey,
       'file_type': 'json',
     });
-    final obs = res.data['observations'] as List;
+    final obs = res.data['observations'] as List? ?? [];
     if (obs.length >= 2) {
-      final latest = double.parse(obs[0]['value']);
-      final prev = double.parse(obs[1]['value']);
-      _cachedCpi = ((latest - prev) / prev) * 100 * 12; // annualized
-      _cpiCacheTime = DateTime.now();
-      return _cachedCpi!;
+      // FRED emits "." for missing/preliminary observations -> tryParse (not parse).
+      final latest = double.tryParse('${obs[0]['value']}');
+      final prev = double.tryParse('${obs[1]['value']}');
+      if (latest != null && prev != null && prev != 0) {
+        _cachedCpi = ((latest - prev) / prev) * 100 * 12; // annualized
+        _cpiCacheTime = DateTime.now();
+        return _cachedCpi!;
+      }
     }
     return 0.0;
   }
@@ -47,11 +50,14 @@ class FredDatasource {
       'api_key': _apiKey,
       'file_type': 'json',
     });
-    final obs = res.data['observations'] as List;
+    final obs = res.data['observations'] as List? ?? [];
     if (obs.isNotEmpty) {
-      _cachedRate = double.parse(obs[0]['value']);
-      _rateCacheTime = DateTime.now();
-      return _cachedRate!;
+      final rate = double.tryParse('${obs[0]['value']}');
+      if (rate != null) {
+        _cachedRate = rate;
+        _rateCacheTime = DateTime.now();
+        return _cachedRate!;
+      }
     }
     return 0.0;
   }

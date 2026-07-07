@@ -97,7 +97,7 @@ class SmsParserService {
         day = month;
         month = tmp;
       }
-      if (month < 1 || month > 12) return null;
+      if (month < 1 || month > 12 || day < 1 || day > 31) return null;
       return DateTime(year, month, day);
     }
     final m2 = _dateRe2.firstMatch(sms);
@@ -106,7 +106,9 @@ class SmsParserService {
       final mon = months[m2.group(2)!.toLowerCase()] ?? 1;
       final y = int.tryParse(m2.group(3)!) ?? 0;
       final year = y < 100 ? 2000 + y : y;
-      return DateTime(year, mon, int.parse(m2.group(1)!));
+      final d2 = int.parse(m2.group(1)!);
+      if (d2 < 1 || d2 > 31) return null;
+      return DateTime(year, mon, d2);
     }
     return null;
   }

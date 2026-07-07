@@ -37,8 +37,11 @@ Future<void> main() async {
 
   // Load persisted theme mode
   final tm = prefs.getString('theme_mode');
-  if (tm == 'dark') savedThemeMode = ThemeMode.dark;
-  else if (tm == 'light') savedThemeMode = ThemeMode.light;
+  if (tm == 'dark') {
+    savedThemeMode = ThemeMode.dark;
+  } else if (tm == 'light') {
+    savedThemeMode = ThemeMode.light;
+  }
 
   runApp(const ProviderScope(child: FinTrackApp()));
 }

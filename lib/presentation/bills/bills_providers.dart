@@ -6,7 +6,7 @@ import '../../services/notification_service.dart';
 final recurringBillsProvider = FutureProvider<List<RecurringBill>>((ref) async {
   final detector = DetectRecurringBills();
   final txns = LocalDatabase.transactions.values
-      .map((e) => Map<String, dynamic>.from(e as Map))
+      .map((e) => Map<String, dynamic>.from(e))
       .toList();
   return detector.call(txns);
 });

@@ -53,22 +53,23 @@ class TfliteDatasource {
     final text = description.toLowerCase();
 
     // Char n-gram features (2-gram and 3-gram hashed to 256-dim)
-    double norm = 0;
     for (int n = 2; n <= 3; n++) {
       for (int i = 0; i <= text.length - n; i++) {
         final ng = text.substring(i, i + n);
         final idx = ng.hashCode.abs() % _ngramDim;
         vec[idx] += 1.0;
-        norm += 1.0;
       }
     }
     // L2 normalize the n-gram portion
     double l2 = 0;
-    for (int i = 0; i < _ngramDim; i++) l2 += vec[i] * vec[i];
+    for (int i = 0; i < _ngramDim; i++) {
+      l2 += vec[i] * vec[i];
+    }
     if (l2 > 0) {
-      l2 = l2 == 0 ? 1 : l2;
       final invNorm = 1.0 / _sqrt(l2);
-      for (int i = 0; i < _ngramDim; i++) vec[i] *= invNorm;
+      for (int i = 0; i < _ngramDim; i++) {
+        vec[i] *= invNorm;
+      }
     }
 
     // Amount bucket (10-dim one-hot)

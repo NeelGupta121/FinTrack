@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../common/theme/app_theme.dart';
 import '../investment_providers.dart';
 
 class PortfolioValueCard extends StatelessWidget {
@@ -9,9 +10,17 @@ class PortfolioValueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     final currFmt = NumberFormat.currency(locale: 'en_IN', symbol: '₹', decimalDigits: 0);
     final isProfit = portfolio.totalPnL >= 0;
     final isDayUp = portfolio.dayChange >= 0;
+    final lineColor = isProfit ? AppTheme.positive : AppTheme.negative;
+
+    final spots = <FlSpot>[
+      for (var i = 0; i < portfolio.sparkline.length; i++)
+        FlSpot(i.toDouble(), portfolio.sparkline[i]),
+      if (portfolio.sparkline.length == 1) FlSpot(1, portfolio.sparkline.first),
+    ];
 
     return Card(
       child: Padding(
@@ -19,10 +28,12 @@ class PortfolioValueCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Portfolio Value', style: Theme.of(context).textTheme.labelMedium),
+            Text('Portfolio Value',
+                style: Theme.of(context).textTheme.labelMedium?.copyWith(color: cs.onSurfaceVariant)),
             const SizedBox(height: 4),
-            Text(currFmt.format(portfolio.currentValue), style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
+            Text(currFmt.format(portfolio.currentValue),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
+            const SizedBox(height: 10),
             Row(
               children: [
                 _PnLChip(label: 'P&L', amount: portfolio.totalPnL, percent: portfolio.totalPnLPercent, isPositive: isProfit),
@@ -30,9 +41,9 @@ class PortfolioValueCard extends StatelessWidget {
                 _PnLChip(label: 'Day', amount: portfolio.dayChange, percent: portfolio.dayChangePercent, isPositive: isDayUp),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 14),
             SizedBox(
-              height: 40,
+              height: 48,
               child: LineChart(
                 LineChartData(
                   gridData: const FlGridData(show: false),
@@ -41,12 +52,19 @@ class PortfolioValueCard extends StatelessWidget {
                   lineTouchData: const LineTouchData(enabled: false),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: portfolio.sparkline.asMap().entries.map((e) => FlSpot(e.key.toDouble(), e.value)).toList(),
+                      spots: spots,
                       isCurved: true,
-                      color: isProfit ? Colors.green : Colors.red,
-                      barWidth: 2,
+                      color: lineColor,
+                      barWidth: 3,
                       dotData: const FlDotData(show: false),
-                      belowBarData: BarAreaData(show: true, color: (isProfit ? Colors.green : Colors.red).withOpacity(0.1)),
+                      belowBarData: BarAreaData(
+                        show: true,
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [lineColor.withOpacity(0.28), lineColor.withOpacity(0.0)],
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -68,15 +86,15 @@ class _PnLChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isPositive ? Colors.green : Colors.red;
+    final color = isPositive ? AppTheme.positive : AppTheme.negative;
     final sign = isPositive ? '+' : '';
     final currFmt = NumberFormat.currency(locale: 'en_IN', symbol: '₹', decimalDigits: 0);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(color: color.withOpacity(0.12), borderRadius: BorderRadius.circular(30)),
       child: Text(
         '$label: $sign${currFmt.format(amount)} (${percent.toStringAsFixed(1)}%)',
-        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w600),
+        style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700),
       ),
     );
   }

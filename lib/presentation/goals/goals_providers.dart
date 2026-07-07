@@ -41,7 +41,7 @@ final goalsListProvider = FutureProvider<List<FinancialGoal>>((ref) async {
 });
 
 final goalProgressProvider = Provider.family<Map<String, dynamic>, FinancialGoal>((ref, goal) {
-  final monthlySavings = 5000.0;
+  const monthlySavings = 5000.0;
   final remaining = goal.remaining;
   final monthsNeeded = remaining > 0 ? (remaining / monthlySavings).ceil() : 0;
   final eta = DateTime.now().add(Duration(days: monthsNeeded * 30));

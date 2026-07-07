@@ -5,6 +5,15 @@ import 'package:intl/intl.dart';
 import '../expenses/expense_providers.dart';
 import '../investments/investment_providers.dart';
 import '../common/theme/app_theme.dart';
+import '../common/theme/app_animations.dart';
+
+const _heroAmount = TextStyle(
+  fontFamily: 'SpaceGrotesk',
+  color: Colors.white,
+  fontSize: 34,
+  fontWeight: FontWeight.w700,
+  letterSpacing: -1,
+);
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -27,28 +36,53 @@ class DashboardScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // Net worth card
-          Card(
-            color: cs.primaryContainer,
-            child: Padding(
-              padding: const EdgeInsets.all(20),
+          // Net worth hero card
+          FadeSlideIn(
+            index: 0,
+            child: ShimmerGradientContainer(
+              colors: AppTheme.brandGradient.colors,
+              boxShadow: [
+                BoxShadow(
+                  color: AppTheme.seed.withOpacity(0.45),
+                  blurRadius: 30,
+                  offset: const Offset(0, 12),
+                ),
+              ],
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Total Spent', style: Theme.of(context).textTheme.bodyLarge),
-                  const SizedBox(height: 8),
+                  const Row(
+                    children: [
+                      Icon(Icons.account_balance_wallet_rounded,
+                          color: Colors.white70, size: 18),
+                      SizedBox(width: 8),
+                      Text('Total Spent',
+                          style: TextStyle(
+                              color: Colors.white70,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.2)),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
                   expenses.when(
                     data: (list) {
-                      final total = list.where((t) => t.type == 'expense').fold<double>(0, (sum, t) => sum + t.amount);
-                      return Text('₹${NumberFormat('#,##0').format(total)}',
-                          style: AppTheme.amountStyle(context));
+                      final total = list
+                          .where((t) => t.type == 'expense')
+                          .fold<double>(0, (sum, t) => sum + t.amount);
+                      return AnimatedCount(
+                        value: total,
+                        formatter: (v) =>
+                            '₹${NumberFormat('#,##0').format(v)}',
+                        style: _heroAmount,
+                      );
                     },
-                    loading: () => Text('₹0', style: AppTheme.amountStyle(context)),
-                    error: (_, __) => Text('₹0', style: AppTheme.amountStyle(context)),
+                    loading: () => const Text('₹0', style: _heroAmount),
+                    error: (_, __) => const Text('₹0', style: _heroAmount),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 6),
                   Text('Across all tracked expenses',
-                      style: TextStyle(color: cs.onPrimaryContainer.withOpacity(0.7))),
+                      style: TextStyle(
+                          color: Colors.white.withOpacity(0.85), fontSize: 13)),
                 ],
               ),
             ),
@@ -56,19 +90,24 @@ class DashboardScreen extends ConsumerWidget {
           const SizedBox(height: 16),
 
           // Quick actions
-          Row(
-            children: [
-              _QuickAction(icon: Icons.add, label: 'Expense', onTap: () => context.push('/expenses/add')),
-              const SizedBox(width: 12),
-              _QuickAction(icon: Icons.camera_alt, label: 'Scan', onTap: () => context.push('/expenses/add')),
-              const SizedBox(width: 12),
-              _QuickAction(icon: Icons.show_chart, label: 'Holding', onTap: () => context.push('/investments/add')),
-            ],
+          FadeSlideIn(
+            index: 1,
+            child: Row(
+              children: [
+                _QuickAction(icon: Icons.add, label: 'Expense', onTap: () => context.push('/expenses/add')),
+                const SizedBox(width: 12),
+                _QuickAction(icon: Icons.camera_alt, label: 'Scan', onTap: () => context.push('/expenses/add')),
+                const SizedBox(width: 12),
+                _QuickAction(icon: Icons.show_chart, label: 'Holding', onTap: () => context.push('/investments/add')),
+              ],
+            ),
           ),
           const SizedBox(height: 24),
 
           // Portfolio summary
-          Card(
+          FadeSlideIn(
+            index: 2,
+            child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -116,12 +155,15 @@ class DashboardScreen extends ConsumerWidget {
               ),
             ),
           ),
+          ),
           const SizedBox(height: 24),
 
           // Manage section — links to Bills, Goals, Reports
           Text('Manage', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8),
-          Card(
+          FadeSlideIn(
+            index: 3,
+            child: Card(
             child: Column(
               children: [
                 ListTile(
@@ -147,12 +189,15 @@ class DashboardScreen extends ConsumerWidget {
               ],
             ),
           ),
+          ),
           const SizedBox(height: 24),
 
           // Recent transactions
           Text('Recent Transactions', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8),
-          expenses.when(
+          FadeSlideIn(
+            index: 4,
+            child: expenses.when(
             data: (list) {
               final recent = list.take(5).toList();
               if (recent.isEmpty) {
@@ -182,6 +227,7 @@ class DashboardScreen extends ConsumerWidget {
               child: Text('Something went wrong.'),
             )),
           ),
+          ),
         ],
       ),
     );
@@ -197,15 +243,17 @@ class _QuickAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: FilledButton.tonal(
-        onPressed: onTap,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon),
-            const SizedBox(height: 4),
-            Text(label, style: const TextStyle(fontSize: 12)),
-          ],
+      child: PressableScale(
+        child: FilledButton.tonal(
+          onPressed: onTap,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon),
+              const SizedBox(height: 4),
+              Text(label, style: const TextStyle(fontSize: 12)),
+            ],
+          ),
         ),
       ),
     );

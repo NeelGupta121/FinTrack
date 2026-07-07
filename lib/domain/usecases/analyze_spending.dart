@@ -37,19 +37,40 @@ class AnalyzeSpendingUseCase {
       final amounts = entry.value;
       if (amounts.length < 3) continue; // need enough data
 
+      // Reported (classic) mean — used for percentAboveAverage in the UI.
       final mean = amounts.reduce((a, b) => a + b) / amounts.length;
-      final variance = amounts.map((a) => pow(a - mean, 2)).reduce((a, b) => a + b) / amounts.length;
-      final stdDev = sqrt(variance);
-      if (stdDev == 0) continue;
+
+      // Robust detection statistic: median + MAD (median absolute deviation).
+      // Classic mean/std z-scores are corrupted by the very outlier they are
+      // meant to flag — the outlier inflates std and deflates its own z-score,
+      // so a genuine 5x spike can land just under a 2σ gate. Median/MAD is
+      // resistant to that contamination.
+      final median = _median(amounts);
+      final absDeviations =
+          amounts.map((a) => (a - median).abs()).toList();
+      final mad = _median(absDeviations);
+
+      // 1.4826 makes MAD a consistent estimator of std for normal data.
+      var spread = 1.4826 * mad;
+      var center = median;
+      if (spread == 0) {
+        // Degenerate MAD (>=half the values identical): fall back to std.
+        final variance =
+            amounts.map((a) => pow(a - mean, 2)).reduce((a, b) => a + b) /
+                amounts.length;
+        spread = sqrt(variance);
+        center = mean;
+      }
+      if (spread == 0) continue; // all values identical — no anomalies
 
       for (final amount in amounts) {
-        final z = (amount - mean) / stdDev;
+        final z = (amount - center) / spread;
         if (z > 2.0) {
           anomalies.add(Anomaly(
             category: entry.key,
             amount: amount,
             average: mean,
-            deviation: stdDev,
+            deviation: spread,
             zScore: z,
           ));
         }
@@ -57,5 +78,14 @@ class AnalyzeSpendingUseCase {
     }
     anomalies.sort((a, b) => b.zScore.compareTo(a.zScore));
     return anomalies;
+  }
+
+  /// Median of a list of doubles. Returns 0 for an empty list.
+  double _median(List<double> values) {
+    if (values.isEmpty) return 0;
+    final sorted = [...values]..sort();
+    final mid = sorted.length ~/ 2;
+    if (sorted.length.isOdd) return sorted[mid];
+    return (sorted[mid - 1] + sorted[mid]) / 2;
   }
 }

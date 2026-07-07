@@ -11,7 +11,9 @@ class MonthlySummaryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final fmt = NumberFormat.currency(locale: 'en_IN', symbol: '₹', decimalDigits: 0);
     final remaining = summary.budget - summary.totalSpent;
-    final progress = (summary.totalSpent / summary.budget).clamp(0.0, 1.0);
+    final progress = summary.budget > 0
+        ? (summary.totalSpent / summary.budget).clamp(0.0, 1.0)
+        : 0.0;
 
     // Top 3 categories by spend
     final sorted = summary.categoryTotals.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
@@ -45,7 +47,9 @@ class MonthlySummaryCard extends StatelessWidget {
             const SizedBox(height: 16),
             ...top3.map((entry) {
               final cat = categories.firstWhere((c) => c.id == entry.key, orElse: () => categories.last);
-              final catProgress = entry.value / summary.totalSpent;
+              final catProgress = summary.totalSpent > 0
+                  ? (entry.value / summary.totalSpent).clamp(0.0, 1.0)
+                  : 0.0;
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
                 child: Row(children: [

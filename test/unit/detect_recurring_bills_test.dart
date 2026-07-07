@@ -8,8 +8,8 @@ void main() {
 
   group('DetectRecurringBills', () {
     test('detects monthly recurring bills', () {
-      final txns = List.generate(4, (i) => {
-        return {
+      final txns = List.generate(4, (i) {
+        return <String, dynamic>{
           'merchant': 'Netflix',
           'amount': 499,
           'date': DateTime(2026, 2 + i, 15).toIso8601String(),
@@ -55,8 +55,8 @@ void main() {
     });
 
     test('detects weekly patterns', () {
-      final txns = List.generate(5, (i) => {
-        return {
+      final txns = List.generate(5, (i) {
+        return <String, dynamic>{
           'merchant': 'Maid Service',
           'amount': 200,
           'date': DateTime(2026, 3, 1 + (i * 7)).toIso8601String(),
