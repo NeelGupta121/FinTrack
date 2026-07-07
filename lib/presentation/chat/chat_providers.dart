@@ -16,6 +16,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
   bool get isLoading => _isLoading;
 
   Future<void> send(String question) async {
+    if (_isLoading) return; // ignore concurrent sends while one is in flight
     state = [...state, ChatMessage(text: question, isUser: true)];
     _isLoading = true;
     state = [...state]; // trigger rebuild for typing indicator

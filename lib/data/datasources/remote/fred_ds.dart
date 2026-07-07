@@ -25,6 +25,7 @@ class FredDatasource {
       'api_key': _apiKey,
       'file_type': 'json',
     });
+    if (res.data is! Map) return 0.0; // non-JSON error body (HTML/plain text)
     final obs = res.data['observations'] as List? ?? [];
     if (obs.length >= 2) {
       // FRED emits "." for missing/preliminary observations -> tryParse (not parse).
@@ -50,6 +51,7 @@ class FredDatasource {
       'api_key': _apiKey,
       'file_type': 'json',
     });
+    if (res.data is! Map) return 0.0; // non-JSON error body (HTML/plain text)
     final obs = res.data['observations'] as List? ?? [];
     if (obs.isNotEmpty) {
       final rate = double.tryParse('${obs[0]['value']}');

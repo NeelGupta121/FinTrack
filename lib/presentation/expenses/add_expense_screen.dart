@@ -7,7 +7,8 @@ import 'widgets/category_picker.dart';
 import '../../services/receipt_ocr_service.dart';
 
 class AddExpenseScreen extends ConsumerStatefulWidget {
-  const AddExpenseScreen({super.key});
+  final bool autoScan;
+  const AddExpenseScreen({super.key, this.autoScan = false});
 
   @override
   ConsumerState<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -20,6 +21,17 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   String? _categoryId;
   DateTime _date = DateTime.now();
   bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.autoScan) {
+      // Launched from the dashboard "Scan" action — open the camera immediately.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _scanReceipt();
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -112,8 +124,8 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   Future<void> _scanReceipt() async {
     final data = await ReceiptOcrService.scanFromCamera();
     if (!mounted) return;
-    final gotSomething =
-        data != null && (data.amount != null || data.date != null || data.merchant != null);
+    if (data == null) return; // user cancelled the camera — no nagging
+    final gotSomething = data.amount != null || data.date != null || data.merchant != null;
     if (gotSomething) {
       setState(() {
         if (data.amount != null) _amountCtrl.text = data.amount!.toStringAsFixed(0);

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:equatable/equatable.dart';
 
 class RecurringBill extends Equatable {
@@ -35,6 +36,7 @@ class DetectRecurringBills {
 
       final amounts = entry.value.map((t) => (t['amount'] as num? ?? 0).toDouble()).toList();
       final avgAmount = amounts.reduce((a, b) => a + b) / amounts.length;
+      if (avgAmount <= 0) continue; // no meaningful recurring bill for ₹0/negative groups
 
       // Check amount consistency (±5%)
       final consistent = amounts.every((a) => (a - avgAmount).abs() / avgAmount <= 0.05);
@@ -87,12 +89,22 @@ class DetectRecurringBills {
       case BillFrequency.biweekly:
         return lastDate.add(const Duration(days: 14));
       case BillFrequency.monthly:
-        return DateTime(lastDate.year, lastDate.month + 1, lastDate.day);
+        return _addMonths(lastDate, 1);
       case BillFrequency.quarterly:
-        return DateTime(lastDate.year, lastDate.month + 3, lastDate.day);
+        return _addMonths(lastDate, 3);
       case BillFrequency.yearly:
-        return DateTime(lastDate.year + 1, lastDate.month, lastDate.day);
+        return _addMonths(lastDate, 12);
     }
+  }
+
+  /// Adds [months] to [date], clamping the day to the last valid day of the
+  /// target month so e.g. Jan 31 + 1 month = Feb 28 (not Mar 3 via overflow).
+  DateTime _addMonths(DateTime date, int months) {
+    final total = (date.month - 1) + months;
+    final year = date.year + (total ~/ 12);
+    final month = (total % 12) + 1;
+    final lastDay = DateTime(year, month + 1, 0).day; // day 0 of next month = last day
+    return DateTime(year, month, min(date.day, lastDay));
   }
 
   double _calcConfidence(int count, List<double> amounts, double avg) {

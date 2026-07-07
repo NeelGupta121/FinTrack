@@ -60,7 +60,7 @@ class NewsWithSentiment {
   const NewsWithSentiment({required this.article, required this.sentiment});
 }
 
-final newsWithSentimentProvider = FutureProvider.family<List<NewsWithSentiment>, String>((ref, symbol) async {
+final newsWithSentimentProvider = FutureProvider.autoDispose.family<List<NewsWithSentiment>, String>((ref, symbol) async {
   final newsApi = ref.read(newsApiProvider);
   final gemini = ref.read(geminiProvider);
   final articles = await newsApi.getHeadlines(symbol);

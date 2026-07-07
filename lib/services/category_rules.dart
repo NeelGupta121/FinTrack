@@ -5,7 +5,7 @@ class CategoryRules {
     'uber': 'transport_ride', 'ola': 'transport_ride', 'rapido': 'transport_ride',
     'amazon': 'shopping_online', 'flipkart': 'shopping_online', 'myntra': 'shopping_online', 'meesho': 'shopping_online',
     'bigbasket': 'groceries', 'blinkit': 'groceries', 'zepto': 'groceries', 'dmart': 'groceries', 'jiomart': 'groceries',
-    'netflix': 'subscription', 'spotify': 'subscription', 'hotstar': 'subscription', 'prime': 'subscription', 'youtube': 'subscription',
+    'netflix': 'subscription', 'spotify': 'subscription', 'hotstar': 'subscription', 'prime': 'subscription', 'youtube': 'subscription', 'amazon prime': 'subscription',
     'airtel': 'bills_telecom', 'jio': 'bills_telecom', 'vi': 'bills_telecom', 'bsnl': 'bills_telecom',
     'petrol': 'transport_fuel', 'iocl': 'transport_fuel', 'bpcl': 'transport_fuel', 'hpcl': 'transport_fuel',
     'irctc': 'travel', 'makemytrip': 'travel', 'goibibo': 'travel',
@@ -16,10 +16,15 @@ class CategoryRules {
   static final _investmentRe = RegExp(r'SIP|mutual\s*fund|MF|NAV|units|shares|demat|folio', caseSensitive: false);
   static final _subscriptionRe = RegExp(r'subscription|recurring|auto.?debit|emi|instalment', caseSensitive: false);
 
+  // Match longest (most specific) keyword first so compound names win, e.g.
+  // "amazon prime" -> subscription rather than "amazon" -> shopping_online.
+  static final List<MapEntry<String, String>> _sortedMerchants =
+      _merchantMap.entries.toList()..sort((a, b) => b.key.length.compareTo(a.key.length));
+
   /// Returns category if a rule matches, else null (fall through to TFLite).
   static String? match(String merchant, String rawSms) {
     final lower = merchant.toLowerCase();
-    for (final entry in _merchantMap.entries) {
+    for (final entry in _sortedMerchants) {
       if (lower.contains(entry.key)) return entry.value;
     }
     if (_investmentRe.hasMatch(rawSms)) return 'investment';

@@ -51,6 +51,34 @@ void main() {
       expect(parser.parse('123456 is your OTP for a txn of Rs.500. Do not share.'), isNull);
     });
 
+    test('promotional cashback offer is skipped', () {
+      expect(
+        parser.parse('Get Rs.500 cashback on your next order! Offer valid till 31 Dec. T&C apply.'),
+        isNull,
+      );
+    });
+
+    test('promo with a link is skipped', () {
+      expect(
+        parser.parse('FLAT Rs.1000 off on electronics! Shop now https://bit.ly/xyz'),
+        isNull,
+      );
+    });
+
+    test('pre-approved loan offer is skipped', () {
+      expect(
+        parser.parse('Congratulations! You are eligible for a pre-approved loan offer of Rs.5,00,000. Apply now.'),
+        isNull,
+      );
+    });
+
+    test('legit cashback CREDIT with txn evidence is NOT filtered as promo', () {
+      final d = parser.parse('Rs.50 cashback credited to a/c XX1234. Avl Bal Rs.500');
+      expect(d, isNotNull);
+      expect(d!.type, TransactionType.income);
+      expect(d.amount, 50);
+    });
+
     test('messages without an amount are skipped', () {
       expect(parser.parse('Your account statement is ready.'), isNull);
     });

@@ -1,11 +1,13 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 final notificationServiceProvider = Provider((_) => NotificationService());
 
 class NotificationService {
   final _plugin = FlutterLocalNotificationsPlugin();
+  bool _ready = false;
 
   Future<void> init() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -13,10 +15,21 @@ class NotificationService {
     await _plugin.initialize(const InitializationSettings(android: android, iOS: ios));
   }
 
+  /// Lazily initializes the timezone database and the notifications plugin on
+  /// first use, so callers never hit an uninitialized plugin (PlatformException)
+  /// or an unset `tz.local` (LocationNotFound / wrong-time scheduling).
+  Future<void> _ensureReady() async {
+    if (_ready) return;
+    tzdata.initializeTimeZones();
+    await init();
+    _ready = true;
+  }
+
   Future<void> scheduleBillReminder(String merchant, DateTime dueDate, {int daysBefore = 3}) async {
     final scheduledDate = dueDate.subtract(Duration(days: daysBefore));
     if (scheduledDate.isBefore(DateTime.now())) return;
 
+    await _ensureReady();
     await _plugin.zonedSchedule(
       merchant.hashCode,
       'Bill Due Soon',
@@ -33,6 +46,7 @@ class NotificationService {
   }
 
   Future<void> scheduleGoalMilestone(String goalName, int percentReached) async {
+    await _ensureReady();
     await _plugin.show(
       goalName.hashCode + percentReached,
       '🎯 Goal Milestone!',
@@ -45,6 +59,7 @@ class NotificationService {
 
   Future<void> budgetThresholdAlert(String category, double percentUsed) async {
     if (percentUsed < 80) return;
+    await _ensureReady();
     await _plugin.show(
       category.hashCode,
       '⚠️ Budget Alert',

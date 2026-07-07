@@ -96,7 +96,7 @@ class DashboardScreen extends ConsumerWidget {
               children: [
                 _QuickAction(icon: Icons.add, label: 'Expense', onTap: () => context.push('/expenses/add')),
                 const SizedBox(width: 12),
-                _QuickAction(icon: Icons.camera_alt, label: 'Scan', onTap: () => context.push('/expenses/add')),
+                _QuickAction(icon: Icons.camera_alt, label: 'Scan', onTap: () => context.push('/expenses/add?scan=1')),
                 const SizedBox(width: 12),
                 _QuickAction(icon: Icons.show_chart, label: 'Holding', onTap: () => context.push('/investments/add')),
               ],

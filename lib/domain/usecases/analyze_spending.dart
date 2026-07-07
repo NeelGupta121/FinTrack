@@ -16,7 +16,7 @@ class Anomaly {
     required this.zScore,
   });
 
-  double get percentAboveAverage => ((amount - average) / average) * 100;
+  double get percentAboveAverage => average == 0 ? 0 : ((amount - average) / average) * 100;
 }
 
 class AnalyzeSpendingUseCase {

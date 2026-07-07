@@ -61,6 +61,7 @@ class GeminiDatasource {
         'generationConfig': {'temperature': 0.3, 'maxOutputTokens': 512},
       },
     );
+    if (res.data is! Map) return ''; // non-JSON error body (quota HTML, gateway page)
     final candidates = res.data['candidates'] as List?;
     if (candidates == null || candidates.isEmpty) return '';
     // A safety-blocked candidate has no 'content'/'parts' -> navigate null-safely.

@@ -26,13 +26,16 @@ class AlphaVantageDs {
   /// Error Message (bad symbol) instead of quote data. Surface these as errors
   /// so callers get an error state rather than a silently-wrong 0.
   void _checkApiError(dynamic data) {
-    if (data is Map) {
-      if (data['Note'] != null || data['Information'] != null) {
-        throw Exception('Alpha Vantage rate limit reached (25/day free tier)');
-      }
-      if (data['Error Message'] != null) {
-        throw Exception('Alpha Vantage error: ${data['Error Message']}');
-      }
+    if (data is! Map) {
+      // Non-JSON body (e.g. HTML 503, plain-text throttle) — subscripting it
+      // would throw NoSuchMethodError; surface a clean error instead.
+      throw Exception('Alpha Vantage: unexpected response format');
+    }
+    if (data['Note'] != null || data['Information'] != null) {
+      throw Exception('Alpha Vantage rate limit reached (25/day free tier)');
+    }
+    if (data['Error Message'] != null) {
+      throw Exception('Alpha Vantage error: ${data['Error Message']}');
     }
   }
 

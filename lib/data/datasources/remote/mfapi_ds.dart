@@ -36,6 +36,7 @@ class MfapiDs {
 
   Future<List<NavPoint>> getHistoricalNav(String schemeCode) async {
     final res = await _dio.get('https://api.mfapi.in/mf/$schemeCode');
+    if (res.data is! Map) return []; // non-JSON error body (CDN/proxy HTML)
     final data = res.data['data'] as List? ?? [];
     return data.take(30).map((e) => NavPoint(
       date: _parseDate(e['date'] as String?),

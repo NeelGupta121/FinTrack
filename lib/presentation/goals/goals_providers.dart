@@ -34,16 +34,17 @@ class FinancialGoal {
       );
 }
 
-final goalsListProvider = FutureProvider<List<FinancialGoal>>((ref) async {
+final goalsListProvider = FutureProvider.autoDispose<List<FinancialGoal>>((ref) async {
   final items = LocalDatabase.goals.values.toList();
   items.sort((a, b) => (a['created_at'] as String? ?? '').compareTo(b['created_at'] as String? ?? ''));
   return items.map((e) => FinancialGoal.fromJson(Map<String, dynamic>.from(e))).toList();
 });
 
-final goalProgressProvider = Provider.family<Map<String, dynamic>, FinancialGoal>((ref, goal) {
+final goalProgressProvider = Provider.autoDispose.family<Map<String, dynamic>, FinancialGoal>((ref, goal) {
   const monthlySavings = 5000.0;
   final remaining = goal.remaining;
-  final monthsNeeded = remaining > 0 ? (remaining / monthlySavings).ceil() : 0;
+  // Cap to keep eta within valid DateTime range for astronomical targets.
+  final monthsNeeded = remaining > 0 ? min((remaining / monthlySavings).ceil(), 12000) : 0;
   final eta = DateTime.now().add(Duration(days: monthsNeeded * 30));
   final onTrack = goal.deadline == null || eta.isBefore(goal.deadline!);
 
@@ -57,7 +58,7 @@ final goalProgressProvider = Provider.family<Map<String, dynamic>, FinancialGoal
   };
 });
 
-final addGoalProvider = FutureProvider.family<void, Map<String, dynamic>>((ref, data) async {
+final addGoalProvider = FutureProvider.autoDispose.family<void, Map<String, dynamic>>((ref, data) async {
   final id = LocalDatabase.newId();
   await LocalDatabase.goals.put(id, {
     'id': id,

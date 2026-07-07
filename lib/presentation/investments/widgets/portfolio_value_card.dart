@@ -16,11 +16,13 @@ class PortfolioValueCard extends StatelessWidget {
     final isDayUp = portfolio.dayChange >= 0;
     final lineColor = isProfit ? AppTheme.positive : AppTheme.negative;
 
-    final spots = <FlSpot>[
-      for (var i = 0; i < portfolio.sparkline.length; i++)
-        FlSpot(i.toDouble(), portfolio.sparkline[i]),
-      if (portfolio.sparkline.length == 1) FlSpot(1, portfolio.sparkline.first),
-    ];
+    final raw = portfolio.sparkline;
+    final spots = raw.isEmpty
+        ? const [FlSpot(0, 0), FlSpot(1, 0)] // fl_chart needs >=2 points
+        : <FlSpot>[
+            for (var i = 0; i < raw.length; i++) FlSpot(i.toDouble(), raw[i]),
+            if (raw.length == 1) FlSpot(1, raw.first),
+          ];
 
     return Card(
       child: Padding(

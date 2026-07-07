@@ -54,7 +54,7 @@ class AiChatService {
       buf.writeln('\n## Holdings (${holdings.length})');
       for (final h in holdings) {
         final val = ((h['quantity'] as num?)?.toDouble() ?? 0) *
-            ((h['currentPrice'] as num?)?.toDouble() ?? (h['buyPrice'] as num?)?.toDouble() ?? 0);
+            ((h['avg_price'] as num?)?.toDouble() ?? 0);
         portfolioValue += val;
         buf.writeln('  - ${h['name'] ?? h['symbol']}: ₹${val.toStringAsFixed(0)}');
       }
@@ -66,7 +66,7 @@ class AiChatService {
     if (goals.isNotEmpty) {
       buf.writeln('\n## Goals');
       for (final g in goals) {
-        buf.writeln('  - ${g['name']}: ₹${g['saved'] ?? 0} / ₹${g['target'] ?? 0}');
+        buf.writeln('  - ${g['name']}: ₹${g['current_amount'] ?? 0} / ₹${g['target_amount'] ?? 0}');
       }
     }
     return buf.toString();

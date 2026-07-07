@@ -38,6 +38,16 @@ class SmsParserService {
       r'\bOTP\b|one[\s-]?time\s?password|do not share|verification code|security code',
       caseSensitive: false);
 
+  // Promotional / marketing texts (offers, coupons, links). Skipped UNLESS the
+  // message also carries hard evidence of a completed transaction — so a real
+  // "Rs.50 cashback credited … Avl Bal …" still imports.
+  static final _promoRe = RegExp(
+      r'\b(?:offer|offers|sale|discount|coupon|voucher|win|winner|congratulations|prize|lucky|apply\s+now|pre[\s-]?approved|eligible|limited\s+period|hurry|lowest\s+price|buy\s+now|shop\s+now|deal|deals|unsubscribe|loan\s+offer|emi\s+offer)\b|https?://|bit\.ly|t&c|%\s*off|flat\s+(?:rs\.?|inr|₹)',
+      caseSensitive: false);
+  static final _txnEvidenceRe = RegExp(
+      r'\b(?:debited|credited|deducted|withdrawn)\b|avl\.?\s*bal|available\s+bal|\bref\s*(?:no|#|:)|\butr\b|\brrn\b|txn\s*(?:id|no|#)|a/?c\s*(?:x|no|\*|\d)|ending\s+\d{3,}',
+      caseSensitive: false);
+
   // Reference number
   static final _refRe = RegExp(r'(?:ref|txn|utr|rrn)[:\s#]*([A-Za-z0-9]+)', caseSensitive: false);
 
@@ -53,6 +63,7 @@ class SmsParserService {
 
   TransactionDraft? parse(String sms) {
     if (_skipRe.hasMatch(sms)) return null; // OTP / verification — not a transaction
+    if (_promoRe.hasMatch(sms) && !_txnEvidenceRe.hasMatch(sms)) return null; // promo/spam
     final amountMatch = _amountRe.firstMatch(sms);
     if (amountMatch == null) return null;
 

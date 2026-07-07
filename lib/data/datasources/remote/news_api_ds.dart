@@ -40,8 +40,13 @@ class NewsApiDatasource {
         'sortBy': 'publishedAt',
         'apiKey': Env.newsApiKey,
       });
-      final articles = (res.data['articles'] as List?) ?? [];
-      return articles.map((a) => NewsArticle.fromJson(a)).toList();
+      final body = res.data;
+      if (body is! Map) return <NewsArticle>[]; // rate-limit/error bodies can be plain text
+      final articles = (body['articles'] as List?) ?? [];
+      return articles
+          .whereType<Map>()
+          .map((a) => NewsArticle.fromJson(Map<String, dynamic>.from(a)))
+          .toList();
     });
   }
 }

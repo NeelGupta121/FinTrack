@@ -67,5 +67,30 @@ void main() {
       expect(bills.length, 1);
       expect(bills[0].frequency, BillFrequency.weekly);
     });
+
+    test('next-due date clamps day for short months (Jan 31 -> Feb 28)', () {
+      // Two monthly charges ending Jan 31 -> next due must be Feb 28 (2026 is
+      // not a leap year), NOT Mar 3 from DateTime overflow normalization.
+      final txns = [
+        {'merchant': 'Rent', 'amount': 15000, 'date': '2025-12-31'},
+        {'merchant': 'Rent', 'amount': 15000, 'date': '2026-01-31'},
+      ];
+
+      final bills = useCase.call(txns);
+      expect(bills.length, 1);
+      expect(bills[0].frequency, BillFrequency.monthly);
+      expect(bills[0].nextDueDate, DateTime(2026, 2, 28));
+    });
+
+    test('skips zero-amount groups (no NaN / phantom ₹0 bill)', () {
+      final txns = [
+        {'merchant': 'Free Trial', 'amount': 0, 'date': '2026-01-10'},
+        {'merchant': 'Free Trial', 'amount': 0, 'date': '2026-02-10'},
+        {'merchant': 'Free Trial', 'amount': 0, 'date': '2026-03-10'},
+      ];
+
+      final bills = useCase.call(txns);
+      expect(bills, isEmpty);
+    });
   });
 }
