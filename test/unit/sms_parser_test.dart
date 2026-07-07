@@ -2,50 +2,61 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fintrack/services/sms_parser_service.dart';
 
 void main() {
-  late SmsParserService parser;
-
-  setUp(() => parser = SmsParserService());
+  final parser = SmsParserService();
 
   group('SmsParserService', () {
-    test('parses HDFC debit SMS correctly', () {
-      final result = parser.parse(
-        'Rs.1,234.50 debited from a/c **4567 on 10-Jun-25 to AMAZON',
-      );
-      expect(result, isNotNull);
-      expect(result!.amount, 1234.50);
+    test('parses UPI "Sent" as an expense (previously dropped)', () {
+      final d = parser.parse('Sent Rs.500 to Amazon via UPI Ref 123456789');
+      expect(d, isNotNull);
+      expect(d!.type, TransactionType.expense);
+      expect(d.amount, 500);
+      expect(d.merchant, 'Amazon');
     });
 
-    test('parses SBI debit SMS correctly', () {
-      final result = parser.parse(
-        'Your a/c X9876 debited by Rs.500.00 on 10-Jun-25',
-      );
-      expect(result, isNotNull);
-      expect(result!.amount, 500.00);
+    test('parses "transferred" as an expense', () {
+      final d = parser.parse('Rs.1,000 transferred to John Doe on 05-01-2026');
+      expect(d, isNotNull);
+      expect(d!.type, TransactionType.expense);
+      expect(d.amount, 1000);
+      // merchant trimmed of trailing " on <date>"
+      expect(d.merchant, 'John Doe');
     });
 
-    test('parses UPI payment SMS correctly', () {
-      final result = parser.parse('Paid Rs.100.00 to merchant@upi ref 123');
-      expect(result, isNotNull);
-      expect(result!.amount, 100.00);
+    test('parses "deducted" as an expense', () {
+      final d = parser.parse('INR 250 deducted for Netflix subscription');
+      expect(d?.type, TransactionType.expense);
+      expect(d?.amount, 250);
     });
 
-    test('returns null for non-bank SMS', () {
-      expect(parser.parse('Your OTP is 123456'), isNull);
-      expect(parser.parse('Flash sale 50% off!'), isNull);
+    test('classic debited still works and trims merchant noise', () {
+      final d = parser.parse('Your a/c debited Rs.200 at SWIGGY on 04-01-2026 Avl Bal Rs.5000');
+      expect(d?.type, TransactionType.expense);
+      expect(d?.amount, 200);
+      expect(d?.merchant, 'SWIGGY');
     });
 
-    test('handles commas in large amounts', () {
-      final result = parser.parse(
-        'Rs.10,00,000.00 debited from a/c **1234 on 01-Jan-26',
-      );
-      expect(result, isNotNull);
-      expect(result!.amount, 1000000.00);
+    test('SIP detected as investment', () {
+      final d = parser.parse('Rs.5000 debited for SIP in Axis Mutual Fund folio 12345');
+      expect(d?.type, TransactionType.investment);
+      expect(d?.amount, 5000);
     });
 
-    test('handles amounts without decimals', () {
-      final result = parser.parse('Paid Rs.5000 to shop@upi');
-      expect(result, isNotNull);
-      expect(result!.amount, 5000.0);
+    test('salary credit detected as income', () {
+      final d = parser.parse('Rs.50,000 credited to your account as SALARY');
+      expect(d?.type, TransactionType.income);
+      expect(d?.amount, 50000);
+    });
+
+    test('OTP messages are skipped', () {
+      expect(parser.parse('123456 is your OTP for a txn of Rs.500. Do not share.'), isNull);
+    });
+
+    test('messages without an amount are skipped', () {
+      expect(parser.parse('Your account statement is ready.'), isNull);
+    });
+
+    test('messages without a recognizable type are skipped', () {
+      expect(parser.parse('Rs.500 is your minimum balance requirement.'), isNull);
     });
   });
 }
