@@ -34,8 +34,20 @@ import '../utils/logger.dart';
 ///   api.stlouisfed.org                 Orjlkc2Nt2Rg5a5/GVYkCfBbqjaBmQCMmDbm7I8XhL0=
 class CertPinner {
   /// host -> allowed whole-certificate SHA-256 fingerprints (base64).
-  /// EMPTY = pinning disabled (standard TLS). Populate ONLY for hosts you own.
-  static const Map<String, Set<String>> pins = {};
+  /// Empty by default (standard TLS). Register at runtime via [pin] for a
+  /// first-party host. Prefer >=2 fingerprints (current + backup) and refresh
+  /// them via remote config so a cert renewal never forces an app release.
+  static final Map<String, Set<String>> _pins = {};
+
+  /// Registers [fingerprints] (whole-cert SHA-256, base64) for [host].
+  /// Call once at startup, before the first request to that host.
+  static void pin(String host, Set<String> fingerprints) {
+    if (fingerprints.isEmpty) return;
+    _pins[host] = {...fingerprints};
+  }
+
+  /// Whether any host is currently pinned (enforcement active).
+  static bool get isEnabled => _pins.isNotEmpty;
 
   /// A Dio adapter that enforces [pins] on top of the platform's default TLS
   /// trust. Hosts without a configured pin fall through to standard validation.
@@ -57,7 +69,7 @@ class CertPinner {
   }
 
   static Set<String>? _pinsFor(String host) {
-    for (final e in pins.entries) {
+    for (final e in _pins.entries) {
       if (host == e.key || host.endsWith('.${e.key}')) return e.value;
     }
     return null;

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import '../../../core/security/cert_pinner.dart';
 
 /// Client for the server-side AI proxy (Supabase Edge Function `ai-proxy`).
 ///
@@ -21,7 +22,19 @@ class AiProxyDatasource {
     required this.functionUrl,
     required this.anonKey,
     Dio? dio,
-  }) : _dio = dio ?? Dio();
+  }) : _dio = dio ?? (Dio()..httpClientAdapter = CertPinner.buildAdapter());
+
+  /// Enables certificate pinning for the proxy's Supabase host. Call once at
+  /// startup with the current + backup whole-cert SHA-256 fingerprints. Fetch:
+  ///   echo | openssl s_client -connect <ref>.supabase.co:443 \
+  ///     -servername <ref>.supabase.co 2>/dev/null | openssl x509 -outform der \
+  ///     | openssl dgst -sha256 -binary | openssl enc -base64
+  /// Register >=2 (rotate-ahead) and refresh via remote config on renewal so a
+  /// cert rotation never bricks the proxy.
+  static void enablePinning(String functionUrl, Set<String> fingerprints) {
+    final host = Uri.parse(functionUrl).host;
+    if (host.isNotEmpty) CertPinner.pin(host, fingerprints);
+  }
 
   Future<dynamic> _call(String accessToken, Map<String, dynamic> body) async {
     final res = await _dio.post(
