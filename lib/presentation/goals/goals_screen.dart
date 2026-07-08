@@ -36,12 +36,56 @@ class GoalsScreen extends ConsumerWidget {
                   final progress = ref.watch(goalProgressProvider(goal));
                   return FadeSlideIn(
                     index: i < 6 ? i : 6,
-                    child: PressableScale(scale: 0.97, child: GoalCard(goal: goal, progress: progress)),
+                    child: PressableScale(
+                      scale: 0.97,
+                      child: GoalCard(
+                        goal: goal,
+                        progress: progress,
+                        onAddFunds: () => _showAddFundsDialog(context, ref, goal),
+                      ),
+                    ),
                   );
                 },
               ),
       ),
     );
+  }
+
+  void _showAddFundsDialog(BuildContext context, WidgetRef ref, FinancialGoal goal) {
+    final messenger = ScaffoldMessenger.of(context);
+    final amountCtrl = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Add funds to ${goal.name}'),
+        content: TextField(
+          controller: amountCtrl,
+          keyboardType: TextInputType.number,
+          autofocus: true,
+          decoration: const InputDecoration(labelText: 'Amount', prefixText: '₹ '),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          FilledButton(
+            onPressed: () async {
+              final amount = double.tryParse(amountCtrl.text.trim());
+              if (amount == null || amount <= 0) {
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Enter an amount greater than 0')),
+                );
+                return;
+              }
+              Navigator.pop(ctx);
+              await ref.read(addFundsProvider((goalId: goal.id, amount: amount)).future);
+              messenger.showSnackBar(
+                SnackBar(content: Text('Added ₹${amount.toStringAsFixed(0)} to ${goal.name}')),
+              );
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    ).whenComplete(amountCtrl.dispose);
   }
 
   void _showAddGoalSheet(BuildContext context, WidgetRef ref) {

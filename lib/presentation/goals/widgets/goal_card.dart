@@ -5,8 +5,9 @@ import '../goals_providers.dart';
 class GoalCard extends StatelessWidget {
   final FinancialGoal goal;
   final Map<String, dynamic> progress;
+  final VoidCallback? onAddFunds;
 
-  const GoalCard({super.key, required this.goal, required this.progress});
+  const GoalCard({super.key, required this.goal, required this.progress, this.onAddFunds});
 
   IconData get _icon => switch (goal.type) {
         GoalType.emergency => Icons.shield,
@@ -72,6 +73,19 @@ class GoalCard extends StatelessWidget {
                 Text('₹${goal.remaining.toStringAsFixed(0)} left', style: Theme.of(context).textTheme.bodySmall),
               ],
             ),
+            if (onAddFunds != null && goal.progress < 1.0)
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton.icon(
+                  onPressed: onAddFunds,
+                  icon: const Icon(Icons.add, size: 16),
+                  label: const Text('Add funds'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    visualDensity: VisualDensity.compact,
+                  ),
+                ),
+              ),
           ],
         ),
       ),

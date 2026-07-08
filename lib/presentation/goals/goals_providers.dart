@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
+import '../../services/notification_service.dart';
 
 enum GoalType { emergency, retirement, purchase, travel, education, custom }
 
@@ -66,4 +67,38 @@ final addGoalProvider = FutureProvider.autoDispose.family<void, Map<String, dyna
     ...data,
   });
   ref.invalidate(goalsListProvider);
+});
+
+/// Add a contribution to an existing goal's saved amount. Previously goals were
+/// create-only (current_amount stuck at 0), so progress never advanced. The new
+/// total is clamped to [0, target] so a goal maxes out at 100% ("Done").
+final addFundsProvider =
+    FutureProvider.autoDispose.family<void, ({String goalId, double amount})>((ref, args) async {
+  final raw = LocalDatabase.goals.get(args.goalId);
+  if (raw == null) return;
+  final map = Map<String, dynamic>.from(raw);
+  final current = (map['current_amount'] as num? ?? 0).toDouble();
+  final target = (map['target_amount'] as num? ?? 0).toDouble();
+  final next = current + args.amount;
+  final updated = target > 0 ? next.clamp(0.0, target) : max(0.0, next);
+  map['current_amount'] = updated;
+  await LocalDatabase.goals.put(args.goalId, map);
+  ref.invalidate(goalsListProvider);
+
+  // Fire a milestone notification for the highest threshold newly crossed
+  // (no-op on web). Distinct notification IDs per milestone avoid dupes.
+  if (target > 0) {
+    final oldPct = current / target * 100;
+    final newPct = updated / target * 100;
+    int? crossed;
+    for (final m in [25, 50, 75, 100]) {
+      if (oldPct < m && newPct >= m) crossed = m;
+    }
+    if (crossed != null) {
+      ref.read(notificationServiceProvider).scheduleGoalMilestone(
+            map['name'] as String? ?? 'Goal',
+            crossed,
+          );
+    }
+  }
 });
