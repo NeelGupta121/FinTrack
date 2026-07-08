@@ -78,8 +78,10 @@ class SmartImportService {
 
   /// Normalizes any stored date value (full ISO or 'yyyy-MM-dd') to 'yyyy-MM-dd'
   /// so dedup compares like-for-like regardless of which writer stored it.
-  static String? _day(dynamic v) =>
-      v is String && v.length >= 10 ? v.substring(0, 10) : v as String?;
+  static String? _day(dynamic v) {
+    if (v is String) return v.length >= 10 ? v.substring(0, 10) : v;
+    return null; // non-String (e.g. epoch int) — no unchecked cast/throw
+  }
 
   bool _isDuplicate(TransactionDraft draft) {
     final draftDay = (draft.date ?? DateTime.now()).toIso8601String().substring(0, 10);

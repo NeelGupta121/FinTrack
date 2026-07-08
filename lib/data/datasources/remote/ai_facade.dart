@@ -2,6 +2,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../core/config/env.dart';
 import 'ai_proxy_ds.dart';
 import 'gemini_ds.dart';
+import '../../../core/utils/logger.dart';
 
 /// Routes AI calls through the secure server-side proxy when Supabase is
 /// configured (`Env.useAiProxy`) AND an authenticated session exists; otherwise
@@ -41,7 +42,9 @@ class AiFacade {
           score: (m['score'] as num?)?.toDouble() ?? 0.0,
           reason: (m['reason'] as String?) ?? '',
         );
-      } catch (_) {
+      } catch (e) {
+        AppLogger.warning('AI proxy sentiment failed; using direct path',
+            tag: 'AiFacade', error: e);
         // fall through to the direct path on any proxy failure
       }
     }
@@ -54,7 +57,9 @@ class AiFacade {
     if (proxy != null && token != null) {
       try {
         return await proxy.portfolioReview(token, holdings);
-      } catch (_) {
+      } catch (e) {
+        AppLogger.warning('AI proxy portfolioReview failed; using direct path',
+            tag: 'AiFacade', error: e);
         // fall through to the direct path
       }
     }

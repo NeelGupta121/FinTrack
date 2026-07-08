@@ -4,6 +4,7 @@ import 'package:fintrack/core/config/env.dart';
 import 'package:fintrack/core/network/rate_limiter.dart';
 import 'package:fintrack/data/datasources/local/local_database.dart';
 import 'package:fintrack/data/datasources/remote/ai_proxy_ds.dart';
+import 'package:fintrack/core/utils/logger.dart';
 
 class AiChatService {
   static final _dio = Dio();
@@ -100,7 +101,9 @@ class AiChatService {
             anonKey: Env.supabaseAnonKey,
           );
           return await proxy.askQuestion(token, question, {'summary': buildContext()});
-        } catch (_) {
+        } catch (e) {
+          AppLogger.warning('AI proxy askQuestion failed; using direct path',
+              tag: 'AiChat', error: e);
           // fall back to the direct path
         }
       }
@@ -128,16 +131,22 @@ class AiChatService {
           },
         );
 
-        final candidates = response.data['candidates'] as List?;
+        final data = response.data;
+        if (data is! Map) {
+          // Non-JSON 200 body (gateway/throttle HTML) — don't crash on subscript.
+          return 'Sorry, I could not generate a response. Please try again.';
+        }
+        final candidates = data['candidates'] as List?;
         if (candidates != null && candidates.isNotEmpty) {
-          final content = candidates[0]['content'];
-          final resParts = content['parts'] as List?;
+          final content = (candidates[0] as Map?)?['content'];
+          final resParts = (content is Map ? content['parts'] : null) as List?;
           if (resParts != null && resParts.isNotEmpty) {
-            return resParts[0]['text'] as String;
+            final text = (resParts[0] as Map?)?['text'];
+            if (text is String) return text;
           }
         }
         // Check for safety blocks / empty response
-        final blockReason = response.data['promptFeedback']?['blockReason'];
+        final blockReason = (data['promptFeedback'] as Map?)?['blockReason'];
         if (blockReason != null) return 'Response blocked: $blockReason. Try rephrasing.';
         return 'Sorry, I could not generate a response. Please try again.';
       } on DioException catch (e) {

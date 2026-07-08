@@ -45,6 +45,7 @@ class GoalsScreen extends ConsumerWidget {
   }
 
   void _showAddGoalSheet(BuildContext context, WidgetRef ref) {
+    final messenger = ScaffoldMessenger.of(context);
     final nameCtrl = TextEditingController();
     final amountCtrl = TextEditingController();
     var selectedType = GoalType.custom;
@@ -79,7 +80,7 @@ class GoalsScreen extends ConsumerWidget {
                 onPressed: () async {
                   final amount = double.tryParse(amountCtrl.text.trim());
                   if (nameCtrl.text.trim().isEmpty || amount == null || amount <= 0) {
-                    ScaffoldMessenger.of(ctx).showSnackBar(
+                    messenger.showSnackBar(
                       const SnackBar(content: Text('Enter a name and a target amount greater than 0')),
                     );
                     return;
