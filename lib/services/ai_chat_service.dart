@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fintrack/core/config/env.dart';
 import 'package:fintrack/core/network/rate_limiter.dart';
 import 'package:fintrack/data/datasources/local/local_database.dart';
+import 'package:fintrack/data/datasources/remote/ai_proxy_ds.dart';
 
 class AiChatService {
   static final _dio = Dio();
@@ -79,7 +81,30 @@ class AiChatService {
         q.contains('crypto') || q.contains('bitcoin');
   }
 
+  static String? _proxyToken() {
+    try {
+      return Supabase.instance.client.auth.currentSession?.accessToken;
+    } catch (_) {
+      return null; // Supabase not initialized
+    }
+  }
+
   static Future<String> askQuestion(String question) async {
+    // Prefer the secure server-side proxy when configured + authenticated.
+    if (Env.useAiProxy) {
+      final token = _proxyToken();
+      if (token != null) {
+        try {
+          final proxy = AiProxyDatasource(
+            functionUrl: '${Env.supabaseUrl}/functions/v1/ai-proxy',
+            anonKey: Env.supabaseAnonKey,
+          );
+          return await proxy.askQuestion(token, question, {'summary': buildContext()});
+        } catch (_) {
+          // fall back to the direct path
+        }
+      }
+    }
     const key = Env.geminiApiKey;
     if (key.isEmpty) {
       return 'AI chat is not configured. Please try again later.';

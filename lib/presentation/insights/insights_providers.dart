@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/utils/logger.dart';
 import '../../data/datasources/remote/news_api_ds.dart';
 import '../../data/datasources/remote/gemini_ds.dart';
+import '../../data/datasources/remote/ai_facade.dart';
 import '../../domain/entities/transaction.dart';
 import '../../domain/entities/holding.dart';
 import '../../domain/usecases/analyze_spending.dart';
@@ -10,7 +11,8 @@ import '../expenses/expense_providers.dart';
 import '../investments/investment_providers.dart';
 
 final newsApiProvider = Provider((ref) => NewsApiDatasource());
-final geminiProvider = Provider((ref) => GeminiDatasource());
+// Routes through the secure proxy when configured, else direct Gemini.
+final geminiProvider = Provider((ref) => AiFacade());
 final analyzeSpendingProvider = Provider((ref) => AnalyzeSpendingUseCase());
 final analyzePortfolioProvider = Provider((ref) => AnalyzePortfolioUseCase());
 

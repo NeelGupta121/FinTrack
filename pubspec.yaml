@@ -24,6 +24,9 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_secure_storage: ^9.2.2
 
+  # Backend (optional secure AI proxy — only used when SUPABASE_URL is set)
+  supabase_flutter: ^2.14.2
+
   # AI/ML
   tflite_flutter: ^0.11.0
   google_generative_ai: ^0.4.3
