@@ -22,6 +22,11 @@ create policy "users read own ai_usage"
 -- they are still within the daily limit. SECURITY DEFINER lets it write past RLS;
 -- auth.uid() resolves from the caller's JWT, so it cannot be spoofed to another
 -- user. Returns false when unauthenticated or over the limit.
+--
+-- p_limit is treated as a HINT only: it is hard-clamped to [1, 100] below, so a
+-- user calling this RPC directly via PostgREST cannot pass an inflated limit to
+-- defeat the quota. Raise the ceiling here (and AI_DAILY_LIMIT in the function)
+-- together if a higher cap is ever needed.
 create or replace function public.increment_ai_usage(p_limit int)
 returns boolean
 language plpgsql
@@ -31,10 +36,16 @@ as $$
 declare
   v_user uuid := auth.uid();
   v_count int;
+  v_limit int := least(greatest(coalesce(p_limit, 100), 1), 100); -- hard ceiling
 begin
   if v_user is null then
     return false;
   end if;
+
+  -- Opportunistic retention: prune this user's rows older than 30 days so the
+  -- table cannot grow unbounded (1 row/user/day otherwise persists forever).
+  delete from ai_usage
+  where user_id = v_user and day < current_date - interval '30 days';
 
   insert into ai_usage (user_id, day, count)
   values (v_user, current_date, 1)
@@ -42,7 +53,7 @@ begin
   do update set count = ai_usage.count + 1
   returning count into v_count;
 
-  return v_count <= p_limit;
+  return v_count <= v_limit;
 end;
 $$;
 
