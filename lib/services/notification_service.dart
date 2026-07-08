@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:timezone/data/latest.dart' as tzdata;
@@ -22,10 +23,19 @@ class NotificationService {
     if (_ready) return;
     tzdata.initializeTimeZones();
     await init();
+    // Android 13+ (API 33) and iOS require a runtime notification-permission
+    // grant before any notification is delivered. Requested here on first use.
+    await _plugin
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
+    await _plugin
+        .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(alert: true, badge: true, sound: true);
     _ready = true;
   }
 
   Future<void> scheduleBillReminder(String merchant, DateTime dueDate, {int daysBefore = 3}) async {
+    if (kIsWeb) return; // local notifications unavailable on web
     final scheduledDate = dueDate.subtract(Duration(days: daysBefore));
     if (scheduledDate.isBefore(DateTime.now())) return;
 
@@ -46,6 +56,7 @@ class NotificationService {
   }
 
   Future<void> scheduleGoalMilestone(String goalName, int percentReached) async {
+    if (kIsWeb) return;
     await _ensureReady();
     await _plugin.show(
       goalName.hashCode + percentReached,
@@ -58,6 +69,7 @@ class NotificationService {
   }
 
   Future<void> budgetThresholdAlert(String category, double percentUsed) async {
+    if (kIsWeb) return;
     if (percentUsed < 80) return;
     await _ensureReady();
     await _plugin.show(

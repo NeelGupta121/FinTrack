@@ -16,6 +16,7 @@ class ExpenseListScreen extends ConsumerWidget {
     final expenses = ref.watch(expenseListProvider);
     final summary = ref.watch(monthlySummaryProvider);
     final filter = ref.watch(expenseFilterProvider);
+    ref.watch(budgetAlertProvider); // fires >=80% budget alert (no-op on web)
 
     return Scaffold(
       appBar: AppBar(title: const Text('Expenses')),

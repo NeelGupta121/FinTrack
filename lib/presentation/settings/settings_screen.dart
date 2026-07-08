@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/smart_import_service.dart';
 import '../../data/datasources/local/tflite_datasource.dart';
+import '../../data/datasources/local/local_database.dart';
 import '../expenses/expense_providers.dart';
 import '../investments/investment_providers.dart';
 
@@ -69,6 +70,46 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
+  Future<void> _editBudget(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final current = ref.read(monthlyBudgetProvider);
+    final ctrl = TextEditingController(text: current.toStringAsFixed(0));
+    return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Monthly budget'),
+        content: TextField(
+          controller: ctrl,
+          keyboardType: TextInputType.number,
+          autofocus: true,
+          decoration: const InputDecoration(labelText: 'Budget', prefixText: '₹ '),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          FilledButton(
+            onPressed: () async {
+              final value = double.tryParse(ctrl.text.trim());
+              if (value == null || value <= 0) {
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Enter a budget greater than 0')),
+                );
+                return;
+              }
+              Navigator.pop(ctx);
+              await LocalDatabase.settings.put('monthly_budget', value);
+              ref.invalidate(monthlyBudgetProvider);
+              ref.invalidate(monthlySummaryProvider);
+              messenger.showSnackBar(
+                SnackBar(content: Text('Monthly budget set to ₹${value.toStringAsFixed(0)}')),
+              );
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    ).whenComplete(ctrl.dispose);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
@@ -95,6 +136,12 @@ class SettingsScreen extends ConsumerWidget {
             title: const Text('Currency'),
             trailing: const Text('INR (₹)'),
             onTap: () {},
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_balance_wallet),
+            title: const Text('Monthly budget'),
+            trailing: Text('₹${ref.watch(monthlyBudgetProvider).toStringAsFixed(0)}'),
+            onTap: () => _editBudget(context, ref),
           ),
           SwitchListTile(
             secondary: const Icon(Icons.dark_mode),

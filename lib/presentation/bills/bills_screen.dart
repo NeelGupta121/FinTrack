@@ -12,6 +12,7 @@ class BillsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final billsAsync = ref.watch(recurringBillsProvider);
+    ref.watch(billReminderProvider); // schedules reminders for upcoming bills (no-op on web)
 
     return Scaffold(
       appBar: AppBar(title: const Text('Bills & Subscriptions')),

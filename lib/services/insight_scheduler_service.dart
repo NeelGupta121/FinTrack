@@ -1,4 +1,8 @@
 import 'package:workmanager/workmanager.dart';
+import '../data/datasources/local/local_database.dart';
+import '../domain/entities/transaction.dart';
+import '../domain/usecases/analyze_spending.dart';
+import '../core/utils/logger.dart';
 
 const _taskDaily = 'com.fintrack.dailyInsights';
 
@@ -25,8 +29,41 @@ class InsightSchedulerService {
   }
 
   static Future<void> _runDailyAnalysis() async {
-    // In production: instantiate datasources, run anomaly detection,
-    // fetch news + sentiment, save results to Hive insights box.
-    // This runs headless via Workmanager — no UI context available.
+    // Runs headless in a fresh Workmanager isolate — NO app state is available,
+    // so Hive must be initialized here before any box access.
+    try {
+      await LocalDatabase.init();
+
+      final txns = LocalDatabase.transactions.values.map((e) {
+        final m = Map<String, dynamic>.from(e);
+        return Transaction(
+          id: m['id'] as String? ?? '',
+          amount: (m['amount'] as num? ?? 0).toDouble(),
+          type: m['type'] as String? ?? 'expense',
+          description: m['description'] as String?,
+          merchant: m['merchant'] as String?,
+          date: DateTime.tryParse(m['date'] as String? ?? '') ?? DateTime(2000),
+          categoryId: m['category_id'] as String?,
+          source: m['source'] as String? ?? 'manual',
+        );
+      }).toList();
+
+      final anomalies = AnalyzeSpendingUseCase().detectAnomalies(txns);
+
+      // Persist a lightweight daily insight record (idempotent per day).
+      final day = DateTime.now().toIso8601String().substring(0, 10);
+      await LocalDatabase.insights.put('daily_$day', {
+        'id': 'daily_$day',
+        'type': 'daily_analysis',
+        'generated_at': DateTime.now().toIso8601String(),
+        'anomaly_count': anomalies.length,
+        'top_categories': anomalies.take(3).map((a) => a.category).toList(),
+      });
+      AppLogger.info('Daily insight analysis complete: ${anomalies.length} anomalies',
+          tag: 'InsightScheduler');
+    } catch (e, st) {
+      // Headless: never throw out of the callback (would just retry/log noise).
+      AppLogger.error('Daily insight analysis failed', tag: 'InsightScheduler', error: e, stackTrace: st);
+    }
   }
 }
