@@ -1,6 +1,6 @@
 // Platform-conditional TfliteDatasource.
 //
-// Mobile/desktop/VM (dart:library.io) get the real TensorFlow Lite
+// Mobile/desktop/VM (dart.library.io) get the real TensorFlow Lite
 // implementation (tflite_datasource_io.dart, which imports dart:ffi via
 // tflite_flutter). Web (dart.library.html) has no dart:ffi, so it gets a no-op
 // stub that falls back to 'other'. Unit tests run on the VM and therefore

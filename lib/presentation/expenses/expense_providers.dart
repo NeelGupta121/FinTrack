@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
@@ -153,6 +154,6 @@ final budgetAlertProvider = Provider.autoDispose<void>((ref) {
   if (summary == null || summary.budget <= 0) return;
   final pct = summary.totalSpent / summary.budget * 100;
   if (pct >= 80) {
-    ref.read(notificationServiceProvider).budgetThresholdAlert('Monthly budget', pct);
+    unawaited(ref.read(notificationServiceProvider).budgetThresholdAlert('Monthly budget', pct));
   }
 });

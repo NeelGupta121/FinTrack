@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
@@ -95,10 +96,10 @@ final addFundsProvider =
       if (oldPct < m && newPct >= m) crossed = m;
     }
     if (crossed != null) {
-      ref.read(notificationServiceProvider).scheduleGoalMilestone(
+      unawaited(ref.read(notificationServiceProvider).scheduleGoalMilestone(
             map['name'] as String? ?? 'Goal',
             crossed,
-          );
+          ));
     }
   }
 });

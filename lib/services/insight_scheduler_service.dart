@@ -1,3 +1,5 @@
+import 'dart:ui' show DartPluginRegistrant;
+import 'package:flutter/widgets.dart';
 import 'package:workmanager/workmanager.dart';
 import '../data/datasources/local/local_database.dart';
 import '../domain/entities/transaction.dart';
@@ -9,6 +11,11 @@ const _taskDaily = 'com.fintrack.dailyInsights';
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
+    // Headless background isolate: initialize the binding and register plugins
+    // so path_provider (used by Hive.initFlutter in _runDailyAnalysis) works.
+    // Without this, plugin method channels are unregistered in the isolate.
+    WidgetsFlutterBinding.ensureInitialized();
+    DartPluginRegistrant.ensureInitialized();
     if (task == _taskDaily) {
       await InsightSchedulerService._runDailyAnalysis();
     }
