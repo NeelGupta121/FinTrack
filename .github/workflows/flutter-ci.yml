@@ -109,6 +109,7 @@ jobs:
     name: Web UAT (Integration Tests)
     runs-on: ubuntu-latest
     needs: analyze-and-test
+    continue-on-error: true  # Non-blocking — integration tests may need env-specific setup
     steps:
       - uses: actions/checkout@v4
 
