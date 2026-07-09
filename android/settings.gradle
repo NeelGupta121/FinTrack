@@ -23,15 +23,3 @@ plugins {
 }
 
 include ":app"
-
-// Fix AAPT2 "android:attr/lStar not found" — force all library subprojects to compileSdk 35.
-// This runs DURING evaluation (before compileSdk is locked by AGP 8.6+).
-gradle.beforeProject { project ->
-    if (project.name != 'android' && project.name != 'app') {
-        project.afterEvaluate {
-            if (it.hasProperty('android')) {
-                it.android.compileSdk = 35
-            }
-        }
-    }
-}
