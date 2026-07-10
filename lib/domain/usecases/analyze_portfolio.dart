@@ -35,8 +35,12 @@ class AnalyzePortfolioUseCase {
     final pKeys = portfolioPrices.keys.toList()..sort();
     final bKeys = benchmarkPrices.keys.toList()..sort();
 
-    final pReturn = (portfolioPrices[pKeys.last]! - portfolioPrices[pKeys.first]!) / portfolioPrices[pKeys.first]! * 100;
-    final bReturn = (benchmarkPrices[bKeys.last]! - benchmarkPrices[bKeys.first]!) / benchmarkPrices[bKeys.first]! * 100;
+    final pFirst = portfolioPrices[pKeys.first]!;
+    final bFirst = benchmarkPrices[bKeys.first]!;
+    // A 0 starting value has no defined percentage return; report 0 rather than
+    // Infinity/NaN (which would corrupt alpha and crash chart widgets).
+    final pReturn = pFirst == 0 ? 0.0 : (portfolioPrices[pKeys.last]! - pFirst) / pFirst * 100;
+    final bReturn = bFirst == 0 ? 0.0 : (benchmarkPrices[bKeys.last]! - bFirst) / bFirst * 100;
 
     return BenchmarkResult(portfolioReturn: pReturn, benchmarkReturn: bReturn, alpha: pReturn - bReturn);
   }
@@ -64,19 +68,32 @@ class AnalyzePortfolioUseCase {
     final d0 = sorted.first.date;
 
     double xirr = 0.1; // initial guess
+    bool clamped = false;
     for (int i = 0; i < 100; i++) {
       double f = 0, df = 0;
       for (final t in sorted) {
         final years = t.date.difference(d0).inDays / 365.25;
-        final denom = pow(1 + xirr, years).toDouble();
+        final base = 1 + xirr;
+        final denom = pow(base, years).toDouble();
+        if (denom == 0 || !denom.isFinite) return 0; // diverged
         f += t.amount / denom;
-        df -= years * t.amount / (denom * (1 + xirr));
+        df -= years * t.amount / (denom * base);
       }
-      if (df == 0) break;
-      final next = xirr - f / df;
-      if ((next - xirr).abs() < 1e-7) return next;
+      if (df == 0 || !df.isFinite) break;
+      var next = xirr - f / df;
+      if (!next.isFinite) return 0; // diverged to NaN/Infinity
+      if (next <= -1) {
+        next = -0.9999; // keep (1 + xirr) positive for pow()
+        clamped = true;
+      }
+      if ((next - xirr).abs() < 1e-7) {
+        // Converging onto the divergence clamp is a non-convergence signal, not
+        // a genuine -99.99% return — report 0 rather than a misleading rate.
+        if (clamped && (next + 0.9999).abs() < 1e-5) return 0;
+        return next;
+      }
       xirr = next;
     }
-    return xirr;
+    return xirr.isFinite ? xirr : 0;
   }
 }

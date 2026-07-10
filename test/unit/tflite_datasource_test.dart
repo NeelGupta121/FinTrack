@@ -30,10 +30,14 @@ class TestableTfliteDatasource extends TfliteDatasource {
 
     // L2 normalize
     double l2 = 0;
-    for (int i = 0; i < ngramDim; i++) l2 += vec[i] * vec[i];
+    for (int i = 0; i < ngramDim; i++) {
+      l2 += vec[i] * vec[i];
+    }
     if (l2 > 0) {
       final invNorm = 1.0 / _sqrt(l2);
-      for (int i = 0; i < ngramDim; i++) vec[i] *= invNorm;
+      for (int i = 0; i < ngramDim; i++) {
+        vec[i] *= invNorm;
+      }
     }
 
     // Amount bucket
@@ -70,14 +74,18 @@ void main() {
     test('n-gram portion is L2-normalized', () {
       final vec = ds.tokenize('zomato delivery', 100);
       double l2 = 0;
-      for (int i = 0; i < 256; i++) l2 += vec[i] * vec[i];
+      for (int i = 0; i < 256; i++) {
+        l2 += vec[i] * vec[i];
+      }
       expect(l2, closeTo(1.0, 0.001));
     });
 
     test('amount bucket 0 for amount < 100', () {
       final vec = ds.tokenize('chai', 50);
       expect(vec[256], 1.0); // bucket 0
-      for (int i = 257; i < 266; i++) expect(vec[i], 0.0);
+      for (int i = 257; i < 266; i++) {
+        expect(vec[i], 0.0);
+      }
     });
 
     test('amount bucket 9 for amount >= 50000', () {

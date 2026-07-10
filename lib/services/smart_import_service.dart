@@ -76,21 +76,32 @@ class SmartImportService {
     return ImportResult(expenses: expenses, investments: investments, income: income, skipped: skipped, scanned: scanned);
   }
 
+  /// Normalizes any stored date value (full ISO or 'yyyy-MM-dd') to 'yyyy-MM-dd'
+  /// so dedup compares like-for-like regardless of which writer stored it.
+  static String? _day(dynamic v) {
+    if (v is String) return v.length >= 10 ? v.substring(0, 10) : v;
+    return null; // non-String (e.g. epoch int) — no unchecked cast/throw
+  }
+
   bool _isDuplicate(TransactionDraft draft) {
-    final box = LocalDatabase.transactions;
-    for (final entry in box.values) {
+    final draftDay = (draft.date ?? DateTime.now()).toIso8601String().substring(0, 10);
+    for (final entry in LocalDatabase.transactions.values) {
       if (entry['amount'] == draft.amount &&
           entry['merchant'] == draft.merchant &&
-          entry['date'] == (draft.date ?? DateTime.now()).toIso8601String().substring(0, 10)) {
+          _day(entry['date']) == draftDay) {
         return true;
       }
     }
-    // Also check holdings for investment dupes
+    // Also check holdings for investment dupes. Manually-added holdings store
+    // purchase_date/avg_price (no date/amount), so normalize both key variants.
     if (draft.type == TransactionType.investment) {
       for (final h in LocalDatabase.holdings.values) {
-        if (h['amount'] == draft.amount &&
+        final hAmount = (h['amount'] as num?)?.toDouble() ??
+            (((h['quantity'] as num?)?.toDouble() ?? 0) *
+                ((h['avg_price'] as num?)?.toDouble() ?? 0));
+        if (hAmount == draft.amount &&
             h['name'] == draft.merchant &&
-            h['date'] == (draft.date ?? DateTime.now()).toIso8601String().substring(0, 10)) {
+            _day(h['date'] ?? h['purchase_date']) == draftDay) {
           return true;
         }
       }

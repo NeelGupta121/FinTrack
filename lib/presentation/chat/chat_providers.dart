@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fintrack/services/ai_chat_service.dart';
-import 'package:fintrack/core/config/api_key_provider.dart';
 
 class ChatMessage {
   final String text;
@@ -11,20 +10,19 @@ class ChatMessage {
 }
 
 class ChatNotifier extends StateNotifier<List<ChatMessage>> {
-  final Ref _ref;
-  ChatNotifier(this._ref) : super([]);
+  ChatNotifier() : super([]);
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
   Future<void> send(String question) async {
+    if (_isLoading) return; // ignore concurrent sends while one is in flight
     state = [...state, ChatMessage(text: question, isUser: true)];
     _isLoading = true;
     state = [...state]; // trigger rebuild for typing indicator
     try {
-      final runtimeKey = _ref.read(geminiKeyProvider);
-      final key = effectiveGeminiKey(runtimeKey);
-      final response = await AiChatService.askQuestion(question, apiKey: key);
+      // AI uses the global (build-time) Gemini key via Env.geminiApiKey.
+      final response = await AiChatService.askQuestion(question);
       _isLoading = false;
       state = [...state, ChatMessage(text: response, isUser: false)];
     } catch (e) {
@@ -34,7 +32,7 @@ class ChatNotifier extends StateNotifier<List<ChatMessage>> {
   }
 }
 
-final chatProvider = StateNotifierProvider<ChatNotifier, List<ChatMessage>>((ref) => ChatNotifier(ref));
+final chatProvider = StateNotifierProvider<ChatNotifier, List<ChatMessage>>((ref) => ChatNotifier());
 final chatLoadingProvider = Provider<bool>((ref) {
   ref.watch(chatProvider);
   return ref.read(chatProvider.notifier).isLoading;

@@ -27,9 +27,26 @@ class SmsParserService {
   static final _amountRe = RegExp(r'(?:Rs\.?|INR|₹)\s*([\d,]+\.?\d*)', caseSensitive: false);
 
   // Type detection keywords
-  static final _expenseKeys = RegExp(r'debit|spent|paid|charged|purchase|withdrawn', caseSensitive: false);
+  static final _expenseKeys = RegExp(
+      r'debit(?:ed)?|spent|paid|sent|transfer(?:red)?|charged|purchase[ds]?|withdrawn|withdrawal|deducted',
+      caseSensitive: false);
   static final _investmentKeys = RegExp(r'SIP|MF\s*purchase|units?\s*allot|NAV|shares?\s*bought|stock\s*purchase|Groww|Zerodha|Coin|invested|mutual\s*fund|demat|folio', caseSensitive: false);
-  static final _incomeKeys = RegExp(r'credit|received|salary|refund|cashback|reward', caseSensitive: false);
+  static final _incomeKeys = RegExp(r'credit(?:ed)?|received|salary|refund|cashback|reward', caseSensitive: false);
+
+  // OTP / verification texts are not transactions — skip them outright.
+  static final _skipRe = RegExp(
+      r'\bOTP\b|one[\s-]?time\s?password|do not share|verification code|security code',
+      caseSensitive: false);
+
+  // Promotional / marketing texts (offers, coupons, links). Skipped UNLESS the
+  // message also carries hard evidence of a completed transaction — so a real
+  // "Rs.50 cashback credited … Avl Bal …" still imports.
+  static final _promoRe = RegExp(
+      r'\b(?:offer|offers|sale|discount|coupon|voucher|win|winner|congratulations|prize|lucky|apply\s+now|pre[\s-]?approved|eligible|limited\s+period|hurry|lowest\s+price|buy\s+now|shop\s+now|deal|deals|unsubscribe|loan\s+offer|emi\s+offer)\b|https?://|bit\.ly|t&c|%\s*off|flat\s+(?:rs\.?|inr|₹)',
+      caseSensitive: false);
+  static final _txnEvidenceRe = RegExp(
+      r'\b(?:debited|credited|deducted|withdrawn)\b|avl\.?\s*bal|available\s+bal|\bref\s*(?:no|#|:)|\butr\b|\brrn\b|txn\s*(?:id|no|#)|a/?c\s*(?:x|no|\*|\d)|ending\s+\d{3,}',
+      caseSensitive: false);
 
   // Reference number
   static final _refRe = RegExp(r'(?:ref|txn|utr|rrn)[:\s#]*([A-Za-z0-9]+)', caseSensitive: false);
@@ -45,6 +62,8 @@ class SmsParserService {
   ];
 
   TransactionDraft? parse(String sms) {
+    if (_skipRe.hasMatch(sms)) return null; // OTP / verification — not a transaction
+    if (_promoRe.hasMatch(sms) && !_txnEvidenceRe.hasMatch(sms)) return null; // promo/spam
     final amountMatch = _amountRe.firstMatch(sms);
     if (amountMatch == null) return null;
 
@@ -79,7 +98,17 @@ class SmsParserService {
   String? _extractMerchant(String sms) {
     for (final p in _merchantPatterns) {
       final m = p.firstMatch(sms);
-      if (m != null) return m.group(1)?.trim();
+      var name = m?.group(1)?.trim();
+      if (name == null || name.isEmpty) continue;
+      // Stop at trailing noise tokens (dates, ref/txn ids, balance, etc.).
+      name = name
+          .split(RegExp(r'\s+(?:on|ref|txn|upi|avl|bal|info|via|dated|a/?c)\b',
+              caseSensitive: false))
+          .first
+          .trim();
+      // Drop a trailing standalone number/date run.
+      name = name.replaceFirst(RegExp(r'[\s.,:-]+\d[\d/:.-]*$'), '').trim();
+      if (name.isNotEmpty) return name;
     }
     return null;
   }
@@ -97,7 +126,7 @@ class SmsParserService {
         day = month;
         month = tmp;
       }
-      if (month < 1 || month > 12) return null;
+      if (month < 1 || month > 12 || day < 1 || day > 31) return null;
       return DateTime(year, month, day);
     }
     final m2 = _dateRe2.firstMatch(sms);
@@ -106,7 +135,9 @@ class SmsParserService {
       final mon = months[m2.group(2)!.toLowerCase()] ?? 1;
       final y = int.tryParse(m2.group(3)!) ?? 0;
       final year = y < 100 ? 2000 + y : y;
-      return DateTime(year, mon, int.parse(m2.group(1)!));
+      final d2 = int.parse(m2.group(1)!);
+      if (d2 < 1 || d2 > 31) return null;
+      return DateTime(year, mon, d2);
     }
     return null;
   }

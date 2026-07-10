@@ -59,5 +59,11 @@ void main() {
       final anomalies = useCase.detectAnomalies(txns);
       expect(anomalies, isEmpty);
     });
+
+    test('Anomaly.percentAboveAverage is finite (0) when average is 0', () {
+      const a = Anomaly(category: 'x', amount: 100, average: 0, deviation: 0, zScore: 0);
+      expect(a.percentAboveAverage, 0);
+      expect(a.percentAboveAverage.isFinite, isTrue);
+    });
   });
 }

@@ -1,11 +1,15 @@
 import 'dart:ui';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'core/config/env.dart';
 import 'data/datasources/local/local_database.dart';
 import 'core/security/tamper_detection.dart';
 import 'core/utils/logger.dart';
+import 'services/insight_scheduler_service.dart';
 import 'presentation/settings/settings_screen.dart' show savedThemeMode;
 import 'app.dart';
 
@@ -31,14 +35,42 @@ Future<void> main() async {
   await LocalDatabase.init();
   await TamperDetection.init();
 
+  // Register the daily background insights task (Android/iOS only; Workmanager
+  // is unavailable on web). Non-fatal — a failure must never block startup.
+  if (!kIsWeb) {
+    try {
+      await InsightSchedulerService.scheduleDaily();
+    } catch (e, st) {
+      AppLogger.error('Failed to schedule daily insights', tag: 'App', error: e, stackTrace: st);
+    }
+  }
+
+  // Optional secure AI proxy: initialize Supabase + an anonymous session so AI
+  // calls route through the server (Gemini key stays server-side). Fully
+  // skipped — and never fatal — when SUPABASE_URL/anon key aren't provided.
+  if (Env.useAiProxy) {
+    try {
+      await Supabase.initialize(url: Env.supabaseUrl, publishableKey: Env.supabaseAnonKey);
+      if (Supabase.instance.client.auth.currentSession == null) {
+        await Supabase.instance.client.auth.signInAnonymously();
+      }
+    } catch (e, st) {
+      AppLogger.error('Supabase init/anon-auth failed; using direct AI path',
+          tag: 'App', error: e, stackTrace: st);
+    }
+  }
+
   // Cache onboarding status synchronously for GoRouter redirect
   final prefs = await SharedPreferences.getInstance();
   onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
 
   // Load persisted theme mode
   final tm = prefs.getString('theme_mode');
-  if (tm == 'dark') savedThemeMode = ThemeMode.dark;
-  else if (tm == 'light') savedThemeMode = ThemeMode.light;
+  if (tm == 'dark') {
+    savedThemeMode = ThemeMode.dark;
+  } else if (tm == 'light') {
+    savedThemeMode = ThemeMode.light;
+  }
 
   runApp(const ProviderScope(child: FinTrackApp()));
 }

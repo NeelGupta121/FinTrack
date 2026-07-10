@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fintrack/core/config/env.dart';
 import 'package:fintrack/core/network/rate_limiter.dart';
 import 'package:fintrack/data/datasources/local/local_database.dart';
+import 'package:fintrack/data/datasources/remote/ai_proxy_ds.dart';
+import 'package:fintrack/core/utils/logger.dart';
 
 class AiChatService {
   static final _dio = Dio();
@@ -54,7 +57,7 @@ class AiChatService {
       buf.writeln('\n## Holdings (${holdings.length})');
       for (final h in holdings) {
         final val = ((h['quantity'] as num?)?.toDouble() ?? 0) *
-            ((h['currentPrice'] as num?)?.toDouble() ?? (h['buyPrice'] as num?)?.toDouble() ?? 0);
+            ((h['avg_price'] as num?)?.toDouble() ?? 0);
         portfolioValue += val;
         buf.writeln('  - ${h['name'] ?? h['symbol']}: ₹${val.toStringAsFixed(0)}');
       }
@@ -66,7 +69,7 @@ class AiChatService {
     if (goals.isNotEmpty) {
       buf.writeln('\n## Goals');
       for (final g in goals) {
-        buf.writeln('  - ${g['name']}: ₹${g['saved'] ?? 0} / ₹${g['target'] ?? 0}');
+        buf.writeln('  - ${g['name']}: ₹${g['current_amount'] ?? 0} / ₹${g['target_amount'] ?? 0}');
       }
     }
     return buf.toString();
@@ -79,10 +82,35 @@ class AiChatService {
         q.contains('crypto') || q.contains('bitcoin');
   }
 
-  static Future<String> askQuestion(String question, {String? apiKey}) async {
-    final key = apiKey ?? Env.geminiApiKey;
+  static String? _proxyToken() {
+    try {
+      return Supabase.instance.client.auth.currentSession?.accessToken;
+    } catch (_) {
+      return null; // Supabase not initialized
+    }
+  }
+
+  static Future<String> askQuestion(String question) async {
+    // Prefer the secure server-side proxy when configured + authenticated.
+    if (Env.useAiProxy) {
+      final token = _proxyToken();
+      if (token != null) {
+        try {
+          final proxy = AiProxyDatasource(
+            functionUrl: '${Env.supabaseUrl}/functions/v1/ai-proxy',
+            anonKey: Env.supabaseAnonKey,
+          );
+          return await proxy.askQuestion(token, question, {'summary': buildContext()});
+        } catch (e) {
+          AppLogger.warning('AI proxy askQuestion failed; using direct path',
+              tag: 'AiChat', error: e);
+          // fall back to the direct path
+        }
+      }
+    }
+    const key = Env.geminiApiKey;
     if (key.isEmpty) {
-      return 'Add your free Gemini API key in Settings to enable AI chat.';
+      return 'AI chat is not configured. Please try again later.';
     }
     return _rateLimiter.execute('gemini_chat', 1000, () async {
       final context = buildContext();
@@ -103,16 +131,22 @@ class AiChatService {
           },
         );
 
-        final candidates = response.data['candidates'] as List?;
+        final data = response.data;
+        if (data is! Map) {
+          // Non-JSON 200 body (gateway/throttle HTML) — don't crash on subscript.
+          return 'Sorry, I could not generate a response. Please try again.';
+        }
+        final candidates = data['candidates'] as List?;
         if (candidates != null && candidates.isNotEmpty) {
-          final content = candidates[0]['content'];
-          final resParts = content['parts'] as List?;
+          final content = (candidates[0] as Map?)?['content'];
+          final resParts = (content is Map ? content['parts'] : null) as List?;
           if (resParts != null && resParts.isNotEmpty) {
-            return resParts[0]['text'] as String;
+            final text = (resParts[0] as Map?)?['text'];
+            if (text is String) return text;
           }
         }
         // Check for safety blocks / empty response
-        final blockReason = response.data['promptFeedback']?['blockReason'];
+        final blockReason = (data['promptFeedback'] as Map?)?['blockReason'];
         if (blockReason != null) return 'Response blocked: $blockReason. Try rephrasing.';
         return 'Sorry, I could not generate a response. Please try again.';
       } on DioException catch (e) {

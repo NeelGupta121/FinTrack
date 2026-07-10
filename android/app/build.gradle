@@ -7,11 +7,12 @@ plugins {
 
 android {
     namespace = "com.fintrack.fintrack"
-    compileSdk = 34
-    buildToolsVersion = "33.0.2"
-    ndkVersion = flutter.ndkVersion
+    compileSdk = 35
+    buildToolsVersion = "35.0.0"
+    ndkVersion = "26.1.10909125"
 
     compileOptions {
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -36,10 +37,17 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
+            minifyEnabled = true
+            shrinkResources = true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.4"
 }

@@ -58,7 +58,7 @@ class _DonePageState extends State<DonePage>
                     ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
             const SizedBox(height: 8),
             Text(
-              '${_expenseCount} expenses • ${_investmentCount} investments • ${_incomeCount} income',
+              '$_expenseCount expenses • $_investmentCount investments • $_incomeCount income',
               style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),

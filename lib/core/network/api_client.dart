@@ -10,7 +10,9 @@ class ApiClient {
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 15),
     ));
-    _dio.interceptors.add(CertPinningInterceptor());
+    // Real certificate pinning, safe-by-default (see CertPinner: empty pin set
+    // => standard TLS). Enable per-host only for a first-party backend.
+    _dio.httpClientAdapter = CertPinner.buildAdapter();
     // TODO: Add logging interceptor in debug mode
     // TODO: Add auth token interceptor
   }

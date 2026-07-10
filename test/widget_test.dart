@@ -1,30 +1,54 @@
-// This is a basic Flutter widget test.
+// Smoke test for a core reusable widget.
 //
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// The previous version of this file was the default Flutter "counter" template
+// referencing a non-existent `MyApp`/counter and never compiled. The real app
+// root is `FinTrackApp` (see lib/app.dart), which requires heavy platform init
+// (Hive, SharedPreferences, tamper detection) in main() and is not suitable for
+// a lightweight widget test. Instead we smoke-test `EmptyState`, a pure,
+// dependency-free leaf widget used across the app's empty screens.
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:fintrack/main.dart';
+import 'package:fintrack/presentation/common/widgets/empty_state.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('EmptyState renders its message and icon', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: EmptyState(
+            icon: Icons.inbox_outlined,
+            message: 'No transactions yet',
+          ),
+        ),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('No transactions yet'), findsOneWidget);
+    expect(find.byIcon(Icons.inbox_outlined), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('EmptyState shows an action button when provided', (tester) async {
+    var tapped = false;
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: EmptyState(
+            icon: Icons.add_card,
+            message: 'Add your first expense',
+            actionLabel: 'Add expense',
+            onAction: () => tapped = true,
+          ),
+        ),
+      ),
+    );
+
+    final button = find.widgetWithText(FilledButton, 'Add expense');
+    expect(button, findsOneWidget);
+
+    await tester.tap(button);
+    expect(tapped, isTrue);
   });
 }

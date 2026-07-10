@@ -25,12 +25,17 @@ class GeminiDatasource {
       final text = await _generate(
         'Analyze financial sentiment. Return JSON: {"sentiment":"bullish|bearish|neutral","score":<-1to1>,"reason":"<brief>"}\n\nHeadline: $headline\nSnippet: $snippet',
       );
-      final json = jsonDecode(text);
-      return SentimentResult(
-        sentiment: json['sentiment'] ?? 'neutral',
-        score: (json['score'] as num?)?.toDouble() ?? 0.0,
-        reason: json['reason'] ?? '',
-      );
+      try {
+        final json = jsonDecode(_extractJson(text)) as Map<String, dynamic>;
+        return SentimentResult(
+          sentiment: (json['sentiment'] as String?) ?? 'neutral',
+          score: (json['score'] as num?)?.toDouble() ?? 0.0,
+          reason: (json['reason'] as String?) ?? '',
+        );
+      } catch (_) {
+        // Model returned prose / code-fenced / malformed JSON -> degrade gracefully.
+        return const SentimentResult(sentiment: 'neutral', score: 0.0, reason: '');
+      }
     });
   }
 
@@ -56,8 +61,24 @@ class GeminiDatasource {
         'generationConfig': {'temperature': 0.3, 'maxOutputTokens': 512},
       },
     );
+    if (res.data is! Map) return ''; // non-JSON error body (quota HTML, gateway page)
     final candidates = res.data['candidates'] as List?;
     if (candidates == null || candidates.isEmpty) return '';
-    return candidates[0]['content']['parts'][0]['text'] ?? '';
+    // A safety-blocked candidate has no 'content'/'parts' -> navigate null-safely.
+    final parts = (candidates[0] as Map?)?['content']?['parts'] as List?;
+    if (parts == null || parts.isEmpty) return '';
+    return (parts[0] as Map?)?['text'] as String? ?? '';
+  }
+
+  /// Extract a JSON object from a possibly code-fenced or prose-wrapped reply.
+  String _extractJson(String raw) {
+    var s = raw.trim();
+    final fence = RegExp(r'```(?:json)?\s*([\s\S]*?)\s*```', caseSensitive: false);
+    final m = fence.firstMatch(s);
+    if (m != null) s = m.group(1)!.trim();
+    final start = s.indexOf('{');
+    final end = s.lastIndexOf('}');
+    if (start != -1 && end != -1 && end > start) s = s.substring(start, end + 1);
+    return s;
   }
 }

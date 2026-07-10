@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/config/api_key_provider.dart';
 import '../../services/smart_import_service.dart';
 import '../../data/datasources/local/tflite_datasource.dart';
+import '../../data/datasources/local/local_database.dart';
 import '../expenses/expense_providers.dart';
 import '../investments/investment_providers.dart';
 
 /// Cached value loaded in main.dart before runApp.
-ThemeMode savedThemeMode = ThemeMode.system;
+ThemeMode savedThemeMode = ThemeMode.dark;
 
 class ThemeModeNotifier extends StateNotifier<ThemeMode> {
   ThemeModeNotifier() : super(savedThemeMode);
@@ -23,49 +23,6 @@ final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((_
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
-
-  Future<void> _showApiKeyDialog(BuildContext context, WidgetRef ref) async {
-    final controller = TextEditingController();
-    final result = await showDialog<String>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Gemini API Key'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: controller,
-              decoration: const InputDecoration(
-                hintText: 'Paste your API key',
-                border: OutlineInputBorder(),
-              ),
-              autofocus: true,
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Get a free key at aistudio.google.com/apikey',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, controller.text.trim()),
-            child: const Text('Save'),
-          ),
-        ],
-      ),
-    );
-    if (result != null && result.isNotEmpty) {
-      await ref.read(geminiKeyProvider.notifier).set(result);
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('API key saved ✅')),
-        );
-      }
-    }
-  }
 
   Future<void> _scanSms(BuildContext context, WidgetRef ref) async {
     showDialog(
@@ -113,6 +70,46 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
+  Future<void> _editBudget(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final current = ref.read(monthlyBudgetProvider);
+    final ctrl = TextEditingController(text: current.toStringAsFixed(0));
+    return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Monthly budget'),
+        content: TextField(
+          controller: ctrl,
+          keyboardType: TextInputType.number,
+          autofocus: true,
+          decoration: const InputDecoration(labelText: 'Budget', prefixText: '₹ '),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          FilledButton(
+            onPressed: () async {
+              final value = double.tryParse(ctrl.text.trim());
+              if (value == null || value <= 0) {
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Enter a budget greater than 0')),
+                );
+                return;
+              }
+              Navigator.pop(ctx);
+              await LocalDatabase.settings.put('monthly_budget', value);
+              ref.invalidate(monthlyBudgetProvider);
+              ref.invalidate(monthlySummaryProvider);
+              messenger.showSnackBar(
+                SnackBar(content: Text('Monthly budget set to ₹${value.toStringAsFixed(0)}')),
+              );
+            },
+            child: const Text('Save'),
+          ),
+        ],
+      ),
+    ).whenComplete(ctrl.dispose);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
@@ -140,6 +137,12 @@ class SettingsScreen extends ConsumerWidget {
             trailing: const Text('INR (₹)'),
             onTap: () {},
           ),
+          ListTile(
+            leading: const Icon(Icons.account_balance_wallet),
+            title: const Text('Monthly budget'),
+            trailing: Text('₹${ref.watch(monthlyBudgetProvider).toStringAsFixed(0)}'),
+            onTap: () => _editBudget(context, ref),
+          ),
           SwitchListTile(
             secondary: const Icon(Icons.dark_mode),
             title: const Text('Dark Mode'),
@@ -147,32 +150,6 @@ class SettingsScreen extends ConsumerWidget {
             onChanged: (v) => ref.read(themeModeProvider.notifier).set(
                 v ? ThemeMode.dark : ThemeMode.light),
           ),
-          const Divider(),
-
-          // AI
-          const _SectionHeader('AI'),
-          Consumer(builder: (context, ref, _) {
-            final key = ref.watch(geminiKeyProvider);
-            return ListTile(
-              leading: const Icon(Icons.smart_toy),
-              title: const Text('Gemini API Key'),
-              subtitle: Text(key.isEmpty ? 'Tap to set' : '••••••••'),
-              trailing: key.isNotEmpty
-                  ? IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () async {
-                        await ref.read(geminiKeyProvider.notifier).clear();
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('API key cleared')),
-                          );
-                        }
-                      },
-                    )
-                  : const Icon(Icons.chevron_right),
-              onTap: () => _showApiKeyDialog(context, ref),
-            );
-          }),
           const Divider(),
 
           // Data

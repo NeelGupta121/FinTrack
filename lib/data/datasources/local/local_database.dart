@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:uuid/uuid.dart';
+import '../../../core/network/rate_limiter.dart';
 
 const _uuid = Uuid();
 
@@ -12,6 +13,7 @@ class LocalDatabase {
   static late Box<Map> accounts;
   static late Box<Map> priceCache;
   static late Box settings;
+  static late Box rateLimits;
 
   static Future<void> init() async {
     await Hive.initFlutter();
@@ -23,6 +25,7 @@ class LocalDatabase {
     accounts = await Hive.openBox<Map>('accounts');
     priceCache = await Hive.openBox<Map>('price_cache');
     settings = await Hive.openBox('settings');
+    rateLimits = await Hive.openBox(HiveRateLimitStore.boxName);
     await _seedCategories();
   }
 

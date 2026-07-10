@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_animations.dart';
 import 'insights_providers.dart';
 import 'widgets/anomaly_card.dart';
 import 'widgets/sentiment_badge.dart';
@@ -57,7 +58,10 @@ class _SpendingTab extends ConsumerWidget {
           : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: list.length,
-              itemBuilder: (_, i) => AnomalyCard(anomaly: list[i]),
+              itemBuilder: (_, i) => FadeSlideIn(
+                index: i < 6 ? i : 6,
+                child: AnomalyCard(anomaly: list[i]),
+              ),
             ),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
@@ -75,42 +79,48 @@ class _PortfolioTab extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const BenchmarkChart(),
+        const FadeSlideIn(index: 0, child: BenchmarkChart()),
         const SizedBox(height: 16),
-        drift.when(
-          data: (alerts) => alerts.isEmpty
-              ? const Card(child: ListTile(title: Text('Portfolio on target ✅')))
-              : Column(children: alerts.map((a) => Card(
-                  child: ListTile(
-                    leading: Icon(a.driftPct > 0 ? Icons.arrow_upward : Icons.arrow_downward,
-                        color: a.driftPct > 0 ? Colors.orange : Colors.blue),
-                    title: Text(a.symbol),
-                    subtitle: Text('${a.currentPct.toStringAsFixed(1)}% vs target ${a.targetPct.toStringAsFixed(1)}%'),
-                    trailing: Text('${a.driftPct > 0 ? "+" : ""}${a.driftPct.toStringAsFixed(1)}%'),
-                  ),
-                )).toList()),
-          loading: () => const LinearProgressIndicator(),
-          error: (_, __) => const Text('Something went wrong.'),
+        FadeSlideIn(
+          index: 1,
+          child: drift.when(
+            data: (alerts) => alerts.isEmpty
+                ? const Card(child: ListTile(title: Text('Portfolio on target ✅')))
+                : Column(children: alerts.map((a) => Card(
+                    child: ListTile(
+                      leading: Icon(a.driftPct > 0 ? Icons.arrow_upward : Icons.arrow_downward,
+                          color: a.driftPct > 0 ? Colors.orange : Colors.blue),
+                      title: Text(a.symbol),
+                      subtitle: Text('${a.currentPct.toStringAsFixed(1)}% vs target ${a.targetPct.toStringAsFixed(1)}%'),
+                      trailing: Text('${a.driftPct > 0 ? "+" : ""}${a.driftPct.toStringAsFixed(1)}%'),
+                    ),
+                  )).toList()),
+            loading: () => const LinearProgressIndicator(),
+            error: (_, __) => const Text('Something went wrong.'),
+          ),
         ),
         const SizedBox(height: 16),
-        Card(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(children: [
-                  Icon(Icons.auto_awesome, color: Theme.of(context).colorScheme.tertiary),
-                  const SizedBox(width: 8),
-                  const Text('AI Review', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                ]),
-                const SizedBox(height: 8),
-                digest.when(
-                  data: (text) => Text(text),
-                  loading: () => const Text('Generating insights...'),
-                  error: (_, __) => const Text('Something went wrong.'),
-                ),
-              ],
+        FadeSlideIn(
+          index: 2,
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    Icon(Icons.auto_awesome, color: Theme.of(context).colorScheme.tertiary),
+                    const SizedBox(width: 8),
+                    const Text('AI Review', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                  ]),
+                  const SizedBox(height: 8),
+                  digest.when(
+                    data: (text) => Text(text),
+                    loading: () => const Text('Generating insights...'),
+                    error: (_, __) => const Text('Something went wrong.'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -141,7 +151,9 @@ class _NewsTab extends ConsumerWidget {
           itemBuilder: (_, i) {
             final h = holdings[i];
             final news = ref.watch(newsWithSentimentProvider(h.symbol));
-            return Column(
+            return FadeSlideIn(
+              index: i < 6 ? i : 6,
+              child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
@@ -160,7 +172,7 @@ class _NewsTab extends ConsumerWidget {
                   error: (_, __) => const Text('Something went wrong.'),
                 ),
               ],
-            );
+            ));
           },
         );
       },

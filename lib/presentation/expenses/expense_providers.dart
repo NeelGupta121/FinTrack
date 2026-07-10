@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
 import '../../domain/entities/transaction.dart';
+import '../../services/notification_service.dart';
 
 class ExpenseFilter {
   final DateTime? startDate;
@@ -109,8 +111,13 @@ class MonthlySummary {
   MonthlySummary({required this.totalSpent, required this.budget, required this.categoryTotals});
 }
 
+/// User-configurable monthly budget (persisted in Hive settings; default ₹50,000).
+final monthlyBudgetProvider = Provider.autoDispose<double>((ref) =>
+    (LocalDatabase.settings.get('monthly_budget') as num?)?.toDouble() ?? 50000.0);
+
 final monthlySummaryProvider = FutureProvider.autoDispose<MonthlySummary>((ref) async {
   try {
+    final budget = ref.watch(monthlyBudgetProvider);
     final now = DateTime.now();
     final start = DateTime(now.year, now.month, 1);
     final end = DateTime(now.year, now.month + 1, 0);
@@ -132,9 +139,21 @@ final monthlySummaryProvider = FutureProvider.autoDispose<MonthlySummary>((ref) 
       catTotals[cat] = (catTotals[cat] ?? 0) + amt;
     }
 
-    return MonthlySummary(totalSpent: total, budget: 50000, categoryTotals: catTotals);
+    return MonthlySummary(totalSpent: total, budget: budget, categoryTotals: catTotals);
   } catch (e, st) {
     AppLogger.error('Failed to fetch monthly summary', tag: 'Expenses', error: e, stackTrace: st);
     rethrow;
+  }
+});
+
+/// Side-effect provider: fires a budget-threshold notification when this month's
+/// spend reaches >=80% of the configured budget (no-op on web). Watch it from a
+/// screen (expense list) to activate. Stable notification ID -> no spam.
+final budgetAlertProvider = Provider.autoDispose<void>((ref) {
+  final summary = ref.watch(monthlySummaryProvider).valueOrNull;
+  if (summary == null || summary.budget <= 0) return;
+  final pct = summary.totalSpent / summary.budget * 100;
+  if (pct >= 80) {
+    unawaited(ref.read(notificationServiceProvider).budgetThresholdAlert('Monthly budget', pct));
   }
 });

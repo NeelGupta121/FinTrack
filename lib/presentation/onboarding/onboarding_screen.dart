@@ -21,6 +21,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   void _next() => _controller.nextPage(
       duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Future<void> _finish() async {
     await setOnboardingComplete();
     onboardingComplete = true;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_animations.dart';
 import 'goals_providers.dart';
 import 'widgets/goal_card.dart';
 
@@ -33,14 +34,62 @@ class GoalsScreen extends ConsumerWidget {
                 itemBuilder: (_, i) {
                   final goal = goals[i];
                   final progress = ref.watch(goalProgressProvider(goal));
-                  return GoalCard(goal: goal, progress: progress);
+                  return FadeSlideIn(
+                    index: i < 6 ? i : 6,
+                    child: PressableScale(
+                      scale: 0.97,
+                      child: GoalCard(
+                        goal: goal,
+                        progress: progress,
+                        onAddFunds: () => _showAddFundsDialog(context, ref, goal),
+                      ),
+                    ),
+                  );
                 },
               ),
       ),
     );
   }
 
+  void _showAddFundsDialog(BuildContext context, WidgetRef ref, FinancialGoal goal) {
+    final messenger = ScaffoldMessenger.of(context);
+    final amountCtrl = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Add funds to ${goal.name}'),
+        content: TextField(
+          controller: amountCtrl,
+          keyboardType: TextInputType.number,
+          autofocus: true,
+          decoration: const InputDecoration(labelText: 'Amount', prefixText: '₹ '),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          FilledButton(
+            onPressed: () async {
+              final amount = double.tryParse(amountCtrl.text.trim());
+              if (amount == null || amount <= 0) {
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Enter an amount greater than 0')),
+                );
+                return;
+              }
+              Navigator.pop(ctx);
+              await ref.read(addFundsProvider((goalId: goal.id, amount: amount)).future);
+              messenger.showSnackBar(
+                SnackBar(content: Text('Added ₹${amount.toStringAsFixed(0)} to ${goal.name}')),
+              );
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    ).whenComplete(amountCtrl.dispose);
+  }
+
   void _showAddGoalSheet(BuildContext context, WidgetRef ref) {
+    final messenger = ScaffoldMessenger.of(context);
     final nameCtrl = TextEditingController();
     final amountCtrl = TextEditingController();
     var selectedType = GoalType.custom;
@@ -73,15 +122,20 @@ class GoalsScreen extends ConsumerWidget {
               const SizedBox(height: 16),
               FilledButton(
                 onPressed: () async {
-                  if (nameCtrl.text.isNotEmpty && amountCtrl.text.isNotEmpty) {
-                    await ref.read(addGoalProvider({
-                      'name': nameCtrl.text,
-                      'type': selectedType.name,
-                      'target_amount': double.tryParse(amountCtrl.text) ?? 0,
-                      'current_amount': 0,
-                    }).future);
-                    Navigator.pop(ctx);
+                  final amount = double.tryParse(amountCtrl.text.trim());
+                  if (nameCtrl.text.trim().isEmpty || amount == null || amount <= 0) {
+                    messenger.showSnackBar(
+                      const SnackBar(content: Text('Enter a name and a target amount greater than 0')),
+                    );
+                    return;
                   }
+                  await ref.read(addGoalProvider({
+                    'name': nameCtrl.text.trim(),
+                    'type': selectedType.name,
+                    'target_amount': amount,
+                    'current_amount': 0,
+                  }).future);
+                  if (ctx.mounted) Navigator.pop(ctx);
                 },
                 child: const Text('Create Goal'),
               ),
@@ -89,6 +143,9 @@ class GoalsScreen extends ConsumerWidget {
           ),
         ),
       ),
-    );
+    ).whenComplete(() {
+      nameCtrl.dispose();
+      amountCtrl.dispose();
+    });
   }
 }

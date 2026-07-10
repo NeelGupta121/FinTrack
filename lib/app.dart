@@ -50,7 +50,7 @@ final _router = GoRouter(
             builder: (_, __) => const ExpenseListScreen(),
             routes: [
               GoRoute(path: 'add', pageBuilder: (_, state) =>
-                  AppAnimations.fadeSlideTransition(state, const AddExpenseScreen())),
+                  AppAnimations.fadeSlideTransition(state, AddExpenseScreen(autoScan: state.uri.queryParameters['scan'] == '1'))),
             ],
           ),
         ]),

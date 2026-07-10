@@ -7,7 +7,8 @@ import 'widgets/category_picker.dart';
 import '../../services/receipt_ocr_service.dart';
 
 class AddExpenseScreen extends ConsumerStatefulWidget {
-  const AddExpenseScreen({super.key});
+  final bool autoScan;
+  const AddExpenseScreen({super.key, this.autoScan = false});
 
   @override
   ConsumerState<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -20,6 +21,17 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   String? _categoryId;
   DateTime _date = DateTime.now();
   bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.autoScan) {
+      // Launched from the dashboard "Scan" action — open the camera immediately.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) _scanReceipt();
+      });
+    }
+  }
 
   @override
   void dispose() {
@@ -112,7 +124,9 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   Future<void> _scanReceipt() async {
     final data = await ReceiptOcrService.scanFromCamera();
     if (!mounted) return;
-    if (data != null) {
+    if (data == null) return; // user cancelled the camera — no nagging
+    final gotSomething = data.amount != null || data.date != null || data.merchant != null;
+    if (gotSomething) {
       setState(() {
         if (data.amount != null) _amountCtrl.text = data.amount!.toStringAsFixed(0);
         if (data.date != null) _date = data.date!;
@@ -120,6 +134,15 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
       if (data.merchant != null && _notesCtrl.text.isEmpty) {
         _notesCtrl.text = data.merchant!;
       }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(data.amount != null
+            ? 'Scanned ₹${data.amount!.toStringAsFixed(0)} — review and save'
+            : 'Partial scan — please check the fields'),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Couldn't read the receipt. Enter details manually or try a clearer photo."),
+      ));
     }
   }
 }

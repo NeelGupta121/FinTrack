@@ -17,17 +17,30 @@ class EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final cs = theme.colorScheme;
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 64, color: theme.colorScheme.onSurfaceVariant.withOpacity(0.4)),
-            const SizedBox(height: 16),
-            Text(message, textAlign: TextAlign.center, style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            Container(
+              width: 88,
+              height: 88,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: cs.primary.withOpacity(0.10),
+              ),
+              child: Icon(icon, size: 40, color: cs.primary),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyLarge?.copyWith(color: cs.onSurfaceVariant),
+            ),
             if (actionLabel != null && onAction != null) ...[
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               FilledButton.tonal(onPressed: onAction, child: Text(actionLabel!)),
             ],
           ],

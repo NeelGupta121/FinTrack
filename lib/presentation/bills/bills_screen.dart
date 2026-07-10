@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_animations.dart';
 import '../../domain/usecases/detect_recurring_bills.dart';
 import 'bills_providers.dart';
 
@@ -11,6 +12,7 @@ class BillsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final billsAsync = ref.watch(recurringBillsProvider);
+    ref.watch(billReminderProvider); // schedules reminders for upcoming bills (no-op on web)
 
     return Scaffold(
       appBar: AppBar(title: const Text('Bills & Subscriptions')),
@@ -34,9 +36,12 @@ class BillsScreen extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        _TotalCard(total: totalMonthly),
+        FadeSlideIn(index: 0, child: _TotalCard(total: totalMonthly)),
         const SizedBox(height: 16),
-        ...bills.map((b) => _BillTile(bill: b)),
+        ...bills.asMap().entries.map((e) => FadeSlideIn(
+              index: (e.key + 1) < 6 ? e.key + 1 : 6,
+              child: PressableScale(scale: 0.97, child: _BillTile(bill: e.value)),
+            )),
         if (bills.isEmpty)
           const EmptyState(
             icon: Icons.receipt_long,
