@@ -10,6 +10,21 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
     project.evaluationDependsOn(":app")
+
+    // Provide flutter.compileSdkVersion and flutter.minSdkVersion for plugins
+    // (like app_links) that read these from the android extension.
+    // On CI, the Flutter gradle plugin may not propagate these to library subprojects.
+    project.plugins.withId("com.android.library") {
+        project.android {
+            if (!project.android.hasProperty("flutter")) {
+                project.android.ext.flutter = [
+                    compileSdkVersion: 35,
+                    minSdkVersion: 26,
+                    targetSdkVersion: 34
+                ]
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
