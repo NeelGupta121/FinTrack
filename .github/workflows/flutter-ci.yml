@@ -141,4 +141,7 @@ jobs:
             --target=integration_test/app_test.dart \
             -d web-server --browser-name=chrome --headless \
             --web-renderer=html \
+            --web-browser-flag=--no-sandbox \
+            --web-browser-flag=--disable-dev-shm-usage \
+            --web-browser-flag=--disable-gpu \
             --dart-define=GEMINI_API_KEY=
