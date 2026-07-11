@@ -25,14 +25,6 @@ class PermissionsPage extends ConsumerWidget {
                   ?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
           const SizedBox(height: 32),
           _PermTile(
-            icon: Icons.sms_outlined,
-            title: 'SMS Access',
-            desc: 'Auto-detect bank transactions from SMS',
-            granted: perms['sms']!,
-            onTap: notifier.requestSms,
-          ),
-          const SizedBox(height: 16),
-          _PermTile(
             icon: Icons.notifications_outlined,
             title: 'Notifications',
             desc: 'Bill reminders and spending alerts',

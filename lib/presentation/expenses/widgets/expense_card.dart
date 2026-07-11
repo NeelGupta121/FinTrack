@@ -49,7 +49,6 @@ class _SourceBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (label, color) = switch (source) {
-      'sms' => ('SMS', Colors.blue),
       'ocr' => ('OCR', Colors.orange),
       _ => ('', Colors.transparent),
     };

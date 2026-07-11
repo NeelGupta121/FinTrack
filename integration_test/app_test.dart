@@ -197,18 +197,6 @@ void main() {
   // run on a physical device (with permissions granted / keys configured).
   // ---------------------------------------------------------------------------
   group('UAT · Device/plugin/AI flows (run on a real device)', () {
-    testWidgets('TC-09 SMS scan surfaces a result or permission message',
-        (t) async {
-      await boot(t);
-      await skipOnboardingIfPresent(t);
-      await t.tap(find.byIcon(Icons.settings));
-      await settle(t);
-      await tapText(t, 'Scan SMS for transactions');
-      await settle(t, 5000);
-      // Emulator with no SMS/permission → a SnackBar explains; device → import.
-      expect(find.byType(SnackBar), findsWidgets);
-    }, skip: true); // Requires a device + SMS permission (another_telephony).
-
     testWidgets('TC-10 receipt OCR (Scan) launches camera + parses', (t) async {
       await boot(t);
       await skipOnboardingIfPresent(t);

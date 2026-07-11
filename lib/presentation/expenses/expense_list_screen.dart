@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../common/widgets/empty_state.dart';
 import 'expense_providers.dart';
 import 'add_expense_screen.dart';
+import 'import_statement_screen.dart';
 import 'widgets/expense_card.dart';
 import 'widgets/monthly_summary_card.dart';
 import 'widgets/category_picker.dart';
@@ -19,7 +20,19 @@ class ExpenseListScreen extends ConsumerWidget {
     ref.watch(budgetAlertProvider); // fires >=80% budget alert (no-op on web)
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Expenses')),
+      appBar: AppBar(
+        title: const Text('Expenses'),
+        actions: [
+          IconButton(
+            tooltip: 'Import statement (PDF)',
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ImportStatementScreen()),
+            ),
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(expenseListProvider);

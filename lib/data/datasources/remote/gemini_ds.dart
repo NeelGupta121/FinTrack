@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import '../../../core/config/env.dart';
+import '../../../core/config/model_config.dart';
 import '../../../core/network/rate_limiter.dart';
 
 class SentimentResult {
@@ -14,7 +15,6 @@ class SentimentResult {
 class GeminiDatasource {
   final Dio _dio;
   final RateLimiter _limiter;
-  static const _base = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent';
 
   GeminiDatasource({Dio? dio, RateLimiter? limiter})
       : _dio = dio ?? Dio(),
@@ -55,7 +55,7 @@ class GeminiDatasource {
 
   Future<String> _generate(String prompt) async {
     final res = await _dio.post(
-      '$_base?key=${Env.geminiApiKey}',
+      '${GeminiModelConfig.generateContentUrl}?key=${Env.geminiApiKey}',
       data: {
         'contents': [{'parts': [{'text': prompt}]}],
         'generationConfig': {'temperature': 0.3, 'maxOutputTokens': 512},
