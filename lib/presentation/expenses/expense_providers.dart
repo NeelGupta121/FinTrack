@@ -11,16 +11,18 @@ class ExpenseFilter {
   final String? categoryId;
   final double? minAmount;
   final double? maxAmount;
+  final String type; // 'expense' (default), 'income', or 'all'
 
-  const ExpenseFilter({this.startDate, this.endDate, this.categoryId, this.minAmount, this.maxAmount});
+  const ExpenseFilter({this.startDate, this.endDate, this.categoryId, this.minAmount, this.maxAmount, this.type = 'expense'});
 
-  ExpenseFilter copyWith({DateTime? startDate, DateTime? endDate, String? categoryId, double? minAmount, double? maxAmount}) =>
+  ExpenseFilter copyWith({DateTime? startDate, DateTime? endDate, String? categoryId, double? minAmount, double? maxAmount, String? type}) =>
       ExpenseFilter(
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
         categoryId: categoryId ?? this.categoryId,
         minAmount: minAmount ?? this.minAmount,
         maxAmount: maxAmount ?? this.maxAmount,
+        type: type ?? this.type,
       );
 }
 
@@ -30,7 +32,9 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
   try {
     final filter = ref.watch(expenseFilterProvider);
     var items = LocalDatabase.transactions.values
-        .where((e) => e['type'] == 'expense')
+        .where((e) => filter.type == 'all'
+            ? (e['type'] == 'expense' || e['type'] == 'income')
+            : e['type'] == filter.type)
         .toList();
 
     if (filter.startDate != null) {
@@ -54,7 +58,7 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
     return items.map((e) => Transaction(
       id: e['id'] as String,
       amount: (e['amount'] as num? ?? 0).toDouble(),
-      type: 'expense',
+      type: (e['type'] as String?) ?? 'expense',
       description: e['description'] as String?,
       merchant: e['merchant'] as String?,
       date: DateTime.tryParse(e['date'] as String? ?? '') ?? DateTime(2000),
