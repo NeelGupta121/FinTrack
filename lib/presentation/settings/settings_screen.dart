@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:file_picker/file_picker.dart';
 import '../../core/config/model_config.dart';
 import '../../data/datasources/local/local_database.dart';
+import '../../services/backup_service.dart';
 import '../expenses/expense_providers.dart';
 
 /// Cached value loaded in main.dart before runApp.
@@ -89,6 +92,53 @@ class SettingsScreen extends ConsumerWidget {
     ).whenComplete(ctrl.dispose);
   }
 
+  Future<void> _exportData(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await BackupService.exportAndShare();
+    } catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text('Export failed: $e')));
+    }
+  }
+
+  Future<void> _importData(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Import backup?'),
+        content: const Text(
+            'This replaces your current transactions, holdings, categories, goals '
+            'and accounts with the contents of the backup file. This cannot be undone.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Import')),
+        ],
+      ),
+    );
+    if (confirm != true) return;
+    try {
+      final picked = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+        withData: true,
+      );
+      if (picked == null || picked.files.isEmpty) return;
+      final bytes = picked.files.single.bytes;
+      if (bytes == null) {
+        messenger.showSnackBar(const SnackBar(content: Text('Could not read the selected file')));
+        return;
+      }
+      final result = await BackupService.importFromJsonString(utf8.decode(bytes));
+      ref.invalidate(expenseListProvider);
+      ref.invalidate(monthlySummaryProvider);
+      ref.invalidate(monthlyBudgetProvider);
+      messenger.showSnackBar(SnackBar(content: Text('Imported ${result.restored} records')));
+    } catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text('Import failed: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
@@ -139,6 +189,22 @@ class SettingsScreen extends ConsumerWidget {
             subtitle: Text(ref.watch(geminiModelProvider)),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => _pickModel(context, ref),
+          ),
+          const Divider(),
+
+          // Data
+          const _SectionHeader('Data'),
+          ListTile(
+            leading: const Icon(Icons.download_outlined),
+            title: const Text('Export data (backup)'),
+            subtitle: const Text('Save all your data to a JSON file you can keep or share'),
+            onTap: () => _exportData(context),
+          ),
+          ListTile(
+            leading: const Icon(Icons.upload_outlined),
+            title: const Text('Import data (restore)'),
+            subtitle: const Text('Replace current data from a FinTrack backup file'),
+            onTap: () => _importData(context, ref),
           ),
           const Divider(),
 
