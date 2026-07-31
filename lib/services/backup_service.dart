@@ -58,7 +58,7 @@ class BackupService {
 
   /// Only export user-facing settings, not internal keys like _schema_version.
   static Map<String, dynamic> _restorableSettings() {
-    const keys = ['monthly_budget', 'theme_mode', 'gemini_model'];
+    const keys = ['monthly_budget', 'theme_mode', 'gemini_model', 'net_worth_history'];
     final out = <String, dynamic>{};
     for (final k in keys) {
       final v = LocalDatabase.settings.get(k);
@@ -123,7 +123,7 @@ class BackupService {
 
   static Future<void> _restoreSettings(dynamic raw) async {
     if (raw is! Map) return;
-    const keys = ['monthly_budget', 'theme_mode', 'gemini_model'];
+    const keys = ['monthly_budget', 'theme_mode', 'gemini_model', 'net_worth_history'];
     for (final k in keys) {
       if (raw.containsKey(k) && raw[k] != null) {
         await LocalDatabase.settings.put(k, raw[k]);

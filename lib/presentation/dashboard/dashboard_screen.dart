@@ -91,17 +91,24 @@ class DashboardScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
 
+          // Real net worth: cash accounts + investments − debts
+          FadeSlideIn(
+            index: 1,
+            child: NetWorthCard(onManageAccounts: () => context.push('/accounts')),
+          ),
+          const SizedBox(height: 16),
+
           // "In My Pocket" — what's actually free to spend for the rest of the month
-          const FadeSlideIn(index: 1, child: _SafeToSpendCard()),
+          const FadeSlideIn(index: 2, child: _SafeToSpendCard()),
           const SizedBox(height: 16),
 
           // Financial health score (0-100) with factor breakdown
-          const FadeSlideIn(index: 2, child: _HealthScoreCard()),
+          const FadeSlideIn(index: 3, child: _HealthScoreCard()),
           const SizedBox(height: 16),
 
           // Quick actions
           FadeSlideIn(
-            index: 3,
+            index: 4,
             child: Row(
               children: [
                 _QuickAction(icon: Icons.add, label: 'Expense', onTap: () => context.push('/expenses/add')),
@@ -116,7 +123,7 @@ class DashboardScreen extends ConsumerWidget {
 
           // Portfolio summary
           FadeSlideIn(
-            index: 4,
+            index: 5,
             child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -169,16 +176,22 @@ class DashboardScreen extends ConsumerWidget {
           const SizedBox(height: 24),
 
           // Month-over-month spending bars (hidden when nothing is logged)
-          const FadeSlideIn(index: 5, child: SpendingTrendCard()),
+          const FadeSlideIn(index: 6, child: SpendingTrendCard()),
 
           // Manage section — links to Bills, Goals, Reports
           Text('Manage', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8),
           FadeSlideIn(
-            index: 5,
+            index: 7,
             child: Card(
             child: Column(
               children: [
+                ListTile(
+                  leading: const Icon(Icons.account_balance),
+                  title: const Text('Accounts & Debts'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () => context.push('/accounts'),
+                ),
                 ListTile(
                   leading: const Icon(Icons.receipt_long),
                   title: const Text('Bills & Subscriptions'),
@@ -209,7 +222,7 @@ class DashboardScreen extends ConsumerWidget {
           Text('Recent Transactions', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8),
           FadeSlideIn(
-            index: 6,
+            index: 8,
             child: expenses.when(
             data: (list) {
               final recent = list.take(5).toList();

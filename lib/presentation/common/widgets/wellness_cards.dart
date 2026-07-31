@@ -2,8 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import '../../../domain/usecases/net_worth.dart';
 import '../../../domain/usecases/spending_trend.dart';
 import '../../../domain/usecases/tax_saving.dart';
+import '../../accounts/accounts_providers.dart';
 import '../../expenses/expense_providers.dart';
 import '../../investments/investment_providers.dart';
 
@@ -193,6 +195,194 @@ class SpendingTrendCard extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Real net worth: cash accounts + investments − debts, with a trend line and
+/// an explainable breakdown. Prompts the user to add accounts when empty rather
+/// than showing a meaningless ₹0.
+class NetWorthCard extends ConsumerWidget {
+  final VoidCallback? onManageAccounts;
+  const NetWorthCard({super.key, this.onManageAccounts});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final cs = Theme.of(context).colorScheme;
+    final fmt = NumberFormat('#,##0');
+    final async = ref.watch(netWorthProvider);
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: async.when(
+          loading: () => const SizedBox(
+              height: 72, child: Center(child: CircularProgressIndicator(strokeWidth: 2))),
+          error: (_, __) => const SizedBox(
+              height: 72, child: Center(child: Text('Net worth unavailable'))),
+          data: (nw) {
+            // Record today's reading so the trend builds up over time.
+            if (!nw.isEmpty) {
+              final record = ref.read(netWorthRecorderProvider);
+              WidgetsBinding.instance
+                  .addPostFrameCallback((_) => record(nw.netWorth));
+            }
+
+            if (nw.isEmpty) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.pie_chart_outline, size: 18, color: cs.onSurfaceVariant),
+                      const SizedBox(width: 8),
+                      Text('Net worth',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w600)),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text('Add your accounts to see this',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.w700)),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Enter bank/cash balances and any money owed. Combined with '
+                    'your investments, that gives a real net worth.',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  if (onManageAccounts != null) ...[
+                    const SizedBox(height: 10),
+                    FilledButton.tonalIcon(
+                      onPressed: onManageAccounts,
+                      icon: const Icon(Icons.add, size: 18),
+                      label: const Text('Add accounts'),
+                    ),
+                  ],
+                ],
+              );
+            }
+
+            final history = ref.watch(netWorthHistoryProvider);
+            final change = NetWorthCalculator.changeSinceStart(history);
+            final positive = nw.netWorth >= 0;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.pie_chart_outline, size: 18, color: cs.primary),
+                    const SizedBox(width: 8),
+                    Text('Net worth',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w600)),
+                    const Spacer(),
+                    if (onManageAccounts != null)
+                      TextButton(
+                        onPressed: onManageAccounts,
+                        style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            minimumSize: const Size(0, 0),
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                        child: const Text('Manage'),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${positive ? '' : '−'}₹${fmt.format(nw.netWorth.abs())}',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: positive ? null : cs.error,
+                      ),
+                ),
+                if (change != null && change != 0) ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    '${change > 0 ? '+' : '−'}₹${fmt.format(change.abs())} since tracking started',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: change > 0 ? Colors.green : cs.error,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  ),
+                ],
+                if (history.length >= 2) ...[
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 44,
+                    child: LineChart(
+                      LineChartData(
+                        gridData: const FlGridData(show: false),
+                        titlesData: const FlTitlesData(show: false),
+                        borderData: FlBorderData(show: false),
+                        lineTouchData: const LineTouchData(enabled: false),
+                        lineBarsData: [
+                          LineChartBarData(
+                            spots: [
+                              for (var i = 0; i < history.length; i++)
+                                FlSpot(i.toDouble(), history[i].value),
+                            ],
+                            isCurved: true,
+                            barWidth: 2,
+                            dotData: const FlDotData(show: false),
+                            color: positive ? Colors.green : cs.error,
+                            belowBarData: BarAreaData(
+                              show: true,
+                              color: (positive ? Colors.green : cs.error).withOpacity(0.12),
+                            ),
+                          ),
+                        ],
+                      ),
+                      duration: const Duration(milliseconds: 650),
+                      curve: Curves.easeOutCubic,
+                    ),
+                  ),
+                ],
+                const SizedBox(height: 12),
+                _NwRow(label: 'Cash & bank', value: nw.cashAssets, fmt: fmt),
+                _NwRow(label: 'Investments', value: nw.investments, fmt: fmt),
+                _NwRow(label: 'Owed', value: -nw.liabilities, fmt: fmt, negative: true),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _NwRow extends StatelessWidget {
+  final String label;
+  final double value;
+  final NumberFormat fmt;
+  final bool negative;
+  const _NwRow(
+      {required this.label, required this.value, required this.fmt, this.negative = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4),
+      child: Row(
+        children: [
+          Expanded(child: Text(label, style: Theme.of(context).textTheme.bodySmall)),
+          Text(
+            '${value < 0 ? '−' : ''}₹${fmt.format(value.abs())}',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: negative && value != 0 ? cs.error : null,
+                ),
+          ),
+        ],
       ),
     );
   }
