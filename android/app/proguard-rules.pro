@@ -15,3 +15,10 @@
 # AndroidX Window extensions/sidecar (optional; not present on all devices)
 -dontwarn androidx.window.extensions.**
 -dontwarn androidx.window.sidecar.**
+
+# PdfBox-Android (via read_pdf_text) references an optional JPEG2000 decoder
+# (com.gemalto.jp2) that isn't bundled. JP2-encoded images in PDFs simply won't
+# decode; text extraction is unaffected. Suppress the R8 missing-class error.
+-dontwarn com.gemalto.jp2.**
+-dontwarn com.tom_roush.pdfbox.**
+-keep class com.tom_roush.pdfbox.** { *; }

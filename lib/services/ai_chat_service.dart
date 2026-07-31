@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:fintrack/core/config/env.dart';
+import 'package:fintrack/core/config/model_config.dart';
 import 'package:fintrack/core/network/rate_limiter.dart';
 import 'package:fintrack/data/datasources/local/local_database.dart';
 import 'package:fintrack/data/datasources/remote/ai_proxy_ds.dart';
@@ -9,8 +10,6 @@ import 'package:fintrack/core/utils/logger.dart';
 class AiChatService {
   static final _dio = Dio();
   static final _rateLimiter = RateLimiter();
-  static const _model = 'gemini-1.5-flash';
-  static const _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/$_model:generateContent';
   static const _systemPrompt =
       'You are a personal finance assistant for an Indian user. '
       'Answer based on their financial data provided as context. '
@@ -124,7 +123,7 @@ class AiChatService {
 
       try {
         final response = await _dio.post(
-          '$_baseUrl?key=$key',
+          '${GeminiModelConfig.generateContentUrl}?key=$key',
           data: {
             'contents': [{'parts': parts}],
             'generationConfig': {'maxOutputTokens': 512, 'temperature': 0.7},

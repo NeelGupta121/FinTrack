@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'expense_providers.dart';
 import 'widgets/category_picker.dart';
 import '../../services/receipt_ocr_service.dart';
+import '../../core/utils/logger.dart';
 
 class AddExpenseScreen extends ConsumerStatefulWidget {
   final bool autoScan;
@@ -86,9 +87,9 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             const SizedBox(height: 12),
             // Receipt photo
             OutlinedButton.icon(
-              onPressed: _scanReceipt,
+              onPressed: _showScanOptions,
               icon: const Icon(Icons.camera_alt),
-              label: const Text('Scan Receipt'),
+              label: const Text('Scan Receipt / Screenshot'),
             ),
             const SizedBox(height: 24),
             // Save
@@ -103,7 +104,18 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   }
 
   Future<void> _save() async {
-    if (!_formKey.currentState!.validate() || _categoryId == null) return;
+    // Validate the amount field first (shows inline error under the field).
+    final amountValid = _formKey.currentState!.validate();
+    // Category is required but lives outside the Form — surface it explicitly
+    // instead of silently returning (which made Save look like it did nothing).
+    if (_categoryId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a category first')),
+      );
+      return;
+    }
+    if (!amountValid) return;
+
     setState(() => _saving = true);
     try {
       await ref.read(addExpenseProvider).add(
@@ -116,13 +128,54 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Expense added ✅')));
         Navigator.pop(context);
       }
+    } catch (e, st) {
+      // Never swallow the failure — the missing catch is why a save error
+      // looked like a dead button (spinner flashed, nothing else happened).
+      AppLogger.error('Failed to save expense', tag: 'Expenses', error: e, stackTrace: st);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not save expense: $e')),
+        );
+      }
     } finally {
       if (mounted) setState(() => _saving = false);
     }
   }
 
-  Future<void> _scanReceipt() async {
-    final data = await ReceiptOcrService.scanFromCamera();
+  void _showScanOptions() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Take a photo'),
+              onTap: () {
+                Navigator.pop(ctx);
+                _scanReceipt();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.image_outlined),
+              title: const Text('Pick a screenshot / image'),
+              subtitle: const Text('e.g. a payment confirmation from your gallery'),
+              onTap: () {
+                Navigator.pop(ctx);
+                _scanReceipt(fromGallery: true);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _scanReceipt({bool fromGallery = false}) async {
+    final data = fromGallery
+        ? await ReceiptOcrService.scanFromGallery()
+        : await ReceiptOcrService.scanFromCamera();
     if (!mounted) return;
     if (data == null) return; // user cancelled the camera — no nagging
     final gotSomething = data.amount != null || data.date != null || data.merchant != null;

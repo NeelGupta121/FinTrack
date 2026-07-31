@@ -15,18 +15,58 @@ class LocalDatabase {
   static late Box settings;
   static late Box rateLimits;
 
+  /// Bumped when the on-disk data shape changes so future builds can migrate.
+  static const int schemaVersion = 1;
+
+  /// Set true if any box was found corrupt and had to be rebuilt at startup,
+  /// so the UI can warn the user that box's local data was reset.
+  static bool recoveredFromCorruption = false;
+
   static Future<void> init() async {
     await Hive.initFlutter();
-    transactions = await Hive.openBox<Map>('transactions');
-    holdings = await Hive.openBox<Map>('holdings');
-    categories = await Hive.openBox<Map>('categories');
-    goals = await Hive.openBox<Map>('goals');
-    insights = await Hive.openBox<Map>('insights');
-    accounts = await Hive.openBox<Map>('accounts');
-    priceCache = await Hive.openBox<Map>('price_cache');
-    settings = await Hive.openBox('settings');
-    rateLimits = await Hive.openBox(HiveRateLimitStore.boxName);
+    transactions = await _openMapBox('transactions');
+    holdings = await _openMapBox('holdings');
+    categories = await _openMapBox('categories');
+    goals = await _openMapBox('goals');
+    insights = await _openMapBox('insights');
+    accounts = await _openMapBox('accounts');
+    priceCache = await _openMapBox('price_cache');
+    settings = await _openDynBox('settings');
+    rateLimits = await _openDynBox(HiveRateLimitStore.boxName);
+
+    // Persist schema version for future migrations.
+    if (settings.get('_schema_version') == null) {
+      await settings.put('_schema_version', schemaVersion);
+    }
+
     await _seedCategories();
+  }
+
+  /// Opens a typed Map box; if the file is corrupt (e.g. power-loss mid-write)
+  /// it is deleted and recreated so a bad box can never permanently block app
+  /// startup. Lost data is recoverable from a backup export.
+  static Future<Box<Map>> _openMapBox(String name) async {
+    try {
+      return await Hive.openBox<Map>(name);
+    } catch (_) {
+      recoveredFromCorruption = true;
+      try {
+        await Hive.deleteBoxFromDisk(name);
+      } catch (_) {}
+      return await Hive.openBox<Map>(name);
+    }
+  }
+
+  static Future<Box> _openDynBox(String name) async {
+    try {
+      return await Hive.openBox(name);
+    } catch (_) {
+      recoveredFromCorruption = true;
+      try {
+        await Hive.deleteBoxFromDisk(name);
+      } catch (_) {}
+      return await Hive.openBox(name);
+    }
   }
 
   static String newId() => _uuid.v4();

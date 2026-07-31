@@ -1,11 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../services/smart_import_service.dart';
-import '../../data/datasources/local/tflite_datasource.dart';
+import 'package:file_picker/file_picker.dart';
+import '../../core/config/model_config.dart';
 import '../../data/datasources/local/local_database.dart';
+import '../../services/backup_service.dart';
 import '../expenses/expense_providers.dart';
-import '../investments/investment_providers.dart';
 
 /// Cached value loaded in main.dart before runApp.
 ThemeMode savedThemeMode = ThemeMode.dark;
@@ -24,49 +25,30 @@ final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((_
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
-  Future<void> _scanSms(BuildContext context, WidgetRef ref) async {
-    showDialog(
+  Future<void> _pickModel(BuildContext context, WidgetRef ref) async {
+    final current = ref.read(geminiModelProvider);
+    final chosen = await showDialog<String>(
       context: context,
-      barrierDismissible: false,
-      builder: (_) => const AlertDialog(
-        content: Row(children: [
-          CircularProgressIndicator(),
-          SizedBox(width: 16),
-          Expanded(child: Text('Scanning SMS...')),
-        ]),
+      builder: (ctx) => SimpleDialog(
+        title: const Text('AI Model'),
+        children: [
+          for (final m in GeminiModelConfig.available)
+            RadioListTile<String>(
+              value: m,
+              groupValue: current,
+              title: Text(m),
+              onChanged: (v) => Navigator.pop(ctx, v),
+            ),
+        ],
       ),
     );
-    try {
-      final tflite = TfliteDatasource();
-      await tflite.load();
-      final result = await SmartImportService(tflite).scanAndImport();
-      if (!context.mounted) return;
-      Navigator.pop(context); // close progress dialog
-      ref.invalidate(expenseListProvider);
-      ref.invalidate(holdingsListProvider);
-      final total = result.expenses + result.investments + result.income;
-      String msg;
-      if (!result.permissionGranted) {
-        msg = 'SMS permission denied. Enable it in system Settings → Apps → FinTrack → Permissions → SMS.';
-      } else if (result.error != null) {
-        msg = 'Scan error: ${result.error}';
-      } else if (result.scanned == 0) {
-        msg = 'No SMS found on device in the last 90 days.';
-      } else if (total == 0) {
-        msg = 'Read ${result.scanned} SMS but none matched bank/transaction patterns.';
-      } else {
-        msg = 'Imported $total of ${result.scanned} SMS: ${result.expenses} expenses, ${result.investments} investments, ${result.income} income';
-      }
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(msg),
-        duration: const Duration(seconds: 6),
-      ));
-    } catch (e) {
-      if (!context.mounted) return;
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('SMS scan failed. Grant SMS permission and try again.'),
-      ));
+    if (chosen == null || chosen == current) return;
+    await GeminiModelConfig.set(chosen);
+    ref.read(geminiModelProvider.notifier).state = chosen;
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('AI model switched to $chosen')),
+      );
     }
   }
 
@@ -108,6 +90,53 @@ class SettingsScreen extends ConsumerWidget {
         ],
       ),
     ).whenComplete(ctrl.dispose);
+  }
+
+  Future<void> _exportData(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      await BackupService.exportAndShare();
+    } catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text('Export failed: $e')));
+    }
+  }
+
+  Future<void> _importData(BuildContext context, WidgetRef ref) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Import backup?'),
+        content: const Text(
+            'This replaces your current transactions, holdings, categories, goals '
+            'and accounts with the contents of the backup file. This cannot be undone.'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Import')),
+        ],
+      ),
+    );
+    if (confirm != true) return;
+    try {
+      final picked = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['json'],
+        withData: true,
+      );
+      if (picked == null || picked.files.isEmpty) return;
+      final bytes = picked.files.single.bytes;
+      if (bytes == null) {
+        messenger.showSnackBar(const SnackBar(content: Text('Could not read the selected file')));
+        return;
+      }
+      final result = await BackupService.importFromJsonString(utf8.decode(bytes));
+      ref.invalidate(expenseListProvider);
+      ref.invalidate(monthlySummaryProvider);
+      ref.invalidate(monthlyBudgetProvider);
+      messenger.showSnackBar(SnackBar(content: Text('Imported ${result.restored} records')));
+    } catch (e) {
+      messenger.showSnackBar(SnackBar(content: Text('Import failed: $e')));
+    }
   }
 
   @override
@@ -152,14 +181,30 @@ class SettingsScreen extends ConsumerWidget {
           ),
           const Divider(),
 
+          // AI
+          const _SectionHeader('AI'),
+          ListTile(
+            leading: const Icon(Icons.smart_toy_outlined),
+            title: const Text('AI Model'),
+            subtitle: Text(ref.watch(geminiModelProvider)),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () => _pickModel(context, ref),
+          ),
+          const Divider(),
+
           // Data
           const _SectionHeader('Data'),
           ListTile(
-            leading: const Icon(Icons.sms),
-            title: const Text('Scan SMS for transactions'),
-            subtitle: const Text('Auto-import expenses & investments from bank SMS'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () => _scanSms(context, ref),
+            leading: const Icon(Icons.download_outlined),
+            title: const Text('Export data (backup)'),
+            subtitle: const Text('Save all your data to a JSON file you can keep or share'),
+            onTap: () => _exportData(context),
+          ),
+          ListTile(
+            leading: const Icon(Icons.upload_outlined),
+            title: const Text('Import data (restore)'),
+            subtitle: const Text('Replace current data from a FinTrack backup file'),
+            onTap: () => _importData(context, ref),
           ),
           const Divider(),
 
