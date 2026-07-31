@@ -121,7 +121,10 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
             FadeSlideIn(
               index: 0,
               child: portfolioAsync.when(
-                data: (pv) => PortfolioValueCard(portfolio: pv),
+                data: (pv) => PortfolioValueCard(
+                  portfolio: pv,
+                  xirr: ref.watch(portfolioXirrProvider).valueOrNull,
+                ),
                 loading: () => const SizedBox(height: 140, child: Center(child: CircularProgressIndicator())),
                 error: (_, __) => const Text('Something went wrong. Pull down to retry.'),
               ),
