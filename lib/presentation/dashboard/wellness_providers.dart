@@ -54,3 +54,8 @@ final healthScoreProvider = FutureProvider.autoDispose<HealthScore>((ref) async 
     rethrow;
   }
 });
+
+/// NOTE: section80cProvider lives in investment_providers.dart and
+/// spendingTrendProvider lives in expense_providers.dart — each sits next to the
+/// notifier that mutates its underlying box so writes can invalidate them.
+/// Providers that read Hive directly are NOT auto-refreshed by a box write.

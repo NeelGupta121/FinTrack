@@ -7,6 +7,7 @@ import '../investments/investment_providers.dart';
 import 'wellness_providers.dart';
 import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
+import '../common/widgets/wellness_cards.dart';
 
 const _heroAmount = TextStyle(
   fontFamily: 'SpaceGrotesk',
@@ -166,6 +167,9 @@ class DashboardScreen extends ConsumerWidget {
           ),
           ),
           const SizedBox(height: 24),
+
+          // Month-over-month spending bars (hidden when nothing is logged)
+          const FadeSlideIn(index: 5, child: SpendingTrendCard()),
 
           // Manage section — links to Bills, Goals, Reports
           Text('Manage', style: Theme.of(context).textTheme.titleLarge),

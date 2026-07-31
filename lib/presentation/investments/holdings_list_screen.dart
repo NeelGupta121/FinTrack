@@ -8,6 +8,7 @@ import '../common/theme/app_animations.dart';
 import 'investment_providers.dart';
 import 'add_holding_screen.dart';
 import 'widgets/portfolio_value_card.dart';
+import '../common/widgets/wellness_cards.dart';
 import 'widgets/allocation_chart.dart';
 import 'widgets/holding_card.dart';
 
@@ -121,9 +122,14 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
             FadeSlideIn(
               index: 0,
               child: portfolioAsync.when(
-                data: (pv) => PortfolioValueCard(
-                  portfolio: pv,
-                  xirr: ref.watch(portfolioXirrProvider).valueOrNull,
+                data: (pv) => Column(
+                  children: [
+                    PortfolioValueCard(
+                      portfolio: pv,
+                      xirr: ref.watch(portfolioXirrProvider).valueOrNull,
+                    ),
+                    const Section80CCard(),
+                  ],
                 ),
                 loading: () => const SizedBox(height: 140, child: Center(child: CircularProgressIndicator())),
                 error: (_, __) => const Text('Something went wrong. Pull down to retry.'),

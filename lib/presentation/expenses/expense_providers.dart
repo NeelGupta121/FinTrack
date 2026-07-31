@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
 import '../../domain/entities/transaction.dart';
+import '../../domain/usecases/spending_trend.dart';
 import '../../services/notification_service.dart';
 
 class ExpenseFilter {
@@ -99,14 +100,30 @@ class AddExpenseNotifier {
     });
     _ref.invalidate(expenseListProvider);
     _ref.invalidate(monthlySummaryProvider);
+    _ref.invalidate(spendingTrendProvider);
   }
 
   Future<void> delete(String id) async {
     await LocalDatabase.transactions.delete(id);
     _ref.invalidate(expenseListProvider);
     _ref.invalidate(monthlySummaryProvider);
+    _ref.invalidate(spendingTrendProvider);
   }
 }
+
+/// Month-over-month expense totals for the last 6 months (oldest first).
+/// Reads the box directly, so every mutation must invalidate it (see
+/// AddExpenseNotifier.add/delete) — a Hive write does not rebuild providers.
+final spendingTrendProvider = Provider.autoDispose<List<MonthlySpend>>((ref) {
+  final dated = <({DateTime date, double amount})>[];
+  for (final e in LocalDatabase.transactions.values) {
+    if (e['type'] != 'expense') continue;
+    final d = DateTime.tryParse(e['date'] as String? ?? '');
+    if (d == null) continue;
+    dated.add((date: d, amount: (e['amount'] as num? ?? 0).toDouble()));
+  }
+  return SpendingTrend.lastMonths(dated, now: DateTime.now(), months: 6);
+});
 
 class MonthlySummary {
   final double totalSpent;

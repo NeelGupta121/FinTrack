@@ -3,6 +3,7 @@ import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
 import '../../domain/entities/holding.dart';
 import '../../domain/usecases/analyze_portfolio.dart';
+import '../../domain/usecases/tax_saving.dart';
 
 final holdingsListProvider = FutureProvider.autoDispose<List<Holding>>((ref) async {
   try {
@@ -133,6 +134,26 @@ final portfolioAllocationProvider = FutureProvider.autoDispose<List<AllocationEn
     ..sort((a, b) => b.value.compareTo(a.value));
 });
 
+/// Section 80C progress for the current Indian financial year, summed from
+/// holdings flagged as tax-saving. Only contributions dated inside the current
+/// FY count toward the ₹1.5L ceiling. Reads the box directly, so writes must
+/// invalidate it (see AddHoldingNotifier.add).
+final section80cProvider = Provider.autoDispose<Section80CProgress>((ref) {
+  final now = DateTime.now();
+  double invested = 0;
+  var count = 0;
+  for (final h in LocalDatabase.holdings.values) {
+    if (h['section_80c'] != true) continue;
+    final bought = DateTime.tryParse(h['purchase_date'] as String? ?? '');
+    if (bought == null || !Section80C.isInCurrentFy(bought, now)) continue;
+    final qty = (h['quantity'] as num?)?.toDouble() ?? 0;
+    final avg = (h['avg_price'] as num?)?.toDouble() ?? 0;
+    invested += qty * avg;
+    count++;
+  }
+  return Section80CProgress.from(invested: invested, count: count, now: now);
+});
+
 final addHoldingProvider = Provider((ref) => AddHoldingNotifier(ref));
 
 class AddHoldingNotifier {
@@ -147,6 +168,7 @@ class AddHoldingNotifier {
     required double avgPrice,
     required DateTime purchaseDate,
     String? accountId,
+    bool section80c = false,
   }) async {
     final id = LocalDatabase.newId();
     await LocalDatabase.holdings.put(id, {
@@ -159,9 +181,12 @@ class AddHoldingNotifier {
       'currency': 'INR',
       'purchase_date': purchaseDate.toIso8601String(),
       'account_id': accountId,
+      'section_80c': section80c,
     });
     _ref.invalidate(holdingsListProvider);
     _ref.invalidate(portfolioValueProvider);
     _ref.invalidate(portfolioAllocationProvider);
+    _ref.invalidate(portfolioXirrProvider);
+    _ref.invalidate(section80cProvider);
   }
 }

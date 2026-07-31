@@ -1,0 +1,39 @@
+# Render Blueprint — deploys the FinTrack Flutter web build as a static site.
+#
+# How it works: connect this repo in Render (New > Blueprint). Render reads this
+# file, runs scripts/render-build.sh (which installs the pinned Flutter SDK and
+# runs `flutter build web --release`), then serves ./build/web on a CDN with
+# automatic deploys on every push to master.
+#
+# SECURITY: no API keys are baked in by default. Anything passed via
+# --dart-define lands in the shipped JavaScript and is readable by any visitor,
+# so the AI features run in bring-your-own-key mode on web. Do NOT add
+# GEMINI_API_KEY / ALPHA_VANTAGE_KEY here for a public site.
+services:
+  - type: web
+    name: fintrack-web
+    runtime: static
+    branch: master
+    buildCommand: ./scripts/render-build.sh
+    staticPublishPath: ./build/web
+    # Flutter web + go_router use client-side routing: every unknown path must
+    # fall through to index.html or deep links 404.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      # Never cache the bootstrap/service-worker or users get stuck on a stale
+      # build after a deploy; hashed assets under it can cache normally.
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+      - path: /flutter_service_worker.js
+        name: Cache-Control
+        value: no-cache, no-store, must-revalidate
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin

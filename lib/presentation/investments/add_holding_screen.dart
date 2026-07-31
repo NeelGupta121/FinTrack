@@ -20,6 +20,7 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
   String _type = 'stock';
   DateTime _purchaseDate = DateTime.now();
   String? _accountId;
+  bool _section80c = false;
   List<Map<String, dynamic>> _accounts = [];
   bool _saving = false;
 
@@ -58,6 +59,7 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
         avgPrice: double.parse(_priceCtrl.text),
         purchaseDate: _purchaseDate,
         accountId: _accountId,
+        section80c: _section80c,
       );
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Holding added ✅')));
@@ -137,6 +139,17 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
                 ],
                 onChanged: (v) => setState(() => _accountId = v),
               ),
+            const SizedBox(height: 12),
+            CheckboxListTile(
+              value: _section80c,
+              onChanged: (v) => setState(() => _section80c = v ?? false),
+              contentPadding: EdgeInsets.zero,
+              controlAffinity: ListTileControlAffinity.leading,
+              title: const Text('Tax-saving (Section 80C)'),
+              subtitle: const Text(
+                  'Counts toward the ₹1.5L 80C deduction for this financial year '
+                  '(e.g. ELSS, PPF, NPS, tax-saver FD)'),
+            ),
             const SizedBox(height: 24),
             FilledButton(
               onPressed: _saving ? null : _save,
