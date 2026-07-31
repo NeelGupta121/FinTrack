@@ -5,30 +5,46 @@ import '../data/datasources/local/local_database.dart';
 import '../domain/entities/transaction.dart';
 import '../domain/usecases/analyze_spending.dart';
 import '../core/utils/logger.dart';
+import 'background_sync_service.dart';
 
 const _taskDaily = 'com.fintrack.dailyInsights';
+const _taskPriceSync = 'com.fintrack.dailyPriceSync';
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     // Headless background isolate: initialize the binding and register plugins
-    // so path_provider (used by Hive.initFlutter in _runDailyAnalysis) works.
-    // Without this, plugin method channels are unregistered in the isolate.
+    // so path_provider (used by Hive.initFlutter) works. Without this, plugin
+    // method channels are unregistered in the isolate.
     WidgetsFlutterBinding.ensureInitialized();
     DartPluginRegistrant.ensureInitialized();
+    // Single OS entrypoint for ALL periodic jobs — route by task name.
     if (task == _taskDaily) {
       await InsightSchedulerService._runDailyAnalysis();
+    } else if (task == _taskPriceSync) {
+      await BackgroundSyncService.runDailyPriceSync();
     }
     return true;
   });
 }
 
 class InsightSchedulerService {
+  /// Registers all periodic background jobs (daily insight analysis + daily
+  /// market-price sync). Called once at startup (main.dart, non-web).
+  /// Initializes Workmanager exactly once with the shared [callbackDispatcher].
   static Future<void> scheduleDaily() async {
     await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
     await Workmanager().registerPeriodicTask(
       _taskDaily,
       _taskDaily,
+      frequency: const Duration(hours: 24),
+      constraints: Constraints(networkType: NetworkType.connected),
+      existingWorkPolicy: ExistingWorkPolicy.replace,
+    );
+    // Daily market-price/NAV refresh so P&L updates even without opening the app.
+    await Workmanager().registerPeriodicTask(
+      _taskPriceSync,
+      _taskPriceSync,
       frequency: const Duration(hours: 24),
       constraints: Constraints(networkType: NetworkType.connected),
       existingWorkPolicy: ExistingWorkPolicy.replace,

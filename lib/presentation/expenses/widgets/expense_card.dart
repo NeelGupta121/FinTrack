@@ -35,8 +35,12 @@ class ExpenseCard extends StatelessWidget {
         ],
       ),
       trailing: Text(
-        currencyFmt.format(transaction.amount),
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+        '${transaction.type == 'income' ? '+' : ''}${currencyFmt.format(transaction.amount)}',
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 15,
+          color: transaction.type == 'income' ? Colors.green : null,
+        ),
       ),
     );
   }
@@ -49,8 +53,8 @@ class _SourceBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final (label, color) = switch (source) {
-      'sms' => ('SMS', Colors.blue),
       'ocr' => ('OCR', Colors.orange),
+      'import' => ('Imported', Colors.indigo),
       _ => ('', Colors.transparent),
     };
     if (label.isEmpty) return const SizedBox.shrink();

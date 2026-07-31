@@ -5,7 +5,6 @@ import 'onboarding_provider.dart';
 import '../../app.dart';
 import 'pages/welcome_page.dart';
 import 'pages/permissions_page.dart';
-import 'pages/setup_accounts_page.dart';
 import 'pages/done_page.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
@@ -46,7 +45,6 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 children: [
                   const WelcomePage(),
                   const PermissionsPage(),
-                  const SetupAccountsPage(),
                   DonePage(onFinish: _finish),
                 ],
               ),
@@ -56,12 +54,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (_page < 3)
+                  if (_page < 2)
                     TextButton(onPressed: _finish, child: const Text('Skip'))
                   else
                     const SizedBox(width: 60),
-                  Row(children: List.generate(4, (i) => _dot(i == _page))),
-                  if (_page < 3)
+                  Row(children: List.generate(3, (i) => _dot(i == _page))),
+                  if (_page < 2)
                     FilledButton(onPressed: _next, child: const Text('Next'))
                   else
                     const SizedBox(width: 60),

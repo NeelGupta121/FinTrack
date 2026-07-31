@@ -19,12 +19,7 @@ final permissionsProvider =
         (ref) => PermissionsNotifier());
 
 class PermissionsNotifier extends StateNotifier<Map<String, bool>> {
-  PermissionsNotifier() : super({'sms': false, 'notification': false});
-
-  Future<void> requestSms() async {
-    final s = await Permission.sms.request();
-    state = {...state, 'sms': s.isGranted};
-  }
+  PermissionsNotifier() : super({'notification': false});
 
   Future<void> requestNotification() async {
     final s = await Permission.notification.request();

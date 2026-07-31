@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/datasources/local/local_database.dart';
 import '../../core/utils/logger.dart';
 import '../../domain/entities/transaction.dart';
+import '../../domain/usecases/spending_trend.dart';
 import '../../services/notification_service.dart';
 
 class ExpenseFilter {
@@ -11,16 +12,18 @@ class ExpenseFilter {
   final String? categoryId;
   final double? minAmount;
   final double? maxAmount;
+  final String type; // 'expense' (default), 'income', or 'all'
 
-  const ExpenseFilter({this.startDate, this.endDate, this.categoryId, this.minAmount, this.maxAmount});
+  const ExpenseFilter({this.startDate, this.endDate, this.categoryId, this.minAmount, this.maxAmount, this.type = 'expense'});
 
-  ExpenseFilter copyWith({DateTime? startDate, DateTime? endDate, String? categoryId, double? minAmount, double? maxAmount}) =>
+  ExpenseFilter copyWith({DateTime? startDate, DateTime? endDate, String? categoryId, double? minAmount, double? maxAmount, String? type}) =>
       ExpenseFilter(
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
         categoryId: categoryId ?? this.categoryId,
         minAmount: minAmount ?? this.minAmount,
         maxAmount: maxAmount ?? this.maxAmount,
+        type: type ?? this.type,
       );
 }
 
@@ -30,7 +33,9 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
   try {
     final filter = ref.watch(expenseFilterProvider);
     var items = LocalDatabase.transactions.values
-        .where((e) => e['type'] == 'expense')
+        .where((e) => filter.type == 'all'
+            ? (e['type'] == 'expense' || e['type'] == 'income')
+            : e['type'] == filter.type)
         .toList();
 
     if (filter.startDate != null) {
@@ -54,7 +59,7 @@ final expenseListProvider = FutureProvider.autoDispose<List<Transaction>>((ref) 
     return items.map((e) => Transaction(
       id: e['id'] as String,
       amount: (e['amount'] as num? ?? 0).toDouble(),
-      type: 'expense',
+      type: (e['type'] as String?) ?? 'expense',
       description: e['description'] as String?,
       merchant: e['merchant'] as String?,
       date: DateTime.tryParse(e['date'] as String? ?? '') ?? DateTime(2000),
@@ -95,14 +100,30 @@ class AddExpenseNotifier {
     });
     _ref.invalidate(expenseListProvider);
     _ref.invalidate(monthlySummaryProvider);
+    _ref.invalidate(spendingTrendProvider);
   }
 
   Future<void> delete(String id) async {
     await LocalDatabase.transactions.delete(id);
     _ref.invalidate(expenseListProvider);
     _ref.invalidate(monthlySummaryProvider);
+    _ref.invalidate(spendingTrendProvider);
   }
 }
+
+/// Month-over-month expense totals for the last 6 months (oldest first).
+/// Reads the box directly, so every mutation must invalidate it (see
+/// AddExpenseNotifier.add/delete) — a Hive write does not rebuild providers.
+final spendingTrendProvider = Provider.autoDispose<List<MonthlySpend>>((ref) {
+  final dated = <({DateTime date, double amount})>[];
+  for (final e in LocalDatabase.transactions.values) {
+    if (e['type'] != 'expense') continue;
+    final d = DateTime.tryParse(e['date'] as String? ?? '');
+    if (d == null) continue;
+    dated.add((date: d, amount: (e['amount'] as num? ?? 0).toDouble()));
+  }
+  return SpendingTrend.lastMonths(dated, now: DateTime.now(), months: 6);
+});
 
 class MonthlySummary {
   final double totalSpent;

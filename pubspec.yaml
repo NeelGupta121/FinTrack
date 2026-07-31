@@ -41,9 +41,12 @@ dependencies:
   # Camera & Media
   image_picker: ^1.1.2
 
+  # Statement import (PDF -> text; AI structures the transactions)
+  file_picker: ">=8.0.0 <8.1.0"
+  read_pdf_text: ^0.3.1
+
   # Permissions & Platform
   permission_handler: ^11.3.1
-  another_telephony: ^0.4.1
   local_auth: ^2.2.0
   share_plus: ^9.0.0
 

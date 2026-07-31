@@ -6,7 +6,12 @@ import '../investment_providers.dart';
 
 class PortfolioValueCard extends StatelessWidget {
   final PortfolioValue portfolio;
-  const PortfolioValueCard({super.key, required this.portfolio});
+
+  /// Annualised money-weighted return (%). Null when it can't be computed
+  /// (no dated holdings, or the solver didn't converge).
+  final double? xirr;
+
+  const PortfolioValueCard({super.key, required this.portfolio, this.xirr});
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,28 @@ class PortfolioValueCard extends StatelessWidget {
                 _PnLChip(label: 'Day', amount: portfolio.dayChange, percent: portfolio.dayChangePercent, isPositive: isDayUp),
               ],
             ),
+            if (xirr != null) ...[
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(Icons.timeline,
+                      size: 14,
+                      color: xirr! >= 0 ? AppTheme.positive : AppTheme.negative),
+                  const SizedBox(width: 6),
+                  Text('XIRR ${xirr! >= 0 ? '+' : ''}${xirr!.toStringAsFixed(1)}% p.a.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: xirr! >= 0 ? AppTheme.positive : AppTheme.negative,
+                          )),
+                  const SizedBox(width: 6),
+                  Text('annualised',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(color: cs.onSurfaceVariant)),
+                ],
+              ),
+            ],
             const SizedBox(height: 14),
             SizedBox(
               height: 48,

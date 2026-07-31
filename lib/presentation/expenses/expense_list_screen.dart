@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import '../common/widgets/empty_state.dart';
 import 'expense_providers.dart';
 import 'add_expense_screen.dart';
+import 'import_statement_screen.dart';
 import 'widgets/expense_card.dart';
 import 'widgets/monthly_summary_card.dart';
 import 'widgets/category_picker.dart';
@@ -19,7 +20,19 @@ class ExpenseListScreen extends ConsumerWidget {
     ref.watch(budgetAlertProvider); // fires >=80% budget alert (no-op on web)
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Expenses')),
+      appBar: AppBar(
+        title: const Text('Expenses'),
+        actions: [
+          IconButton(
+            tooltip: 'Import statement (PDF)',
+            icon: const Icon(Icons.picture_as_pdf),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ImportStatementScreen()),
+            ),
+          ),
+        ],
+      ),
       body: RefreshIndicator(
         onRefresh: () async {
           ref.invalidate(expenseListProvider);
@@ -41,6 +54,15 @@ class ExpenseListScreen extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Wrap(spacing: 8, children: [
                   FilterChip(
+                    label: Text(switch (filter.type) {
+                      'income' => 'Income',
+                      'all' => 'All types',
+                      _ => 'Expenses',
+                    }),
+                    selected: filter.type != 'expense',
+                    onSelected: (_) => _showTypeFilter(context, ref),
+                  ),
+                  FilterChip(
                     label: Text(filter.categoryId != null
                         ? categories.firstWhere((c) => c.id == filter.categoryId, orElse: () => categories.last).label
                         : 'Category'),
@@ -52,7 +74,7 @@ class ExpenseListScreen extends ConsumerWidget {
                     selected: filter.startDate != null,
                     onSelected: (_) => _showDateFilter(context, ref),
                   ),
-                  if (filter.categoryId != null || filter.startDate != null)
+                  if (filter.categoryId != null || filter.startDate != null || filter.type != 'expense')
                     ActionChip(label: const Text('Clear'), onPressed: () => ref.read(expenseFilterProvider.notifier).state = const ExpenseFilter()),
                 ]),
               ),
@@ -110,6 +132,33 @@ class ExpenseListScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddExpenseScreen())),
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  void _showTypeFilter(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final opt in const [
+              ['expense', 'Expenses'],
+              ['income', 'Income'],
+              ['all', 'All types'],
+            ])
+              ListTile(
+                title: Text(opt[1]),
+                trailing: ref.read(expenseFilterProvider).type == opt[0] ? const Icon(Icons.check) : null,
+                onTap: () {
+                  ref.read(expenseFilterProvider.notifier).state =
+                      ref.read(expenseFilterProvider).copyWith(type: opt[0]);
+                  Navigator.pop(context);
+                },
+              ),
+          ],
+        ),
       ),
     );
   }

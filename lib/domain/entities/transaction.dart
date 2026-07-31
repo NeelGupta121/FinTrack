@@ -10,7 +10,7 @@ class Transaction extends Equatable {
   final String? merchant;
   final DateTime date;
   final String? categoryId;
-  final String source; // manual, sms, ocr, import
+  final String source; // manual, ocr, import
 
   const Transaction({
     required this.id,

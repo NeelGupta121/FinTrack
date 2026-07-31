@@ -1,0 +1,24 @@
+# FinTrack release signing — SETUP INSTRUCTIONS
+#
+# The build now uses a real release keystore when android/key.properties exists,
+# and falls back to debug signing when it does not (so CI/`flutter run` still work).
+# key.properties, *.jks and *.keystore are git-ignored — never commit them.
+#
+# 1) Generate a keystore (once), keep it safe & backed up:
+#      keytool -genkey -v -keystore ~/fintrack-release.jks \
+#        -keyalg RSA -keysize 2048 -validity 10000 -alias fintrack
+#
+# 2) Copy this file to android/key.properties and fill in real values:
+#      cp android/key.properties.example android/key.properties
+#
+# 3) For GitHub CI: base64-encode the keystore and store it + the passwords as
+#    repository secrets, then in the workflow decode it to a file and write a
+#    key.properties before `flutter build apk --release`.
+#
+# WARNING: once you ship a signed release, you MUST keep the SAME keystore for
+# all future updates — a different key forces users to uninstall (data loss).
+
+storePassword=changeme
+keyPassword=changeme
+keyAlias=fintrack
+storeFile=/absolute/path/to/fintrack-release.jks

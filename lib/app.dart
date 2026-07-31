@@ -16,6 +16,7 @@ import 'presentation/chat/chat_screen.dart';
 import 'presentation/bills/bills_screen.dart';
 import 'presentation/goals/goals_screen.dart';
 import 'presentation/reports/reports_screen.dart';
+import 'presentation/accounts/accounts_screen.dart';
 
 /// Cached onboarding status -- set in main() before runApp, updated by OnboardingScreen.
 bool onboardingComplete = false;
@@ -76,6 +77,8 @@ final _router = GoRouter(
         AppAnimations.fadeSlideTransition(state, const GoalsScreen())),
     GoRoute(path: '/reports', pageBuilder: (_, state) =>
         AppAnimations.fadeSlideTransition(state, const ReportsScreen())),
+    GoRoute(path: '/accounts', pageBuilder: (_, state) =>
+        AppAnimations.fadeSlideTransition(state, const AccountsScreen())),
     GoRoute(path: '/settings', pageBuilder: (_, state) =>
         AppAnimations.fadeSlideTransition(state, const SettingsScreen())),
   ],
