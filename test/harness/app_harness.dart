@@ -16,7 +16,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fintrack/data/datasources/local/local_database.dart';
@@ -72,11 +72,72 @@ Future<void> closeTestHive() async {
   _tempDir = null;
 }
 
+/// Builds a bare ProviderContainer over the real Hive boxes. This is the
+/// primary validation vehicle: it exercises real providers, real notifiers and
+/// real use-case maths without the widget layer, so it is immune to the
+/// Dismissible/SliverList hang documented on pumpScreen.
+ProviderContainer makeContainer({List<Override> overrides = const []}) {
+  final container = ProviderContainer(overrides: overrides);
+  addTearDown(container.dispose);
+  return container;
+}
+
+/// Reads a SYNCHRONOUS provider while holding a live subscription.
+///
+/// MUST be used instead of `container.read()` for any `Provider.autoDispose`
+/// whose staleness you intend to assert. Proven by mutation test 2026-08-03:
+/// with a bare `container.read()`, an autoDispose provider is torn down as soon
+/// as read returns and rebuilt from scratch on the next read -- so it ALWAYS
+/// looks fresh and a missing `ref.invalidate(...)` cannot be detected.
+/// Deleting the `invalidate(spendingTrendProvider)` line caused 0 test failures
+/// under `read()`, while deleting `invalidate(expenseListProvider)` (read via
+/// readAsync, which does hold a subscription) caused 6. In the real app a
+/// widget's `ref.watch` holds the provider alive, so invalidation genuinely is
+/// required -- meaning `read()` hides a bug the user would actually see.
+T readSync<T>(ProviderContainer container, ProviderListenable<T> provider) {
+  final sub = container.listen<T>(provider, (_, __) {});
+  addTearDown(sub.close);
+  return sub.read();
+}
+
+/// Reads an async provider to completion. Fails loudly on provider error
+/// rather than silently yielding a loading state.
+Future<T> readAsync<T>(
+  ProviderContainer container,
+  ProviderListenable<AsyncValue<T>> provider,
+) async {
+  // Keep the subscription alive so autoDispose providers are not torn down
+  // between the read and the await.
+  final sub = container.listen<AsyncValue<T>>(provider, (_, __) {});
+  addTearDown(sub.close);
+  var value = sub.read();
+  final deadline = DateTime.now().add(const Duration(seconds: 10));
+  while (value.isLoading && DateTime.now().isBefore(deadline)) {
+    await Future<void>.delayed(const Duration(milliseconds: 10));
+    value = sub.read();
+  }
+  return value.when(
+    data: (d) => d,
+    loading: () => throw StateError('provider still loading after 10s'),
+    error: (e, st) => throw StateError('provider errored: $e\n$st'),
+  );
+}
+
 /// Pumps [screen] inside a ProviderScope + MaterialApp, then settles.
 ///
 /// Uses pump-with-timeout rather than pumpAndSettle: several screens hold
 /// indefinite animations (shimmer loaders, the donut sweep-in), and
 /// pumpAndSettle would time out waiting for a frame queue that never drains.
+///
+/// KNOWN LIMITATION (measured, not assumed): screens that render a
+/// `Dismissible` inside a `SliverList` hang indefinitely under flutter_test in
+/// this environment. Bisected 2026-08-03: ExpenseListScreen with an EMPTY box
+/// renders fine, and `MonthlySummaryCard` / `ExpenseCard` each render fine in
+/// isolation, but ExpenseListScreen with a single seeded row never returns
+/// (killed at 15s, 20s and 600s; the timeout stack is just the isolate message
+/// loop, so there is no pending-timer detail to act on).
+/// Therefore: prefer container-level validation (see feature suites) for list
+/// screens, and use pumpScreen only for screens proven to render here.
 Future<ProviderContainer> pumpScreen(
   WidgetTester tester,
   Widget screen, {
