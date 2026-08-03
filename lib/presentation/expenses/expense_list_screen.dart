@@ -113,8 +113,35 @@ class ExpenseListScreen extends ConsumerWidget {
                                 key: ValueKey(t.id),
                                 direction: DismissDirection.endToStart,
                                 background: Container(color: Colors.red, alignment: Alignment.centerRight, padding: const EdgeInsets.only(right: 16), child: const Icon(Icons.delete, color: Colors.white)),
-                                onDismissed: (_) => ref.read(addExpenseProvider).delete(t.id),
-                                child: ExpenseCard(transaction: t),
+                                onDismissed: (_) async {
+                                  final messenger = ScaffoldMessenger.of(context);
+                                  final removed =
+                                      await ref.read(addExpenseProvider).delete(t.id);
+                                  if (removed == null) return;
+                                  // On-device storage with no cloud backup —
+                                  // a mis-swipe must be recoverable.
+                                  messenger.showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Deleted ₹${t.amount.toStringAsFixed(0)}'),
+                                    duration: const Duration(seconds: 5),
+                                    action: SnackBarAction(
+                                      label: 'Undo',
+                                      onPressed: () => ref
+                                          .read(addExpenseProvider)
+                                          .restore(removed),
+                                    ),
+                                  ));
+                                },
+                                // Tap to edit in place — a manual-entry app
+                                // needs a way to fix a typo.
+                                child: InkWell(
+                                  onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => AddExpenseScreen(existing: t)),
+                                  ),
+                                  child: ExpenseCard(transaction: t),
+                                ),
                               )),
                         ],
                       );

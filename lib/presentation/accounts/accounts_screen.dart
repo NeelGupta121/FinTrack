@@ -135,6 +135,7 @@ class AccountsScreen extends ConsumerWidget {
     final balCtrl =
         TextEditingController(text: existing == null ? '' : existing.balance.toStringAsFixed(0));
     var kind = existing?.kind ?? AccountKind.bank;
+    var corrects = false;
     final messenger = ScaffoldMessenger.of(context);
 
     final saved = await showDialog<bool>(
@@ -176,6 +177,18 @@ class AccountsScreen extends ConsumerWidget {
                         : null,
                   ),
                 ),
+                if (existing != null) ...[
+                  const SizedBox(height: 4),
+                  CheckboxListTile(
+                    value: corrects,
+                    onChanged: (v) => setLocal(() => corrects = v ?? false),
+                    contentPadding: EdgeInsets.zero,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: const Text("I'm correcting a mistake"),
+                    subtitle: const Text(
+                        'Clears the net-worth trend, because past readings used the wrong balance'),
+                  ),
+                ],
               ],
             ),
           ),
@@ -204,7 +217,7 @@ class AccountsScreen extends ConsumerWidget {
     }
     await ref
         .read(accountsNotifierProvider)
-        .upsert(id: existing?.id, name: name, kind: kind, balance: balance);
+        .upsert(id: existing?.id, name: name, kind: kind, balance: balance, correctsPastData: corrects);
     messenger.showSnackBar(SnackBar(content: Text('Saved $name')));
   }
 }

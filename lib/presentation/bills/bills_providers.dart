@@ -3,7 +3,9 @@ import '../../data/datasources/local/local_database.dart';
 import '../../domain/usecases/detect_recurring_bills.dart';
 import '../../services/notification_service.dart';
 
-final recurringBillsProvider = FutureProvider<List<RecurringBill>>((ref) async {
+// autoDispose: without it this caches indefinitely, so an edited/deleted
+// expense would not change the detected bills until a cold app restart.
+final recurringBillsProvider = FutureProvider.autoDispose<List<RecurringBill>>((ref) async {
   final detector = DetectRecurringBills();
   final txns = LocalDatabase.transactions.values
       .map((e) => Map<String, dynamic>.from(e))

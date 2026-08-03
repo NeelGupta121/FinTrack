@@ -1,28 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/utils/logger.dart';
-import '../../data/datasources/local/local_database.dart';
 import '../../domain/usecases/financial_wellness.dart';
 import '../expenses/expense_providers.dart';
 import '../investments/investment_providers.dart';
 
-/// Total income logged in the current calendar month. Income rows arrive from
-/// statement import (type == 'income'); manual entry is expense-only today.
-final monthlyIncomeProvider = Provider.autoDispose<double>((ref) {
-  final now = DateTime.now();
-  final start = DateTime(now.year, now.month, 1);
-  final end = DateTime(now.year, now.month + 1, 0);
-  double total = 0;
-  for (final e in LocalDatabase.transactions.values) {
-    if (e['type'] != 'income') continue;
-    final d = DateTime.tryParse(e['date'] as String? ?? '');
-    if (d == null) continue;
-    if (d.isAfter(start.subtract(const Duration(days: 1))) &&
-        d.isBefore(end.add(const Duration(days: 1)))) {
-      total += (e['amount'] as num? ?? 0).toDouble();
-    }
-  }
-  return total;
-});
+/// NOTE: monthlyIncomeProvider now lives in expense_providers.dart (imported
+/// below) so that AddExpenseNotifier can invalidate it on every mutation — it
+/// reads the transactions box directly and a Hive write does not rebuild it.
 
 /// "In My Pocket" — budget left for the rest of the month + a per-day allowance.
 final safeToSpendProvider = FutureProvider.autoDispose<SafeToSpend>((ref) async {

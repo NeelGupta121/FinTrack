@@ -226,7 +226,7 @@ class NetWorthCard extends ConsumerWidget {
             if (!nw.isEmpty) {
               final record = ref.read(netWorthRecorderProvider);
               WidgetsBinding.instance
-                  .addPostFrameCallback((_) => record(nw.netWorth));
+                  .addPostFrameCallback((_) => record(nw));
             }
 
             if (nw.isEmpty) {

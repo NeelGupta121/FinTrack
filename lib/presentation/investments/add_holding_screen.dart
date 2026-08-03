@@ -5,7 +5,11 @@ import '../../data/datasources/local/local_database.dart';
 import 'investment_providers.dart';
 
 class AddHoldingScreen extends ConsumerStatefulWidget {
-  const AddHoldingScreen({super.key});
+  /// Hive row of the holding being edited; null means create a new one.
+  final Map<String, dynamic>? existing;
+  const AddHoldingScreen({super.key, this.existing});
+
+  bool get isEditing => existing != null;
 
   @override
   ConsumerState<AddHoldingScreen> createState() => _AddHoldingScreenState();
@@ -23,6 +27,9 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
   bool _section80c = false;
   List<Map<String, dynamic>> _accounts = [];
   bool _saving = false;
+  /// True when the user says the previous values were WRONG (invalidates the
+  /// recorded net-worth trend) rather than genuinely changed today.
+  bool _corrects = false;
 
   static const _types = ['stock', 'mutual_fund', 'etf', 'bond', 'gold'];
   static const _typeLabels = {'stock': 'Stock', 'mutual_fund': 'Mutual Fund', 'etf': 'ETF', 'bond': 'Bond', 'gold': 'Gold'};
@@ -30,6 +37,21 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
   @override
   void initState() {
     super.initState();
+    final ex = widget.existing;
+    if (ex != null) {
+      _symbolCtrl.text = (ex['symbol'] as String?) ?? '';
+      _nameCtrl.text = (ex['name'] as String?) ?? '';
+      final qty = (ex['quantity'] as num?)?.toDouble() ?? 0;
+      final avg = (ex['avg_price'] as num?)?.toDouble() ?? 0;
+      _qtyCtrl.text = qty == qty.roundToDouble() ? qty.toStringAsFixed(0) : qty.toString();
+      _priceCtrl.text = avg == avg.roundToDouble() ? avg.toStringAsFixed(0) : avg.toString();
+      final t = (ex['type'] as String?) ?? 'stock';
+      if (_types.contains(t)) _type = t;
+      _purchaseDate =
+          DateTime.tryParse(ex['purchase_date'] as String? ?? '') ?? DateTime.now();
+      _accountId = ex['account_id'] as String?;
+      _section80c = ex['section_80c'] == true;
+    }
     _loadAccounts();
   }
 
@@ -51,18 +73,36 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
     try {
-      await ref.read(addHoldingProvider).add(
-        symbol: _symbolCtrl.text.trim().toUpperCase(),
-        name: _nameCtrl.text.trim(),
-        type: _type,
-        quantity: double.parse(_qtyCtrl.text),
-        avgPrice: double.parse(_priceCtrl.text),
-        purchaseDate: _purchaseDate,
-        accountId: _accountId,
-        section80c: _section80c,
-      );
+      final notifier = ref.read(addHoldingProvider);
+      final symbol = _symbolCtrl.text.trim().toUpperCase();
+      if (widget.isEditing) {
+        await notifier.update(
+          id: widget.existing!['id'] as String,
+          symbol: symbol,
+          name: _nameCtrl.text.trim(),
+          type: _type,
+          quantity: double.parse(_qtyCtrl.text),
+          avgPrice: double.parse(_priceCtrl.text),
+          purchaseDate: _purchaseDate,
+          accountId: _accountId,
+          section80c: _section80c,
+          correctsPastData: _corrects,
+        );
+      } else {
+        await notifier.add(
+          symbol: symbol,
+          name: _nameCtrl.text.trim(),
+          type: _type,
+          quantity: double.parse(_qtyCtrl.text),
+          avgPrice: double.parse(_priceCtrl.text),
+          purchaseDate: _purchaseDate,
+          accountId: _accountId,
+          section80c: _section80c,
+        );
+      }
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Holding added ✅')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(widget.isEditing ? 'Holding updated ✅' : 'Holding added ✅')));
         Navigator.pop(context);
       }
     } finally {
@@ -73,7 +113,7 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Holding')),
+      appBar: AppBar(title: Text(widget.isEditing ? 'Edit Holding' : 'Add Holding')),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -151,6 +191,18 @@ class _AddHoldingScreenState extends ConsumerState<AddHoldingScreen> {
                   '(e.g. ELSS, PPF, NPS, tax-saver FD)'),
             ),
             const SizedBox(height: 24),
+            if (widget.isEditing)
+              CheckboxListTile(
+                value: _corrects,
+                onChanged: (v) => setState(() => _corrects = v ?? false),
+                contentPadding: EdgeInsets.zero,
+                controlAffinity: ListTileControlAffinity.leading,
+                title: const Text("I'm correcting a mistake"),
+                subtitle: const Text(
+                    'Clears the net-worth trend. Note: changing the purchase date or '
+                    '80C flag also changes XIRR and which financial year the '
+                    'investment counts toward.'),
+              ),
             FilledButton(
               onPressed: _saving ? null : _save,
               child: _saving ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('Save'),

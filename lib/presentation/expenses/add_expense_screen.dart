@@ -3,13 +3,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'expense_providers.dart';
+import '../../domain/entities/transaction.dart';
 import 'widgets/category_picker.dart';
 import '../../services/receipt_ocr_service.dart';
 import '../../core/utils/logger.dart';
 
 class AddExpenseScreen extends ConsumerStatefulWidget {
   final bool autoScan;
-  const AddExpenseScreen({super.key, this.autoScan = false});
+
+  /// When non-null the screen edits this transaction in place instead of
+  /// creating a new one. Its id and source are preserved.
+  final Transaction? existing;
+
+  const AddExpenseScreen({super.key, this.autoScan = false, this.existing});
+
+  bool get isEditing => existing != null;
 
   @override
   ConsumerState<AddExpenseScreen> createState() => _AddExpenseScreenState();
@@ -22,10 +30,25 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   String? _categoryId;
   DateTime _date = DateTime.now();
   bool _saving = false;
+  /// 'expense' or 'income' — manual entry supports both (income was previously
+  /// only creatable via PDF statement import).
+  String _type = 'expense';
+
+  bool get _isIncome => _type == 'income';
 
   @override
   void initState() {
     super.initState();
+    final ex = widget.existing;
+    if (ex != null) {
+      // Edit mode — prefill from the stored transaction.
+      _amountCtrl.text = ex.amount.toStringAsFixed(
+          ex.amount == ex.amount.roundToDouble() ? 0 : 2);
+      _notesCtrl.text = ex.description ?? '';
+      _categoryId = ex.categoryId;
+      _date = ex.date;
+      _type = ex.type == 'income' ? 'income' : 'expense';
+    }
     if (widget.autoScan) {
       // Launched from the dashboard "Scan" action — open the camera immediately.
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -44,12 +67,29 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Expense')),
+      appBar: AppBar(
+          title: Text('${widget.isEditing ? 'Edit' : 'Add'} ${_isIncome ? 'Income' : 'Expense'}')),
       body: Form(
         key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            // Expense vs Income — manual entry supports both.
+            SegmentedButton<String>(
+              segments: const [
+                ButtonSegment(
+                    value: 'expense',
+                    label: Text('Expense'),
+                    icon: Icon(Icons.arrow_upward, size: 16)),
+                ButtonSegment(
+                    value: 'income',
+                    label: Text('Income'),
+                    icon: Icon(Icons.arrow_downward, size: 16)),
+              ],
+              selected: {_type},
+              onSelectionChanged: (s) => setState(() => _type = s.first),
+            ),
+            const SizedBox(height: 20),
             // Amount
             TextFormField(
               controller: _amountCtrl,
@@ -95,7 +135,7 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             // Save
             FilledButton(
               onPressed: _saving ? null : _save,
-              child: _saving ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('Save Expense'),
+              child: _saving ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2)) : Text(widget.isEditing ? 'Save changes' : (_isIncome ? 'Save Income' : 'Save Expense')),
             ),
           ],
         ),
@@ -118,23 +158,41 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
 
     setState(() => _saving = true);
     try {
-      await ref.read(addExpenseProvider).add(
-            amount: double.parse(_amountCtrl.text),
-            categoryId: _categoryId!,
-            date: _date,
-            description: _notesCtrl.text.isEmpty ? null : _notesCtrl.text,
-          );
+      final notifier = ref.read(addExpenseProvider);
+      final amount = double.parse(_amountCtrl.text);
+      final notes = _notesCtrl.text.isEmpty ? null : _notesCtrl.text;
+      if (widget.isEditing) {
+        await notifier.update(
+          id: widget.existing!.id,
+          amount: amount,
+          categoryId: _categoryId!,
+          date: _date,
+          description: notes,
+          merchant: widget.existing!.merchant,
+          type: _type,
+        );
+      } else {
+        await notifier.add(
+          amount: amount,
+          categoryId: _categoryId!,
+          date: _date,
+          description: notes,
+          type: _type,
+        );
+      }
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Expense added ✅')));
+        final noun = _isIncome ? 'Income' : 'Expense';
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(widget.isEditing ? '$noun updated ✅' : '$noun added ✅')));
         Navigator.pop(context);
       }
     } catch (e, st) {
       // Never swallow the failure — the missing catch is why a save error
       // looked like a dead button (spinner flashed, nothing else happened).
-      AppLogger.error('Failed to save expense', tag: 'Expenses', error: e, stackTrace: st);
+      AppLogger.error('Failed to save transaction', tag: 'Expenses', error: e, stackTrace: st);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not save expense: $e')),
+          SnackBar(content: Text('Could not save: $e')),
         );
       }
     } finally {

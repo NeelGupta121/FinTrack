@@ -85,29 +85,80 @@ class AddExpenseNotifier {
     String? description,
     String? merchant,
     String source = 'manual',
+    String type = 'expense',
   }) async {
     final id = LocalDatabase.newId();
     await LocalDatabase.transactions.put(id, {
       'id': id,
       'amount': amount,
       'currency': 'INR',
-      'type': 'expense',
+      'type': type,
       'category_id': categoryId,
       'date': date.toIso8601String(),
       'description': description,
       'merchant': merchant,
       'source': source,
     });
-    _ref.invalidate(expenseListProvider);
-    _ref.invalidate(monthlySummaryProvider);
-    _ref.invalidate(spendingTrendProvider);
+    _invalidateDependents();
   }
 
-  Future<void> delete(String id) async {
+  /// Updates an existing transaction in place, preserving its id and source.
+  /// Every field the edit form can change is passed explicitly so a partially
+  /// filled form can never silently blank a stored value.
+  Future<void> update({
+    required String id,
+    required double amount,
+    required String categoryId,
+    required DateTime date,
+    String? description,
+    String? merchant,
+    required String type,
+  }) async {
+    final existing = LocalDatabase.transactions.get(id);
+    if (existing == null) {
+      throw StateError('Transaction $id no longer exists');
+    }
+    await LocalDatabase.transactions.put(id, {
+      ...Map<String, dynamic>.from(existing),
+      'id': id,
+      'amount': amount,
+      'type': type,
+      'category_id': categoryId,
+      'date': date.toIso8601String(),
+      'description': description,
+      'merchant': merchant,
+    });
+    _invalidateDependents();
+  }
+
+  /// Deletes a transaction and returns its stored row so the caller can offer
+  /// Undo. Returns null when the id no longer exists.
+  Future<Map<String, dynamic>?> delete(String id) async {
+    final existing = LocalDatabase.transactions.get(id);
+    if (existing == null) return null;
+    final copy = Map<String, dynamic>.from(existing);
     await LocalDatabase.transactions.delete(id);
+    _invalidateDependents();
+    return copy;
+  }
+
+  /// Re-inserts a previously deleted transaction (Undo).
+  Future<void> restore(Map<String, dynamic> row) async {
+    final id = row['id'] as String?;
+    if (id == null) return;
+    await LocalDatabase.transactions.put(id, row);
+    _invalidateDependents();
+  }
+
+  /// Single place that refreshes everything derived from the transactions box.
+  /// Providers that read Hive directly are NOT rebuilt by a box write, so every
+  /// mutation must come through here — forgetting one leaves stale UI (this bug
+  /// already shipped once with spendingTrendProvider).
+  void _invalidateDependents() {
     _ref.invalidate(expenseListProvider);
     _ref.invalidate(monthlySummaryProvider);
     _ref.invalidate(spendingTrendProvider);
+    _ref.invalidate(monthlyIncomeProvider);
   }
 }
 
@@ -123,6 +174,27 @@ final spendingTrendProvider = Provider.autoDispose<List<MonthlySpend>>((ref) {
     dated.add((date: d, amount: (e['amount'] as num? ?? 0).toDouble()));
   }
   return SpendingTrend.lastMonths(dated, now: DateTime.now(), months: 6);
+});
+
+/// Total income logged in the current calendar month. Lives here (not in
+/// wellness_providers) because it reads the transactions box directly and so
+/// MUST be invalidated by every transaction mutation — see
+/// AddExpenseNotifier._invalidateDependents.
+final monthlyIncomeProvider = Provider.autoDispose<double>((ref) {
+  final now = DateTime.now();
+  final start = DateTime(now.year, now.month, 1);
+  final end = DateTime(now.year, now.month + 1, 0);
+  double total = 0;
+  for (final e in LocalDatabase.transactions.values) {
+    if (e['type'] != 'income') continue;
+    final d = DateTime.tryParse(e['date'] as String? ?? '');
+    if (d == null) continue;
+    if (d.isAfter(start.subtract(const Duration(days: 1))) &&
+        d.isBefore(end.add(const Duration(days: 1)))) {
+      total += (e['amount'] as num? ?? 0).toDouble();
+    }
+  }
+  return total;
 });
 
 class MonthlySummary {

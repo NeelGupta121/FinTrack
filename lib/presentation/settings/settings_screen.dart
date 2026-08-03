@@ -147,24 +147,18 @@ class SettingsScreen extends ConsumerWidget {
       appBar: AppBar(title: const Text('Settings')),
       body: ListView(
         children: [
-          // Profile
-          const _SectionHeader('Profile'),
-          ListTile(
-            leading: const CircleAvatar(child: Icon(Icons.person)),
-            title: const Text('User'),
-            subtitle: const Text('user@example.com'),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () {},
-          ),
-          const Divider(),
+          // No Profile section: the app is on-device only with no account or
+          // login, so there is nothing to show. A dead row erodes trust.
 
           // Preferences
           const _SectionHeader('Preferences'),
-          ListTile(
-            leading: const Icon(Icons.currency_rupee),
-            title: const Text('Currency'),
-            trailing: const Text('INR (₹)'),
-            onTap: () {},
+          // Currency is INR-only by design (India-first). Shown as a static
+          // read-only row rather than a tappable tile that does nothing.
+          const ListTile(
+            leading: Icon(Icons.currency_rupee),
+            title: Text('Currency'),
+            trailing: Text('INR (₹)'),
+            enabled: false,
           ),
           ListTile(
             leading: const Icon(Icons.account_balance_wallet),

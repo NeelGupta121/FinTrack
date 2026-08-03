@@ -129,11 +129,103 @@ void main() {
       expect(back.date, DateTime(2026, 7, 31));
     });
 
+    test('round-trips the input breakdown', () {
+      final p = NetWorthPoint(
+          date: DateTime(2026, 8, 3),
+          value: 160000,
+          cash: 200000,
+          investments: 0,
+          liabilities: 40000);
+      final back = NetWorthPoint.fromJson(p.toJson())!;
+      expect(back.cash, 200000);
+      expect(back.investments, 0);
+      expect(back.liabilities, 40000);
+      expect(back.hasBreakdown, isTrue);
+    });
+
+    test('legacy point without breakdown loads with nulls, not zeros', () {
+      // Points written before the breakdown existed must not masquerade as
+      // verified readings with zeroed inputs.
+      final back = NetWorthPoint.fromJson(
+          {'date': '2026-07-01T00:00:00.000', 'value': 5000})!;
+      expect(back.value, 5000);
+      expect(back.cash, isNull);
+      expect(back.hasBreakdown, isFalse);
+    });
+
     test('returns null on malformed input instead of throwing', () {
       expect(NetWorthPoint.fromJson(null), isNull);
       expect(NetWorthPoint.fromJson('nope'), isNull);
       expect(NetWorthPoint.fromJson({'date': 'bad', 'value': 1}), isNull);
       expect(NetWorthPoint.fromJson({'date': '2026-07-31'}), isNull);
+    });
+  });
+
+  group('NetWorthCalculator.truncateFrom', () {
+    List<NetWorthPoint> series() => [
+          NetWorthPoint(date: DateTime(2026, 8, 1), value: 100),
+          NetWorthPoint(date: DateTime(2026, 8, 2), value: 200),
+          NetWorthPoint(date: DateTime(2026, 8, 3), value: 300),
+        ];
+
+    test('drops the cutoff day and everything after it', () {
+      final kept = NetWorthCalculator.truncateFrom(series(), DateTime(2026, 8, 2));
+      expect(kept.map((p) => p.value).toList(), [100]);
+    });
+
+    test('ignores time-of-day when comparing the cutoff', () {
+      final kept = NetWorthCalculator.truncateFrom(
+          series(), DateTime(2026, 8, 2, 23, 59));
+      expect(kept.map((p) => p.value).toList(), [100]);
+    });
+
+    test('a cutoff before all points clears the series', () {
+      final kept = NetWorthCalculator.truncateFrom(series(), DateTime(2026, 7, 1));
+      expect(kept, isEmpty);
+    });
+
+    test('a cutoff after all points keeps everything', () {
+      final kept = NetWorthCalculator.truncateFrom(series(), DateTime(2026, 9, 1));
+      expect(kept, hasLength(3));
+    });
+
+    test('never restamps or mutates surviving points', () {
+      final original = series();
+      final kept = NetWorthCalculator.truncateFrom(original, DateTime(2026, 8, 3));
+      expect(kept.map((p) => p.value).toList(), [100, 200]);
+      expect(original, hasLength(3)); // input untouched
+    });
+  });
+
+  group('NetWorthCalculator.hasDiverged', () {
+    final current = NetWorthCalculator.compute(
+      accounts: [_a('HDFC', AccountKind.bank, 200000)],
+      investments: 50000,
+    );
+
+    test('detects a changed input', () {
+      final stale = NetWorthPoint(
+          date: DateTime(2026, 8, 1),
+          value: 250000,
+          cash: 180000, // was different when recorded
+          investments: 50000,
+          liabilities: 0);
+      expect(NetWorthCalculator.hasDiverged(stale, current), isTrue);
+    });
+
+    test('matching inputs are not divergent', () {
+      final ok = NetWorthPoint(
+          date: DateTime(2026, 8, 1),
+          value: 250000,
+          cash: 200000,
+          investments: 50000,
+          liabilities: 0);
+      expect(NetWorthCalculator.hasDiverged(ok, current), isFalse);
+    });
+
+    test('legacy point without breakdown is unknown, not divergent', () {
+      final legacy = NetWorthPoint(date: DateTime(2026, 7, 1), value: 999);
+      expect(NetWorthCalculator.hasDiverged(legacy, current), isFalse);
     });
   });
 }

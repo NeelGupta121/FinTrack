@@ -4,6 +4,7 @@ import '../../core/utils/logger.dart';
 import '../../domain/entities/holding.dart';
 import '../../domain/usecases/analyze_portfolio.dart';
 import '../../domain/usecases/tax_saving.dart';
+import '../accounts/accounts_providers.dart';
 
 final holdingsListProvider = FutureProvider.autoDispose<List<Holding>>((ref) async {
   try {
@@ -183,10 +184,82 @@ class AddHoldingNotifier {
       'account_id': accountId,
       'section_80c': section80c,
     });
+    _invalidateAll();
+  }
+
+  /// Updates a holding in place. [correctsPastData] means the previous values
+  /// were WRONG (so recorded net-worth history is untrustworthy) rather than
+  /// genuinely changed today — the two are indistinguishable from the data.
+  Future<void> update({
+    required String id,
+    required String symbol,
+    required String name,
+    required String type,
+    required double quantity,
+    required double avgPrice,
+    required DateTime purchaseDate,
+    String? accountId,
+    bool section80c = false,
+    bool correctsPastData = false,
+  }) async {
+    final existing = LocalDatabase.holdings.get(id);
+    if (existing == null) throw StateError('Holding $id no longer exists');
+
+    final oldSymbol = (existing['symbol'] as String?) ?? '';
+    await LocalDatabase.holdings.put(id, {
+      ...Map<String, dynamic>.from(existing),
+      'id': id,
+      'symbol': symbol,
+      'name': name,
+      'type': type,
+      'quantity': quantity,
+      'avg_price': avgPrice,
+      'purchase_date': purchaseDate.toIso8601String(),
+      'account_id': accountId,
+      'section_80c': section80c,
+    });
+
+    // symbol is the priceCache key — a rename would otherwise leave a stale
+    // price keyed to the old symbol and silently value the holding wrongly.
+    if (oldSymbol.isNotEmpty && oldSymbol != symbol) {
+      await LocalDatabase.priceCache.delete(oldSymbol);
+    }
+    if (correctsPastData) {
+      await _ref.read(netWorthTruncateProvider)(DateTime(1970));
+    }
+    _invalidateAll();
+  }
+
+  /// Deletes a holding and returns its stored row so the caller can offer Undo.
+  /// Returns null when the id no longer exists.
+  Future<Map<String, dynamic>?> delete(String id) async {
+    final existing = LocalDatabase.holdings.get(id);
+    if (existing == null) return null;
+    final copy = Map<String, dynamic>.from(existing);
+    await LocalDatabase.holdings.delete(id);
+    // Every past net-worth point included this holding's value and it cannot be
+    // reconstructed, so recorded history is no longer trustworthy.
+    await _ref.read(netWorthTruncateProvider)(DateTime(1970));
+    _invalidateAll();
+    return copy;
+  }
+
+  /// Re-inserts a previously deleted holding (Undo).
+  Future<void> restore(Map<String, dynamic> row) async {
+    final id = row['id'] as String?;
+    if (id == null) return;
+    await LocalDatabase.holdings.put(id, row);
+    _invalidateAll();
+  }
+
+  /// Everything derived from the holdings box. These providers read Hive
+  /// directly, so a box write does NOT rebuild them.
+  void _invalidateAll() {
     _ref.invalidate(holdingsListProvider);
     _ref.invalidate(portfolioValueProvider);
     _ref.invalidate(portfolioAllocationProvider);
     _ref.invalidate(portfolioXirrProvider);
     _ref.invalidate(section80cProvider);
+    _ref.invalidate(netWorthProvider);
   }
 }

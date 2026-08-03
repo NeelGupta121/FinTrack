@@ -80,20 +80,59 @@ class NetWorthBreakdown {
 }
 
 /// A dated net-worth reading, used to draw the trend.
+///
+/// Stores the INPUT BREAKDOWN alongside the total. Past balances and past prices
+/// are not retained anywhere, so a historical point can never be recomputed —
+/// keeping the breakdown is what makes a later divergence *detectable* instead
+/// of silent (e.g. the chart can flag "points before X reflect earlier balances").
 class NetWorthPoint {
   final DateTime date;
   final double value;
-  const NetWorthPoint({required this.date, required this.value});
 
-  Map<String, dynamic> toJson() =>
-      {'date': date.toIso8601String(), 'value': value};
+  /// Cash-like account total at the time of recording. Null for points written
+  /// before the breakdown existed.
+  final double? cash;
+
+  /// Investment market value at the time of recording. Null for legacy points.
+  final double? investments;
+
+  /// Total owed at the time of recording. Null for legacy points.
+  final double? liabilities;
+
+  const NetWorthPoint({
+    required this.date,
+    required this.value,
+    this.cash,
+    this.investments,
+    this.liabilities,
+  });
+
+  /// True when this point carries its inputs and can be compared against a
+  /// freshly computed breakdown.
+  bool get hasBreakdown => cash != null && investments != null && liabilities != null;
+
+  Map<String, dynamic> toJson() => {
+        'date': date.toIso8601String(),
+        'value': value,
+        if (cash != null) 'cash': cash,
+        if (investments != null) 'investments': investments,
+        if (liabilities != null) 'liabilities': liabilities,
+      };
 
   static NetWorthPoint? fromJson(dynamic raw) {
     if (raw is! Map) return null;
     final d = DateTime.tryParse(raw['date'] as String? ?? '');
     final v = (raw['value'] as num?)?.toDouble();
     if (d == null || v == null) return null;
-    return NetWorthPoint(date: d, value: v);
+    return NetWorthPoint(
+      date: d,
+      value: v,
+      // Absent on points written before the breakdown was added — treated as
+      // unknown rather than zero, so they never masquerade as verified.
+      cash: (raw['cash'] as num?)?.toDouble(),
+      investments: (raw['investments'] as num?)?.toDouble(),
+      liabilities: (raw['liabilities'] as num?)?.toDouble(),
+    );
   }
 }
 
@@ -130,17 +169,54 @@ class NetWorthCalculator {
     double value, {
     required DateTime now,
     int maxPoints = 60,
+    double? cash,
+    double? investments,
+    double? liabilities,
   }) {
     bool sameDay(DateTime a, DateTime b) =>
         a.year == b.year && a.month == b.month && a.day == b.day;
 
     final out = [...history.where((p) => !sameDay(p.date, now))];
-    out.add(NetWorthPoint(date: now, value: value));
+    out.add(NetWorthPoint(
+      date: now,
+      value: value,
+      cash: cash,
+      investments: investments,
+      liabilities: liabilities,
+    ));
     out.sort((a, b) => a.date.compareTo(b.date));
     if (out.length > maxPoints) {
       return out.sublist(out.length - maxPoints);
     }
     return out;
+  }
+
+  /// Drops every point dated on or after [from].
+  ///
+  /// Used when a retroactive edit or delete makes stored readings untrustworthy.
+  /// A past point can never be recomputed (past balances and prices are not
+  /// retained), so discarding it is the only honest option — the alternative,
+  /// restamping today's value onto an old date, would flatten the trend into a
+  /// straight line while still looking authoritative.
+  static List<NetWorthPoint> truncateFrom(
+    List<NetWorthPoint> history,
+    DateTime from,
+  ) {
+    final cutoff = DateTime(from.year, from.month, from.day);
+    return history
+        .where((p) => DateTime(p.date.year, p.date.month, p.date.day).isBefore(cutoff))
+        .toList();
+  }
+
+  /// True when [point] carries a breakdown that no longer matches [current] —
+  /// i.e. the stored reading has diverged from reality. Legacy points without a
+  /// breakdown return false (unknown, not "diverged").
+  static bool hasDiverged(NetWorthPoint point, NetWorthBreakdown current) {
+    if (!point.hasBreakdown) return false;
+    const epsilon = 0.01;
+    return (point.cash! - current.cashAssets).abs() > epsilon ||
+        (point.investments! - current.investments).abs() > epsilon ||
+        (point.liabilities! - current.liabilities).abs() > epsilon;
   }
 
   /// Change between the first and last points of [history].

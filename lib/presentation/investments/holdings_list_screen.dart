@@ -11,6 +11,7 @@ import 'widgets/portfolio_value_card.dart';
 import '../common/widgets/wellness_cards.dart';
 import 'widgets/allocation_chart.dart';
 import 'widgets/holding_card.dart';
+import 'package:intl/intl.dart';
 
 class HoldingsListScreen extends ConsumerStatefulWidget {
   const HoldingsListScreen({super.key});
@@ -164,7 +165,7 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
   }
 }
 
-class _HoldingsGrouped extends StatelessWidget {
+class _HoldingsGrouped extends ConsumerWidget {
   final List<Holding> holdings;
   const _HoldingsGrouped({required this.holdings});
 
@@ -185,7 +186,7 @@ class _HoldingsGrouped extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final grouped = <String, List<Holding>>{};
     for (final h in holdings) {
       (grouped[h.type] ??= []).add(h);
@@ -207,7 +208,13 @@ class _HoldingsGrouped extends StatelessWidget {
           index: i < 6 ? i : 6,
           child: PressableScale(
             scale: 0.97,
-            child: HoldingCard(holding: h, currentPrice: _cachedPrice(h.symbol)),
+            child: GestureDetector(
+              // Tap to edit, long-press to delete — a mistyped holding was
+              // previously permanent (no edit and no delete existed at all).
+              onTap: () => _editHolding(context, ref, h.id),
+              onLongPress: () => _confirmDeleteHolding(context, ref, h),
+              child: HoldingCard(holding: h, currentPrice: _cachedPrice(h.symbol)),
+            ),
           ),
         ));
         i++;
@@ -217,4 +224,52 @@ class _HoldingsGrouped extends StatelessWidget {
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: children);
   }
+}
+
+/// Opens the holding form prefilled from its stored Hive row.
+void _editHolding(BuildContext context, WidgetRef ref, String id) {
+  final row = LocalDatabase.holdings.get(id);
+  if (row == null) return;
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => AddHoldingScreen(existing: Map<String, dynamic>.from(row)),
+    ),
+  );
+}
+
+/// Confirms a holding delete, showing the value being destroyed, then offers
+/// Undo. On-device storage has no cloud backup, so a mis-tap must be reversible.
+Future<void> _confirmDeleteHolding(
+    BuildContext context, WidgetRef ref, Holding h) async {
+  final fmt = NumberFormat('#,##0');
+  final invested = h.quantity * h.avgPrice;
+  final messenger = ScaffoldMessenger.of(context);
+
+  final ok = await showDialog<bool>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: Text('Delete ${h.symbol}?'),
+      content: Text(
+          'This removes ${h.quantity} unit(s) of ${h.name.isEmpty ? h.symbol : h.name} '
+          '— ₹${fmt.format(invested)} invested. It also clears the net-worth trend, '
+          'because past readings included this holding.'),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancel')),
+        FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Delete')),
+      ],
+    ),
+  );
+  if (ok != true) return;
+
+  final removed = await ref.read(addHoldingProvider).delete(h.id);
+  if (removed == null) return;
+  messenger.showSnackBar(SnackBar(
+    content: Text('Deleted ${h.symbol}'),
+    duration: const Duration(seconds: 5),
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: () => ref.read(addHoldingProvider).restore(removed),
+    ),
+  ));
 }
