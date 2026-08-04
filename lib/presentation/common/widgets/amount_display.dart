@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+
+import '../theme/app_theme.dart';
 import 'animated_counter.dart';
 
+/// A currency or percentage figure.
+///
+/// Two fixes over the previous version: the gain/loss colours come from the
+/// token set instead of raw `Colors.green`/`Colors.red` (which ignored theme
+/// brightness and were noticeably harsh on a dark canvas), and the numerals are
+/// tabular so a column of amounts lines up on the decimal.
 class AmountDisplay extends StatelessWidget {
   final double value;
   final bool showSign;
@@ -24,24 +32,23 @@ class AmountDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = value >= 0 ? Colors.green : Colors.red;
+    final t = context.tokens;
+    final color = value >= 0 ? t.success : t.error;
     final sign = showSign ? (value >= 0 ? '+' : '-') : '';
     final suffix = isPercent ? '%' : '';
     final prefix = isPercent ? '' : '₹';
+
+    final base = style ?? AppText.money(t.textPrimary);
+    final resolved = showSign ? base.copyWith(color: color) : base;
 
     if (!isPercent && value.abs() < 100000) {
       return AnimatedCounter(
         value: value,
         prefix: '$sign$prefix',
-        style: (style ?? Theme.of(context).textTheme.titleMedium)
-            ?.copyWith(color: showSign ? color : null),
+        style: resolved,
       );
     }
 
-    return Text(
-      '$sign$prefix$_formatted$suffix',
-      style: (style ?? Theme.of(context).textTheme.titleMedium)
-          ?.copyWith(color: showSign ? color : null),
-    );
+    return Text('$sign$prefix$_formatted$suffix', style: resolved);
   }
 }

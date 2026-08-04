@@ -1,64 +1,99 @@
 import 'package:flutter/material.dart';
-import '../theme/app_animations.dart';
 
-class CategoryIcon extends StatefulWidget {
+import '../theme/app_animations.dart';
+import '../theme/app_theme.dart';
+
+/// Category avatar.
+///
+/// The previous version mapped each category to a different saturated Material
+/// colour (orange / blue / purple / teal / red / pink / indigo / brown / green /
+/// amber / lightGreen / cyan). Twelve competing hues is the single loudest
+/// "default template" signal in the app, and it sat entirely outside theme
+/// control.
+///
+/// Categories still need to be distinguishable at a glance, so rather than
+/// flattening everything to one colour this maps each slug to a fixed index in
+/// the two-hue [AppTokens.chartRamp]. Tints of indigo and emerald stay
+/// differentiable while reading as one deliberate system.
+class CategoryIcon extends StatelessWidget {
   final String slug;
   final VoidCallback? onTap;
   final double size;
 
-  const CategoryIcon({super.key, required this.slug, this.onTap, this.size = 40});
+  const CategoryIcon({
+    super.key,
+    required this.slug,
+    this.onTap,
+    this.size = 40,
+  });
 
-  @override
-  State<CategoryIcon> createState() => _CategoryIconState();
-}
+  static const _icons = <String, IconData>{
+    'food': Icons.restaurant_rounded,
+    'transport': Icons.directions_car_rounded,
+    'shopping': Icons.shopping_bag_rounded,
+    'bills': Icons.receipt_long_rounded,
+    'health': Icons.favorite_rounded,
+    'entertainment': Icons.movie_rounded,
+    'education': Icons.school_rounded,
+    'rent': Icons.home_rounded,
+    'salary': Icons.account_balance_rounded,
+    'investment': Icons.trending_up_rounded,
+    'groceries': Icons.local_grocery_store_rounded,
+    'travel': Icons.flight_rounded,
+  };
 
-class _CategoryIconState extends State<CategoryIcon>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _ctrl;
+  /// Stable slug -> ramp index. Fixed rather than hash-derived so a category
+  /// keeps the same colour across builds.
+  static const _rampIndex = <String, int>{
+    'food': 0,
+    'transport': 2,
+    'shopping': 4,
+    'bills': 6,
+    'health': 1,
+    'entertainment': 3,
+    'education': 5,
+    'rent': 7,
+    'salary': 1,
+    'investment': 0,
+    'groceries': 3,
+    'travel': 2,
+  };
 
-  @override
-  void initState() {
-    super.initState();
-    _ctrl = AnimationController(
-        vsync: this, duration: AppAnimations.fast);
+  static Color colorFor(String slug) {
+    final i = _rampIndex[slug];
+    if (i == null) return AppTokens.chartRamp[6];
+    return AppTokens.chartRamp[i % AppTokens.chartRamp.length];
   }
 
-  @override
-  void dispose() { _ctrl.dispose(); super.dispose(); }
-
-  static final _icons = <String, IconData>{
-    'food': Icons.restaurant, 'transport': Icons.directions_car,
-    'shopping': Icons.shopping_bag, 'bills': Icons.receipt_long,
-    'health': Icons.local_hospital, 'entertainment': Icons.movie,
-    'education': Icons.school, 'rent': Icons.home,
-    'salary': Icons.account_balance, 'investment': Icons.trending_up,
-    'groceries': Icons.local_grocery_store, 'travel': Icons.flight,
-  };
-
-  static final _colors = <String, Color>{
-    'food': Colors.orange, 'transport': Colors.blue,
-    'shopping': Colors.purple, 'bills': Colors.teal,
-    'health': Colors.red, 'entertainment': Colors.pink,
-    'education': Colors.indigo, 'rent': Colors.brown,
-    'salary': Colors.green, 'investment': Colors.amber,
-    'groceries': Colors.lightGreen, 'travel': Colors.cyan,
-  };
+  static IconData iconFor(String slug) =>
+      _icons[slug] ?? Icons.category_rounded;
 
   @override
   Widget build(BuildContext context) {
-    final icon = _icons[widget.slug] ?? Icons.category;
-    final color = _colors[widget.slug] ?? Colors.grey;
-    return GestureDetector(
-      onTapDown: (_) => _ctrl.forward(),
-      onTapUp: (_) { _ctrl.reverse(); widget.onTap?.call(); },
-      onTapCancel: () => _ctrl.reverse(),
-      child: ScaleTransition(
-        scale: Tween(begin: 1.0, end: 1.1).animate(_ctrl),
-        child: CircleAvatar(
-          radius: widget.size / 2,
-          backgroundColor: color.withOpacity(0.15),
-          child: Icon(icon, color: color, size: widget.size * 0.55),
-        ),
+    final t = context.tokens;
+    final icon = iconFor(slug);
+    final tint = colorFor(slug);
+
+    // Squircle, not a circle: matches the app's radius scale. Circular avatars
+    // on every row are a Material-2 holdover.
+    final plate = Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: tint.withOpacity(t.isDark ? 0.16 : 0.12),
+        borderRadius: BorderRadius.circular(size * 0.32),
+        border: Border.all(color: tint.withOpacity(t.isDark ? 0.22 : 0.18)),
+      ),
+      child: Icon(icon, color: tint, size: size * 0.5),
+    );
+
+    if (onTap == null) return plate;
+
+    return PressableScale(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(size * 0.32),
+        child: plate,
       ),
     );
   }

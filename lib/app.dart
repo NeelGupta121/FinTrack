@@ -33,6 +33,8 @@ final _router = GoRouter(
     GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingScreen()),
     StatefulShellRoute.indexedStack(
       builder: (context, state, shell) => Scaffold(
+        // The nav is now a floating pill, so content must flow beneath it.
+        extendBody: true,
         body: shell,
         bottomNavigationBar: BottomNav(shell: shell),
         floatingActionButton: FloatingActionButton(

@@ -1,37 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'app_tokens.dart';
+
+/// Motion for the 2026 refresh.
+///
+/// Durations and curves come from [Motion] in app_tokens.dart. The headline
+/// change is the easing: `Cubic(0.16, 1, 0.3, 1)` (Linear's decelerate) instead
+/// of `Curves.easeOut`. It travels most of its distance immediately then settles
+/// — motion you feel rather than watch.
+///
+/// `curveBounce` is retained for API compatibility but deliberately no longer
+/// bounces: elastic overshoot on a monetary figure reads as toy-like, which is
+/// a documented anti-pattern in every serious finance product.
 abstract class AppAnimations {
-  static const fast = Duration(milliseconds: 200);
-  static const normal = Duration(milliseconds: 300);
-  static const slow = Duration(milliseconds: 500);
+  static const Duration fast = Motion.fast;
+  static const Duration normal = Motion.entrance;
+  static const Duration slow = Motion.count;
 
-  static const curveDefault = Curves.easeOut;
-  static const curveSmooth = Curves.easeInOut;
-  static const curveBounce = Curves.bounceOut;
+  static const Curve curveDefault = Motion.decelerate;
+  static const Curve curveSmooth = Motion.smooth;
+  static const Curve curveBounce = Motion.emphasized;
 
-  static Duration staggerDelay(int index) =>
-      Duration(milliseconds: 50 * index);
+  static Duration staggerDelay(int index) => Motion.stagger(index);
 
+  /// Route transition: fade + a short rise, no horizontal slide. Matches the
+  /// shared-axis feel without pulling in the `animations` package.
   static CustomTransitionPage<void> fadeSlideTransition(
       GoRouterState state, Widget child) {
     return CustomTransitionPage(
       key: state.pageKey,
+      transitionDuration: Motion.route,
+      reverseTransitionDuration: Motion.normal,
       child: child,
       transitionsBuilder: (_, animation, __, child) {
-        final offset = Tween(begin: const Offset(0, 0.05), end: Offset.zero)
-            .animate(CurvedAnimation(parent: animation, curve: curveDefault));
+        final curved =
+            CurvedAnimation(parent: animation, curve: Motion.decelerate);
         return FadeTransition(
-          opacity: animation,
-          child: SlideTransition(position: offset, child: child),
+          opacity: curved,
+          child: SlideTransition(
+            position: Tween(begin: const Offset(0, 0.02), end: Offset.zero)
+                .animate(curved),
+            child: child,
+          ),
         );
       },
     );
   }
 }
 
-/// One-shot entrance animation: fades in while sliding up a few px.
-/// Pass an [index] to stagger a column of items (50ms * index).
+/// One-shot entrance: fades in while rising ~10px. Pass an [index] to stagger
+/// a column (40ms per item, capped at 12 items so long lists stay snappy).
 class FadeSlideIn extends StatefulWidget {
   final Widget child;
   final int index;
@@ -40,7 +59,7 @@ class FadeSlideIn extends StatefulWidget {
     super.key,
     required this.child,
     this.index = 0,
-    this.duration = AppAnimations.normal,
+    this.duration = Motion.entrance,
   });
 
   @override
@@ -52,17 +71,26 @@ class _FadeSlideInState extends State<FadeSlideIn>
   late final AnimationController _c =
       AnimationController(vsync: this, duration: widget.duration);
   late final Animation<double> _fade =
-      CurvedAnimation(parent: _c, curve: Curves.easeOut);
+      CurvedAnimation(parent: _c, curve: Motion.decelerate);
   late final Animation<Offset> _slide =
-      Tween(begin: const Offset(0, 0.08), end: Offset.zero)
-          .animate(CurvedAnimation(parent: _c, curve: Curves.easeOutCubic));
+      Tween(begin: const Offset(0, 0.06), end: Offset.zero)
+          .animate(CurvedAnimation(parent: _c, curve: Motion.decelerate));
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(AppAnimations.staggerDelay(widget.index), () {
-      if (mounted) _c.forward();
-    });
+    // Only schedule a timer when there is an actual stagger to wait for.
+    // A zero-duration Future.delayed still allocates a real timer, which
+    // leaves flutter_test with a pending-timer failure and costs one timer
+    // per entrance animation at index 0 (of which there are many).
+    final delay = Motion.stagger(widget.index);
+    if (delay == Duration.zero) {
+      _c.forward();
+    } else {
+      Future.delayed(delay, () {
+        if (mounted) _c.forward();
+      });
+    }
   }
 
   @override
@@ -78,8 +106,7 @@ class _FadeSlideInState extends State<FadeSlideIn>
       );
 }
 
-/// Animates a number counting up from 0 to [value] on first build, formatting
-/// each frame via [formatter]. Used for the dashboard hero amount.
+/// Counts a number up on first build, formatting each frame via [formatter].
 class AnimatedCount extends StatelessWidget {
   final double value;
   final String Function(double) formatter;
@@ -90,25 +117,27 @@ class AnimatedCount extends StatelessWidget {
     required this.value,
     required this.formatter,
     this.style,
-    this.duration = const Duration(milliseconds: 900),
+    this.duration = Motion.count,
   });
 
   @override
   Widget build(BuildContext context) => TweenAnimationBuilder<double>(
         tween: Tween(begin: 0, end: value),
         duration: duration,
-        curve: Curves.easeOutCubic,
+        curve: Motion.decelerate,
         builder: (_, v, __) => Text(formatter(v), style: style),
       );
 }
 
-/// Wraps [child] so it scales down slightly while pressed, for tactile
-/// feedback. Uses a [Listener] (pass-through) so an inner button still
-/// receives its own tap + ripple — this is purely a visual affordance.
+/// Scales [child] down slightly while pressed. Uses a pass-through [Listener]
+/// so an inner button still gets its own tap and ripple.
+///
+/// Default scale moved 0.94 -> 0.97: a subtler press is the current convention
+/// (Copilot, Arc) and 0.94 on a large card reads as rubbery.
 class PressableScale extends StatefulWidget {
   final Widget child;
   final double scale;
-  const PressableScale({super.key, required this.child, this.scale = 0.94});
+  const PressableScale({super.key, required this.child, this.scale = 0.97});
 
   @override
   State<PressableScale> createState() => _PressableScaleState();
@@ -127,16 +156,18 @@ class _PressableScaleState extends State<PressableScale> {
         onPointerCancel: (_) => _set(false),
         child: AnimatedScale(
           scale: _down ? widget.scale : 1.0,
-          duration: const Duration(milliseconds: 120),
+          duration: Motion.tap,
           curve: Curves.easeOut,
           child: widget.child,
         ),
       );
 }
 
-/// A hero surface whose gradient slowly drifts for a subtle "living" sheen.
-/// The gradient direction lerps back and forth over [period]; low-cost enough
-/// for a single hero card.
+/// Hero surface with a slowly drifting gradient.
+///
+/// The drift period is long (14s) and the travel small, so it reads as a
+/// living surface rather than an animation. Previously 6s, which was
+/// perceptible enough to be distracting on a balance figure.
 class ShimmerGradientContainer extends StatefulWidget {
   final Widget child;
   final List<Color> colors;
@@ -148,10 +179,10 @@ class ShimmerGradientContainer extends StatefulWidget {
     super.key,
     required this.child,
     required this.colors,
-    this.padding = const EdgeInsets.all(22),
-    this.borderRadius = const BorderRadius.all(Radius.circular(24)),
+    this.padding = const EdgeInsets.all(Space.xl),
+    this.borderRadius = Radii.brXl,
     this.boxShadow,
-    this.period = const Duration(seconds: 6),
+    this.period = const Duration(seconds: 14),
   });
 
   @override
@@ -181,10 +212,10 @@ class _ShimmerGradientContainerState extends State<ShimmerGradientContainer>
             padding: widget.padding,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.lerp(
-                    Alignment.topLeft, Alignment.topRight, t)!,
+                begin:
+                    Alignment.lerp(Alignment.topLeft, Alignment.topCenter, t)!,
                 end: Alignment.lerp(
-                    Alignment.bottomRight, Alignment.bottomLeft, t)!,
+                    Alignment.bottomRight, Alignment.bottomCenter, t)!,
                 colors: widget.colors,
               ),
               borderRadius: widget.borderRadius,
@@ -194,4 +225,65 @@ class _ShimmerGradientContainerState extends State<ShimmerGradientContainer>
           );
         },
       );
+}
+
+/// Ambient depth: two soft off-screen radial washes behind content.
+///
+/// Cheap on Flutter web (plain gradient fills, no saveLayer) and gives a dark
+/// canvas atmosphere without resorting to BackdropFilter, which costs 2-4ms
+/// per frame per instance under CanvasKit.
+class AmbientGlow extends StatelessWidget {
+  final Widget child;
+  final Color? primary;
+  final Color? secondary;
+  final double opacity;
+  const AmbientGlow({
+    super.key,
+    required this.child,
+    this.primary,
+    this.secondary,
+    this.opacity = 1,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final t = context.tokens;
+    // Both washes stay inside the accent family. An earlier version used the
+    // success green for the second wash, which produced a visible green tint on
+    // the right edge of a near-black canvas — it read as a rendering artifact
+    // rather than as atmosphere.
+    final a = (primary ?? t.accent).withOpacity(t.isDark ? 0.14 : 0.06);
+    final b = (secondary ?? t.accentHover).withOpacity(t.isDark ? 0.07 : 0.035);
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: IgnorePointer(
+            child: Opacity(
+              opacity: opacity,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    center: const Alignment(-0.9, -0.85),
+                    radius: 1.1,
+                    colors: [a, Colors.transparent],
+                  ),
+                ),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: RadialGradient(
+                      center: const Alignment(1.0, -0.35),
+                      radius: 0.9,
+                      colors: [b, Colors.transparent],
+                    ),
+                  ),
+                  child: const SizedBox.expand(),
+                ),
+              ),
+            ),
+          ),
+        ),
+        child,
+      ],
+    );
+  }
 }
