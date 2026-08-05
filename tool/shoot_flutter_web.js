@@ -77,6 +77,55 @@ const scrollArg = process.argv.find((a) => a.startsWith('--scroll='));
     await page.waitForTimeout(2200);
   }
 
+  // Second click, for reaching a screen by tapping the in-app nav rather than
+  // by route navigation (which reloads). Used to distinguish genuine rendering
+  // defects from artifacts of the reload path.
+  const click2Arg = process.argv.find((a) => a.startsWith('--click2='));
+  if (click2Arg) {
+    const [x2, y2] = click2Arg.split('=')[1].split(',').map(Number);
+    await page.mouse.click(x2, y2);
+    await page.waitForTimeout(2600);
+  }
+
+  // Navigate to a client-side route AFTER onboarding has been dismissed, in the
+  // same browser context so the completion flag (IndexedDB) persists. Requires
+  // the server to rewrite unknown paths to index.html -- see tool/serve_spa.py.
+  const routeArg = process.argv.find((a) => a.startsWith('--route='));
+  if (routeArg) {
+    const route = routeArg.split('=')[1];
+    await page.goto(url.replace(/\/$/, '') + route, {
+      waitUntil: 'load',
+      timeout: 60000,
+    });
+    // Hash navigation is same-document, so CanvasKit does not rebuild the whole
+    // scene and a previous route's layers (nav pill, FAB) can remain composited
+    // in the capture. Reload so the engine boots directly at this route and the
+    // frame is unambiguous. The onboarding flag lives in browser storage, so it
+    // survives the reload and we do not bounce back to onboarding.
+    await page.reload({ waitUntil: 'load', timeout: 60000 });
+    try {
+      await page.waitForSelector('flt-glass-pane, flt-scene-host, flutter-view', {
+        timeout: 45000,
+      });
+    } catch (e) {
+      errors.push('engine host missing after route nav');
+    }
+    await page.waitForTimeout(settleMs);
+  }
+
+  // Force a full-surface repaint before capturing.
+  //
+  // CanvasKit repaints dirty regions only. After a route change the previous
+  // screen's layers (nav pill, FAB) can remain composited in areas the new
+  // screen leaves transparent -- invisible on a content-dense screen like the
+  // dashboard, but clearly visible as a ghost duplicate on a sparse screen such
+  // as an empty list. Nudging the viewport by 1px forces a relayout and a full
+  // repaint, so the capture shows only the current frame.
+  await page.setViewportSize({ width, height: height + 1 });
+  await page.waitForTimeout(600);
+  await page.setViewportSize({ width, height });
+  await page.waitForTimeout(900);
+
   await page.screenshot({ path: out, fullPage });
   await browser.close();
 

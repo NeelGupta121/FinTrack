@@ -134,8 +134,15 @@ class AppTheme {
       onPrimary: Colors.white,
       primaryContainer: t.accentSubtle,
       onPrimaryContainer: t.accent,
-      secondary: t.success,
+      // The secondary slot must stay in the ACCENT family, not the semantic
+      // success green. M3 derives SegmentedButton's selected fill (and several
+      // other controls) from secondary/secondaryContainer, so putting a
+      // semantic colour here filled the Expense/Income selector with saturated
+      // green and broke the one-accent rule on every segmented control.
+      secondary: t.accent,
       onSecondary: Colors.white,
+      secondaryContainer: t.accentSubtle,
+      onSecondaryContainer: t.accent,
       surface: t.card,
       onSurface: t.textPrimary,
       surfaceContainerLowest: t.canvas,

@@ -8,18 +8,29 @@ class SentimentBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (icon, color) = switch (sentiment.sentiment) {
-      'bullish' => (Icons.arrow_upward, AppTheme.positive),
-      'bearish' => (Icons.arrow_downward, AppTheme.negative),
-      _ => (Icons.remove, Theme.of(context).colorScheme.onSurfaceVariant),
+    final t = context.tokens;
+    final (icon, color, label) = switch (sentiment.sentiment) {
+      'bullish' => (Icons.arrow_upward, t.success, 'Bullish'),
+      'bearish' => (Icons.arrow_downward, t.error, 'Bearish'),
+      _ => (Icons.remove, t.textTertiary, 'Neutral'),
     };
 
     return Tooltip(
       message: '${sentiment.sentiment} (${sentiment.score.toStringAsFixed(2)}): ${sentiment.reason}',
       child: Container(
-        padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(color: color.withOpacity(0.12), shape: BoxShape.circle),
-        child: Icon(icon, size: 18, color: color),
+        padding: const EdgeInsets.symmetric(horizontal: Space.sm + 2, vertical: 3),
+        decoration: BoxDecoration(
+          color: color.withOpacity(t.isDark ? 0.14 : 0.10),
+          borderRadius: Radii.brPill,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 12, color: color),
+            const SizedBox(width: Space.xs),
+            Text(label, style: AppText.caption(color, weight: FontWeight.w600)),
+          ],
+        ),
       ),
     );
   }

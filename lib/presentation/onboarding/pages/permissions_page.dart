@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../common/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../onboarding_provider.dart';
 
@@ -55,7 +56,8 @@ class _PermTile extends StatelessWidget {
       title: Text(title),
       subtitle: Text(desc),
       trailing: granted
-          ? const Icon(Icons.check_circle, color: Colors.green)
+          ? Icon(Icons.check_circle_rounded,
+              color: AppTokens.of(context).success)
           : FilledButton.tonal(onPressed: onTap, child: const Text('Allow')),
     );
   }

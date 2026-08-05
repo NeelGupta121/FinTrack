@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../common/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../data/datasources/local/local_database.dart';
@@ -210,7 +211,9 @@ class _ImportStatementScreenState extends ConsumerState<ImportStatementScreen> {
               '${isIncome ? '+' : '-'}${_currFmt.format(t.amount)}',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
-                color: isIncome ? Colors.green : Theme.of(context).colorScheme.onSurface,
+                color: isIncome
+                    ? AppTokens.of(context).success
+                    : AppTokens.of(context).textPrimary,
               ),
             ),
           );

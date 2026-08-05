@@ -4,6 +4,7 @@ import '../../domain/entities/holding.dart';
 import '../../data/datasources/local/local_database.dart';
 import '../../services/price_sync_service.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import 'investment_providers.dart';
 import 'add_holding_screen.dart';
@@ -89,19 +90,28 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final holdingsAsync = ref.watch(holdingsListProvider);
     final portfolioAsync = ref.watch(portfolioValueProvider);
     final allocationAsync = ref.watch(portfolioAllocationProvider);
 
     return Scaffold(
+      backgroundColor: t.canvas,
       appBar: AppBar(
         title: const Text('Investments'),
         actions: [
           _syncing
-              ? const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: Space.lg),
                   child: Center(
-                    child: SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)),
+                    child: SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: t.accent,
+                      ),
+                    ),
                   ),
                 )
               : IconButton(
@@ -118,7 +128,10 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
       body: RefreshIndicator(
         onRefresh: () => _refresh(showMessage: false),
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          // Bottom padding 136: nav-shell screen — floating pill nav overlays bottom.
+          padding: const EdgeInsets.fromLTRB(
+            Space.gutter, Space.lg, Space.gutter, 136,
+          ),
           children: [
             FadeSlideIn(
               index: 0,
@@ -129,14 +142,16 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
                       portfolio: pv,
                       xirr: ref.watch(portfolioXirrProvider).valueOrNull,
                     ),
+                    const SizedBox(height: Space.md),
                     const Section80CCard(),
                   ],
                 ),
                 loading: () => const SizedBox(height: 140, child: Center(child: CircularProgressIndicator())),
-                error: (_, __) => const Text('Something went wrong. Pull down to retry.'),
+                error: (_, __) => Text('Something went wrong. Pull down to retry.',
+                    style: AppText.caption(t.textSecondary)),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: Space.section),
             FadeSlideIn(
               index: 1,
               child: allocationAsync.when(
@@ -145,7 +160,7 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
                 error: (_, __) => const SizedBox.shrink(),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: Space.section),
             holdingsAsync.when(
               data: (holdings) => holdings.isEmpty
                   ? EmptyState(
@@ -156,7 +171,10 @@ class _HoldingsListScreenState extends ConsumerState<HoldingsListScreen>
                     )
                   : _HoldingsGrouped(holdings: holdings),
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
+              error: (_, __) => Center(
+                child: Text('Something went wrong. Pull down to retry.',
+                    style: AppText.caption(t.textSecondary)),
+              ),
             ),
           ],
         ),
@@ -170,11 +188,11 @@ class _HoldingsGrouped extends ConsumerWidget {
   const _HoldingsGrouped({required this.holdings});
 
   static const _typeLabels = {
-    'stock': 'Stocks',
-    'mutual_fund': 'Mutual Funds',
-    'etf': 'ETFs',
-    'bond': 'Bonds',
-    'gold': 'Gold',
+    'stock': 'STOCKS',
+    'mutual_fund': 'MUTUAL FUNDS',
+    'etf': 'ETFS',
+    'bond': 'BONDS',
+    'gold': 'GOLD',
   };
 
   /// Latest cached market price for a holding, or null if we've never fetched
@@ -187,25 +205,28 @@ class _HoldingsGrouped extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
     final grouped = <String, List<Holding>>{};
     for (final h in holdings) {
       (grouped[h.type] ??= []).add(h);
     }
 
     final children = <Widget>[];
-    var i = 0;
+    var staggerIdx = 2; // starts after portfolio (0) and allocation (1)
     grouped.forEach((type, list) {
+      // Uppercase eyebrow label for the asset-type group heading.
       children.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.only(top: Space.lg, bottom: Space.sm),
         child: Text(
           _typeLabels[type] ?? type.toUpperCase(),
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+          style: AppText.micro(t.textTertiary),
         ),
       ));
       for (final h in list) {
-        // Cap the stagger window so long lists don't accumulate huge delays.
+        // Cap stagger index so long lists don't accumulate huge delays.
+        final idx = staggerIdx < 8 ? staggerIdx : 8;
         children.add(FadeSlideIn(
-          index: i < 6 ? i : 6,
+          index: idx,
           child: PressableScale(
             scale: 0.97,
             child: GestureDetector(
@@ -217,9 +238,8 @@ class _HoldingsGrouped extends ConsumerWidget {
             ),
           ),
         ));
-        i++;
+        staggerIdx++;
       }
-      children.add(const SizedBox(height: 8));
     });
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: children);

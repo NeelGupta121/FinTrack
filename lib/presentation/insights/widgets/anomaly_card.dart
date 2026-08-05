@@ -8,26 +8,73 @@ class AnomalyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = context.tokens;
     final pct = anomaly.percentAboveAverage;
     final color = pct > 100
-        ? AppTheme.negative
+        ? t.error
         : pct > 50
-            ? AppTheme.warning
-            : AppTheme.warning.withOpacity(0.8);
+            ? t.warning
+            : t.warning;
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: color.withOpacity(0.15),
-          child: Icon(_categoryIcon(anomaly.category), color: color),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Space.md),
+      child: Container(
+        padding: const EdgeInsets.all(Space.lg),
+        decoration: BoxDecoration(
+          color: t.card,
+          borderRadius: Radii.brMd,
+          border: Border.all(color: t.borderStandard),
+          boxShadow: t.cardShadow,
         ),
-        title: Text('₹${anomaly.amount.toStringAsFixed(0)} in ${anomaly.category}'),
-        subtitle: Text('${pct.toStringAsFixed(0)}% above average (₹${anomaly.average.toStringAsFixed(0)})'),
-        trailing: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-          decoration: BoxDecoration(color: color.withOpacity(0.12), borderRadius: BorderRadius.circular(30)),
-          child: Text('${anomaly.zScore.toStringAsFixed(1)}σ', style: TextStyle(color: color, fontWeight: FontWeight.w700)),
+        child: Row(
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: color.withOpacity(t.isDark ? 0.14 : 0.10),
+                borderRadius: Radii.brSm,
+              ),
+              child: Icon(_categoryIcon(anomaly.category), size: 18, color: color),
+            ),
+            const SizedBox(width: Space.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '₹${anomaly.amount.toStringAsFixed(0)}',
+                        style: AppText.money(t.textPrimary),
+                      ),
+                      Text(
+                        ' in ${anomaly.category}',
+                        style: AppText.bodyText(t.textPrimary, weight: FontWeight.w500),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: Space.xs),
+                  Text(
+                    '${pct.toStringAsFixed(0)}% above average (₹${anomaly.average.toStringAsFixed(0)})',
+                    style: AppText.caption(t.textSecondary),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: Space.sm),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: Space.sm + 2, vertical: 3),
+              decoration: BoxDecoration(
+                color: color.withOpacity(t.isDark ? 0.14 : 0.10),
+                borderRadius: Radii.brPill,
+              ),
+              child: Text(
+                '${anomaly.zScore.toStringAsFixed(1)}σ',
+                style: AppText.caption(color, weight: FontWeight.w600),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import 'goals_providers.dart';
 import 'widgets/goal_card.dart';
@@ -29,7 +30,10 @@ class GoalsScreen extends ConsumerWidget {
                 onAction: () => _showAddGoalSheet(context, ref),
               )
             : ListView.builder(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Space.gutter,
+                  vertical: Space.lg,
+                ),
                 itemCount: goals.length,
                 itemBuilder: (_, i) {
                   final goal = goals[i];
@@ -98,50 +102,83 @@ class GoalsScreen extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       builder: (_) => StatefulBuilder(
-        builder: (ctx, setState) => Padding(
-          padding: EdgeInsets.fromLTRB(16, 24, 16, MediaQuery.of(ctx).viewInsets.bottom + 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('New Goal', style: Theme.of(ctx).textTheme.titleLarge),
-              const SizedBox(height: 16),
-              TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'Goal name')),
-              const SizedBox(height: 12),
-              TextField(
-                controller: amountCtrl,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(labelText: 'Target amount (₹)', prefixText: '₹ '),
-              ),
-              const SizedBox(height: 12),
-              DropdownButtonFormField<GoalType>(
-                value: selectedType,
-                decoration: const InputDecoration(labelText: 'Type'),
-                items: GoalType.values.map((t) => DropdownMenuItem(value: t, child: Text(t.name))).toList(),
-                onChanged: (v) => setState(() => selectedType = v!),
-              ),
-              const SizedBox(height: 16),
-              FilledButton(
-                onPressed: () async {
-                  final amount = double.tryParse(amountCtrl.text.trim());
-                  if (nameCtrl.text.trim().isEmpty || amount == null || amount <= 0) {
-                    messenger.showSnackBar(
-                      const SnackBar(content: Text('Enter a name and a target amount greater than 0')),
-                    );
-                    return;
-                  }
-                  await ref.read(addGoalProvider({
-                    'name': nameCtrl.text.trim(),
-                    'type': selectedType.name,
-                    'target_amount': amount,
-                    'current_amount': 0,
-                  }).future);
-                  if (ctx.mounted) Navigator.pop(ctx);
-                },
-                child: const Text('Create Goal'),
-              ),
-            ],
-          ),
-        ),
+        builder: (ctx, setState) {
+          final t = ctx.tokens;
+          return Padding(
+            padding: EdgeInsets.fromLTRB(
+              Space.gutter,
+              Space.lg,
+              Space.gutter,
+              MediaQuery.of(ctx).viewInsets.bottom + Space.xl,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Sheet handle
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: t.borderStandard,
+                      borderRadius: Radii.brPill,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: Space.xl),
+                Text(
+                  'New Goal',
+                  style: AppText.section(t.textPrimary, size: 20),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: Space.xl),
+                TextField(
+                  controller: nameCtrl,
+                  decoration: const InputDecoration(labelText: 'Goal name'),
+                ),
+                const SizedBox(height: Space.lg),
+                TextField(
+                  controller: amountCtrl,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Target amount (₹)',
+                    prefixText: '₹ ',
+                  ),
+                ),
+                const SizedBox(height: Space.lg),
+                DropdownButtonFormField<GoalType>(
+                  value: selectedType,
+                  decoration: const InputDecoration(labelText: 'Type'),
+                  items: GoalType.values
+                      .map((t) => DropdownMenuItem(value: t, child: Text(t.name)))
+                      .toList(),
+                  onChanged: (v) => setState(() => selectedType = v!),
+                ),
+                const SizedBox(height: Space.xl),
+                FilledButton(
+                  onPressed: () async {
+                    final amount = double.tryParse(amountCtrl.text.trim());
+                    if (nameCtrl.text.trim().isEmpty || amount == null || amount <= 0) {
+                      messenger.showSnackBar(
+                        const SnackBar(content: Text('Enter a name and a target amount greater than 0')),
+                      );
+                      return;
+                    }
+                    await ref.read(addGoalProvider({
+                      'name': nameCtrl.text.trim(),
+                      'type': selectedType.name,
+                      'target_amount': amount,
+                      'current_amount': 0,
+                    }).future);
+                    if (ctx.mounted) Navigator.pop(ctx);
+                  },
+                  child: const Text('Create Goal'),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     ).whenComplete(() {
       nameCtrl.dispose();

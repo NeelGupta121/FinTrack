@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../common/theme/app_theme.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -105,7 +106,12 @@ class _AddExpenseScreenState extends ConsumerState<AddExpenseScreen> {
             const Text('Category', style: TextStyle(fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             CategoryPicker(selected: _categoryId, onSelected: (id) => setState(() => _categoryId = id)),
-            if (_categoryId == null) const Padding(padding: EdgeInsets.only(top: 4), child: Text('Select a category', style: TextStyle(color: Colors.red, fontSize: 12))),
+            if (_categoryId == null)
+              Padding(
+                padding: const EdgeInsets.only(top: Space.xs),
+                child: Text('Select a category',
+                    style: AppText.caption(AppTokens.of(context).error)),
+              ),
             const SizedBox(height: 16),
             // Date
             ListTile(

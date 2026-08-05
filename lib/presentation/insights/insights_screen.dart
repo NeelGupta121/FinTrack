@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../common/widgets/empty_state.dart';
+import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import 'insights_providers.dart';
 import 'widgets/anomaly_card.dart';
@@ -25,7 +26,7 @@ class _InsightsScreenState extends ConsumerState<InsightsScreen> {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: const EdgeInsets.symmetric(horizontal: Space.lg, vertical: Space.sm),
             child: SegmentedButton<int>(
               segments: const [
                 ButtonSegment(value: 0, label: Text('Spending'), icon: Icon(Icons.trending_up)),
@@ -51,12 +52,24 @@ class _SpendingTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
     final anomalies = ref.watch(spendingAnomaliesProvider);
     return anomalies.when(
       data: (list) => list.isEmpty
-          ? const Center(child: Text('No anomalies detected. Your spending looks normal! 🎉'))
+          ? Center(
+              child: Text(
+                'No anomalies detected. Your spending looks normal! 🎉',
+                style: AppText.bodyText(t.textSecondary),
+              ),
+            )
           : ListView.builder(
-              padding: const EdgeInsets.all(16),
+              // Nav shell branch: floating pill overlays this screen.
+              padding: const EdgeInsets.only(
+                left: Space.gutter,
+                right: Space.gutter,
+                top: Space.lg,
+                bottom: 136,
+              ),
               itemCount: list.length,
               itemBuilder: (_, i) => FadeSlideIn(
                 index: i < 6 ? i : 6,
@@ -64,7 +77,12 @@ class _SpendingTab extends ConsumerWidget {
               ),
             ),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
+      error: (_, __) => Center(
+        child: Text(
+          'Something went wrong. Pull down to retry.',
+          style: AppText.bodyText(t.textSecondary),
+        ),
+      ),
     );
   }
 }
@@ -74,53 +92,177 @@ class _PortfolioTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
     final drift = ref.watch(driftAlertsProvider);
     final digest = ref.watch(weeklyDigestProvider);
+
     return ListView(
-      padding: const EdgeInsets.all(16),
+      // Nav shell branch: floating pill overlays this screen.
+      padding: const EdgeInsets.only(
+        left: Space.gutter,
+        right: Space.gutter,
+        top: Space.lg,
+        bottom: 136,
+      ),
       children: [
         const FadeSlideIn(index: 0, child: BenchmarkChart()),
-        const SizedBox(height: 16),
+        const SizedBox(height: Space.section),
         FadeSlideIn(
           index: 1,
           child: drift.when(
             data: (alerts) => alerts.isEmpty
-                ? const Card(child: ListTile(title: Text('Portfolio on target ✅')))
-                : Column(children: alerts.map((a) => Card(
-                    child: ListTile(
-                      leading: Icon(a.driftPct > 0 ? Icons.arrow_upward : Icons.arrow_downward,
-                          color: a.driftPct > 0 ? Colors.orange : Colors.blue),
-                      title: Text(a.symbol),
-                      subtitle: Text('${a.currentPct.toStringAsFixed(1)}% vs target ${a.targetPct.toStringAsFixed(1)}%'),
-                      trailing: Text('${a.driftPct > 0 ? "+" : ""}${a.driftPct.toStringAsFixed(1)}%'),
+                ? Container(
+                    padding: const EdgeInsets.all(Space.lg),
+                    decoration: BoxDecoration(
+                      color: t.card,
+                      borderRadius: Radii.brMd,
+                      border: Border.all(color: t.borderStandard),
+                      boxShadow: t.cardShadow,
                     ),
-                  )).toList()),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 32,
+                          height: 32,
+                          decoration: BoxDecoration(
+                            color: t.success.withOpacity(t.isDark ? 0.14 : 0.10),
+                            borderRadius: Radii.brSm,
+                          ),
+                          child: Icon(Icons.check_rounded, size: 17, color: t.success),
+                        ),
+                        const SizedBox(width: Space.md),
+                        Text(
+                          'Portfolio on target ✅',
+                          style: AppText.bodyText(t.textPrimary, weight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      color: t.card,
+                      borderRadius: Radii.brMd,
+                      border: Border.all(color: t.borderStandard),
+                      boxShadow: t.cardShadow,
+                    ),
+                    child: Column(
+                      children: [
+                        for (var i = 0; i < alerts.length; i++) ...[
+                          if (i > 0)
+                            Padding(
+                              padding: const EdgeInsets.only(left: 60),
+                              child: Divider(height: 1, color: t.borderSubtle),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: Space.lg,
+                              vertical: Space.md + 2,
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 32,
+                                  height: 32,
+                                  decoration: BoxDecoration(
+                                    color: (alerts[i].driftPct > 0
+                                            ? t.warning
+                                            : t.accent)
+                                        .withOpacity(t.isDark ? 0.14 : 0.10),
+                                    borderRadius: Radii.brSm,
+                                  ),
+                                  child: Icon(
+                                    alerts[i].driftPct > 0
+                                        ? Icons.arrow_upward
+                                        : Icons.arrow_downward,
+                                    size: 17,
+                                    color: alerts[i].driftPct > 0
+                                        ? t.warning
+                                        : t.accent,
+                                  ),
+                                ),
+                                const SizedBox(width: Space.md),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        alerts[i].symbol,
+                                        style: AppText.bodyText(
+                                          t.textPrimary,
+                                          weight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        '${alerts[i].currentPct.toStringAsFixed(1)}% vs target ${alerts[i].targetPct.toStringAsFixed(1)}%',
+                                        style: AppText.caption(t.textSecondary),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Text(
+                                  '${alerts[i].driftPct > 0 ? "+" : ""}${alerts[i].driftPct.toStringAsFixed(1)}%',
+                                  style: AppText.money(
+                                    alerts[i].driftPct > 0 ? t.warning : t.accent,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
             loading: () => const LinearProgressIndicator(),
-            error: (_, __) => const Text('Something went wrong.'),
+            error: (_, __) => Text(
+              'Something went wrong.',
+              style: AppText.bodyText(t.textSecondary),
+            ),
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: Space.section),
         FadeSlideIn(
           index: 2,
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [
-                    Icon(Icons.auto_awesome, color: Theme.of(context).colorScheme.tertiary),
-                    const SizedBox(width: 8),
-                    const Text('AI Review', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                  ]),
-                  const SizedBox(height: 8),
-                  digest.when(
-                    data: (text) => Text(text),
-                    loading: () => const Text('Generating insights...'),
-                    error: (_, __) => const Text('Something went wrong.'),
+          child: Container(
+            padding: const EdgeInsets.all(Space.lg),
+            decoration: BoxDecoration(
+              color: t.card,
+              borderRadius: Radii.brMd,
+              border: Border.all(color: t.borderStandard),
+              boxShadow: t.cardShadow,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [
+                  Container(
+                    width: 32,
+                    height: 32,
+                    decoration: BoxDecoration(
+                      color: t.accentSubtle,
+                      borderRadius: Radii.brSm,
+                    ),
+                    child: Icon(Icons.auto_awesome, size: 17, color: t.accent),
                   ),
-                ],
-              ),
+                  const SizedBox(width: Space.md),
+                  Text('AI Review', style: AppText.cardTitle(t.textPrimary)),
+                ]),
+                const SizedBox(height: Space.md),
+                digest.when(
+                  data: (text) => Text(
+                    text,
+                    style: AppText.bodyText(t.textSecondary),
+                  ),
+                  loading: () => Text(
+                    'Generating insights...',
+                    style: AppText.bodyText(t.textTertiary),
+                  ),
+                  error: (_, __) => Text(
+                    'Something went wrong.',
+                    style: AppText.bodyText(t.textSecondary),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -134,10 +276,16 @@ class _NewsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
     final holdingsAsync = ref.watch(holdingsInputProvider);
     return holdingsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const Center(child: Text('Something went wrong. Pull down to retry.')),
+      error: (_, __) => Center(
+        child: Text(
+          'Something went wrong. Pull down to retry.',
+          style: AppText.bodyText(t.textSecondary),
+        ),
+      ),
       data: (holdings) {
         if (holdings.isEmpty) {
           return const EmptyState(
@@ -146,7 +294,13 @@ class _NewsTab extends ConsumerWidget {
           );
         }
         return ListView.builder(
-          padding: const EdgeInsets.all(16),
+          // Nav shell branch: floating pill overlays this screen.
+          padding: const EdgeInsets.only(
+            left: Space.gutter,
+            right: Space.gutter,
+            top: Space.lg,
+            bottom: 136,
+          ),
           itemCount: holdings.length,
           itemBuilder: (_, i) {
             final h = holdings[i];
@@ -154,25 +308,81 @@ class _NewsTab extends ConsumerWidget {
             return FadeSlideIn(
               index: i < 6 ? i : 6,
               child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Text(h.name, style: Theme.of(context).textTheme.titleMedium),
-                ),
-                news.when(
-                  data: (items) => Column(children: items.map((n) => Card(
-                    child: ListTile(
-                      title: Text(n.article.title, maxLines: 2, overflow: TextOverflow.ellipsis),
-                      subtitle: Text(n.article.snippet, maxLines: 1, overflow: TextOverflow.ellipsis),
-                      trailing: SentimentBadge(sentiment: n.sentiment),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: Space.sm),
+                    child: Text(
+                      h.name,
+                      style: AppText.cardTitle(t.textPrimary),
                     ),
-                  )).toList()),
-                  loading: () => const Padding(padding: EdgeInsets.all(8), child: LinearProgressIndicator()),
-                  error: (_, __) => const Text('Something went wrong.'),
-                ),
-              ],
-            ));
+                  ),
+                  news.when(
+                    data: (items) => Container(
+                      decoration: BoxDecoration(
+                        color: t.card,
+                        borderRadius: Radii.brMd,
+                        border: Border.all(color: t.borderStandard),
+                        boxShadow: t.cardShadow,
+                      ),
+                      child: Column(
+                        children: [
+                          for (var j = 0; j < items.length; j++) ...[
+                            if (j > 0)
+                              Padding(
+                                padding: const EdgeInsets.only(left: Space.lg),
+                                child: Divider(height: 1, color: t.borderSubtle),
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.all(Space.lg),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          items[j].article.title,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: AppText.bodyText(
+                                            t.textPrimary,
+                                            weight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(height: Space.xs),
+                                        Text(
+                                          items[j].article.snippet,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: AppText.caption(t.textSecondary),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: Space.md),
+                                  SentimentBadge(sentiment: items[j].sentiment),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    loading: () => const Padding(
+                      padding: EdgeInsets.all(Space.sm),
+                      child: LinearProgressIndicator(),
+                    ),
+                    error: (_, __) => Text(
+                      'Something went wrong.',
+                      style: AppText.bodyText(t.textSecondary),
+                    ),
+                  ),
+                  const SizedBox(height: Space.section),
+                ],
+              ),
+            );
           },
         );
       },

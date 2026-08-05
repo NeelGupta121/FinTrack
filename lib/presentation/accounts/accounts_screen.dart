@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../domain/usecases/net_worth.dart';
+import '../common/theme/app_theme.dart';
+import '../common/theme/app_animations.dart';
+import '../common/widgets/empty_state.dart';
 import 'accounts_providers.dart';
 
 /// Manage cash-like accounts and debts. These balances are what turn the
@@ -11,9 +14,9 @@ class AccountsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = context.tokens;
     final accounts = ref.watch(accountsListProvider);
     final fmt = NumberFormat('#,##0');
-    final cs = Theme.of(context).colorScheme;
 
     final assets = accounts.where((a) => !a.isLiability).toList();
     final debts = accounts.where((a) => a.isLiability).toList();
@@ -26,77 +29,132 @@ class AccountsScreen extends ConsumerWidget {
         label: const Text('Add'),
       ),
       body: accounts.isEmpty
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.account_balance, size: 48, color: cs.primary),
-                    const SizedBox(height: 16),
-                    Text('Add your accounts',
-                        style: Theme.of(context).textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Enter bank, cash and wallet balances plus any credit-card '
-                      'or loan amounts owed. FinTrack combines these with your '
-                      'investments to show a real net worth.',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-              ),
+          ? EmptyState(
+              icon: Icons.account_balance,
+              message: 'Add your accounts',
+              detail: 'Enter bank, cash and wallet balances plus any credit-card '
+                  'or loan amounts owed. FinTrack combines these with your '
+                  'investments to show a real net worth.',
+              actionLabel: 'Add account',
+              onAction: () => _edit(context, ref),
             )
           : ListView(
-              padding: const EdgeInsets.only(bottom: 88),
+              padding: const EdgeInsets.symmetric(
+                horizontal: Space.gutter,
+                vertical: Space.lg,
+              ).copyWith(bottom: 88),
               children: [
                 if (assets.isNotEmpty) ...[
-                  _Header('Assets', total: assets.fold<double>(0, (s, a) => s + a.balance)),
-                  ...assets.map((a) => _row(context, ref, a, fmt, cs, false)),
+                  FadeSlideIn(
+                    index: 0,
+                    child: _SectionHeader(t, 'Assets',
+                        total: assets.fold<double>(0, (s, a) => s + a.balance)),
+                  ),
+                  const SizedBox(height: Space.sm),
+                  FadeSlideIn(
+                    index: 1,
+                    child: _accountGroup(context, ref, t, assets, fmt, false),
+                  ),
                 ],
                 if (debts.isNotEmpty) ...[
-                  _Header('Owed', total: debts.fold<double>(0, (s, a) => s + a.balance)),
-                  ...debts.map((a) => _row(context, ref, a, fmt, cs, true)),
+                  SizedBox(height: assets.isNotEmpty ? Space.section : 0),
+                  FadeSlideIn(
+                    index: 2,
+                    child: _SectionHeader(t, 'Owed',
+                        total: debts.fold<double>(0, (s, a) => s + a.balance)),
+                  ),
+                  const SizedBox(height: Space.sm),
+                  FadeSlideIn(
+                    index: 3,
+                    child: _accountGroup(context, ref, t, debts, fmt, true),
+                  ),
                 ],
               ],
             ),
     );
   }
 
-  Widget _row(BuildContext context, WidgetRef ref, AccountBalance a,
-      NumberFormat fmt, ColorScheme cs, bool isDebt) {
-    return ListTile(
-      leading: Icon(
-        switch (a.kind) {
-          AccountKind.bank => Icons.account_balance,
-          AccountKind.cash => Icons.payments_outlined,
-          AccountKind.wallet => Icons.account_balance_wallet_outlined,
-          AccountKind.fd => Icons.lock_clock,
-          AccountKind.creditCard => Icons.credit_card,
-          AccountKind.loan => Icons.request_quote_outlined,
-        },
-        color: isDebt ? cs.error : cs.primary,
+  Widget _accountGroup(BuildContext context, WidgetRef ref, AppTokens t,
+      List<AccountBalance> items, NumberFormat fmt, bool isDebt) {
+    return Container(
+      decoration: BoxDecoration(
+        color: t.card,
+        borderRadius: Radii.brMd,
+        border: Border.all(color: t.borderStandard),
+        boxShadow: t.cardShadow,
       ),
-      title: Text(a.name),
-      subtitle: Text(a.kind.label),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
         children: [
-          Text(
-            '${isDebt ? '−' : ''}₹${fmt.format(a.balance)}',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              color: isDebt ? cs.error : null,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () => _menu(context, ref, a),
-          ),
+          for (var i = 0; i < items.length; i++) ...[
+            if (i > 0)
+              Padding(
+                padding: const EdgeInsets.only(left: 60),
+                child: Divider(height: 1, color: t.borderSubtle),
+              ),
+            _accountRow(context, ref, t, items[i], fmt, isDebt),
+          ],
         ],
       ),
+    );
+  }
+
+  Widget _accountRow(BuildContext context, WidgetRef ref, AppTokens t,
+      AccountBalance a, NumberFormat fmt, bool isDebt) {
+    final iconData = switch (a.kind) {
+      AccountKind.bank => Icons.account_balance,
+      AccountKind.cash => Icons.payments_outlined,
+      AccountKind.wallet => Icons.account_balance_wallet_outlined,
+      AccountKind.fd => Icons.lock_clock,
+      AccountKind.creditCard => Icons.credit_card,
+      AccountKind.loan => Icons.request_quote_outlined,
+    };
+
+    return InkWell(
       onTap: () => _edit(context, ref, existing: a),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: Space.lg, vertical: Space.md + 2),
+        child: Row(
+          children: [
+            Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                color: t.panel,
+                borderRadius: Radii.brSm,
+              ),
+              child: Icon(iconData, size: 17,
+                  color: isDebt ? t.error : t.textSecondary),
+            ),
+            const SizedBox(width: Space.md),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(a.name,
+                      style: AppText.bodyText(t.textPrimary,
+                          weight: FontWeight.w500)),
+                  Text(a.kind.label,
+                      style: AppText.caption(t.textTertiary)),
+                ],
+              ),
+            ),
+            Text(
+              '${isDebt ? '−' : ''}₹${fmt.format(a.balance)}',
+              style: AppText.money(
+                isDebt ? t.error : t.textPrimary,
+                size: 15,
+              ),
+            ),
+            const SizedBox(width: Space.xs),
+            GestureDetector(
+              onTap: () => _menu(context, ref, a),
+              child: Icon(Icons.more_vert, size: 20, color: t.textTertiary),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -222,23 +280,21 @@ class AccountsScreen extends ConsumerWidget {
   }
 }
 
-class _Header extends StatelessWidget {
+class _SectionHeader extends StatelessWidget {
+  final AppTokens t;
   final String title;
   final double total;
-  const _Header(this.title, {required this.total});
+  const _SectionHeader(this.t, this.title, {required this.total});
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 6),
+        padding: const EdgeInsets.only(left: Space.xs),
         child: Row(
           children: [
-            Text(title,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w700)),
+            Text(title.toUpperCase(), style: AppText.micro(t.textTertiary)),
             const Spacer(),
             Text('₹${NumberFormat('#,##0').format(total)}',
-                style: Theme.of(context).textTheme.bodySmall),
+                style: AppText.caption(t.textSecondary, weight: FontWeight.w500)),
           ],
         ),
       );

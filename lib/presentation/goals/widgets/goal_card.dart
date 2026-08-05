@@ -20,60 +20,97 @@ class GoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
+    final t = context.tokens;
     final onTrack = progress['on_track'] as bool;
     final months = progress['months_needed'] as int;
-    final statusColor = onTrack ? AppTheme.positive : AppTheme.warning;
+    final statusColor = months == 0
+        ? t.success
+        : onTrack
+            ? t.success
+            : t.warning;
+    final statusLabel = months == 0
+        ? '🎉 Done!'
+        : onTrack
+            ? '$months mo left'
+            : 'Behind';
 
-    return Card(
-      margin: const EdgeInsets.only(bottom: 12),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: Space.md),
+      child: Container(
+        padding: const EdgeInsets.all(Space.lg),
+        decoration: BoxDecoration(
+          color: t.card,
+          borderRadius: Radii.brMd,
+          border: Border.all(color: t.borderStandard),
+          boxShadow: t.cardShadow,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundColor: cs.primary.withOpacity(0.12),
-                  child: Icon(_icon, size: 18, color: cs.primary),
-                ),
-                const SizedBox(width: 10),
-                Expanded(child: Text(goal.name, style: Theme.of(context).textTheme.titleMedium)),
+                // Squircle icon plate
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  width: 36,
+                  height: 36,
                   decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.12),
-                    borderRadius: BorderRadius.circular(30),
+                    color: t.panel,
+                    borderRadius: Radii.brSm,
+                  ),
+                  child: Icon(_icon, size: 18, color: t.textSecondary),
+                ),
+                const SizedBox(width: Space.md),
+                Expanded(
+                  child: Text(
+                    goal.name,
+                    style: AppText.cardTitle(t.textPrimary),
+                  ),
+                ),
+                // Status badge
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Space.sm + 2,
+                    vertical: 3,
+                  ),
+                  decoration: BoxDecoration(
+                    color: statusColor.withOpacity(t.isDark ? 0.14 : 0.10),
+                    borderRadius: Radii.brPill,
                   ),
                   child: Text(
-                    months == 0 ? '🎉 Done!' : onTrack ? '$months mo left' : 'Behind',
-                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: statusColor),
+                    statusLabel,
+                    style: AppText.caption(statusColor, weight: FontWeight.w600),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: Space.lg),
+            // Thin rounded progress meter
             ClipRRect(
-              borderRadius: BorderRadius.circular(6),
+              borderRadius: Radii.brPill,
               child: LinearProgressIndicator(
                 value: goal.progress.clamp(0.0, 1.0).toDouble(),
-                minHeight: 10,
-                backgroundColor: cs.surfaceContainerHighest,
-                valueColor: const AlwaysStoppedAnimation(AppTheme.positive),
+                minHeight: 6,
+                backgroundColor: t.panel,
+                valueColor: AlwaysStoppedAnimation(t.accent),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: Space.md),
+            // Tabular money row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('₹${goal.currentAmount.toStringAsFixed(0)} / ₹${goal.targetAmount.toStringAsFixed(0)}',
-                    style: Theme.of(context).textTheme.bodySmall),
-                Text('₹${goal.remaining.toStringAsFixed(0)} left', style: Theme.of(context).textTheme.bodySmall),
+                Text(
+                  '₹${goal.currentAmount.toStringAsFixed(0)} / ₹${goal.targetAmount.toStringAsFixed(0)}',
+                  style: AppText.money(t.textPrimary, size: 14),
+                ),
+                Text(
+                  '₹${goal.remaining.toStringAsFixed(0)} left',
+                  style: AppText.money(t.textTertiary, size: 14),
+                ),
               ],
             ),
-            if (onAddFunds != null && goal.progress < 1.0)
+            if (onAddFunds != null && goal.progress < 1.0) ...[
+              const SizedBox(height: Space.sm),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton.icon(
@@ -81,11 +118,12 @@ class GoalCard extends StatelessWidget {
                   icon: const Icon(Icons.add, size: 16),
                   label: const Text('Add funds'),
                   style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: Space.sm),
                     visualDensity: VisualDensity.compact,
                   ),
                 ),
               ),
+            ],
           ],
         ),
       ),
