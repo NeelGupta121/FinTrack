@@ -396,15 +396,22 @@ class _SafeToSpendCard extends ConsumerWidget {
             children: [
               Text('SAFE TO SPEND', style: AppText.micro(t.textTertiary)),
               const SizedBox(height: Space.md),
+              // The numeral slot stays NUMERIC in both states. Putting the
+              // words "Over budget" here at 26px wrapped onto two lines and
+              // overflowed the bento cell once real data pushed spend past the
+              // budget; showing the amount over is also more actionable.
               Text(
-                positive ? '₹${fmt.format(s.remaining)}' : 'Over budget',
+                positive
+                    ? '₹${fmt.format(s.remaining)}'
+                    : '−₹${fmt.format(s.overspentBy)}',
+                maxLines: 1,
                 style: AppText.money(accent, size: 26),
               ),
               const SizedBox(height: Space.xs),
               Text(
                 positive
                     ? '≈ ₹${fmt.format(s.perDay)}/day · ${s.daysLeft} ${s.daysLeft == 1 ? 'day' : 'days'} left'
-                    : '₹${fmt.format(s.overspentBy)} past budget',
+                    : 'over this month\'s budget',
                 style: AppText.caption(t.textTertiary),
               ),
             ],
