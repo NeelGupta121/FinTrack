@@ -9,6 +9,7 @@ import '../../services/backup_service.dart';
 import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import '../expenses/expense_providers.dart';
+import '../../core/utils/currency_formatter.dart';
 
 /// Cached value loaded in main.dart before runApp.
 ThemeMode savedThemeMode = ThemeMode.dark;
@@ -84,7 +85,7 @@ class SettingsScreen extends ConsumerWidget {
               ref.invalidate(monthlyBudgetProvider);
               ref.invalidate(monthlySummaryProvider);
               messenger.showSnackBar(
-                SnackBar(content: Text('Monthly budget set to ₹${value.toStringAsFixed(0)}')),
+                SnackBar(content: Text('Monthly budget set to ${CurrencyFormatter.grouped(value)}')),
               );
             },
             child: const Text('Save'),

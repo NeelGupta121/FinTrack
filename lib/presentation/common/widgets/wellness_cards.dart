@@ -10,6 +10,7 @@ import '../../expenses/expense_providers.dart';
 import '../../investments/investment_providers.dart';
 import '../theme/app_animations.dart';
 import '../theme/app_theme.dart';
+import '../../../core/utils/currency_formatter.dart';
 
 /// Section 80C progress toward the ₹1.5L annual deduction ceiling.
 /// Hidden entirely when the user has flagged nothing as tax-saving, so it never
@@ -23,7 +24,7 @@ class Section80CCard extends ConsumerWidget {
     if (p.count == 0) return const SizedBox.shrink();
 
     final cs = Theme.of(context).colorScheme;
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
     final colour = p.limitReached ? AppTokens.of(context).success : cs.primary;
 
     return Card(
@@ -218,7 +219,7 @@ class NetWorthCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
     final async = ref.watch(netWorthProvider);
 
     return Container(

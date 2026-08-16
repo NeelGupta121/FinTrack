@@ -6,6 +6,7 @@ import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import '../common/widgets/empty_state.dart';
 import 'accounts_providers.dart';
+import '../../core/utils/currency_formatter.dart';
 
 /// Manage cash-like accounts and debts. These balances are what turn the
 /// portfolio-only view into a real net worth.
@@ -16,7 +17,7 @@ class AccountsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final accounts = ref.watch(accountsListProvider);
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
 
     final assets = accounts.where((a) => !a.isLiability).toList();
     final debts = accounts.where((a) => a.isLiability).toList();
@@ -293,7 +294,7 @@ class _SectionHeader extends StatelessWidget {
           children: [
             Text(title.toUpperCase(), style: AppText.micro(t.textTertiary)),
             const Spacer(),
-            Text('₹${NumberFormat('#,##0').format(total)}',
+            Text('₹${CurrencyFormatter.digits.format(total)}',
                 style: AppText.caption(t.textSecondary, weight: FontWeight.w500)),
           ],
         ),

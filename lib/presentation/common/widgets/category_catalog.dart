@@ -94,6 +94,24 @@ abstract final class CategoryCatalog {
 
   static String labelFor(String? id) => find(id)?.label ?? 'Other';
 
+  /// Human label for [id], falling back to a de-slugified form of the raw id
+  /// rather than collapsing to 'Other'.
+  ///
+  /// Use this anywhere a category id reaches user-facing prose. An unknown id
+  /// is more useful shown (`food_delivery` -> `Food delivery`) than erased,
+  /// and a raw snake_case slug must never appear in the UI.
+  static String displayLabel(String? id) {
+    final known = find(id)?.label;
+    if (known != null) return known;
+    final raw = (id ?? '').trim();
+    if (raw.isEmpty) return 'Uncategorised';
+    final words = raw
+        .split(RegExp(r'[_\s-]+'))
+        .where((w) => w.isNotEmpty)
+        .map((w) => '${w[0].toUpperCase()}${w.substring(1).toLowerCase()}');
+    return words.isEmpty ? 'Uncategorised' : words.join(' ');
+  }
+
   /// Categories whose money flows IN. These get the emerald hue; everything
   /// else stays in the indigo family.
   static const Set<String> _incomeLike = <String>{

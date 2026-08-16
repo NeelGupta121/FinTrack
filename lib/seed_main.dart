@@ -139,7 +139,11 @@ Future<void> _seedHoldings() async {
 
   // Sparkline for the portfolio value card.
   await LocalDatabase.settings.put('portfolio_sparkline',
-      <double>[612000, 628500, 619800, 641200, 663400, 671900, 684300]);
+      // MUST be portfolio scale, and the LAST point must equal the value the
+      // app computes from holdings x priceCache (sum = 448518). dayChange is
+      // derived as currentValue - sparkline[len-2], so a series on the wrong
+      // scale produces an absurd headline day move (-33.2% before this fix).
+      <double>[408200, 415600, 412300, 424800, 431500, 445900, 448518]);
 }
 
 // ---------------------------------------------------------------------------

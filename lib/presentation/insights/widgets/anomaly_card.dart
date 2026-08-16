@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../domain/usecases/analyze_spending.dart';
 import '../../common/theme/app_theme.dart';
+import '../../../core/utils/currency_formatter.dart';
+import '../../common/widgets/category_catalog.dart';
 
 class AnomalyCard extends StatelessWidget {
   final Anomaly anomaly;
@@ -10,11 +12,16 @@ class AnomalyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = context.tokens;
     final pct = anomaly.percentAboveAverage;
-    final color = pct > 100
-        ? t.error
-        : pct > 50
-            ? t.warning
-            : t.warning;
+    // Two-step severity. The previous ternary had identical `warning` branches
+    // for `pct > 50` and the fallback, so the middle test did nothing.
+    final color = pct > 100 ? t.error : t.warning;
+
+    // How many times the usual spend this was. Replaces the raw z-score badge:
+    // a "22.3σ" label is meaningless to a person managing their money, and the
+    // magnitude itself was an artefact of computing a z-score over a handful of
+    // samples with almost no variance. A multiple is derived from the same two
+    // numbers already on the card, so it is directly checkable by the reader.
+    final multiple = anomaly.average > 0 ? anomaly.amount / anomaly.average : 0.0;
 
     return Padding(
       padding: const EdgeInsets.only(bottom: Space.md),
@@ -35,7 +42,8 @@ class AnomalyCard extends StatelessWidget {
                 color: color.withOpacity(t.isDark ? 0.14 : 0.10),
                 borderRadius: Radii.brSm,
               ),
-              child: Icon(_categoryIcon(anomaly.category), size: 18, color: color),
+              child: Icon(CategoryCatalog.iconFor(anomaly.category),
+                  size: 18, color: color),
             ),
             const SizedBox(width: Space.md),
             Expanded(
@@ -45,18 +53,19 @@ class AnomalyCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '₹${anomaly.amount.toStringAsFixed(0)}',
+                        '₹${CurrencyFormatter.digits.format(anomaly.amount)}',
                         style: AppText.money(t.textPrimary),
                       ),
                       Text(
-                        ' in ${anomaly.category}',
+                        ' in ${CategoryCatalog.displayLabel(anomaly.category)}',
                         style: AppText.bodyText(t.textPrimary, weight: FontWeight.w500),
                       ),
                     ],
                   ),
                   const SizedBox(height: Space.xs),
                   Text(
-                    '${pct.toStringAsFixed(0)}% above average (₹${anomaly.average.toStringAsFixed(0)})',
+                    '${pct.toStringAsFixed(0)}% above your usual '
+                    '₹${CurrencyFormatter.digits.format(anomaly.average)}',
                     style: AppText.caption(t.textSecondary),
                   ),
                 ],
@@ -70,7 +79,7 @@ class AnomalyCard extends StatelessWidget {
                 borderRadius: Radii.brPill,
               ),
               child: Text(
-                '${anomaly.zScore.toStringAsFixed(1)}σ',
+                '${multiple.toStringAsFixed(1)}× usual',
                 style: AppText.caption(color, weight: FontWeight.w600),
               ),
             ),
@@ -78,17 +87,5 @@ class AnomalyCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  IconData _categoryIcon(String category) {
-    const map = {
-      'food': Icons.restaurant,
-      'transport': Icons.directions_car,
-      'shopping': Icons.shopping_bag,
-      'bills': Icons.receipt_long,
-      'entertainment': Icons.movie,
-      'health': Icons.local_hospital,
-    };
-    return map[category.toLowerCase()] ?? Icons.category;
   }
 }

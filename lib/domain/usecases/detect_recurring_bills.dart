@@ -8,12 +8,17 @@ class RecurringBill extends Equatable {
   final DateTime nextDueDate;
   final double confidence;
 
+  /// Dominant category id across the group, when the source rows carry one.
+  /// Optional: the UI falls back to a generic icon when it is null.
+  final String? categoryId;
+
   const RecurringBill({
     required this.merchant,
     required this.amount,
     required this.frequency,
     required this.nextDueDate,
     required this.confidence,
+    this.categoryId,
   });
 
   @override
@@ -26,6 +31,16 @@ class DetectRecurringBills {
   List<RecurringBill> call(List<Map<String, dynamic>> transactions) {
     final grouped = <String, List<Map<String, dynamic>>>{};
     for (final tx in transactions) {
+      // A recurring bill is by definition money going OUT. Recurring income
+      // (a monthly salary, a fixed freelance retainer) satisfies every
+      // recurrence test — stable amount, stable ~30-day gap — so without this
+      // filter it was emitted as a subscription and added to the "monthly
+      // recurring" total, overstating committed spend by the income amount.
+      //
+      // Excluded by explicit 'income' rather than requiring 'expense', so rows
+      // with a missing or unrecognised type keep their previous behaviour.
+      if ((tx['type'] as String?) == 'income') continue;
+
       final merchant = tx['merchant'] as String? ?? tx['description'] as String? ?? 'Unknown';
       grouped.putIfAbsent(merchant, () => []).add(tx);
     }
@@ -61,9 +76,28 @@ class DetectRecurringBills {
         frequency: frequency,
         nextDueDate: nextDue,
         confidence: confidence,
+        categoryId: _dominantCategory(entry.value),
       ));
     }
     return bills..sort((a, b) => a.nextDueDate.compareTo(b.nextDueDate));
+  }
+
+  /// Most frequent non-empty `category_id` in the group, or null when the rows
+  /// carry none. Ties resolve to whichever was counted first, which is stable
+  /// for a given input ordering.
+  String? _dominantCategory(List<Map<String, dynamic>> rows) {
+    final counts = <String, int>{};
+    for (final r in rows) {
+      final id = (r['category_id'] as String?)?.trim();
+      if (id == null || id.isEmpty) continue;
+      counts[id] = (counts[id] ?? 0) + 1;
+    }
+    if (counts.isEmpty) return null;
+    var best = counts.keys.first;
+    for (final e in counts.entries) {
+      if (e.value > counts[best]!) best = e.key;
+    }
+    return best;
   }
 
   BillFrequency? _detectFrequency(List<DateTime> dates) {

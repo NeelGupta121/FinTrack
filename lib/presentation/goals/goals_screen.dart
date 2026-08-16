@@ -5,6 +5,7 @@ import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import 'goals_providers.dart';
 import 'widgets/goal_card.dart';
+import '../../core/utils/currency_formatter.dart';
 
 class GoalsScreen extends ConsumerWidget {
   const GoalsScreen({super.key});
@@ -82,7 +83,7 @@ class GoalsScreen extends ConsumerWidget {
               Navigator.pop(ctx);
               await ref.read(addFundsProvider((goalId: goal.id, amount: amount)).future);
               messenger.showSnackBar(
-                SnackBar(content: Text('Added ₹${amount.toStringAsFixed(0)} to ${goal.name}')),
+                SnackBar(content: Text('Added ${CurrencyFormatter.grouped(amount)} to ${goal.name}')),
               );
             },
             child: const Text('Add'),

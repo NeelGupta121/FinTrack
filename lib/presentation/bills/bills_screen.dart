@@ -6,6 +6,8 @@ import '../common/theme/app_theme.dart';
 import '../common/theme/app_animations.dart';
 import '../../domain/usecases/detect_recurring_bills.dart';
 import 'bills_providers.dart';
+import '../../core/utils/currency_formatter.dart';
+import '../common/widgets/category_catalog.dart';
 
 class BillsScreen extends ConsumerWidget {
   const BillsScreen({super.key});
@@ -112,7 +114,7 @@ class _TotalCard extends StatelessWidget {
           Text('MONTHLY RECURRING', style: AppText.micro(t.textTertiary)),
           const SizedBox(height: Space.md),
           Text(
-            '₹${total.toStringAsFixed(0)}',
+            '₹${CurrencyFormatter.digits.format(total)}',
             style: AppText.money(t.textPrimary, size: 26),
           ),
         ],
@@ -130,11 +132,16 @@ class _BillRow extends StatelessWidget {
     final t = context.tokens;
     final now = DateTime.now();
     final daysUntil = bill.nextDueDate.difference(now).inDays;
+    // NOT a payment status: `nextDueDate` is a PREDICTION from observed
+    // recurrence, and RecurringBill carries no paid/unpaid record at all. The
+    // previous code labelled anything more than 3 days out as 'Paid' in green,
+    // which asserted a financial fact the app cannot know — and a bill wrongly
+    // shown as settled is exactly the error that causes a missed payment.
     final (statusColor, label) = daysUntil < 0
         ? (t.error, 'Overdue')
         : daysUntil <= 3
-            ? (t.warning, 'Upcoming')
-            : (t.success, 'Paid');
+            ? (t.warning, 'Due soon')
+            : (t.textSecondary, 'Scheduled');
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -151,7 +158,13 @@ class _BillRow extends StatelessWidget {
               color: t.panel,
               borderRadius: Radii.brSm,
             ),
-            child: Icon(Icons.receipt_long, size: 17, color: t.textSecondary),
+            child: Icon(
+              bill.categoryId == null
+                  ? Icons.receipt_long
+                  : CategoryCatalog.iconFor(bill.categoryId),
+              size: 17,
+              color: t.textSecondary,
+            ),
           ),
           const SizedBox(width: Space.md),
           // Name + amount subtitle
@@ -165,7 +178,7 @@ class _BillRow extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '₹${bill.amount.toStringAsFixed(0)} • ${bill.frequency.name}',
+                  '₹${CurrencyFormatter.digits.format(bill.amount)} • ${bill.frequency.name}',
                   style: AppText.caption(t.textTertiary),
                 ),
               ],

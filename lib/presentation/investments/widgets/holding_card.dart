@@ -17,9 +17,14 @@ class HoldingCard extends StatelessWidget {
     final currentValue = holding.quantity * price;
     final pnl = currentValue - holding.investedValue;
     final pnlPercent = holding.investedValue > 0 ? (pnl / holding.investedValue) * 100 : 0.0;
-    final isProfit = pnl >= 0;
-    // Semantic colour: real gain = success, real loss = error.
-    final pnlColor = isProfit ? t.success : t.error;
+    // Zero is not a gain. `pnl >= 0` painted a flat holding (a PPF at cost, a
+    // just-bought position) green with a '+' prefix, implying a profit that
+    // does not exist. Three-way: real gain, real loss, or neutral.
+    final isFlat = pnl == 0;
+    final isProfit = pnl > 0;
+    // Semantic colour: real gain = success, real loss = error, flat = neutral.
+    final pnlColor = _signColor(t, pnl);
+    final pnlSign = isFlat ? '' : (isProfit ? '+' : '');
 
     return Container(
       margin: const EdgeInsets.only(bottom: Space.sm),
@@ -70,7 +75,7 @@ class HoldingCard extends StatelessWidget {
                       style: AppText.money(t.textPrimary)),
                   const SizedBox(height: Space.xxs),
                   Text(
-                    '${isProfit ? '+' : ''}${currFmt.format(pnl)} (${pnlPercent.toStringAsFixed(1)}%)',
+                    '$pnlSign${currFmt.format(pnl)} (${pnlPercent.toStringAsFixed(1)}%)',
                     style: AppText.caption(pnlColor, weight: FontWeight.w600),
                   ),
                 ],
@@ -88,13 +93,14 @@ class HoldingCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: Space.sm + 2, vertical: 3),
                   decoration: BoxDecoration(
-                    color: (dayChange! >= 0 ? t.success : t.error).withOpacity(t.isDark ? 0.14 : 0.10),
+                    color: _signColor(t, dayChange!)
+                        .withOpacity(t.isDark ? 0.14 : 0.10),
                     borderRadius: Radii.brPill,
                   ),
                   child: Text(
-                    '${dayChange! >= 0 ? '+' : ''}${dayChange!.toStringAsFixed(1)}%',
+                    '${dayChange! > 0 ? '+' : ''}${dayChange!.toStringAsFixed(1)}%',
                     style: AppText.caption(
-                      dayChange! >= 0 ? t.success : t.error,
+                      _signColor(t, dayChange!),
                       weight: FontWeight.w600,
                     ),
                   ),
@@ -128,3 +134,9 @@ class _Info extends StatelessWidget {
     );
   }
 }
+
+/// Gain / loss / flat. Zero must read neutral -- never as a gain -- so a
+/// holding sitting exactly at cost does not display a phantom profit.
+/// Top-level so every widget in this file shares one rule.
+Color _signColor(AppTokens t, double v) =>
+    v > 0 ? t.success : (v < 0 ? t.error : t.textSecondary);

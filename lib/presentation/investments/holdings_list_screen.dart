@@ -12,7 +12,7 @@ import 'widgets/portfolio_value_card.dart';
 import '../common/widgets/wellness_cards.dart';
 import 'widgets/allocation_chart.dart';
 import 'widgets/holding_card.dart';
-import 'package:intl/intl.dart';
+import '../../core/utils/currency_formatter.dart';
 
 class HoldingsListScreen extends ConsumerStatefulWidget {
   const HoldingsListScreen({super.key});
@@ -262,7 +262,7 @@ void _editHolding(BuildContext context, WidgetRef ref, String id) {
 /// Undo. On-device storage has no cloud backup, so a mis-tap must be reversible.
 Future<void> _confirmDeleteHolding(
     BuildContext context, WidgetRef ref, Holding h) async {
-  final fmt = NumberFormat('#,##0');
+  final fmt = CurrencyFormatter.digits;
   final invested = h.quantity * h.avgPrice;
   final messenger = ScaffoldMessenger.of(context);
 

@@ -10,6 +10,7 @@ import '../common/widgets/wellness_cards.dart';
 import '../expenses/expense_providers.dart';
 import '../investments/investment_providers.dart';
 import 'wellness_providers.dart';
+import '../../core/utils/currency_formatter.dart';
 
 /// Dashboard.
 ///
@@ -326,7 +327,7 @@ class _MonthSpendCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
     final expenses = ref.watch(expenseListProvider);
     final now = DateTime.now();
 
@@ -372,7 +373,7 @@ class _SafeToSpendCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final async = ref.watch(safeToSpendProvider);
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
 
     return _MiniCard(
       child: async.when(
@@ -550,7 +551,7 @@ class _PortfolioCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
     final pv = ref.watch(portfolioValueProvider);
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
 
     return _MiniCard(
       child: pv.when(
@@ -701,7 +702,7 @@ class _RecentActivity extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final t = context.tokens;
-    final fmt = NumberFormat('#,##0');
+    final fmt = CurrencyFormatter.digits;
     final expenses = ref.watch(expenseListProvider);
 
     return expenses.when(
